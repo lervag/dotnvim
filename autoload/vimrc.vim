@@ -40,7 +40,7 @@ function! vimrc#init() abort " {{{1
   " If plug.vim is not available, then we source the init script and install
   " plugins
   if g:vimrc#bootstrap
-    execute 'silent !' . vimrc#path('init.sh')
+    execute 'silent !source' vimrc#path('init.sh')
 
     " vint: -ProhibitAutocmdWithNoGroup
     autocmd VimEnter * nested PlugInstall --sync | source $MYVIMRC
