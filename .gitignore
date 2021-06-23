@@ -1,0 +1,4 @@
+view
+bundle
+autoload/plug.vim
+.netrwhist
