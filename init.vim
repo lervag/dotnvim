@@ -1,4 +1,4 @@
-" Vim configuration
+" neovim configuration
 "
 " Author: Karl Yngve Lervåg
 
@@ -739,7 +739,7 @@ vmap .  <plug>(EasyAlignRepeat)
 " {{{2 plugin: vim-gutentags
 
 let g:gutentags_define_advanced_commands = 1
-let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+let g:gutentags_cache_dir = expand('~/.cache/nvim/ctags/')
 let g:gutentags_ctags_extra_args = [
       \ '--tag-relative=yes',
       \ '--fields=+aimS',
