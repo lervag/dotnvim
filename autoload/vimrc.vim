@@ -24,15 +24,13 @@ function! vimrc#init() abort " {{{1
   " Get some system information and define some paths/urls
   let g:vimrc#bootstrap = !filereadable(vimrc#path('autoload/plug.vim'))
   let g:vimrc#is_devhost = index([
-        \ 'yoga',
         \ 'lotti',
         \ 'allegri',
-        \ 'vsl136',
         \ 'vsl142',
         \ 'unity.sintef.no',
         \], hostname()) >= 0
 
-  let g:vimrc#path_bundles = vimrc#path('bundle')
+  let g:vimrc#path_bundles = '~/.local/plugged'
   let g:vimrc#path_lervag = g:vimrc#is_devhost
         \ ? 'git@github.com:lervag/'
         \ : 'lervag/'

@@ -10,18 +10,15 @@ call plug#begin(g:vimrc#path_bundles)
 
 Plug 'junegunn/vim-plug', {'on': []}
 
-" My own plugins
 call plug#(g:vimrc#path_lervag . 'vimtex')
 call plug#(g:vimrc#path_lervag . 'file-line')
 call plug#(g:vimrc#path_lervag . 'vim-foam')
 call plug#(g:vimrc#path_lervag . 'vim-rmarkdown')
 call plug#(g:vimrc#path_lervag . 'vim-rainbow-lists')
 call plug#(g:vimrc#path_lervag . 'lists.vim')
-if g:vimrc#is_devhost
-  call plug#(g:vimrc#path_lervag . 'wiki.vim')
-  call plug#(g:vimrc#path_lervag . 'wiki-ft.vim')
-  call plug#(g:vimrc#path_lervag . 'vim-sintef')
-endif
+call plug#(g:vimrc#path_lervag . 'wiki.vim')
+call plug#(g:vimrc#path_lervag . 'wiki-ft.vim')
+call plug#(g:vimrc#path_lervag . 'vim-sintef')
 
 " Plugin: UI
 Plug 'Konfekt/FastFold'
