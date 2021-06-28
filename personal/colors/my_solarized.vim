@@ -209,10 +209,10 @@ highlight link Typedef        Type
 
 " {{{1 Highlight: Plugin CoC.nvim
 
-highlight link CocErrorSign   Error
-highlight link CocWarningSign WarningMsg
-highlight link CocInfoSign    ModeMsg
-highlight link CocHintSign    Question
+call s:highlight('CocErrorSign', {'fg': 'color01', 'bg': 'color07', 'style': 'bold'})
+call s:highlight('CocWarningSign', {'fg': 'color09', 'bg': 'color07', 'style': 'bold'})
+call s:highlight('CocInfoSign', {'fg': 'color04', 'bg': 'color07'})
+call s:highlight('CocHintSign', {'fg': 'color06', 'bg': 'color07'})
 highlight link CocCodeLens    codeBlockBackground
 
 " Linked:
