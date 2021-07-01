@@ -53,24 +53,27 @@ function! s:main(bufnr, active, winnr) " {{{1
   let stat .= getbufvar(a:bufnr, '&modified')
         \ ? s:color(' [+]', 'SLAlert', a:active) : ''
 
-  " Add linter message
-  try
-    let ale_counts = ale#statusline#Count(a:bufnr)
-    let ale_status = map(filter([
-          \ ['Errors: ', 'error'],
-          \ ['Warnings: ', 'warning'],
-          \ ['Infos: ', 'info'],
-          \], 'ale_counts[v:val[1]] > 0'),
-          \ 'v:val[0] . ale_counts[v:val[1]]')
-    if !empty(ale_status)
-      let stat .= s:color(' [' . join(ale_status, ', ') . ']',
-            \ 'SLAlert', a:active)
-    endif
-  catch
-  endtry
-
   " Change to right-hand side
   let stat .= '%='
+
+  " Add linter message
+  let cocstat = substitute(get(g:, 'coc_status', ''), '^\s*', '','')
+  let cocinfo = get(b:, 'coc_diagnostic_info', {})
+  let coclint = map(filter([
+        \   ['E', get(cocinfo, 'error')],
+        \   ['W', get(cocinfo, 'warning')],
+        \ ], {_, x -> x[1] > 0}), {_, x -> x[0] . x[1]})
+  if !empty(coclint)
+    let cocstat .= (!empty(cocstat) ? ' ✖ ' : '') . join(coclint, ', ')
+  endif
+  if !empty(cocstat)
+    let stat .= s:color(
+          \ ' [' . cocstat . ']',
+          \ get(cocinfo, 'error')
+          \ ? 'SLAlert'
+          \ : get(cocinfo, 'warning') ? 'SLHighlight' : '',
+          \ a:active)
+  endif
 
   " Previewwindows don't need more details
   if getwinvar(a:winnr, '&previewwindow')
@@ -82,14 +85,15 @@ function! s:main(bufnr, active, winnr) " {{{1
   let cn = virtcol('$') - 1
   if &textwidth > 0 && cn > &textwidth
     let stat .= s:color(
-          \ printf('[%s > %s &tw] ', cn, &textwidth), 'SLAlert', a:active)
+          \ printf(' [%s > %s &tw]', cn, &textwidth), 'SLAlert', a:active)
   endif
 
   try
-    let stat .= FugitiveHead(12)
-    let stat .= ' '
+    let stat .= ' ' . FugitiveHead(12)
   catch
   endtry
+
+  let stat .= ' '
 
   return stat
 endfunction
