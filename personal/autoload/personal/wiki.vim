@@ -32,3 +32,8 @@ function! personal#wiki#open_diary() abort " {{{1
 endfunction
 
 " }}}1
+function! personal#wiki#template(ctx) abort " {{{1
+  call append(0, '# ' . a:ctx.name)
+endfunction
+
+" }}}1
