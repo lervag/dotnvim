@@ -616,12 +616,12 @@ nnoremap <silent> <leader>ot       :Tags<cr>
 nnoremap <silent> <leader>ow       :WikiFzfPages<cr>
 nnoremap <silent> <leader>oz       :Zotero<cr>
 nnoremap <silent> <leader>oo       :call MyFiles()<cr>
-nnoremap <silent> <leader>op       :call MyFiles('~/.vim/bundle')<cr>
+nnoremap <silent> <leader>op       :call MyFiles('~/.local/plugged')<cr>
 nnoremap <silent> <leader>ov       :call fzf#run(fzf#wrap({
-      \ 'dir': '~/.vim',
+      \ 'dir': '~/.config/nvim',
       \ 'source': 'git ls-files --exclude-standard --others --cached',
       \ 'options': [
-      \   '--prompt', 'Files ~/.vim::',
+      \   '--prompt', 'Files ~/.config/nvim::',
       \ ],
       \}))<cr>
 
