@@ -67,7 +67,6 @@ Plug 'rbong/vim-flog'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
-Plug 'ludovicchabant/vim-lawrencium'
 Plug 'airblade/vim-rooter'
 
 " Plugin: Tmux (incl. filetype)
@@ -728,16 +727,6 @@ let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_ftEnabled = ['css', 'html']
 
 " }}}2
-" {{{2 plugin: vim-lawrencium
-
-nnoremap <leader>hs :Hgstatus<cr>
-nnoremap <leader>hl :Hglog<cr>
-nnoremap <leader>hL :Hglogthis<cr>
-nnoremap <leader>hd :call personal#hg#wrapper('Hgvdiff')<cr>
-nnoremap <leader>hr :call personal#hg#wrapper('Hgvrecord')<cr>
-nnoremap <leader>ha :call personal#hg#abort()<cr>
-
-" }}}
 " {{{2 plugin: vim-matchup
 
 let g:matchup_matchparen_status_offscreen = 0
