@@ -77,18 +77,25 @@ function! s:highlight(group, opts) abort " {{{1
     let l:cmd .= ' gui=' . a:opts.style
   endif
 
-  let l:special = ['NONE', 'bg', 'background', 'fg', 'foreground']
-  for l:x in ['fg', 'bg']
-    if has_key(a:opts, l:x)
-      if index(l:special, a:opts[l:x]) >= 0
-        let l:cmd .= ' cterm' . l:x . '=' . a:opts[l:x]
-        let l:cmd .= ' gui' . l:x . '=' . a:opts[l:x]
-      else
-        let l:cmd .= ' cterm' . l:x . '=' . s:colordict[a:opts[l:x]].num
-        let l:cmd .= ' gui' . l:x . '=' . s:colordict[a:opts[l:x]].hex
-      endif
+  if has_key(a:opts, 'fg')
+    if a:opts.fg ==# 'NONE'
+      let l:cmd .= ' ctermfg=NONE'
+      let l:cmd .= ' guifg=NONE'
+    else
+      let l:cmd .= ' ctermfg=' . s:colordict[a:opts.fg].num
+      let l:cmd .= ' guifg=' . s:colordict[a:opts.fg].hex
     endif
-  endfor
+  endif
+
+  if has_key(a:opts, 'bg')
+    if a:opts.bg ==# 'NONE'
+      let l:cmd .= ' ctermbg=NONE'
+      let l:cmd .= ' guibg=NONE'
+    else
+      let l:cmd .= ' ctermbg=' . s:colordict[a:opts.bg].num
+      let l:cmd .= ' guibg=' . s:colordict[a:opts.bg].hex
+    endif
+  endif
 
   if has_key(a:opts, 'sp')
     let l:cmd .= ' guisp=' . s:colordict[a:opts.sp].hex
