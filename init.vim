@@ -25,6 +25,8 @@ Plug 'Konfekt/FastFold'
 Plug 'luochen1990/rainbow'
 Plug 'andymass/vim-matchup'
 Plug 'szw/vim-maximizer'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " Plugin: Completion and snippets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -86,7 +88,6 @@ Plug 'chrisbra/Colorizer'
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 
 " Filetype: python
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'vim-python/python-syntax', {'on': []}
 Plug 'kalekundert/vim-coiled-snake'  " Folding
 Plug 'Vimjas/vim-python-pep8-indent' " Indents
@@ -337,6 +338,7 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 xnoremap <expr> j v:count ? 'j' : 'gj'
 xnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap gV     `[V`]
+nnoremap zS     :<c-u>TSHighlightCapturesUnderCursor<cr>
 
 nnoremap <c-w>-     <c-w>s
 nnoremap <c-w><bar> <c-w>v
@@ -454,6 +456,7 @@ let g:coc_global_extensions = [
       \ 'coc-rust-analyzer',
       \ 'coc-vimlsp',
       \ 'coc-sh',
+      \ 'coc-calc',
       \]
 
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -497,6 +500,18 @@ if exists('*CocActionAsync')
     autocmd CursorHold * silent call CocActionAsync('highlight')
   augroup END
 endif
+
+" }}}2
+" {{{2 feature: tree-sitter
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "python", "bash", "rust" },
+  highlight = {
+    enable = true,
+  },
+}
+EOF
 
 " }}}2
 
@@ -953,11 +968,6 @@ let g:vim_markdown_strikethrough = 1
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
 
-" let g:semshi#excluded_hl_groups = []
-let g:semshi#mark_selected_nodes = 2
-let g:semshi#simplify_markup = 1
-let g:semshi#error_sign = 0
-
 " Syntax
 let g:python_highlight_all = 1
 
@@ -1015,6 +1025,11 @@ let g:vimtex_grammar_vlty = {
       \ 'lt_command': 'languagetool',
       \ 'show_suggestions': 1,
       \}
+
+augroup vimrc_vimtex
+  autocmd!
+  autocmd User VimtexEventViewReverse normal! zMzvzz
+augroup END
 
 "
 " NOTE: See also ~/.vim/personal/ftplugin/tex.vim
