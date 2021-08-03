@@ -161,9 +161,9 @@ set wildignore+=.svn/*
 set wildignore+=*.DS_Store
 set wildignore+=CVS/*
 set wildignore+=*.mod
-set diffopt=filler,vertical,foldcolumn:0,context:4
+set diffopt=internal,filler,vertical,foldcolumn:0,context:4
 silent! set diffopt+=indent-heuristic,algorithm:patience
-silent! set diffopt+=hiddenoff
+silent! set diffopt+=hiddenoff,closeoff
 
 " Backup, swap and undofile
 set noswapfile
@@ -500,6 +500,9 @@ if exists('*CocActionAsync')
     autocmd CursorHold * silent call CocActionAsync('highlight')
   augroup END
 endif
+
+" Other mappings
+nmap <silent> <leader>= <plug>(coc-calc-result-replace)
 
 " }}}2
 " {{{2 feature: tree-sitter
@@ -1052,18 +1055,18 @@ let g:wiki_export = {
       \}
 let g:wiki_filetypes = ['wiki', 'md']
 let g:wiki_month_names = [
-      \ 'januar',
-      \ 'februar',
-      \ 'mars',
-      \ 'april',
-      \ 'mai',
-      \ 'juni',
-      \ 'juli',
-      \ 'august',
-      \ 'september',
-      \ 'oktober',
-      \ 'november',
-      \ 'desember'
+      \ 'Januar',
+      \ 'Februar',
+      \ 'Mars',
+      \ 'April',
+      \ 'Mai',
+      \ 'Juni',
+      \ 'Juli',
+      \ 'August',
+      \ 'September',
+      \ 'Oktober',
+      \ 'November',
+      \ 'Desember'
       \]
 let g:wiki_template_title_week = '# Samandrag veke %(week), %(year)'
 let g:wiki_template_title_month = '# Samandrag frå %(month-name) %(year)'
@@ -1073,7 +1076,7 @@ let g:wiki_toc_depth = 2
 let g:wiki_file_handler = 'personal#wiki#file_handler'
 
 let g:wiki_templates = [
-      \ { 'match_func': {x -> v:true},
+      \ { 'match_func': {x -> x.path =~# '\.wiki$'},
       \   'source_func': function('personal#wiki#template')},
       \]
 
