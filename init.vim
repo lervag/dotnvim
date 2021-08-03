@@ -1076,7 +1076,8 @@ let g:wiki_toc_depth = 2
 let g:wiki_file_handler = 'personal#wiki#file_handler'
 
 let g:wiki_templates = [
-      \ { 'match_func': {x -> x.path =~# '\.wiki$'},
+      \ { 'match_func': {
+      \     x -> x.path =~# '\.wiki$' && x.path !~# 'journal\/'},
       \   'source_func': function('personal#wiki#template')},
       \]
 
