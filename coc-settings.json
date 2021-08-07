@@ -20,5 +20,12 @@
   "suggest.minTriggerInputLength": 3,
   "suggest.removeDuplicateItems": true,
   "suggest.snippetIndicator": "[+] ",
-  "suggest.timeout": 1000
+  "suggest.timeout": 1000,
+  "languageserver": {
+    "sql": {
+      "command": "sql-language-server",
+      "args" : ["up", "--method", "stdio"],
+      "filetypes": ["sql"]
+    }
+  }
 }
