@@ -509,7 +509,8 @@ nmap <silent> <leader>= <plug>(coc-calc-result-replace)
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "python", "bash", "rust" },
+  ensure_installed = "maintained",
+  ignore_install = { "latex" },
   highlight = {
     enable = true,
   },
