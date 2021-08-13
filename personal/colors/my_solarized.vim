@@ -1,7 +1,7 @@
 " My own, customized, light Solarized theme
 " Based on: Romain Lafourcade's 'flattened_light'
 
-" This can be used for dynamic reloading
+" " This can be used for dynamic reloading
 " augroup my_solarized
 "   au!
 "   au InsertLeave,TextChanged my_solarized.vim silent update | colorscheme my_solarized | echo 'reloaded'
@@ -197,8 +197,8 @@ highlight link Define         PreProc
 highlight link Include        PreProc
 highlight link Macro          PreProc
 highlight link PreCondit      PreProc
+highlight link Delimiter      PreProc
 highlight link Debug          Special
-highlight link Delimiter      Special
 highlight link SpecialChar    Special
 highlight link SpecialComment Special
 highlight link Tag            Special
@@ -253,6 +253,7 @@ highlight link CocCodeLens    codeBlockBackground
 
 call s:highlight('ctrlsfSelectedLine', {'fg': 'blue2', 'style': 'bold'})
 call s:highlight('OperatorSandwichBuns', {'fg': 'color05', 'style': 'bold'})
+highlight link OperatorSandwichChange OperatorSandwichBuns
 
 highlight link ALEErrorLine ErrorMsg
 highlight link ALEWarningLine WarningMsg
@@ -502,6 +503,7 @@ highlight link texSpecialChar    texSymbol
 highlight link texTabularChar    texMathOper
 
 " }}}1
+
 " {{{1 Highlight: Various filetypes
 
 call s:highlight('cPreCondit', {'fg': 'color09'})
@@ -521,6 +523,11 @@ call s:highlight('perlStatementFileDesc', {'fg': 'color06'})
 call s:highlight('perlVarPlain',          {'fg': 'color03'})
 
 call s:highlight('rubyDefine', {'fg': 'color10'})
+
+highlight link bibtexTSKeyword Identifier
+highlight link bibtexTSSymbol Special
+highlight link bibtexTSField Keyword
+highlight link bibtexTSString NONE
 
 " }}}1
 
