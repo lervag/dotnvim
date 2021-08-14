@@ -893,11 +893,6 @@ xnoremap <leader>is  "vy :call VimuxSendText(@v)<cr>
 
 " }}}2
 
-" {{{2 filetype: json
-
-let g:vim_json_syntax_conceal = 0
-
-" }}}2
 " {{{2 filetype: man
 
 let g:man_hardwrap = 1
