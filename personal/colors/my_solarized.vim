@@ -277,11 +277,13 @@ call s:highlight('vimIsCommand', {'fg': 'color12'})
 call s:highlight('vimSynMtchOpt', {'fg': 'color03'})
 call s:highlight('vimSynType', {'fg': 'color06'})
 
-" highlight link vimSet      Normal
-" highlight link vimSetEqual Normal
-highlight link vimFunc     Function
-highlight link vimUserFunc Function
-highlight link vipmVar     Identifier
+" highlight link vimSet       Normal
+" highlight link vimSetEqual  Normal
+highlight link vimFunc      Function
+highlight link vimUserFunc  Function
+highlight link vipmVar      Identifier
+highlight link vimMapModKey PreProc
+highlight link vimNotation  PreProc
 
 " }}}1
 " {{{1 Highlight: Filetype Vim help
