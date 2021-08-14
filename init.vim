@@ -22,7 +22,6 @@ call plug#(g:vimrc#path_lervag . 'vim-sintef')
 
 " Plugin: UI
 Plug 'Konfekt/FastFold'
-Plug 'luochen1990/rainbow'
 Plug 'andymass/vim-matchup'
 Plug 'szw/vim-maximizer'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -72,7 +71,6 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-rooter'
 
 " Plugin: Tmux (incl. filetype)
-Plug 'whatyouhide/vim-tmux-syntax'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
@@ -83,30 +81,19 @@ Plug 'Shougo/vimproc', {'do': 'make -f make_unix.mak'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'tyru/capture.vim', {'on': 'Capture'}
 Plug 'tpope/vim-unimpaired'
-Plug 'cespare/vim-toml'
 Plug 'chrisbra/Colorizer'
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 
 " Filetype: python
-Plug 'vim-python/python-syntax', {'on': []}
 Plug 'kalekundert/vim-coiled-snake'  " Folding
 Plug 'Vimjas/vim-python-pep8-indent' " Indents
 Plug 'jeetsukumaran/vim-pythonsense' " Text objects and motions
 
-" Filetype: vim
-Plug 'tpope/vim-scriptease'
-
-" Filetype: markdown
-Plug 'plasticboy/vim-markdown'
-
-" Filetype: Lua
-Plug 'tbastos/vim-lua'
-
 " Filetype: various
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-scriptease'
 Plug 'darvelo/vim-systemd'
 Plug 'gregsexton/MatchTag'
-Plug 'vim-ruby/vim-ruby'
-Plug 'gisraptor/vim-lilypond-integrator'
 Plug 'https://gitlab.com/HiPhish/info.vim'
 Plug 'tpope/vim-apathy'
 Plug 'rust-lang/rust.vim'
@@ -649,33 +636,6 @@ nnoremap <silent> <leader>ov       :call fzf#run(fzf#wrap({
 let g:lists_filetypes = ['markdown', 'wiki', 'help', 'text']
 
 " }}}2
-" {{{2 plugin: rainbow
-
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-      \ 'guifgs': ['#f92672', '#00afff', '#268bd2', '#93a1a1', '#dc322f',
-      \   '#6c71c4', '#b58900', '#657b83', '#d33682', '#719e07', '#2aa198'],
-      \ 'ctermfgs': ['9', '127', '4', '1', '3', '12', '5', '2', '6', '33',
-      \   '104', '124', '7', '39'],
-      \ 'separately' : {
-      \   'gitconfig' : 0,
-      \   'wiki' : 0,
-      \   'md' : 0,
-      \   'help' : 0,
-      \   'lua' : 0,
-      \   'fortran' : {},
-      \   'systemd' : 0,
-      \   'cfg' : 0,
-      \   'vim' : 0,
-      \   'toml' : 0,
-      \   'qf' : 0,
-      \   'javascript' : 0,
-      \   'man' : 0,
-      \   'tex' : 0,
-      \ }
-      \}
-
-" }}}2
 " {{{2 plugin: targets.vim
 
 let g:targets_argOpening = '[({[]'
@@ -936,11 +896,6 @@ xnoremap <leader>is  "vy :call VimuxSendText(@v)<cr>
 " {{{2 filetype: json
 
 let g:vim_json_syntax_conceal = 0
-
-" }}}2
-" {{{2 filetype: lua
-
-let g:lua_syntax_nofold = 1
 
 " }}}2
 " {{{2 filetype: man
