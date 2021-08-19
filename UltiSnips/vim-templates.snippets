@@ -1,7 +1,16 @@
-snippet templ-minimal "Template: Minimal vimrc" b
+snippet template-vimtex "Template: Minimal vimrc for VimTeX" b
 set nocompatible
-let &rtp = '~/.vim/bundle/vimtex,' . &rtp
-let &rtp .= ',~/.vim/bundle/vimtex/after'
+let &rtp = '~/.local/plugged/vimtex,' . &rtp
+let &rtp .= ',~/.local/plugged/vimtex/after'
+filetype plugin indent on
+syntax enable
+
+nnoremap q :qall!<cr>
+endsnippet
+
+snippet template-wiki "Template: Minimal vimrc for wiki.vim" b
+set nocompatible
+let &rtp = '~/.local/plugged/wiki.vim,' . &rtp
 filetype plugin indent on
 syntax enable
 
