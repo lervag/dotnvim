@@ -4,7 +4,7 @@ function! personal#git#fugitive_toggle() " {{{1
   else
     try
       Git
-      normal gg
+      normal gg)
     catch /Vim.*E492/
       echo 'Sorry: Not in a Git repo.'
     endtry
