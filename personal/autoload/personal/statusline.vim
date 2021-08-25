@@ -140,13 +140,23 @@ endfunction
 
 " Filetype functions
 function! s:tex(bufnr, active, winnr) " {{{1
-  let l:stat = vimtex#compiler#is_running() > 0
-        \ ? s:color('[latexmk running] ', 'SLInfo', a:active)
-        \ : s:color('[latexmk stopped] ', 'SLAlert', a:active)
+  if exists('b:vimtex.compiler.status')
+    let l:status = b:vimtex.compiler.status + 1
+    let s:tex_status = b:vimtex.compiler.status + 1
+  else
+    let l:status = get(s:, 'tex_status', 0)
+  endif
 
-  let l:main = split(s:main(a:bufnr, a:active, a:winnr), '%=')
+  let [l:symbol, l:color] = get([
+        \ ['   ', ''],
+        \ ['[⏻]', ''],
+        \ ['[⟳]', ''],
+        \ ['[✔︎]', 'SLInfo'],
+        \ ['[✖]', 'SLAlert']
+        \], l:status)
 
-  return l:main[0] . '%=' . l:stat . '%=' . l:main[1]
+  return s:color(' ' . l:symbol, l:color, a:active)
+        \ . s:main(a:bufnr, a:active, a:winnr)
 endfunction
 
 " }}}1
@@ -205,7 +215,7 @@ endfunction
 
 " Utilities
 function! s:color(content, group, active) " {{{1
-  if a:active
+  if a:active && !empty(a:group)
     return '%#' . a:group . '#' . a:content . '%*'
   else
     return a:content
