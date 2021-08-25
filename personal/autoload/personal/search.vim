@@ -52,7 +52,7 @@ function! s:check_hlsearch() " {{{1
         normal! zz
       endif
     endif
-  else
+  elseif &hlsearch
     set nohlsearch
   endif
 endfunction
