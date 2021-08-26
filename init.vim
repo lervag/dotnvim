@@ -937,6 +937,7 @@ let g:ruby_fold=1
 " }}}2
 " {{{2 filetype: tex
 
+let g:vimtex_compiler_silent = 1
 let g:vimtex_complete_bib = {
       \ 'simple' : 1,
       \ 'menu_fmt' : '@year, @author_short, @title',
