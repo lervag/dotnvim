@@ -961,7 +961,6 @@ let g:vimtex_imaps_list = [
       \ { 'lhs' : 'r',  'rhs' : '\rho' },
       \ { 'lhs' : 'p',  'rhs' : '\varphi' },
       \]
-let g:vimtex_quickfix_autoclose_after_keystrokes = 3
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_syntax_conceal_default = 0
 let g:vimtex_toc_config = {

@@ -146,15 +146,15 @@ function! s:ft_tex(bufnr, active, winnr) " {{{1
   let l:status = getbufvar(a:bufnr, 'vimtex').compiler.status + 1
 
   let [l:symbol, l:color] = get([
-        \ ['[⏻]', ''],
-        \ ['[⏻]', ''],
-        \ ['[⟳]', ''],
-        \ ['[✔︎]', 'SLInfo'],
-        \ ['[✖]', 'SLAlert']
+        \ ['[⏻] ', ''],
+        \ ['[⏻] ', ''],
+        \ ['[⟳] ', ''],
+        \ ['[✔︎] ', 'SLInfo'],
+        \ ['[✖] ', 'SLAlert']
         \], l:status)
 
-  return s:color(' ' . l:symbol, l:color, a:active)
-        \ . s:main(a:bufnr, a:active, a:winnr)
+  return s:main(a:bufnr, a:active, a:winnr)
+        \ . s:color(l:symbol, l:color, a:active)
 endfunction
 
 " }}}1
