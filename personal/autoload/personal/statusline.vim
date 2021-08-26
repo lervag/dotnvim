@@ -21,6 +21,7 @@ function! personal#statusline#main(winnr) " {{{1
   let l:bufnr = winbufnr(l:winnr)
   let l:buftype = getbufvar(l:bufnr, '&buftype')
   let l:filetype = getbufvar(l:bufnr, '&filetype')
+  let l:bufname_special = matchstr(bufname(l:bufnr), '^\w\+\ze:\/\/')
 
   " Try to call buffer type specific functions
   try
@@ -28,16 +29,19 @@ function! personal#statusline#main(winnr) " {{{1
   catch /E117: Unknown function/
   endtry
 
+  " Handle "special" buffers
+  if !empty(l:bufname_special)
+    try
+      return s:scheme_{l:bufname_special}(l:bufnr, l:active, l:winnr)
+    catch /E117: Unknown function/
+    endtry
+  endif
+
   " Try to call filetype specific functions
   try
-    return s:{l:filetype}(l:bufnr, l:active, l:winnr)
+    return s:ft_{l:filetype}(l:bufnr, l:active, l:winnr)
   catch /E117: Unknown function/
   endtry
-
-  " Handle vimspector buffers
-  if bufname(l:bufnr) =~# '^vimspector\.'
-    return s:vimspector(l:bufnr, l:active, l:winnr)
-  endif
 
   return s:main(l:bufnr, l:active, l:winnr)
 endfunction
@@ -100,7 +104,7 @@ endfunction
 
 " }}}1
 
-" Buffer type functions
+
 function! s:bt_help(bufnr, active, winnr) " {{{1
   return s:color(
         \ ' vimdoc: ' . fnamemodify(bufname(a:bufnr), ':t:r'),
@@ -138,17 +142,11 @@ endfunction
 
 " }}}1
 
-" Filetype functions
-function! s:tex(bufnr, active, winnr) " {{{1
-  if exists('b:vimtex.compiler.status')
-    let l:status = b:vimtex.compiler.status + 1
-    let s:tex_status = b:vimtex.compiler.status + 1
-  else
-    let l:status = get(s:, 'tex_status', 0)
-  endif
+function! s:ft_tex(bufnr, active, winnr) " {{{1
+  let l:status = getbufvar(a:bufnr, 'vimtex').compiler.status + 1
 
   let [l:symbol, l:color] = get([
-        \ ['   ', ''],
+        \ ['[⏻]', ''],
         \ ['[⏻]', ''],
         \ ['[⟳]', ''],
         \ ['[✔︎]', 'SLInfo'],
@@ -160,7 +158,7 @@ function! s:tex(bufnr, active, winnr) " {{{1
 endfunction
 
 " }}}1
-function! s:wiki(bufnr, active, winnr) " {{{1
+function! s:ft_wiki(bufnr, active, winnr) " {{{1
   let stat  = s:color(' wiki: ', 'SLAlert', a:active)
   let stat .= s:color(fnamemodify(bufname(a:bufnr), ':t:r'),
         \ 'SLHighlight', a:active)
@@ -178,48 +176,60 @@ function! s:wiki(bufnr, active, winnr) " {{{1
 endfunction
 
 " }}}1
-function! s:fzf(bufnr, active, winnr) " {{{1
-  return s:color(repeat('⋯', winwidth(0)), 'SLFZF', a:active)
+function! s:ft_fzf(bufnr, active, winnr) " {{{1
+  return s:color(repeat('⋯', winwidth(a:winnr)), 'SLFZF', a:active)
 endfunction
 
 " }}}1
-function! s:manpage(bufnr, active, winnr) " {{{1
+function! s:ft_manpage(bufnr, active, winnr) " {{{1
   return s:color(' %<%f', 'SLHighlight', a:active)
 endfunction
 
 " }}}1
 
-" Vimspector
-function! s:vimspector(bufnr, active, winnr) " {{{1
-  return
-        \ ' %#' . (a:active ? 'SLHighlight' : 'Statusline') . '#'
-        \ . substitute(
-        \     bufname(a:bufnr), '^vimspector.', 'Vimspector: ', '')
-        \ . '%*'
+function! s:scheme_fugitive(bufnr, active, winnr) " {{{1
+  let l:bufname = bufname(a:bufnr)
+  let l:striplen = strlen(l:bufname) - winwidth(a:winnr) + 3
+
+  if l:striplen > 0
+    let l:parts = split(strpart(l:bufname, 11), '/')
+    let l:n = 0
+    while l:n < l:striplen && len(l:parts) > 0
+      let l:p = remove(l:parts, 0)
+      let l:n += 1 + strlen(l:p)
+    endwhile
+
+    if len(l:parts) == 0
+      let l:string = ' ⋯/' . l:p
+    else
+      let l:string = printf(' %s⋯/%s', l:bufname[:10], join(l:parts, '/'))
+    endif
+  else
+    let l:string = ' ' . l:bufname
+  endif
+
+  return s:color(l:string, ['SLHighlight', 'Statusline'], a:active)
+endfunction
+
+" }}}1
+function! s:scheme_vimspector(bufnr, active, winnr) " {{{1
+  return s:color(
+        \ substitute(bufname(a:bufnr), '^vimspector.', 'Vimspector: ', ''),
+        \ 'SLHighlight', a:active)
 endfunction
 
 " }}}1
 
-" CtrlP statusline
-function! personal#statusline#ctrlp(...) " {{{1
-  let l:info = a:0 > 1
-        \ ? a:4 . ' < %#SLHighlight#' . a:5 . '%* > ' . a:6
-        \ : a:1
-
-  return ' %#SLAlert#CtrlP%* -- '
-        \ . l:info
-        \ . '%=' . fnamemodify(getcwd(), ':~') . ' '
-endfunction
-
-" }}}1
 
 " Utilities
 function! s:color(content, group, active) " {{{1
-  if a:active && !empty(a:group)
+  if type(a:group) == v:t_list
+    return '%#' . a:group[!a:active] . '#' . a:content . '%*'
+  elseif a:active && !empty(a:group)
     return '%#' . a:group . '#' . a:content . '%*'
-  else
-    return a:content
   endif
+
+  return a:content
 endfunction
 
 " }}}1
