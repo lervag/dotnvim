@@ -22,6 +22,7 @@ set background=light
 " look similar in 256 colors and truecolors.
 let s:colordict = {
       \ 'color00':   {'hex': '#073642', 'num': 0,   'name': 'base02'},
+      \ 'color00l':  {'hex': '#0d5e73', 'num': 0,   'name': 'base02v45'},
       \ 'color01':   {'hex': '#dc322f', 'num': 1,   'name': 'red'},
       \ 'color01d':  {'hex': '#801c1b', 'num': 1,   'name': 'redv50'},
       \ 'color01l':  {'hex': '#ff3936', 'num': 1,   'name': 'redv100'},
@@ -38,9 +39,11 @@ let s:colordict = {
       \ 'color07':   {'hex': '#eee8d5', 'num': 7,   'name': 'base2'},
       \ 'color07d':  {'hex': '#e8e2ce', 'num': 188, 'name': 'base2v91'},
       \ 'color08':   {'hex': '#002b36', 'num': 8,   'name': 'base03'},
+      \ 'color08l':  {'hex': '#005c73', 'num': 8,   'name': 'base03v45'},
       \ 'color09':   {'hex': '#cb4b16', 'num': 9,   'name': 'orange'},
       \ 'color09l':  {'hex': '#e66b32', 'num': 9,   'name': 'orange'},
       \ 'color10':   {'hex': '#586e75', 'num': 10,  'name': 'base01'},
+      \ 'color10d':  {'hex': '#435459', 'num': 10,  'name': 'base01v35'},
       \ 'color11':   {'hex': '#657b83', 'num': 11,  'name': 'base00'},
       \ 'color12':   {'hex': '#839496', 'num': 12,  'name': 'base0'},
       \ 'color13':   {'hex': '#6c71c4', 'num': 13,  'name': 'violet'},
@@ -481,7 +484,7 @@ highlight link semshiBuiltin Function
 " }}}1
 " {{{1 Highlight: Filetype tex
 
-call s:highlight('texArg',          {'fg': 'color00'})
+call s:highlight('texArg',          {'fg': 'color04'})
 call s:highlight('texTodoArg',      {'fg': 'color01'})
 call s:highlight('texArgNew',       {'fg': 'color05'})
 call s:highlight('texCmdPart',      {'fg': 'color03'})
@@ -500,7 +503,7 @@ call s:highlight('texTitleArg',     {'fg': 'color03d', 'style': 'bold'})
 
 highlight link texAuthorArg      texArg
 highlight link texCmdBooktabs    texEnvArgName
-highlight link texCmdItem        texArg
+highlight link texCmdItem        PreProc
 highlight link texMathEnvArgName texMathCmd
 highlight link texMathSymbol     texMathCmd
 highlight link texNewenvArgName  texArgNew
