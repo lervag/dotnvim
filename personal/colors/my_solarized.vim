@@ -176,7 +176,8 @@ highlight link lCursor        Cursor
 " {{{1 Highlight: Default syntax groups (:help group-names)
 
 call s:highlight('Comment', {'fg': 'color14', 'style': 'italic'})
-call s:highlight('Constant', {'fg': 'color06'})
+call s:highlight('Constant', {'fg': 'color01d'})
+call s:highlight('ConstantValue', {'fg': 'color06'})
 call s:highlight('Error', {'fg': 'color01', 'bg': 'NONE', 'style': 'bold'})
 call s:highlight('Identifier', {'fg': 'color04', 'style': 'NONE'})
 call s:highlight('Ignore', {'fg': 'color15'})
@@ -187,11 +188,11 @@ call s:highlight('Todo', {'fg': 'color05', 'bg': 'NONE', 'style': 'bold'})
 call s:highlight('Type', {'fg': 'color03', 'style': 'NONE'})
 call s:highlight('Underlined', {'fg': 'color13', 'style': 'NONE'})
 
-highlight link Boolean        Constant
-highlight link Character      Constant
-highlight link Float          Constant
-highlight link Number         Constant
-highlight link String         Constant
+highlight link Boolean        ConstantValue
+highlight link Character      ConstantValue
+highlight link Float          ConstantValue
+highlight link Number         ConstantValue
+highlight link String         ConstantValue
 highlight link Function       Identifier
 highlight link Define         PreProc
 highlight link Include        PreProc
@@ -211,6 +212,9 @@ highlight link Repeat         Statement
 highlight link StorageClass   Type
 highlight link Structure      Type
 highlight link Typedef        Type
+
+highlight link TSParameter PreProc
+call s:highlight('TSVariable', {'fg': 'color10'})
 
 " }}}1
 
