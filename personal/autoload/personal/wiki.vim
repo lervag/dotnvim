@@ -34,6 +34,38 @@ endfunction
 " }}}1
 function! personal#wiki#template(ctx) abort " {{{1
   call append(0, '# ' . a:ctx.name)
+
+  if !empty(a:ctx.origin)
+    call append(1, [
+          \ '',
+          \ 'Sjå også:',
+          \ '* ' . personal#wiki#file_to_link(
+          \   a:ctx.origin.origin,
+          \   a:ctx.origin.pos_start[0]),
+          \])
+  endif
+
+  call cursor(2, 1)
+endfunction
+
+" }}}1
+function! personal#wiki#file_to_link(filename, ...) abort " {{{1
+  let l:page = wiki#paths#shorten_relative(a:filename)
+  let l:page = fnamemodify(l:page, ':r')
+
+  if a:0 > 0
+    let l:a = []
+    for l:e in wiki#page#gather_toc_entries(readfile(a:filename), v:false)
+      if l:e.lnum > a:1 | break | endif
+      let l:a = l:e.anchors
+    endfor
+
+    if !empty(l:a)
+      let l:page .= '#' . join(l:a, '#')
+    endif
+  endif
+
+  return '[[' . l:page . ']]'
 endfunction
 
 " }}}1
