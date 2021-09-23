@@ -55,7 +55,7 @@ function! personal#wiki#file_to_link(filename, ...) abort " {{{1
 
   if a:0 > 0
     let l:a = []
-    for l:e in wiki#toc#gather_entries(readfile(a:filename), v:false)
+    for l:e in wiki#toc#gather_entries(readfile(a:filename))
       if l:e.lnum > a:1 | break | endif
       let l:a = l:e.anchors
     endfor
