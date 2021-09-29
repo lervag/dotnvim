@@ -123,9 +123,6 @@ augroup vimrc_autocommands
   " Set keymapping for command window
   autocmd CmdwinEnter * nnoremap <buffer> q     <c-c><c-c>
   autocmd CmdwinEnter * nnoremap <buffer> <c-f> <c-c>
-
-  " Close preview after complete
-  autocmd CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 augroup END
 
 " {{{1 Options
