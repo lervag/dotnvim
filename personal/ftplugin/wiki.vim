@@ -5,7 +5,6 @@ call personal#markdown#init()
 
 setlocal nolisp
 setlocal nomodeline
-setlocal nowrap
 setlocal suffixesadd=.wiki
 setlocal isfname-=[,]
 setlocal autoindent
