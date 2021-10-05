@@ -431,16 +431,17 @@ augroup END
 " See also: coc-settings.json
 
 let g:coc_global_extensions = [
-      \ 'coc-vimtex',
-      \ 'coc-omni',
-      \ 'coc-snippets',
-      \ 'coc-pyright',
-      \ 'coc-json',
-      \ 'coc-yaml',
-      \ 'coc-rust-analyzer',
-      \ 'coc-vimlsp',
-      \ 'coc-sh',
       \ 'coc-calc',
+      \ 'coc-json',
+      \ 'coc-ltex',
+      \ 'coc-omni',
+      \ 'coc-pyright',
+      \ 'coc-rust-analyzer',
+      \ 'coc-sh',
+      \ 'coc-snippets',
+      \ 'coc-vimlsp',
+      \ 'coc-vimtex',
+      \ 'coc-yaml',
       \]
 
 inoremap <silent><expr> <c-space> coc#refresh()
