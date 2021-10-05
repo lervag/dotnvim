@@ -83,11 +83,7 @@ Plug 'tyru/capture.vim', {'on': 'Capture'}
 Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/Colorizer'
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-
-" Filetype: python
-Plug 'kalekundert/vim-coiled-snake'  " Folding
-Plug 'Vimjas/vim-python-pep8-indent' " Indents
-Plug 'jeetsukumaran/vim-pythonsense' " Text objects and motions
+Plug 'Vimjas/vim-python-pep8-indent'
 
 " Filetype: various
 Plug 'plasticboy/vim-markdown'
@@ -914,18 +910,12 @@ let g:vim_markdown_strikethrough = 1
 " {{{2 filetype: python
 
 " Note: See more settings at:
-"       ~/.vim/personal/ftplugin/python.vim
-"       ~/.vim/personal/after/ftplugin/python.vim
+"       ~/.config/nvim/personal/ftplugin/python.vim
+"       ~/.config/nvim/personal/after/ftplugin/python.vim
 
 " For neovim: specify the python host
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
-
-" Syntax
-let g:python_highlight_all = 1
-
-" Folding
-let g:coiled_snake_foldtext_flags = []
 
 " }}}2
 " {{{2 filetype: ruby
