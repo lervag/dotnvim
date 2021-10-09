@@ -10,3 +10,5 @@ syntax region vimSet
       \ keepend
       \ oneline
       \ contains=vimSetEqual,vimOption,vimErrSetting,vimComment,vimSetString,vimSetMod
+
+syntax sync fromstart
