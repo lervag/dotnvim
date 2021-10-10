@@ -208,7 +208,7 @@ if !has('gui_running')
 endif
 
 " Folding
-set foldlevelstart=0
+set foldlevelstart=3
 set foldcolumn=0
 set foldtext=personal#fold#foldtext()
 
