@@ -405,6 +405,12 @@ augroup vimrc_flog
   autocmd!
   autocmd FileType floggraph setlocal nolist
   autocmd FileType floggraph nmap <buffer><silent> q <plug>(FlogQuit)
+  autocmd FileType floggraph nnoremap <buffer><silent> p
+        \ :<c-u>call personal#git#display_file_current()<cr>
+  autocmd FileType floggraph nnoremap <buffer><silent> <tab>
+        \ :<c-u>call personal#git#display_file()<cr>
+  autocmd FileType floggraph nnoremap <buffer><silent> df
+        \ :<c-u>call personal#git#diff_file()<cr>
 augroup END
 
 nnoremap <silent><leader>gs :call personal#git#fugitive_toggle()<cr>
