@@ -1,8 +1,7 @@
 {
   "coc.preferences.useQuickfixForLocations": true,
-  "coc.source.neco.shortcut": "VIM",
+  "coc.source.neco.shortcut": "",
   "coc.source.omni.filetypes": ["foam"],
-  "coc.source.ultisnips.enable": false,
   "codeLens.enable": true,
   "diagnostic.enableHighlightLineNumber": true,
   "diagnostic.enableMessage": "jump",
@@ -15,7 +14,6 @@
   "python.linting.flake8Enabled": true,
   "python.linting.pylintEnabled": true,
   "pyright.disableDiagnostics": true,
-  "rust-analyzer.serverPath": "rust-analyzer",
   "suggest.enablePreview": true,
   "suggest.minTriggerInputLength": 3,
   "suggest.removeDuplicateItems": true,
