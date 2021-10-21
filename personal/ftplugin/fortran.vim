@@ -3,10 +3,8 @@
 " Author: Karl Yngve Lervåg
 " BasedOn: Vim ftplugin version 0.49
 
-if exists('b:did_ftplugin')
-  finish
-endif
-let b:did_ftplugin = 1
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
 
 let s:cposet=&cpoptions
 set cpoptions&vim

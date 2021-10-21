@@ -1,3 +1,6 @@
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
+
 " Internal sh syntax plugin: Set bash as default variant
 let g:is_bash = 1
 

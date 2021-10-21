@@ -1,10 +1,5 @@
-"
-" Personal settings for vimscript files
-" Author: Karl Yngve Lervåg
-"
-
-if exists('b:did_ft_vim') | finish | endif
-let b:did_ft_vim = 1
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
 
 if exists('ruby_fold') | unlet ruby_fold | endif
 

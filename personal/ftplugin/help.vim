@@ -1,3 +1,6 @@
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
+
 augroup help_insert
   autocmd!
   autocmd InsertEnter <buffer> setlocal conceallevel=0 | highlight clear Ignore
