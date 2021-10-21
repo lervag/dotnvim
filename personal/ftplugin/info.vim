@@ -1,3 +1,6 @@
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
+
 nmap <buffer> gk <plug>(InfoUp)
 nmap <buffer> gl <plug>(InfoNext)
 nmap <buffer> gh <plug>(InfoPrev)

@@ -4,8 +4,8 @@
 "
 
 " Only load the file once
-if exists('b:did_ft_lisp') | finish | endif
-let b:did_ft_lisp = 1
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
 
 setlocal foldmethod=marker foldmarker=(,) foldminlines=3
 setlocal suffixesadd=.lisp,cl path=/usr/src/lisp/**

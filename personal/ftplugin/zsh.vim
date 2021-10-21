@@ -1,3 +1,6 @@
+if exists('b:did_ftplugin_personal') | finish | endif
+let b:did_ftplugin_personal = 1
+
 " Use custom folding
 setlocal foldmethod=expr
 setlocal foldexpr=BashFoldLevel()
