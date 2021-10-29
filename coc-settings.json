@@ -18,5 +18,11 @@
   "suggest.minTriggerInputLength": 3,
   "suggest.removeDuplicateItems": true,
   "suggest.snippetIndicator": "[+] ",
-  "suggest.timeout": 1000
+  "suggest.timeout": 1000,
+  "json.schemas": [
+    {
+      "fileMatch": ["package.json"],
+      "url":"https://json.schemastore.org/package.json"
+    }
+  ]
 }
