@@ -24,5 +24,7 @@
       "fileMatch": ["package.json"],
       "url":"https://json.schemastore.org/package.json"
     }
-  ]
+  ],
+  "ltex.checkFrequency": "save",
+  "ltex.ltex-ls.logLevel": "config"
 }
