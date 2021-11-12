@@ -65,8 +65,9 @@ function! personal#wiki#file_to_link(filename, ...) abort " {{{1
       let l:a = l:e.anchors
     endfor
 
-    if !empty(l:a)
-      let l:page .= '#' . join(l:a, '#')
+    let l:anchors = join(l:a, '#')
+    if !empty(l:anchors) && l:anchors !=# l:page
+      let l:page .= '#' . l:anchors
     endif
   endif
 
