@@ -18,6 +18,11 @@ function! personal#wiki#file_handler(...) abort dict " {{{1
     silent execute '!libreoffice' fnameescape(self.path) '&'
     return 1
   endif
+
+  if filereadable(self.path)
+    silent execute 'edit' fnameescape(self.path)
+    return 1
+  endif
 endfunction
 
 " }}}1

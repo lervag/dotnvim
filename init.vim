@@ -93,6 +93,7 @@ Plug 'gregsexton/MatchTag'
 Plug 'https://gitlab.com/HiPhish/info.vim'
 Plug 'tpope/vim-apathy'
 Plug 'rust-lang/rust.vim'
+Plug 'chunkhang/vim-mbsync'
 
 call plug#end()
 
