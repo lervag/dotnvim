@@ -26,6 +26,7 @@ Plug 'andymass/vim-matchup'
 Plug 'szw/vim-maximizer'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'folke/zen-mode.nvim'
 
 " Plugin: Completion and snippets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -892,6 +893,34 @@ nnoremap <leader>ii  :VimuxRunCommand 'jkk'<cr>
 nnoremap <leader>is  :set opfunc=personal#vimux#operator<cr>g@
 nnoremap <leader>iss :call VimuxRunCommand(getline('.'))<cr>
 xnoremap <leader>is  "vy :call VimuxSendText(@v)<cr>
+
+" }}}2
+" {{{2 plugin: zen-mode.nvim
+
+lua << EOF
+  require("zen-mode").setup {
+    window = {
+      backdrop = 1,
+      width = 80,
+      height = 1,
+    },
+    plugins = {
+      tmux = { enabled = true },
+    },
+    on_open = function(win)
+      vim.cmd [[
+        call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
+      ]]
+    end,
+    on_close = function()
+      vim.cmd [[
+        call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
+      ]]
+    end,
+  }
+EOF
+
+nnoremap <leader>z :<c-u>ZenMode<cr>
 
 " }}}2
 
