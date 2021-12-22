@@ -12,9 +12,6 @@ Plug 'junegunn/vim-plug', {'on': []}
 
 call plug#(g:vimrc#path_lervag . 'vimtex')
 call plug#(g:vimrc#path_lervag . 'file-line')
-call plug#(g:vimrc#path_lervag . 'vim-foam')
-call plug#(g:vimrc#path_lervag . 'vim-rmarkdown')
-call plug#(g:vimrc#path_lervag . 'vim-rainbow-lists')
 call plug#(g:vimrc#path_lervag . 'lists.vim')
 call plug#(g:vimrc#path_lervag . 'wiki.vim')
 call plug#(g:vimrc#path_lervag . 'wiki-ft.vim')
@@ -23,7 +20,6 @@ call plug#(g:vimrc#path_lervag . 'vim-sintef')
 " Plugin: UI
 Plug 'Konfekt/FastFold'
 Plug 'andymass/vim-matchup'
-Plug 'szw/vim-maximizer'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
@@ -77,8 +73,7 @@ Plug 'benmills/vimux'
 
 " Plugin: Various
 Plug 'itchyny/calendar.vim'
-Plug 'tweekmonster/helpful.vim'
-Plug 'Shougo/vimproc', {'do': 'make -f make_unix.mak'}
+Plug 'tweekmonster/helpful.vim', {'on': 'HelpfulVersion'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'tyru/capture.vim', {'on': 'Capture'}
 Plug 'tpope/vim-unimpaired'
@@ -503,7 +498,7 @@ require'nvim-treesitter.configs'.setup {
   ignore_install = { "latex" },
   highlight = {
     enable = true,
-    disable = { "vim" },
+    disable = { "vim", "markdown" },
   },
   incremental_selection = {
     enable = true,
@@ -841,16 +836,6 @@ let g:table_mode_corner = '|'
 " {{{2 plugin: vim-tmux-navigator
 
 let g:tmux_navigator_disable_when_zoomed = 1
-
-" }}}
-" {{{2 plugin: maximizer
-
-function! GoMaxWindow(id)
-  call win_gotoid(a:id)
-  MaximizerToggle
-endfunction
-
-nnoremap <leader>m :MaximizerToggle!<cr>
 
 " }}}
 " {{{2 plugin: vimspector / maximizer
