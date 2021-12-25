@@ -1,21 +1,37 @@
-" neovim configuration
-"
-" Author: Karl Yngve Lervåg
+" {{{1 Load plugins and similar
 
-call vimrc#init()
+" Use space as leader key
+nnoremap <space> <nop>
+let g:mapleader = "\<space>"
 
-" {{{1 Load plugins
+" Set vim-plug settings
+let g:plug_window = 'new|wincmd o'
+nnoremap <silent> <leader>pd :PlugDiff<cr>
+nnoremap <silent> <leader>pi :PlugInstall<cr>
+nnoremap <silent> <leader>pu :PlugUpdate<cr>
+nnoremap <silent> <leader>ps :PlugStatus<cr>
+nnoremap <silent> <leader>pc :PlugClean<cr>
 
-call plug#begin(g:vimrc#path_bundles)
+" Source init script if plug.vim is not available
+let s:bootstrap = !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+if s:bootstrap
+  silent !source ~/.config/nvim/init.sh
+
+  " vint: -ProhibitAutocmdWithNoGroup
+  autocmd VimEnter * nested PlugInstall --sync | source $MYVIMRC
+  " vint: +ProhibitAutocmdWithNoGroup
+endif
+
+call plug#begin('~/.local/plugged')
 
 Plug 'junegunn/vim-plug', {'on': []}
 
-call plug#(g:vimrc#path_lervag . 'vimtex')
-call plug#(g:vimrc#path_lervag . 'file-line')
-call plug#(g:vimrc#path_lervag . 'lists.vim')
-call plug#(g:vimrc#path_lervag . 'wiki.vim')
-call plug#(g:vimrc#path_lervag . 'wiki-ft.vim')
-call plug#(g:vimrc#path_lervag . 'vim-sintef')
+call plug#('git@github.com:lervag/vimtex')
+call plug#('git@github.com:lervag/file-line')
+call plug#('git@github.com:lervag/lists.vim')
+call plug#('git@github.com:lervag/wiki.vim')
+call plug#('git@github.com:lervag/wiki-ft.vim')
+call plug#('git@github.com:lervag/vim-sintef')
 
 " Plugin: UI
 Plug 'Konfekt/FastFold'
@@ -94,10 +110,9 @@ Plug 'tridactyl/vim-tridactyl'
 
 call plug#end()
 
+if s:bootstrap | finish | endif
+
 " }}}1
-
-if g:vimrc#bootstrap | finish | endif
-
 " {{{1 Autocommands
 
 augroup vimrc_autocommands
@@ -200,11 +215,6 @@ set splitright
 set previewheight=20
 set noshowmode
 
-if !has('gui_running')
-  set visualbell
-  set t_vb=
-endif
-
 " Folding
 set foldlevelstart=3
 set foldcolumn=0
@@ -236,43 +246,7 @@ elseif executable('ack-grep')
 endif
 
 " Printing
-set printexpr=PrintFile(v:fname_in)
-
-function! PrintFile(fname)
-  let l:pdf = a:fname . '.pdf'
-  call system(printf('ps2pdf %s %s', a:fname, l:pdf))
-
-  echohl ModeMsg
-  let l:reply = input('View file before printing [y/N]? ')
-  echohl None
-  echon "\n"
-  if l:reply =~# '^y'
-    call system('mupdf ' . l:pdf)
-  endif
-
-  echohl ModeMsg
-  let l:reply = input('Save file to $HOME [Y/n]? ')
-  echohl None
-  echon "\n"
-  if empty(l:reply) || l:reply =~# '^n'
-    call system(printf('cp %s ~/vim-hardcopy.pdf', l:pdf))
-  endif
-
-  echohl ModeMsg
-  let l:reply = input('Send file to printer [y/N]? ')
-  echohl None
-  echon "\n"
-  if l:reply =~# '^y'
-    call system('lp ' . l:pdf)
-    let l:error = v:shell_error
-  else
-    let l:error = 1
-  endif
-
-  call delete(a:fname)
-  call delete(l:pdf)
-  return l:error
-endfunction
+set printexpr=personal#print_file(v:fname_in)
 
 " {{{1 Appearance and UI
 
@@ -288,19 +262,14 @@ call personal#init#tabline()
 
 " {{{1 Mappings
 
-"
-" Available for mapping
-"
-"   Q
-"   U
-"   ctrl-s
-"   ctrl-space
-"
+" Available keys
+" * U
+" * ctrl-s
+" * ctrl-space
 
 " Disable some mappings
-noremap  <f1>   <nop>
-inoremap <f1>   <nop>
-nnoremap Q      <nop>
+noremap  <f1>  <nop>
+inoremap <f1>  <nop>
 
 " Some general/standard remappings
 inoremap jk     <esc>
@@ -658,7 +627,7 @@ let g:UltiSnipsExpandTrigger = '<nop>'
 let g:UltiSnipsJumpForwardTrigger = '<c-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 let g:UltiSnipsRemoveSelectModeMappings = 0
-let g:UltiSnipsSnippetDirectories = [vimrc#path('UltiSnips')]
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips']
 
 nnoremap <leader>es :UltiSnipsEdit!<cr>
 
@@ -941,8 +910,8 @@ let g:vim_markdown_strikethrough = 1
 " {{{2 filetype: python
 
 " Note: See more settings at:
-"       ~/.config/nvim/personal/ftplugin/python.vim
-"       ~/.config/nvim/personal/after/ftplugin/python.vim
+"       ~/.config/nvim/ftplugin/python.vim
+"       ~/.config/nvim/after/ftplugin/python.vim
 
 " For neovim: specify the python host
 let g:loaded_python_provider = 0
@@ -1006,14 +975,13 @@ augroup vimrc_vimtex
 augroup END
 
 "
-" NOTE: See also ~/.vim/personal/ftplugin/tex.vim
+" NOTE: See also ~/.config/nvim/ftplugin/tex.vim
 "
 
 " }}}2
 " {{{2 filetype: vim
 
-" Internal vim plugin
-let g:vimsyn_embed = 'P'
+let g:vimsyn_embed = 'lP'
 
 " }}}2
 " {{{2 filetype: wiki
