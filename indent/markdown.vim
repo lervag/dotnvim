@@ -2,9 +2,7 @@
 " Language: Markdown files
 " Created:  2012-11-20
 
-if exists("b:did_indent")
-  finish
-endif
+if exists("b:did_indent") | finish | endif
 let b:did_indent = 1
 
 setlocal nocindent
