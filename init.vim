@@ -40,7 +40,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
 
-" Plugin: Completion and snippets
+" Plugin: Completion, LSP and snippets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
@@ -64,7 +64,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'machakann/vim-columnmove'
 
 " Plugin: Debugging, and code runners
-Plug 'puremourning/vimspector'
+Plug 'mfussenegger/nvim-dap'
 
 " Plugin: Editing
 Plug 'junegunn/vim-easy-align'
@@ -425,6 +425,7 @@ nmap <silent> <leader>lr <plug>(coc-references)
 nmap <silent> <leader>lt <plug>(coc-type-definition)
 nmap <silent> <leader>la <plug>(coc-codeaction-selected)
 xmap <silent> <leader>la <plug>(coc-codeaction-selected)
+nmap <silent> <leader>lc :<c-u>CocCommand<cr>
 nmap <silent> <leader>lk :<c-u>call CocAction('doHover')<cr>
 
 nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
@@ -804,39 +805,6 @@ let g:table_mode_corner = '|'
 " {{{2 plugin: vim-tmux-navigator
 
 let g:tmux_navigator_disable_when_zoomed = 1
-
-" }}}
-" {{{2 plugin: vimspector / maximizer
-
-let g:vimspector_base_dir = expand('$HOME/.config/vimspector-config')
-
-nmap     <leader>dd  <plug>VimspectorContinue
-nnoremap <leader>de  :call vimspector#Reset()<cr>
-nmap     <leader>d_  <plug>VimspectorRestart
-nnoremap <leader>dL  :call vimspector#ToggleLog()<cr>
-
-nmap     <leader>drc <plug>VimspectorRunToCursor
-nmap     <leader>dk  <plug>VimspectorStepOut
-nmap     <leader>dl  <plug>VimspectorStepInto
-nmap     <leader>dj  <plug>VimspectorStepOver
-nmap     <leader>df  <plug>VimspectorUpFrame
-nmap     <leader>dF  <plug>VimspectorDownFrame
-nmap     <leader>di  <plug>VimspectorBalloonEval
-xmap     <leader>di  <plug>VimspectorBalloonEval
-nnoremap <leader>da :call vimspector#AddWatch(expand("<cexpr>"))<CR>
-
-nmap     <leader>dbb <plug>VimspectorToggleBreakpoint
-nmap     <leader>dbc <plug>VimspectorToggleConditionalBreakpoint
-nnoremap <leader>dbx :call vimspector#ClearBreakpoints()<cr>
-nnoremap <leader>dbl :call vimspector#ListBreakpoints()<cr>
-" nnoremap <leader>dtcb :call vimspector#CleanLineBreakpoint()<CR>
-
-nnoremap <leader>dc :call GoMaxWindow(g:vimspector_session_windows.code)<CR>
-nnoremap <leader>dt :call GoMaxWindow(g:vimspector_session_windows.tagpage)<CR>
-nnoremap <leader>dv :call GoMaxWindow(g:vimspector_session_windows.variables)<CR>
-nnoremap <leader>dw :call GoMaxWindow(g:vimspector_session_windows.watches)<CR>
-nnoremap <leader>ds :call GoMaxWindow(g:vimspector_session_windows.stack_trace)<CR>
-nnoremap <leader>do :call GoMaxWindow(g:vimspector_session_windows.output)<CR>
 
 " }}}
 " {{{2 plugin: vimux
