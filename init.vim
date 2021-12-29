@@ -160,15 +160,8 @@ silent! set diffopt+=hiddenoff,closeoff
 " Backup, swap and undofile
 set noswapfile
 set undofile
-set undodir=$HOME/.cache/nvim/undo
 set backup
-set backupdir=$HOME/.cache/nvim/backup
-if !isdirectory(&undodir)
-  call mkdir(&undodir, 'p')
-endif
-if !isdirectory(&backupdir)
-  call mkdir(&backupdir, 'p')
-endif
+set backupdir=$HOME/.local/share/nvim/backup//
 
 " Behaviour
 set autochdir
@@ -343,6 +336,9 @@ xmap <expr> #    personal#search#wrap_visual('?')
 
 " {{{1 Configure plugins
 
+lua require 'plugins.tree-sitter'
+lua require 'plugins.zen-mode'
+
 " {{{2 internal
 
 " Disable a lot of unnecessary internal plugins
@@ -355,6 +351,9 @@ let g:loaded_spellfile_plugin = 1
 let g:loaded_tarPlugin = 1
 let g:loaded_vimballPlugin = 1
 let g:loaded_zipPlugin = 1
+
+" Vimscript options
+let g:vimsyn_embed = 'lP'
 
 " }}}2
 
@@ -457,29 +456,6 @@ endif
 
 " Other mappings
 nmap <silent> <leader>= <plug>(coc-calc-result-replace)
-
-" }}}2
-" {{{2 feature: tree-sitter
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  ignore_install = { "latex" },
-  highlight = {
-    enable = true,
-    disable = { "vim", "markdown" },
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<cr>',
-      scope_incremental = '<cr>',
-      node_incremental = '<tab>',
-      node_decremental = '<s-tab>',
-    },
-  },
-}
-EOF
 
 " }}}2
 
@@ -689,11 +665,6 @@ let g:matchup_matchparen_status_offscreen = 0
 let g:matchup_override_vimtex = 1
 
 " }}}2
-" {{{2 plugin: vim-plug
-
-" See autoload/vimrc.vim
-
-" }}}2
 " {{{2 plugin: vim-rooter
 
 let g:rooter_manual_only = 1
@@ -826,34 +797,6 @@ nnoremap <leader>iss :call VimuxRunCommand(getline('.'))<cr>
 xnoremap <leader>is  "vy :call VimuxSendText(@v)<cr>
 
 " }}}2
-" {{{2 plugin: zen-mode.nvim
-
-lua << EOF
-  require("zen-mode").setup {
-    window = {
-      backdrop = 1,
-      width = 80,
-      height = 1,
-    },
-    plugins = {
-      tmux = { enabled = true },
-    },
-    on_open = function(win)
-      vim.cmd [[
-        call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
-      ]]
-    end,
-    on_close = function()
-      vim.cmd [[
-        call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
-      ]]
-    end,
-  }
-EOF
-
-nnoremap <leader>z :<c-u>ZenMode<cr>
-
-" }}}2
 
 " {{{2 filetype: man
 
@@ -880,14 +823,8 @@ let g:vim_markdown_strikethrough = 1
 "       ~/.config/nvim/ftplugin/python.vim
 "       ~/.config/nvim/after/ftplugin/python.vim
 
-" For neovim: specify the python host
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
-
-" }}}2
-" {{{2 filetype: ruby
-
-let g:ruby_fold=1
 
 " }}}2
 " {{{2 filetype: tex
@@ -944,11 +881,6 @@ augroup END
 "
 " NOTE: See also ~/.config/nvim/ftplugin/tex.vim
 "
-
-" }}}2
-" {{{2 filetype: vim
-
-let g:vimsyn_embed = 'lP'
 
 " }}}2
 " {{{2 filetype: wiki
