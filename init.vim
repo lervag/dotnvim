@@ -87,7 +87,6 @@ set previewheight=20
 set noshowmode
 
 " Folding
-set foldlevelstart=3
 set foldcolumn=0
 set foldtext=personal#fold#foldtext()
 
