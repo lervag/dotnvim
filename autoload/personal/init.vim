@@ -24,6 +24,12 @@ function! personal#init#tabline() " {{{1
 endfunction
 
 " }}}1
+function! personal#init#command_line_win() " {{{1
+  nnoremap <buffer> q     <c-c><c-c>
+  nnoremap <buffer> <c-f> <c-c>
+endfunction
+
+" }}}1
 
 function! personal#init#go_to_last_known_position() abort " {{{1
   if line("'\"") <= 0 || line("'\"") > line('$')
