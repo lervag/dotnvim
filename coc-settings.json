@@ -1,7 +1,6 @@
 {
   "coc.preferences.useQuickfixForLocations": true,
   "coc.source.neco.shortcut": "",
-  "coc.source.omni.filetypes": ["foam"],
   "codeLens.enable": true,
   "diagnostic.enableHighlightLineNumber": true,
   "diagnostic.enableMessage": "jump",
