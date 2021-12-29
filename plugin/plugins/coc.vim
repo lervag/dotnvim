@@ -2,7 +2,6 @@ let g:coc_global_extensions = [
       \ 'coc-calc',
       \ 'coc-json',
       \ 'coc-ltex',
-      \ 'coc-omni',
       \ 'coc-pyright',
       \ 'coc-rust-analyzer',
       \ 'coc-sh',
