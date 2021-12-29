@@ -1,9 +1,5 @@
-if exists('g:loaded_openinbrowser') && g:loaded_openinbrowser
-  finish
-endif
+if exists('g:loaded_openinbrowser') | finish | endif
 let g:loaded_openinbrowser = 1
-let s:save_cpo = &cpo
-set cpo&vim
 
 function! OpenInBrowser()
   let url = expand('<cWORD>')
@@ -26,5 +22,3 @@ function! OpenInBrowser()
 endfunction
 
 nnoremap <silent> gx :call OpenInBrowser()<cr>
-
-let &cpo = s:save_cpo
