@@ -1,117 +1,8 @@
-" {{{1 Load plugins and similar
 
 " Use space as leader key
 nnoremap <space> <nop>
 let g:mapleader = "\<space>"
 
-" Set vim-plug settings
-let g:plug_window = 'new|wincmd o'
-nnoremap <silent> <leader>pd :PlugDiff<cr>
-nnoremap <silent> <leader>pi :PlugInstall<cr>
-nnoremap <silent> <leader>pu :PlugUpdate<cr>
-nnoremap <silent> <leader>ps :PlugStatus<cr>
-nnoremap <silent> <leader>pc :PlugClean<cr>
-
-" Source init script if plug.vim is not available
-let s:bootstrap = !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-if s:bootstrap
-  silent !source ~/.config/nvim/init.sh
-
-  " vint: -ProhibitAutocmdWithNoGroup
-  autocmd VimEnter * nested PlugInstall --sync | source $MYVIMRC
-  " vint: +ProhibitAutocmdWithNoGroup
-endif
-
-call plug#begin('~/.local/plugged')
-
-Plug 'junegunn/vim-plug', {'on': []}
-
-call plug#('git@github.com:lervag/vimtex')
-call plug#('git@github.com:lervag/file-line')
-call plug#('git@github.com:lervag/lists.vim')
-call plug#('git@github.com:lervag/wiki.vim')
-call plug#('git@github.com:lervag/wiki-ft.vim')
-call plug#('git@github.com:lervag/vim-sintef')
-
-" Plugin: UI
-Plug 'Konfekt/FastFold'
-Plug 'andymass/vim-matchup'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-Plug 'folke/zen-mode.nvim'
-
-" Plugin: Completion, LSP and snippets
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'neoclide/coc-neco'
-Plug 'jsfaint/coc-neoinclude'
-Plug 'SirVer/ultisnips'
-
-" Plugin: Text objects and similar
-Plug 'wellle/targets.vim'
-Plug 'machakann/vim-sandwich'
-
-" Plugin: Finder, motions, and tags
-Plug 'junegunn/fzf', {
-      \ 'dir': '~/.fzf',
-      \ 'do': './install --all --no-update-rc',
-      \}
-Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'dyng/ctrlsf.vim'
-Plug 'machakann/vim-columnmove'
-
-" Plugin: Debugging, and code runners
-Plug 'mfussenegger/nvim-dap'
-
-" Plugin: Editing
-Plug 'junegunn/vim-easy-align'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
-Plug 'zirrostig/vim-schlepp'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'brianrodri/vim-sort-folds'
-
-" Plugin: VCS
-Plug 'rbong/vim-flog'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'rhysd/git-messenger.vim'
-Plug 'airblade/vim-rooter'
-
-" Plugin: Tmux (incl. filetype)
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'benmills/vimux'
-
-" Plugin: Various
-Plug 'itchyny/calendar.vim'
-Plug 'tweekmonster/helpful.vim', {'on': 'HelpfulVersion'}
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'tyru/capture.vim', {'on': 'Capture'}
-Plug 'tpope/vim-unimpaired'
-Plug 'chrisbra/Colorizer'
-Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-Plug 'Vimjas/vim-python-pep8-indent'
-
-" Filetype: various
-Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-scriptease'
-Plug 'darvelo/vim-systemd'
-Plug 'gregsexton/MatchTag'
-Plug 'tpope/vim-apathy'
-Plug 'rust-lang/rust.vim'
-Plug 'chunkhang/vim-mbsync'
-Plug 'tridactyl/vim-tridactyl'
-
-call plug#end()
-
-if s:bootstrap | finish | endif
-
-" }}}1
 " {{{1 Autocommands
 
 augroup vimrc_autocommands
@@ -254,12 +145,6 @@ call personal#init#tabline()
 
 " {{{1 Mappings
 
-" Available keys
-" * U
-" * ctrl-s
-" * ctrl-space
-
-" Disable some mappings
 noremap  <f1>  <nop>
 inoremap <f1>  <nop>
 
@@ -336,10 +221,12 @@ xmap <expr> #    personal#search#wrap_visual('?')
 
 " {{{1 Configure plugins
 
+" Most plugins are configured in plugin/plugins/*.vim
+runtime plugin/plugins.vim
+
 lua require 'plugins.tree-sitter'
 lua require 'plugins.zen-mode'
 
-" {{{2 internal
 
 " Disable a lot of unnecessary internal plugins
 let g:loaded_2html_plugin = 1
@@ -352,135 +239,18 @@ let g:loaded_tarPlugin = 1
 let g:loaded_vimballPlugin = 1
 let g:loaded_zipPlugin = 1
 
-" Vimscript options
+" Configure built-in filetype plugins
 let g:vimsyn_embed = 'lP'
+let g:man_hardwrap = 1
+let g:loaded_python_provider = 0
+let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
 
-" }}}2
 
-" {{{2 feature: git
+" Note: More relevant configuration can be found here.
+"
+" * ~/.config/nvim/ftplugin/python.vim
+" * ~/.config/nvim/after/ftplugin/python.vim
 
-let g:flog_default_arguments = {}
-let g:flog_default_arguments.format = '[%h] %s%d'
-let g:flog_default_arguments.date = 'format:%Y-%m-%d %H:%M:%S'
-
-nnoremap <silent><leader>gl :silent Flog -all<cr>
-nnoremap <silent><leader>gL :silent Flog -all -path=%<cr>
-
-augroup vimrc_flog
-  autocmd!
-  autocmd FileType floggraph setlocal nolist
-  autocmd FileType floggraph nmap <buffer><silent> q <plug>(FlogQuit)
-  autocmd FileType floggraph nnoremap <buffer><silent> p
-        \ :<c-u>call personal#git#display_file_current()<cr>
-  autocmd FileType floggraph nnoremap <buffer><silent> <tab>
-        \ :<c-u>call personal#git#display_file()<cr>
-  autocmd FileType floggraph nnoremap <buffer><silent> df
-        \ :<c-u>call personal#git#diff_file()<cr>
-augroup END
-
-nnoremap <silent><leader>gs :call personal#git#fugitive_toggle()<cr>
-nnoremap <silent><leader>ge :Gedit<cr>
-nnoremap <silent><leader>gd :Gdiff<cr>
-
-augroup vimrc_fugitive
-  autocmd!
-  autocmd WinEnter index call fugitive#ReloadStatus(-1, 0)
-  autocmd BufReadPost fugitive:// setlocal bufhidden=delete
-  autocmd FileType git setlocal foldlevel=1
-  autocmd FileType git,fugitive nnoremap <buffer><silent> q :bwipeout!<cr>
-  autocmd FileType fugitive
-        \ nnoremap <buffer><silent> <f5> :call fugitive#ReloadStatus(-1, 0)<cr>
-augroup END
-
-" }}}2
-" {{{2 feature: completion and language server client
-
-" See also: coc-settings.json
-
-let g:coc_global_extensions = [
-      \ 'coc-calc',
-      \ 'coc-json',
-      \ 'coc-ltex',
-      \ 'coc-omni',
-      \ 'coc-pyright',
-      \ 'coc-rust-analyzer',
-      \ 'coc-sh',
-      \ 'coc-snippets',
-      \ 'coc-vimlsp',
-      \ 'coc-vimtex',
-      \ 'coc-yaml',
-      \]
-
-inoremap <silent><expr> <c-space> coc#refresh()
-
-inoremap <expr><cr>    pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-inoremap <expr><tab>   pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-
-imap <silent> <c-u>      <plug>(coc-snippets-expand)
-
-nmap <silent> <leader>ld <plug>(coc-definition)zv
-nmap <silent> <leader>lr <plug>(coc-references)
-nmap <silent> <leader>lt <plug>(coc-type-definition)
-nmap <silent> <leader>la <plug>(coc-codeaction-selected)
-xmap <silent> <leader>la <plug>(coc-codeaction-selected)
-nmap <silent> <leader>lc :<c-u>CocCommand<cr>
-nmap <silent> <leader>lk :<c-u>call CocAction('doHover')<cr>
-
-nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
-nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
-nmap <silent> <leader>li <plug>(coc-diagnostic-info)
-nmap <silent> <leader>ll :<c-u>CocDiagnostics<cr>
-
-nnoremap <silent> K :call <sid>show_documentation()<cr>
-function! s:show_documentation()
-  if index(['vim', 'help'], &filetype) >= 0
-    execute 'help ' . expand('<cword>')
-  elseif &filetype ==# 'neomuttrc'
-    let l:cword = expand('<cword>')
-    Man neomuttrc
-    call search(l:cword)
-  elseif &filetype ==# 'tex'
-    VimtexDocPackage
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-if exists('*CocActionAsync')
-  augroup coc_settings
-    autocmd!
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-  augroup END
-endif
-
-" Other mappings
-nmap <silent> <leader>= <plug>(coc-calc-result-replace)
-
-" }}}2
-
-" {{{2 plugin: calendar.vim
-
-let g:calendar_first_day = 'monday'
-let g:calendar_date_endian = 'big'
-let g:calendar_frame = 'space'
-let g:calendar_week_number = 1
-
-nnoremap <silent> <leader>c :Calendar -position=here<cr>
-
-" Connect to diary
-augroup vimrc_calendar
-  autocmd!
-  autocmd FileType calendar
-        \ nnoremap <silent><buffer> <cr>
-        \ :<c-u>call personal#wiki#open_diary()<cr>
-  autocmd FileType calendar
-        \ nnoremap <silent><buffer> <c-e> <c-^>
-  autocmd FileType calendar
-        \ nnoremap <silent><buffer> <c-u> :WinBufDelete<cr>
-augroup END
-
-" }}}2
 " {{{2 plugin: CtrlFS
 
 let g:ctrlsf_indent = 2
@@ -798,11 +568,6 @@ xnoremap <leader>is  "vy :call VimuxSendText(@v)<cr>
 
 " }}}2
 
-" {{{2 filetype: man
-
-let g:man_hardwrap = 1
-
-" }}}2
 " {{{2 filetype: markdown
 
 let g:vim_markdown_folding_disabled = 1
@@ -815,116 +580,6 @@ let g:vim_markdown_conceal = 2
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_math = 1
 let g:vim_markdown_strikethrough = 1
-
-" }}}2
-" {{{2 filetype: python
-
-" Note: See more settings at:
-"       ~/.config/nvim/ftplugin/python.vim
-"       ~/.config/nvim/after/ftplugin/python.vim
-
-let g:loaded_python_provider = 0
-let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
-
-" }}}2
-" {{{2 filetype: tex
-
-let g:vimtex_compiler_silent = 1
-let g:vimtex_complete_bib = {
-      \ 'simple' : 1,
-      \ 'menu_fmt' : '@year, @author_short, @title',
-      \}
-let g:vimtex_context_pdf_viewer = 'zathura'
-let g:vimtex_echo_verbose_input = 0
-let g:vimtex_fold_enabled = 1
-let g:vimtex_fold_types = {
-      \ 'markers' : {'enabled': 0},
-      \ 'sections' : {'parse_levels': 1},
-      \}
-let g:vimtex_format_enabled = 1
-let g:vimtex_imaps_leader = '¨'
-let g:vimtex_imaps_list = [
-      \ { 'lhs' : 'ii', 'rhs' : '\item ', 'leader'  : '',
-      \   'wrapper' : 'vimtex#imaps#wrap_environment',
-      \   'context' : ['itemize', 'enumerate', 'description'] },
-      \ { 'lhs' : '.',  'rhs' : '\cdot' },
-      \ { 'lhs' : '*',  'rhs' : '\times' },
-      \ { 'lhs' : 'a',  'rhs' : '\alpha' },
-      \ { 'lhs' : 'r',  'rhs' : '\rho' },
-      \ { 'lhs' : 'p',  'rhs' : '\varphi' },
-      \]
-let g:vimtex_quickfix_open_on_warning = 0
-let g:vimtex_syntax_conceal_disable = 1
-let g:vimtex_toc_config = {
-      \ 'split_pos' : 'full',
-      \ 'mode' : 2,
-      \ 'fold_enable' : 1,
-      \ 'hotkeys_enabled' : 1,
-      \ 'hotkeys_leader' : '',
-      \ 'refresh_always' : 0,
-      \}
-let g:vimtex_view_automatic = 0
-let g:vimtex_view_forward_search_on_start = 0
-let g:vimtex_view_method = 'zathura'
-
-set spelllang=en_gb
-let g:vimtex_grammar_vlty = {
-      \ 'lt_command': 'languagetool',
-      \ 'show_suggestions': 1,
-      \}
-
-augroup vimrc_vimtex
-  autocmd!
-  autocmd User VimtexEventViewReverse normal! zMzvzz
-augroup END
-
-"
-" NOTE: See also ~/.config/nvim/ftplugin/tex.vim
-"
-
-" }}}2
-" {{{2 filetype: wiki
-
-let g:wiki_root = '~/.local/wiki'
-let g:wiki_toc_title = 'Innhald'
-let g:wiki_viewer = {'pdf': 'zathura'}
-let g:wiki_export = {
-      \ 'output': 'printed',
-      \}
-let g:wiki_filetypes = ['wiki', 'md']
-let g:wiki_month_names = [
-      \ 'Januar',
-      \ 'Februar',
-      \ 'Mars',
-      \ 'April',
-      \ 'Mai',
-      \ 'Juni',
-      \ 'Juli',
-      \ 'August',
-      \ 'September',
-      \ 'Oktober',
-      \ 'November',
-      \ 'Desember'
-      \]
-let g:wiki_template_title_week = '# Samandrag veke %(week), %(year)'
-let g:wiki_template_title_month = '# Samandrag frå %(month-name) %(year)'
-let g:wiki_write_on_nav = 1
-
-let g:wiki_toc_depth = 2
-let g:wiki_file_handler = 'personal#wiki#file_handler'
-
-let g:wiki_templates = [
-      \ { 'match_func': {
-      \     x -> x.path =~# '\.wiki$' && x.path !~# 'journal\/'},
-      \   'source_func': function('personal#wiki#template')},
-      \]
-
-augroup MyWikiAutocmds
-  autocmd!
-  autocmd User WikiLinkFollowed normal! zz
-  autocmd User WikiBufferInitialized
-        \ nmap <buffer> gf <plug>(wiki-link-follow)
-augroup END
 
 " }}}2
 

@@ -1,6 +1,4 @@
-if exists('g:windows_loaded')
-  finish
-endif
+if exists('g:windows_loaded') | finish | endif
 let g:windows_loaded = 1
 
 let s:save_cpoptions = &cpoptions
