@@ -47,7 +47,7 @@ nnoremap <silent> <leader>ov       :call fzf#run(fzf#wrap({
       \ ],
       \}))<cr>
 
-augroup my_fzf_config
+augroup init_fzf
   autocmd!
   autocmd User FzfStatusLine call s:nothing()
   autocmd FileType fzf silent! tunmap <esc>

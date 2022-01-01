@@ -32,7 +32,7 @@ let g:wiki_templates = [
       \   'source_func': function('personal#wiki#template')},
       \]
 
-augroup MyWikiAutocmds
+augroup init_wiki
   autocmd!
   autocmd User WikiLinkFollowed normal! zz
   autocmd User WikiBufferInitialized
