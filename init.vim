@@ -12,6 +12,8 @@ augroup init
   autocmd CmdwinEnter * call personal#init#command_line_win()
 augroup END
 
+" See also: after/plugin/init_autocmds.vim
+
 " {{{1 Options
 
 set shada=!,'300,<100,s300,h
