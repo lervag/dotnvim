@@ -5,7 +5,7 @@ let g:flog_default_arguments.date = 'format:%Y-%m-%d %H:%M:%S'
 nnoremap <silent><leader>gl :silent Flog -all<cr>
 nnoremap <silent><leader>gL :silent Flog -all -path=%<cr>
 
-augroup vimrc_flog
+augroup init_flog
   autocmd!
   autocmd FileType floggraph setlocal nolist
   autocmd FileType floggraph nmap <buffer><silent> q <plug>(FlogQuit)
@@ -21,7 +21,7 @@ nnoremap <silent><leader>gs :call personal#git#fugitive_toggle()<cr>
 nnoremap <silent><leader>ge :Gedit<cr>
 nnoremap <silent><leader>gd :Gdiff<cr>
 
-augroup vimrc_fugitive
+augroup init_fugitive
   autocmd!
   autocmd WinEnter index call fugitive#ReloadStatus(-1, 0)
   autocmd BufReadPost fugitive:// setlocal bufhidden=delete

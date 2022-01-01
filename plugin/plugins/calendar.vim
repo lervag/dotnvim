@@ -6,7 +6,7 @@ let g:calendar_week_number = 1
 nnoremap <silent> <leader>c :Calendar -position=here<cr>
 
 " Connect to diary
-augroup vimrc_calendar
+augroup init_calendar
   autocmd!
   autocmd FileType calendar
         \ nnoremap <silent><buffer> <cr>

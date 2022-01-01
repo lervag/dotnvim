@@ -1,6 +1,6 @@
 " {{{1 Autocommands
 
-augroup vimrc_autocommands
+augroup init
   autocmd!
 
   " Only use cursorline for current window, except when in diff mode

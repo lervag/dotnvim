@@ -21,7 +21,7 @@ endfunction
 
 " }}}1
 function! personal#log#autocmds() abort " {{{1
-  augroup LogAutocmd
+  augroup log_autocmds
     autocmd!
   augroup END
 
@@ -32,7 +32,7 @@ function! personal#log#autocmds() abort " {{{1
   endif
 
   call personal#log#log('Started autocmd log')
-  augroup LogAutocmd
+  augroup log_autocmds
     for l:au in s:aulist
       silent execute 'autocmd' l:au '* call personal#log#log(''' . l:au . ''')'
     endfor

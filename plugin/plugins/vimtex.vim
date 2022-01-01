@@ -44,7 +44,7 @@ let g:vimtex_grammar_vlty = {
       \ 'show_suggestions': 1,
       \}
 
-augroup vimrc_vimtex
+augroup init_vimtex
   autocmd!
   autocmd User VimtexEventViewReverse normal! zMzvzz
 augroup END
