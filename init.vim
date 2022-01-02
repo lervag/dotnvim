@@ -16,7 +16,7 @@ augroup END
 
 " {{{1 Options
 
-set shada=!,'300,<100,s300,h
+set shada=!,'100,<50,s50,h
 set inccommand=nosplit
 
 " Basic
