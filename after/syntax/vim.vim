@@ -11,4 +11,4 @@ syntax region vimSet
       \ oneline
       \ contains=vimSetEqual,vimOption,vimErrSetting,vimComment,vimSetString,vimSetMod
 
-syntax sync fromstart
+syntax sync clear
