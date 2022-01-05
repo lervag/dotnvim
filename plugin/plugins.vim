@@ -44,12 +44,8 @@ Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
 
 " Plugin: Completion, LSP and snippets
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
 Plug 'SirVer/ultisnips'
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'neoclide/coc-neco'
-Plug 'jsfaint/coc-neoinclude'
 
 " Plugin: Text objects and similar
 Plug 'wellle/targets.vim'
