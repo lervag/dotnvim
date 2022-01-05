@@ -146,7 +146,10 @@ endfunction
 " }}}1
 
 function! s:ft_tex(bufnr, active, winnr) " {{{1
-  let l:status = getbufvar(a:bufnr, 'vimtex').compiler.status + 1
+  let l:vimtex = getbufvar(a:bufnr, 'vimtex')
+  let l:status = exists('l:vimtex.compiler.status')
+        \ ? l:vimtex.compiler.status + 1
+        \ : -1
 
   let [l:symbol, l:color] = get([
         \ ['[⏻] ', ''],
