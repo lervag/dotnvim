@@ -1,26 +1,24 @@
 -- This sets up language servers with nvim-lspconfig
 -- See also: ../lsp.lua
 
--- autocompletion with snippet support
-local flags = {
-  debounce_text_changes = 150,
-}
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-
-local function compl_attach(client, bufnr, fuzzy)
-  require('lsp_compl').attach(client, bufnr, { trigger_on_delete = true, server_side_fuzzy_completion = fuzzy })
-end
-
-
 local lc = require 'lspconfig'
 
+
+-- Python
+-- https://github.com/microsoft/pyright
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
 lc.pyright.setup {
-  flags = flags,
+  flags = {
+    debounce_text_changes = 150,
+  },
   capabilities = capabilities,
   on_attach = function(client, bufnr)
-    compl_attach(client, bufnr, false)
+    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',
+      '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap=true, silent=true })
+    -- compl_attach(client, bufnr, false)
   end,
 }
