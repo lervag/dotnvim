@@ -1,6 +1,10 @@
 -- This sets up language servers with nvim-lspconfig
 -- See also: ../lsp.lua
 
+local function on_attach(_, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -14,11 +18,7 @@ lc.sumneko_lua.setup {
   flags = {
     debounce_text_changes = 150,
   },
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',
-      '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap=true, silent=true })
-  end,
+  on_attach = on_attach,
   settings = {
     Lua = {
       workspace = {
@@ -50,10 +50,5 @@ lc.pyright.setup {
     debounce_text_changes = 150,
   },
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',
-      '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap=true, silent=true })
-    -- compl_attach(client, bufnr, false)
-  end,
+  on_attach = on_attach,
 }
