@@ -15,21 +15,16 @@ local lc = require 'lspconfig'
 -- https://github.com/sumneko/lua-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
 lc.sumneko_lua.setup {
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = { debounce_text_changes = 150 },
   on_attach = on_attach,
   settings = {
     Lua = {
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
-        -- maxPreload = 1000,
-        -- preloadFileSize = 350,
-        -- checkThirdParty = false,
       },
       diagnostics = {
         globals = { 'vim' },
-        -- disable = { 'lowercase-global' },
+        disable = { 'lowercase-global' },
       },
       -- completion = {
       --   callSnippet = 'Replace',
@@ -46,9 +41,7 @@ lc.sumneko_lua.setup {
 -- https://github.com/microsoft/pyright
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
 lc.pyright.setup {
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = { debounce_text_changes = 150 },
   capabilities = capabilities,
   on_attach = on_attach,
 }
