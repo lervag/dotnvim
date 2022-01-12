@@ -21,8 +21,6 @@ lsp.handlers['textDocument/hover'] = lsp.with(
 lsp.handlers['textDocument/signatureHelp'] = lsp.with(
   lsp.handlers.hover, { border = 'rounded' })
 
--- TODO: Only lint _after_ insert mode, not while typing!
-
 
 local opts = { noremap=true, silent=true }
 vim.api.nvim_set_keymap('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
