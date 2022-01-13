@@ -219,6 +219,8 @@ highlight link Typedef        Type
 highlight link TSParameter PreProc
 call s:highlight('TSVariable', {'fg': 'color10'})
 
+call s:highlight('FloatBorder', {'fg': 'black', 'bg': 'color15d'})
+
 " Diagnostics: See :help diagnostics-highlights
 call s:highlight('DiagnosticError', {'fg': 'color01', 'style': 'bold'})
 call s:highlight('DiagnosticWarn', {'fg': 'color09', 'style': 'bold'})
