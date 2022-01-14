@@ -18,6 +18,7 @@
   "suggest.removeDuplicateItems": true,
   "suggest.snippetIndicator": "[+] ",
   "suggest.timeout": 1000,
+  "snippets.extends": {"latex": ["tex"]},
   "json.schemas": [
     {
       "fileMatch": ["package.json"],
