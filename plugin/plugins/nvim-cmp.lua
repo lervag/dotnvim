@@ -30,8 +30,7 @@ local kind_icons = {
 
 local function formatter(entry, item)
   if entry.source.name == 'omni' then
-    item.kind = ''
-    item.menu = vim.inspect(item.menu):gsub('%"', "")
+    item.kind = 'Ѵ '
     return item
   end
 
@@ -49,6 +48,9 @@ local function formatter(entry, item)
   return item
 end
 
+local function t(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 
 cmp.setup({
   snippet = {
@@ -59,8 +61,46 @@ cmp.setup({
     ['<c-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<c-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<c-u>'] = cmp.mapping.confirm({ select = true }),
-    ['<tab>'] = cmp.mapping.select_next_item(),
-    ['<s-tab>'] = cmp.mapping.select_prev_item(),
+    ['<cr>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true
+    }),
+    ["<tab>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+          vim.api.nvim_feedkeys(t("<plug>(ultisnips_jump_forward)"), 'm', true)
+        else
+          fallback()
+        end
+      end,
+      s = function(fallback)
+        if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+          vim.api.nvim_feedkeys(t("<plug>(ultisnips_jump_forward)"), 'm', true)
+        else
+          fallback()
+        end
+      end
+    }),
+    ["<s-tab>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+          return vim.api.nvim_feedkeys( t("<plug>(ultisnips_jump_backward)"), 'm', true)
+        else
+          fallback()
+        end
+      end,
+      s = function(fallback)
+        if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+          return vim.api.nvim_feedkeys( t("<plug>(ultisnips_jump_backward)"), 'm', true)
+        else
+          fallback()
+        end
+      end
+    }),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
