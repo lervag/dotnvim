@@ -45,7 +45,16 @@ Plug 'folke/zen-mode.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'SirVer/ultisnips'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-calc'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-omni'
+Plug 'hrsh7th/cmp-path'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " Plugin: Text objects and similar
 Plug 'wellle/targets.vim'

@@ -164,11 +164,6 @@ nnoremap zS     :<c-u>TSHighlightCapturesUnderCursor<cr>
 nnoremap <c-w>-     <c-w>s
 nnoremap <c-w><bar> <c-w>v
 
-" Use tab for completion menu
-inoremap <expr><cr>    pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-inoremap <expr><tab>   pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-
 " Buffer navigation
 nnoremap <silent> gb    :bnext<cr>
 nnoremap <silent> gB    :bprevious<cr>

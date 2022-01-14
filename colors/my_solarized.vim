@@ -250,6 +250,14 @@ call s:highlight('codeBlockBackground', {'bg': 'color15w'})
 call s:highlight('DapSign', {'fg': 'purple1', 'bg': 'color07'})
 call s:highlight('DapStatus', {'fg': 'pink1', 'bg': 'color10' })
 
+call s:highlight('CmpItemAbbrMatch', {'fg': 'blue1'})
+highlight link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch
+call s:highlight('CmpItemKind', {'fg': 'color00l'})
+call s:highlight('CmpItemMenu', {'fg': 'black'})
+
+call s:highlight('CmpItemKindFunction', {'fg': 'color05'})
+highlight link CmpItemKindMethod CmpItemKindFunction
+
 " }}}1
 
 " {{{1 Highlight: Filetype Vimscript
