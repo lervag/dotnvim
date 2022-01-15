@@ -56,6 +56,20 @@ cmp.setup({
   snippet = {
     expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end,
   },
+  formatting = { format = formatter },
+  completion = {
+    keyword_length = 2,
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'ultisnips' },
+    { name = 'path' },
+    { name = 'omni' },
+    { name = 'calc' },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'buffer', max_item_count = 5 },
+  }),
   mapping = {
     ['<c-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<c-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
@@ -102,17 +116,6 @@ cmp.setup({
       end
     }),
   },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'ultisnips' },
-    { name = 'path' },
-    { name = 'omni' },
-    { name = 'calc' },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'buffer', max_item_count = 5, keyword_length = 3 },
-  }),
-  formatting = { format = formatter },
 })
 
 

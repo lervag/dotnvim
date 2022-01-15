@@ -43,3 +43,16 @@ lc.pyright.setup {
   flags = { debounce_text_changes = 150 },
   capabilities = capabilities,
 }
+
+
+lc.vimls.setup {}
+-- lc.ltex.setup {}
+-- lc.texlab.setup {}
+lc.bashls.setup {}
+lc.jsonls.setup {
+  cmd = { "vscode-json-languageserver", "--stdio" }
+}
+lc.yamlls.setup {}
+lc.rust_analyzer.setup {}
+lc.cssls.setup {}
+lc.html.setup {}
