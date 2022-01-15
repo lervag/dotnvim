@@ -60,8 +60,12 @@ function! s:main(bufnr, active, winnr) " {{{1
   " Change to right-hand side
   let stat .= '%='
 
-  " Add linter message
+  " Add linter message and snippet status
   let cocstat = substitute(get(g:, 'coc_status', ''), '^\s*', '','')
+  if cocstat =~# 'SNIP'
+    let cocstat = s:color(cocstat, 'SLHighlight', a:active)
+  endif
+
   let cocinfo = get(b:, 'coc_diagnostic_info', {})
   let coclint = map(filter([
         \   ['E', get(cocinfo, 'error')],
