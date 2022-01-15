@@ -219,6 +219,18 @@ highlight link Typedef        Type
 highlight link TSParameter PreProc
 call s:highlight('TSVariable', {'fg': 'color10'})
 
+call s:highlight('FloatBorder', {'fg': 'black', 'bg': 'color15d'})
+
+" Diagnostics: See :help diagnostics-highlights
+call s:highlight('DiagnosticError', {'fg': 'color01', 'style': 'bold'})
+call s:highlight('DiagnosticWarn', {'fg': 'color09', 'style': 'bold'})
+call s:highlight('DiagnosticInfo', {'fg': 'color04'})
+call s:highlight('DiagnosticHint', {'fg': 'color06'})
+call s:highlight('DiagnosticSignError', {'fg': 'color01', 'bg': 'color07', 'style': 'bold'})
+call s:highlight('DiagnosticSignWarn', {'fg': 'color09', 'bg': 'color07', 'style': 'bold'})
+call s:highlight('DiagnosticSignInfo', {'fg': 'color04', 'bg': 'color07'})
+call s:highlight('DiagnosticSignHint', {'fg': 'color06', 'bg': 'color07'})
+
 " }}}1
 
 " {{{1 Highlight: Plugin CoC.nvim
