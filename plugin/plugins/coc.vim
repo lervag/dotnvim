@@ -34,20 +34,3 @@ nmap <silent> <leader>li <plug>(coc-diagnostic-info)
 nmap <silent> <leader>ll :<c-u>CocDiagnostics<cr>
 
 nmap <silent> <leader>= <plug>(coc-calc-result-replace)
-
-nnoremap <silent> K :call <sid>show_documentation()<cr>
-
-
-function! s:show_documentation()
-  if index(['vim', 'help'], &filetype) >= 0
-    execute 'help ' . expand('<cword>')
-  elseif &filetype ==# 'neomuttrc'
-    let l:cword = expand('<cword>')
-    Man neomuttrc
-    call search(l:cword)
-  elseif &filetype ==# 'tex'
-    VimtexDocPackage
-  else
-    call CocAction('doHover')
-  endif
-endfunction
