@@ -232,19 +232,13 @@ let g:man_hardwrap = 1
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
 
-" Configure coq
-let g:coq_settings = {
-      \ 'auto_start': 'shut-up',
-      \ 'keymap.pre_select': v:true,
-      \ 'display.ghost_text.enabled': v:true,
-      \ 'display.ghost_text.context': ["", ""],
-      \ 'display.icons.mode': 'short',
-      \ 'display.pum.fast_close': v:false,
-      \}
-
 " Most plugins are configured in plugin/plugins/*.vim; these files are sourced
-" automatically. We source plugins.vim here to ensure that the runtimepath is
-" properly initialized before the configuration files are sourced.
+" automatically.
+" * Source coq.vim first, since coq settings must be defined before it is
+"   "required" by other scripts
+" * We source plugins.vim here to ensure that the runtimepath is properly
+"   initialized before the configuration files are sourced.
+runtime plugin/plugins/coq.vim
 runtime plugin/plugins.vim
 
 " }}}1
