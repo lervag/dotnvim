@@ -9,16 +9,18 @@ let g:coc_global_extensions = [
       \ 'coc-vimlsp',
       \ 'coc-vimtex',
       \ 'coc-yaml',
+      \ 'coc-sumneko-lua',
       \]
 
 
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr><silent> <c-space> coc#refresh()
 
-inoremap <expr><cr>    pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+inoremap <expr><silent> <cr> pumvisible()
+      \ ? "\<c-y>\<cr>" : "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>"
 inoremap <expr><tab>   pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-imap <silent> <c-u>      <plug>(coc-snippets-expand)
+inoremap <expr><silent> <c-u> pumvisible() ? coc#_select_confirm() : ''
 
 nmap <silent> <leader>ld <plug>(coc-definition)zv
 nmap <silent> <leader>lr <plug>(coc-references)
