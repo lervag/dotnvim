@@ -57,10 +57,16 @@ function! s:main(bufnr, active, winnr) " {{{1
   let stat .= getbufvar(a:bufnr, '&modified')
         \ ? s:color(' [+]', 'SLAlert', a:active) : ''
 
+  " Add status message from dap.nvim
+  let l:dap = luaeval('require "dap".status()')
+  if !empty(l:dap)
+    let stat .= '%=' . s:color('[dap: ' . l:dap . ']', 'DapStatus', a:active)
+  endif
+
   " Change to right-hand side
   let stat .= '%='
 
-  " Add linter message and snippet status
+  " Add status message from coc.nvim
   let cocstat = substitute(get(g:, 'coc_status', ''), '^\s*', '','')
   if cocstat =~# 'SNIP'
     let cocstat = s:color(cocstat, 'SLHighlight', a:active)
