@@ -61,6 +61,9 @@ Plug 'machakann/vim-columnmove'
 
 " Plugin: Debugging, and code runners
 Plug 'mfussenegger/nvim-dap'
+Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'HiPhish/debugpy.nvim'
+Plug 'jbyuki/one-small-step-for-vimkind'
 
 " Plugin: Editing
 Plug 'junegunn/vim-easy-align'

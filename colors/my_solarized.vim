@@ -282,6 +282,9 @@ call s:highlight('illuminatedWord', {'style': 'underline'})
 
 call s:highlight('codeBlockBackground', {'bg': 'color15w'})
 
+call s:highlight('DapSign', {'fg': 'purple1', 'bg': 'color07'})
+call s:highlight('DapStatus', {'fg': 'pink1', 'bg': 'color10' })
+
 " }}}1
 
 " {{{1 Highlight: Filetype Vimscript
