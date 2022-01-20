@@ -1,3 +1,10 @@
+" Load plugins with vim-plug
+"
+" Note: Plugins are configured inside
+"       * plugins.lua (small Lua configurations)
+"       * plugins.vim (small Vimscript configurations)
+"       * plugins/    (for individual plugin configuration)
+
 if exists('g:loaded_plugins') | finish | endif
 let g:loaded_plugins = 1
 
