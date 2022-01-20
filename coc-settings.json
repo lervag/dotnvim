@@ -6,11 +6,11 @@
   "diagnostic.enableMessage": "jump",
   "diagnostic.enableSign": true,
   "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.refreshOnInsertMode": false,
   "diagnostic.virtualText": true,
-  "diagnostic.warningSign": "",
   "list.height": 20,
   "suggest.completionItemKindLabels": {
     "keyword":       "",
@@ -58,5 +58,8 @@
   ],
   "ltex.checkFrequency": "save",
   "ltex.ltex-ls.logLevel": "config",
-  "sumneko-lua.enableNvimLuaDev": true
+  "sumneko-lua.enableNvimLuaDev": true,
+  "Lua.hint.paramName": "Disable",
+  "Lua.hint.setType": true,
+  "Lua.completion.callSnippet": "Both"
 }
