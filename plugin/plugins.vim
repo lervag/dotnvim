@@ -35,6 +35,7 @@ Plug 'andymass/vim-matchup', {'for': ['tex', 'python']}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
+Plug 'max397574/better-escape.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
