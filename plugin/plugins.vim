@@ -79,7 +79,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
-Plug 'zirrostig/vim-schlepp'
+Plug 'booperlv/nvim-gomove'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'brianrodri/vim-sort-folds'
 
