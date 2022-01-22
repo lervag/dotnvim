@@ -110,7 +110,6 @@ Plug 'tpope/vim-scriptease'
 Plug 'darvelo/vim-systemd'
 Plug 'gregsexton/MatchTag'
 Plug 'tpope/vim-apathy'
-Plug 'rust-lang/rust.vim'
 Plug 'chunkhang/vim-mbsync'
 Plug 'tridactyl/vim-tridactyl'
 

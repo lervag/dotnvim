@@ -25,14 +25,15 @@ inoremap <expr><silent> <c-u> pumvisible() ? coc#_select_confirm() : ''
 nmap <silent> <leader>ld <plug>(coc-definition)zv
 nmap <silent> <leader>lr <plug>(coc-references)
 nmap <silent> <leader>lt <plug>(coc-type-definition)
-nmap <silent> <leader>la <plug>(coc-codeaction-selected)
+nmap <silent> <leader>li <plug>(coc-implementation)
+nmap <silent> <leader>la <plug>(coc-codeaction-cursor)
 xmap <silent> <leader>la <plug>(coc-codeaction-selected)
 nmap <silent> <leader>lc :<c-u>CocCommand<cr>
 nmap <silent> <leader>lk :<c-u>call CocAction('doHover')<cr>
 
 nmap <silent> <leader>lp <plug>(coc-diagnostic-prev)
 nmap <silent> <leader>ln <plug>(coc-diagnostic-next)
-nmap <silent> <leader>li <plug>(coc-diagnostic-info)
-nmap <silent> <leader>ll :<c-u>CocDiagnostics<cr>
+nmap <silent> <leader>ll <plug>(coc-diagnostic-info)
+nmap <silent> <leader>lo :<c-u>CocDiagnostics<cr>
 
 nmap <silent> <leader>= <plug>(coc-calc-result-replace)
