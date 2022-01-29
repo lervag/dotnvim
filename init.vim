@@ -198,17 +198,17 @@ nnoremap dg# g*``dgN
 
 " Improved search related mappings
 nnoremap <silent> gl :<c-u>set nohlsearch<cr>
-cmap <silent><expr> <cr> personal#search#wrap("\<cr>")
-map  <silent><expr> n    personal#search#wrap('n')
-map  <silent><expr> N    personal#search#wrap('N')
-map  <silent><expr> gd   personal#search#wrap('gd')
-map  <silent><expr> gD   personal#search#wrap('gD')
-map  <silent><expr> *    personal#search#wrap('*', {'immobile': 1})
-map  <silent><expr> #    personal#search#wrap('#', {'immobile': 1})
-map  <silent><expr> g*   personal#search#wrap('g*', {'immobile': 1})
-map  <silent><expr> g#   personal#search#wrap('g#', {'immobile': 1})
-xmap <silent><expr> *    personal#search#wrap_visual('/')
-xmap <silent><expr> #    personal#search#wrap_visual('?')
+cmap <expr> <cr> personal#search#wrap("\<cr>")
+map  <expr> n    personal#search#wrap('n')
+map  <expr> N    personal#search#wrap('N')
+map  <expr> gd   personal#search#wrap('gd')
+map  <expr> gD   personal#search#wrap('gD')
+map  <expr> *    personal#search#wrap('*', 1)
+map  <expr> #    personal#search#wrap('#', 1)
+map  <expr> g*   personal#search#wrap('g*', 1)
+map  <expr> g#   personal#search#wrap('g#', 1)
+xmap <expr> *    personal#search#wrap_visual('/')
+xmap <expr> #    personal#search#wrap_visual('?')
 
 " {{{1 Configure plugins
 
