@@ -6,6 +6,7 @@ let g:vimtex_complete_bib = {
       \ 'menu_fmt' : '@year, @author_short, @title',
       \}
 let g:vimtex_context_pdf_viewer = 'zathura'
+let g:vimtex_doc_handlers = ['vimtex#doc#handlers#texdoc']
 let g:vimtex_echo_verbose_input = 0
 let g:vimtex_fold_enabled = 1
 let g:vimtex_fold_types = {
