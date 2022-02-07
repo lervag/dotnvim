@@ -171,7 +171,6 @@ nnoremap <silent> zk zckzOzz
 nnoremap        <bs> <c-o>zvzz
 
 " Shortcuts for some files
-nnoremap <silent> <leader>ev :execute 'edit' resolve($MYVIMRC)<cr>
 nnoremap <silent> <leader>xv :source $MYVIMRC<cr>
 nnoremap <leader>ez :edit ~/.zshrc<cr>
 
