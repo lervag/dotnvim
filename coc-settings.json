@@ -58,6 +58,18 @@
   ],
   "ltex.checkFrequency": "save",
   "ltex.ltex-ls.logLevel": "config",
+  "ltex.latex.commands": {
+    "\\address[]{}": "ignore",
+    "\\author[]{}": "ignore",
+    "\\ce{}": "dummy",
+    "\\pgfplotsset{}": "ignore",
+    "\\setuptodonotes{}": "ignore",
+    "\\SIrange{}{}": "dummy",
+    "\\SI{}{}": "dummy",
+    "\\tikzexternalize[]": "ignore",
+    "\\tikzsetnextfilename{}": "ignore",
+    "\\usepgfplotslibrary{}": "ignore"
+  },
   "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.inlayHints.chainingHintsSeparator": "",
   "rust-analyzer.inlayHints.typeHintsSeparator": "",
