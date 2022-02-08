@@ -3,7 +3,7 @@ require 'nvim-treesitter.configs'.setup {
   ignore_install = { "latex" },
   highlight = {
     enable = true,
-    disable = { "vim", "markdown" },
+    disable = { "vim", "markdown", "bibtex", "make" },
   },
   incremental_selection = {
     enable = true,
