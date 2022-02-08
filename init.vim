@@ -141,6 +141,7 @@ noremap  <f1>  <nop>
 inoremap <f1>  <nop>
 
 " Some general/standard remappings
+inoremap jk     <esc>
 nnoremap Y      y$
 nnoremap J      mzJ`z
 nnoremap dp     dp]c
