@@ -90,6 +90,7 @@ set noshowmode
 " Folding
 set foldcolumn=0
 set foldtext=personal#fold#foldtext()
+set signcolumn=yes
 
 " Indentation
 set softtabstop=-1
