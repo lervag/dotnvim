@@ -60,6 +60,8 @@
   "ltex.ltex-ls.logLevel": "config",
   "ltex.latex.commands": {
     "\\address[]{}": "ignore",
+    "\\presetkeys{}{}{}": "ignore",
+    "\\externaldocument{}": "ignore",
     "\\author[]{}": "ignore",
     "\\ce{}": "dummy",
     "\\pgfplotsset{}": "ignore",
