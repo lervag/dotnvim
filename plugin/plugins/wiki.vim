@@ -5,6 +5,9 @@ let g:wiki_export = {
       \ 'output': 'printed',
       \}
 let g:wiki_filetypes = ['wiki', 'md']
+let g:wiki_mappings_local = {
+      \ '<plug>(wiki-link-toggle-operator)' : 'gL',
+      \}
 let g:wiki_month_names = [
       \ 'Januar',
       \ 'Februar',
