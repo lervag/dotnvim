@@ -72,6 +72,10 @@ set complete+=U,s,k,kspell,]
 set completeopt=menuone,noinsert,noselect
 silent! set pumwidth=35
 
+" Spell checking
+set spelllang=en_gb
+set thesaurus=$HOME/.config/nvim/spell/thesaurus-en.txt
+
 " Presentation
 set list
 set listchars=tab:▸\ ,nbsp:␣,trail:\ ,extends:…,precedes:…
