@@ -42,7 +42,6 @@ let g:vimtex_view_automatic = 0
 let g:vimtex_view_forward_search_on_start = 0
 let g:vimtex_view_method = 'zathura'
 
-set spelllang=en_gb
 let g:vimtex_grammar_vlty = {
       \ 'lt_command': 'languagetool',
       \ 'show_suggestions': 1,
