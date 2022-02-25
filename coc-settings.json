@@ -78,5 +78,6 @@
   "sumneko-lua.enableNvimLuaDev": true,
   "Lua.hint.paramName": "Disable",
   "Lua.hint.setType": true,
-  "Lua.completion.callSnippet": "Both"
+  "Lua.completion.callSnippet": "Both",
+  "Lua.telemetry.enable": false
 }
