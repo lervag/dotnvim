@@ -14,3 +14,6 @@ let &l:commentstring = '// %s'
 setlocal formatoptions-=o
 setlocal formatoptions+=n
 let &l:formatlistpat = '\v^\s*%(\d|\l|i+)\.\s'
+
+runtime ftplugin/markdown/medieval.vim
+nmap <buffer> <leader>ar <Plug>(medieval-eval)

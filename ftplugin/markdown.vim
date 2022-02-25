@@ -10,6 +10,8 @@ nnoremap <silent><buffer> <space>aa :call CreateNotes()<cr>
 nnoremap <silent><buffer> <space>ai :call PrepareImage()<cr>
 nnoremap <silent><buffer> <space>aI :call ViewImage()<cr>
 
+nmap <buffer> <leader>ar <Plug>(medieval-eval)
+
 function! CreateNotes() abort " {{{1
   " Create notes from list of question/answers
   "
