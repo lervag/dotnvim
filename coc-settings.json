@@ -56,6 +56,10 @@
       "url":"https://json.schemastore.org/package.json"
     }
   ],
+  "ltex.enabled": [
+    "bibtex", "context", "context.tex", "latex",
+    "html", "org", "restructuredtext", "rsweave"
+  ],
   "ltex.checkFrequency": "save",
   "ltex.ltex-ls.logLevel": "config",
   "ltex.latex.commands": {
