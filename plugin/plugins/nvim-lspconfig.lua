@@ -1,13 +1,10 @@
 -- This sets up language servers with nvim-lspconfig
 -- See also: ../lsp.lua
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
 local lc = require 'lspconfig'
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 
 -- Lua
@@ -45,14 +42,28 @@ lc.pyright.setup {
 }
 
 
-lc.vimls.setup {}
+-- Other
+lc.vimls.setup {
+  capabilities = capabilities,
+}
+lc.bashls.setup {
+  capabilities = capabilities,
+}
+lc.jsonls.setup {
+  cmd = { "vscode-json-languageserver", "--stdio" },
+  capabilities = capabilities,
+}
+lc.yamlls.setup {
+  capabilities = capabilities,
+}
+lc.rust_analyzer.setup {
+  capabilities = capabilities,
+}
+lc.cssls.setup {
+  capabilities = capabilities,
+}
+lc.html.setup {
+  capabilities = capabilities,
+}
 -- lc.ltex.setup {}
 -- lc.texlab.setup {}
-lc.bashls.setup {}
-lc.jsonls.setup {
-  cmd = { "vscode-json-languageserver", "--stdio" }
-}
-lc.yamlls.setup {}
-lc.rust_analyzer.setup {}
-lc.cssls.setup {}
-lc.html.setup {}
