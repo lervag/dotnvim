@@ -66,6 +66,11 @@ function! s:main(bufnr, active, winnr) " {{{1
   " Change to right-hand side
   let stat .= '%='
 
+  " Add status message from nvim-metals
+  if exists('g:metals_status') && !empty(g:metals_status)
+    let stat .= s:color(' ' . g:metals_status, 'MetalsStatus', a:active)
+  endif
+
   " Previewwindows don't need more details
   set noautochdir
   let l:preview = getwinvar(a:winnr, '&previewwindow')
