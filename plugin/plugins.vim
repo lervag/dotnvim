@@ -106,8 +106,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/Colorizer'
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'nvim-lua/plenary.nvim'
 
 " Filetype: various
+Plug 'scalameta/nvim-metals'
 Plug 'plasticboy/vim-markdown'
 Plug 'gpanders/vim-medieval'
 Plug 'tpope/vim-scriptease'

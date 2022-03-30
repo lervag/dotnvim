@@ -58,6 +58,7 @@ let s:colordict = {
       \ 'blue2':     {'hex': '#00afff', 'num': 39},
       \ 'blue3':     {'hex': '#add8e6', 'num': 117},
       \ 'blue4':     {'hex': '#2222aa', 'num': 117},
+      \ 'blue5':     {'hex': '#5cc6e4', 'num': 80},
       \ 'gold1':     {'hex': '#ffe055', 'num': 220},
       \ 'gray1':     {'hex': '#d2e1e0', 'num': 253},
       \ 'green1':    {'hex': '#719e07', 'num': 64},
@@ -249,6 +250,8 @@ call s:highlight('codeBlockBackground', {'bg': 'color15w'})
 
 call s:highlight('DapSign', {'fg': 'purple1', 'bg': 'color07'})
 call s:highlight('DapStatus', {'fg': 'pink1', 'bg': 'color10' })
+
+call s:highlight('MetalsStatus', {'fg': 'blue5', 'bg': 'color10' })
 
 call s:highlight('CmpItemAbbrMatch', {'fg': 'blue1'})
 highlight link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch
