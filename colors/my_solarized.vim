@@ -233,41 +233,6 @@ call s:highlight('DiagnosticSignHint', {'fg': 'color06', 'bg': 'color07'})
 
 " }}}1
 
-" {{{1 Highlight: Plugin CoC.nvim
-
-call s:highlight('CocErrorSign', {'fg': 'color01', 'bg': 'color07', 'style': 'bold'})
-call s:highlight('CocWarningSign', {'fg': 'color09', 'bg': 'color07', 'style': 'bold'})
-call s:highlight('CocInfoSign', {'fg': 'color04', 'bg': 'color07'})
-call s:highlight('CocHintSign', {'fg': 'color06', 'bg': 'color07'})
-highlight link CocCodeLens    codeBlockBackground
-
-" Linked:
-"   highlight default link CocErrorVirtualText   CocErrorSign
-"   highlight default link CocWarningVirtualText CocWarningSign
-"   highlight default link CocInfoVirtualText    CocInfoSign
-"   highlight default link CocHintVirtualText    CocHintSign
-"   highlight default link CocErrorHighlight     CocUnderline
-"   highlight default link CocWarningHighlight   CocUnderline
-"   highlight default link CocInfoHighlight      CocUnderline
-"   highlight default link CocHintHighlight      CocUnderline
-"   highlight default link CocHighlightText      CursorColumn
-"   highlight default link CocHighlightRead      CocHighlightText
-"   highlight default link CocHighlightWrite     CocHighlightText
-"   highlight default link CocFloating           Pmenu
-"   highlight default link CocErrorFloat         CocErrorSign
-"   highlight default link CocWarningFloat       CocWarningSign
-"   highlight default link CocInfoFloat          CocInfoSign
-"   highlight default link CocHintFloat          CocHintSign
-"   highlight default link CocCursorRange        Search
-"   highlight default link CocHoverRange         Search
-
-" Undefined:
-"   CocErrorLine
-"   CocWarningLine
-"   CocInfoLine
-"   CocHintLine
-
-" }}}1
 " {{{ Highlight: Various plugins
 
 call s:highlight('ctrlsfSelectedLine', {'fg': 'blue2', 'style': 'bold'})
@@ -284,6 +249,14 @@ call s:highlight('codeBlockBackground', {'bg': 'color15w'})
 
 call s:highlight('DapSign', {'fg': 'purple1', 'bg': 'color07'})
 call s:highlight('DapStatus', {'fg': 'pink1', 'bg': 'color10' })
+
+call s:highlight('CmpItemAbbrMatch', {'fg': 'blue1'})
+highlight link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch
+call s:highlight('CmpItemKind', {'fg': 'color00l'})
+call s:highlight('CmpItemMenu', {'fg': 'black'})
+
+call s:highlight('CmpItemKindFunction', {'fg': 'color05'})
+highlight link CmpItemKindMethod CmpItemKindFunction
 
 " }}}1
 

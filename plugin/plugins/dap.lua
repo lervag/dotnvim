@@ -14,6 +14,7 @@ vim.fn.sign_define('DapLogPoint',            {text='◉', texthl='DapSign', line
 -- Define mappings
 local mappings = {
   ['<leader>dd'] = dap.continue,
+  ['<leader>dD'] = dap.run_last,
   ['<leader>dc'] = dap.run_to_cursor,
   ['<leader>dx'] = dap.terminate,
   ['<leader>db'] = dap.toggle_breakpoint,
@@ -33,7 +34,7 @@ local mappings = {
   ['<leader>dk'] = dap.step_out,
   ['<leader>dK'] = dap.up,
   ['<leader>dJ'] = dap.down,
-  ['<leader>dr'] = dap.repl.open,
+  ['<leader>dr'] = dap.repl.toggle,
   ['<leader>dh'] = widgets.hover,
   ['<leader>dF'] = function()
     widgets.centered_float(widgets.frames)

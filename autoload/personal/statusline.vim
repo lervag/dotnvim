@@ -66,29 +66,6 @@ function! s:main(bufnr, active, winnr) " {{{1
   " Change to right-hand side
   let stat .= '%='
 
-  " Add status message from coc.nvim
-  let cocstat = substitute(get(g:, 'coc_status', ''), '^\s*', '','')
-  if cocstat =~# 'SNIP'
-    let cocstat = s:color(cocstat, 'SLHighlight', a:active)
-  endif
-
-  let cocinfo = get(b:, 'coc_diagnostic_info', {})
-  let coclint = map(filter([
-        \   ['E', get(cocinfo, 'error')],
-        \   ['W', get(cocinfo, 'warning')],
-        \ ], {_, x -> x[1] > 0}), {_, x -> x[0] . x[1]})
-  if !empty(coclint)
-    let cocstat .= (!empty(cocstat) ? ' ✖ ' : '') . join(coclint, ', ')
-  endif
-  if !empty(cocstat)
-    let stat .= s:color(
-          \ ' [' . cocstat . ']',
-          \ get(cocinfo, 'error')
-          \ ? 'SLAlert'
-          \ : get(cocinfo, 'warning') ? 'SLHighlight' : '',
-          \ a:active)
-  endif
-
   " Previewwindows don't need more details
   set noautochdir
   let l:preview = getwinvar(a:winnr, '&previewwindow')
