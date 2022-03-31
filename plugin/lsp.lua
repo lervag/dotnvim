@@ -18,11 +18,20 @@ vim.keymap.set('n', '<leader>lk', lsp.buf.signature_help, opts)
 vim.keymap.set('n', '<leader>lR', lsp.buf.rename, opts)
 vim.keymap.set('n', '<leader>la', lsp.buf.code_action, opts)
 vim.keymap.set('n', '<leader>lc', lsp.codelens.run, opts)
+vim.keymap.set('n', '<leader>lf', lsp.buf.formatting, opts)
 vim.keymap.set('n', '<leader>lw', function ()
   print(vim.inspect(lsp.buf.list_workspace_folders()))
 end, opts)
+
+-- Unsure if I want/need these
+vim.keymap.set('n', '<leader>l1', lsp.buf.document_symbol, opts)
+vim.keymap.set('n', '<leader>l2', lsp.buf.workspace_symbol, opts)
+vim.keymap.set('n', '<leader>l3', lsp.buf.document_highlight, opts)
 
 -- diagnostics
 vim.keymap.set('n', '<leader>lp', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', '<leader>ln', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<leader>ll', vim.diagnostic.setloclist, opts)
+-- vim.diagnostic.setqflist -- all workspace diagnostics
+-- vim.diagnostic.setqflist({severity = "E"}) -- all workspace errors
+-- vim.diagnostic.setqflist({severity = "W"}) -- all workspace warnings
