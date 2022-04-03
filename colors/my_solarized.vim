@@ -266,7 +266,6 @@ highlight link CmpItemKindMethod CmpItemKindFunction
 " {{{1 Highlight: Filetype Vimscript
 
 call s:highlight('vimCmdSep', {'fg': 'color04'})
-call s:highlight('vimCommand', {'fg': 'color03'})
 call s:highlight('vimCommentString', {'fg': 'color13'})
 call s:highlight('vimGroup', {'fg': 'color04', 'style': 'underline'})
 call s:highlight('vimHiGroup', {'fg': 'color04'})
@@ -275,13 +274,15 @@ call s:highlight('vimIsCommand', {'fg': 'color12'})
 call s:highlight('vimSynMtchOpt', {'fg': 'color03'})
 call s:highlight('vimSynType', {'fg': 'color06'})
 
-" highlight link vimSet       Normal
-" highlight link vimSetEqual  Normal
+highlight link vimCommand   Type
 highlight link vimFunc      Function
 highlight link vimUserFunc  Function
 highlight link vipmVar      Identifier
 highlight link vimMapModKey PreProc
 highlight link vimNotation  PreProc
+
+" highlight link vimTSKeyword Type
+highlight link vimTSVariableBuiltin PreProc
 
 " }}}1
 " {{{1 Highlight: Filetype Vim help
