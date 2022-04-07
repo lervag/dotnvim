@@ -84,6 +84,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'booperlv/nvim-gomove'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'brianrodri/vim-sort-folds'
+Plug 'editorconfig/editorconfig-vim'
 
 " Plugin: VCS
 Plug 'rbong/vim-flog'
