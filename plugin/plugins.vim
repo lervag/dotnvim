@@ -110,7 +110,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Filetype: various
 Plug 'scalameta/nvim-metals'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'gpanders/vim-medieval'
 Plug 'tpope/vim-scriptease'
 Plug 'darvelo/vim-systemd'
