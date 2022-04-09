@@ -41,6 +41,7 @@ Plug 'andymass/vim-matchup', {'for': ['tex', 'python']}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
+Plug 'ggandor/leap.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
