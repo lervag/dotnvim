@@ -11,7 +11,6 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 -- https://github.com/sumneko/lua-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
 lc.sumneko_lua.setup {
-  flags = { debounce_text_changes = 150 },
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -37,8 +36,28 @@ lc.sumneko_lua.setup {
 -- https://github.com/microsoft/pyright
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pyright
 lc.pyright.setup {
-  flags = { debounce_text_changes = 150 },
   capabilities = capabilities,
+}
+
+-- Kotlin
+-- https://github.com/fwcd/kotlin-language-server
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#kotlin_language_server
+lc.kotlin_language_server.setup {
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/publishDiagnostics"] = function() end
+  }
+}
+
+-- Java
+-- https://github.com/georgewfraser/java-language-server
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#java_language_server
+lc.java_language_server.setup {
+  cmd = { "java-language-server" },
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/publishDiagnostics"] = function() end
+  }
 }
 
 
