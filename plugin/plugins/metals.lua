@@ -26,7 +26,7 @@ vim.cmd([[
   augroup init_metals
     au!
     autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc
-    autocmd FileType scala,sbt,java
+    autocmd FileType scala,sbt
           \ lua require('metals').initialize_or_attach(metals_config)
   augroup end
 ]])
