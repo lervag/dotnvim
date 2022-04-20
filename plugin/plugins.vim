@@ -34,6 +34,7 @@ call plug#('git@github.com:lervag/file-line')
 call plug#('git@github.com:lervag/lists.vim')
 call plug#('git@github.com:lervag/wiki.vim')
 call plug#('git@github.com:lervag/wiki-ft.vim')
+call plug#('git@github.com:lervag/vim-sikt')
 
 " Plugin: UI
 Plug 'Konfekt/FastFold'
