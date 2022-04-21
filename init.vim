@@ -232,6 +232,10 @@ let g:man_hardwrap = 1
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '~/.local/venvs/nvim/bin/python'
 
+" Use new filetype.lua mechanism
+let g:do_filetype_lua = 1
+let g:did_load_filetypes = 0
+
 " Most plugins are configured in plugin/plugins/*.vim; these files are sourced
 " automatically. We source plugins.vim here to ensure that the runtimepath is
 " properly initialized before the configuration files are sourced.
