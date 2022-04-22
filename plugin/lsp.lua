@@ -3,12 +3,12 @@
 
 local lsp = vim.lsp
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, { border = "double" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, { border = "double" })
+lsp.handlers["textDocument/hover"] = lsp.with(
+  lsp.handlers.hover, { border = "double" })
+lsp.handlers["textDocument/signatureHelp"] = lsp.with(
+  lsp.handlers.signature_help, { border = "double" })
 
-local opts = { noremap=true, silent=true }
+local opts = { silent=true }
 vim.keymap.set('n', '<leader>ld', lsp.buf.definition, opts)
 vim.keymap.set('n', '<leader>lD', lsp.buf.declaration, opts)
 vim.keymap.set('n', '<leader>lt', lsp.buf.type_definition, opts)
