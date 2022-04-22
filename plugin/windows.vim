@@ -15,7 +15,7 @@ command! -bang -complete=buffer -nargs=? WinBufDelete
 " Mappings
 nnoremap <silent> <c-w><c-o> :WinOnly<cr>
 nnoremap <silent> <c-u>      :WinBufDelete<cr>
-nnoremap <silent> <leader>q  :WinResize<cr>
+nnoremap <silent> <f1>       :WinResize<cr>
 
 " Main functions
 function! s:remove_all_but_current() " {{{1

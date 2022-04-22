@@ -4,19 +4,26 @@ vim.diagnostic.config({
   },
   update_in_insert = false,
   severity_sort = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "if_many",
+    header = "",
+    prefix = "",
+  },
 })
 
-vim.cmd [[
-  sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
-  sign define DiagnosticSignWarn  text= texthl=DiagnosticSignWarn linehl= numhl=
-  sign define DiagnosticSignInfo  text= texthl=DiagnosticSignInfo linehl= numhl=
-  sign define DiagnosticSignHint  text= texthl=DiagnosticSignHint linehl= numhl=
-]]
+vim.fn.sign_define({
+  { text = '', name = 'DiagnosticSignError', texthl = 'DiagnosticSignError' },
+  { text = '', name = 'DiagnosticSignWarn', texthl = 'DiagnosticSignWarn' },
+  { text = '', name = 'DiagnosticSignInfo', texthl = 'DiagnosticSignInfo' },
+  { text = '', name = 'DiagnosticSignHint', texthl = 'DiagnosticSignHint' }
+})
 
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<leader>lp', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', '<leader>ln', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>ll', vim.diagnostic.setloclist, opts)
--- vim.diagnostic.setqflist -- all workspace diagnostics
--- vim.diagnostic.setqflist({severity = "E"}) -- all workspace errors
--- vim.diagnostic.setqflist({severity = "W"}) -- all workspace warnings
+local opts = { silent=true }
+vim.keymap.set('n', '<leader>qp', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', '<leader>qn', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>ql', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<leader>qq', vim.diagnostic.setqflist, opts)
+vim.keymap.set('n', '<leader>qe', vim.diagnostic.open_float)
