@@ -16,9 +16,8 @@ metals_config.on_attach = function(client, bufnr)
   require("metals").setup_dap()
 end
 
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<leader>mi', metals.info, opts)
-vim.keymap.set('n', '<leader>mK', metals.hover_worksheet, opts)
+vim.keymap.set('n', '<leader>mi', metals.info)
+vim.keymap.set('n', '<leader>mK', metals.hover_worksheet)
 
 
 -- Autocommand for scala files

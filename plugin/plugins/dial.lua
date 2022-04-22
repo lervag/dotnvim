@@ -1,11 +1,11 @@
 local dial = require "dial.map"
 
-vim.keymap.set("n", "<C-a>", dial.inc_normal(), { noremap=true })
-vim.keymap.set("n", "<C-x>", dial.dec_normal(), { noremap=true })
-vim.keymap.set("v", "<C-a>", dial.inc_visual(), { noremap=true })
-vim.keymap.set("v", "<C-x>", dial.dec_visual(), { noremap=true })
-vim.keymap.set("v", "g<C-a>", dial.inc_gvisual(), { noremap=true })
-vim.keymap.set("v", "g<C-x>", dial.dec_gvisual(), { noremap=true })
+vim.keymap.set("n", "<C-a>", dial.inc_normal())
+vim.keymap.set("n", "<C-x>", dial.dec_normal())
+vim.keymap.set("v", "<C-a>", dial.inc_visual())
+vim.keymap.set("v", "<C-x>", dial.dec_visual())
+vim.keymap.set("v", "g<C-a>", dial.inc_gvisual())
+vim.keymap.set("v", "g<C-x>", dial.dec_gvisual())
 
 local augend = require("dial.augend")
 require("dial.config").augends:register_group{

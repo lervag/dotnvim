@@ -21,4 +21,4 @@ function MyHover()
   end
 end
 
-vim.keymap.set('n', 'K', MyHover, { noremap=true, silent=true })
+vim.keymap.set('n', 'K', MyHover)

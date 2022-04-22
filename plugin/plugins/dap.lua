@@ -5,11 +5,13 @@ local widgets = require "dap.ui.widgets"
 require "nvim-dap-virtual-text".setup()
 
 -- Define sign symbols
-vim.fn.sign_define('DapStopped',             {text='🡆', texthl='DapSign', linehl='CursorLine', numhl=''})
-vim.fn.sign_define('DapBreakpoint',          {text='●', texthl='DapSign', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='DapSign', linehl='', numhl=''})
-vim.fn.sign_define('DapBreakpointRejected',  {text='▪', texthl='DapSign', linehl='', numhl=''})
-vim.fn.sign_define('DapLogPoint',            {text='◉', texthl='DapSign', linehl='', numhl=''})
+vim.fn.sign_define({
+  { text='🡆', texthl='DapSign', name = 'DapStopped', linehl='CursorLine'},
+  { text='●', texthl='DapSign', name = 'DapBreakpoint'},
+  { text='', texthl='DapSign', name = 'DapBreakpointCondition'},
+  { text='▪', texthl='DapSign', name = 'DapBreakpointRejected'},
+  { text='◉', texthl='DapSign', name = 'DapLogPoint'},
+})
 
 -- Define mappings
 local mappings = {
@@ -49,7 +51,7 @@ local mappings = {
 }
 
 for lhs, rhs in pairs(mappings) do
-  vim.keymap.set('n', lhs, rhs, { noremap=true, silent=true })
+  vim.keymap.set('n', lhs, rhs)
 end
 
 dap.listeners.before['event_terminated']['my-plugin'] = function(session, body)
