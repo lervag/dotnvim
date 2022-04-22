@@ -7,7 +7,7 @@ require "zen-mode".setup {
   plugins = {
     tmux = { enabled = true },
   },
-  on_open = function(win)
+  on_open = function(_)
     vim.cmd [[
       call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
     ]]
@@ -19,5 +19,4 @@ require "zen-mode".setup {
   end,
 }
 
-vim.api.nvim_set_keymap("n", "<leader>z", ":<c-u>ZenMode<cr>",
-  { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>")

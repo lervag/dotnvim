@@ -21,9 +21,8 @@ vim.fn.sign_define({
   { text = '', name = 'DiagnosticSignHint', texthl = 'DiagnosticSignHint' }
 })
 
-local opts = { silent=true }
-vim.keymap.set('n', '<leader>qp', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', '<leader>qn', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<leader>ql', vim.diagnostic.setloclist, opts)
-vim.keymap.set('n', '<leader>qq', vim.diagnostic.setqflist, opts)
+vim.keymap.set('n', '<leader>qp', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>qn', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>ql', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>qq', vim.diagnostic.setqflist)
 vim.keymap.set('n', '<leader>qe', vim.diagnostic.open_float)
