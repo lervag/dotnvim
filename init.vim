@@ -159,6 +159,8 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 xnoremap <expr> j v:count ? 'j' : 'gj'
 xnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap gV     `[V`]
+onoremap gV     :normal gV<cr>
+onoremap gv     :normal! gv<cr>
 nnoremap zS     :<c-u>TSHighlightCapturesUnderCursor<cr>
 
 nnoremap <c-w>-     <c-w>s
