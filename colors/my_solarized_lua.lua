@@ -1,3 +1,6 @@
+-- Thanks to Clason for the inspiration:
+-- https://gist.github.com/clason/c164d718dcefbc27f08d3e0272cf93ae
+
 vim.o.background = 'light'
 vim.g.colors_name = 'my_solarized_lua'
 
@@ -108,7 +111,6 @@ vim.g.terminal_color_15 = color15
 -- }}}1
 
 local theme = {
-
   -- {{{1 Base internal
 
   Normal = { fg = color11, bg = color15},
@@ -519,10 +521,7 @@ local theme = {
   -- bibtexTSString = { link = ''NONE'' },
 
   -- }}}1
-
 }
-
-vim.g.theme = theme
 
 for k, v in pairs(theme) do
   vim.api.nvim_set_hl(0, k, v)
