@@ -103,6 +103,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'dstein64/vim-startuptime'
 
 " Filetype: various
 Plug 'scalameta/nvim-metals'
