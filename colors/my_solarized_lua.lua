@@ -4,7 +4,7 @@
 vim.o.background = 'light'
 vim.g.colors_name = 'my_solarized_lua'
 
--- " This can be used for dynamic reloading
+-- This enables dynamic reloading of the colorscheme
 vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
   pattern = "my_solarized_lua.lua",
   group = vim.api.nvim_create_augroup("init_colors", {}),
