@@ -130,7 +130,7 @@ set winwidth=70
 if has('termguicolors')
   set termguicolors
 endif
-silent! colorscheme my_solarized
+colorscheme my_solarized_lua
 
 call personal#init#cursor()
 call personal#init#statusline()
