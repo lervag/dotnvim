@@ -119,6 +119,5 @@ call plug#end()
 " Plugins are configured in init/plugins/*.*
 " Source the configuration only when the plugins are actually available
 if isdirectory(g:plug_home)
-  runtime! init/plugins/*.lua
-  runtime! init/plugins/*.vim
+  runtime! init/plugins/*
 endif
