@@ -58,10 +58,13 @@ function! s:main(bufnr, active, winnr) " {{{1
         \ ? s:color(' [+]', 'SLAlert', a:active) : ''
 
   " Add status message from dap.nvim
-  let l:dap = luaeval('require "dap".status()')
-  if !empty(l:dap)
-    let stat .= '%=' . s:color('[dap: ' . l:dap . ']', 'DapStatus', a:active)
-  endif
+  try
+    let l:dap = luaeval('require "dap".status()')
+    if !empty(l:dap)
+      let stat .= '%=' . s:color('[dap: ' . l:dap . ']', 'DapStatus', a:active)
+    endif
+  catch /E5108/
+  endtry
 
   " Change to right-hand side
   let stat .= '%='
