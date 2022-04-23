@@ -1,10 +1,3 @@
-" Load plugins with vim-plug
-"
-" Note: Plugins are configured inside
-"       * plugins.lua (small Lua configurations)
-"       * plugins.vim (small Vimscript configurations)
-"       * plugins/    (for individual plugin configuration)
-
 if exists('g:loaded_plugins') | finish | endif
 let g:loaded_plugins = 1
 
@@ -122,3 +115,10 @@ Plug 'chunkhang/vim-mbsync'
 Plug 'tridactyl/vim-tridactyl'
 
 call plug#end()
+
+" Plugins are configured in init/plugins/*.*
+" Source the configuration only when the plugins are actually available
+if isdirectory(g:plug_home)
+  runtime! init/plugins/*.lua
+  runtime! init/plugins/*.vim
+endif
