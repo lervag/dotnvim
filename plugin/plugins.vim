@@ -18,7 +18,7 @@ nnoremap <silent> <leader>pr :Runtime vim-plug.vim<cr>
 
 " Source init script if plug.vim is not available
 if !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-  silent !source ~/.config/nvim/init.sh
+  silent !source ~/.config/nvim/bootstrap.sh
 
   " vint: -ProhibitAutocmdWithNoGroup
   autocmd VimEnter * nested PlugInstall --sync | source $MYVIMRC
