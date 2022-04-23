@@ -14,7 +14,8 @@ if !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
   silent !source ~/.config/nvim/bootstrap.sh
 
   " vint: -ProhibitAutocmdWithNoGroup
-  autocmd VimEnter * nested PlugInstall --sync | source $MYVIMRC
+  unlet g:loaded_plugins
+  autocmd VimEnter * nested PlugInstall --sync | runtime init/plugins.vim
   " vint: +ProhibitAutocmdWithNoGroup
 endif
 
@@ -116,8 +117,7 @@ Plug 'tridactyl/vim-tridactyl'
 
 call plug#end()
 
-" Plugins are configured in init/plugins/*.*
-" Source the configuration only when the plugins are actually available
-if isdirectory(g:plug_home)
+" Source plugin configuration only when they are available
+if exists('g:loaded_plugins')
   runtime! init/plugins/*
 endif
