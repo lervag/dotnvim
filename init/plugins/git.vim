@@ -20,6 +20,8 @@ augroup END
 nnoremap <silent><leader>gs :call personal#git#fugitive_toggle()<cr>
 nnoremap <silent><leader>ge :Gedit<cr>
 nnoremap <silent><leader>gd :Gdiff<cr>
+nnoremap <silent><leader>gb :GBrowse<cr>
+xnoremap <silent><leader>gb :GBrowse<cr>
 
 augroup init_fugitive
   autocmd!
