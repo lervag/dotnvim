@@ -37,6 +37,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
 Plug 'ggandor/leap.nvim'
+Plug 'lewis6991/impatient.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
@@ -120,5 +121,6 @@ call plug#end()
 
 " Source plugin configuration only when they are available
 if exists('g:loaded_plugins')
+  lua require('impatient')
   runtime! init/plugins/*
 endif
