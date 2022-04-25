@@ -69,6 +69,11 @@ function! s:main(bufnr, active, winnr) " {{{1
   " Change to right-hand side
   let stat .= '%='
 
+  " Add LSP status
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    let stat .= s:lsp_status(a:active)
+  endif
+
   " Add status message from nvim-metals
   if exists('g:metals_status') && !empty(g:metals_status)
     let stat .= s:color(' ' . g:metals_status, 'MetalsStatus', a:active)
@@ -217,6 +222,55 @@ function! s:scheme_vimspector(bufnr, active, winnr) " {{{1
   return s:color(
         \ substitute(bufname(a:bufnr), '^vimspector.', 'Vimspector: ', ''),
         \ 'SLHighlight', a:active)
+endfunction
+
+" }}}1
+
+
+function! s:lsp_status(active) abort " {{{1
+  try
+    let msg = get(luaeval('require("lsp-status").messages()'), 0, {})
+    " Three kinds of messages:
+    " {
+    "   name = Server name,
+    "   title = Progress item title,
+    "   message = Current progress message (if any),
+    "   percentage = Current progress percentage (if any),
+    "   progress = true,
+    "   spinner = Spinner frames index,
+    " }
+    "
+    " {
+    "   name = Server name,
+    "   content = Message content,
+    "   uri = File URI,
+    "   status = true
+    " }
+    " {
+    "   name = Server name,
+    "   content = Message contents
+    " }
+    if has_key(msg, 'percentage')
+      return s:color(printf('[%s: %d %%%%]', msg.title, msg.percentage),
+            \ 'SLHighlight', a:active)
+    elseif has_key(msg, 'content')
+      return printf('[%s]', msg.content)
+    endif
+
+    let l:diagnostics = luaeval('require("lsp-status").diagnostics()')
+    let l:linter = map(filter([
+          \   ['E', get(l:diagnostics, 'errors')],
+          \   ['W', get(l:diagnostics, 'warnings')],
+          \ ], {_, x -> x[1] >= 0}), {_, x -> x[0] . x[1]})
+    if empty(l:linter) | return '' | endif
+
+    let l:color = get(l:diagnostics, 'errors')
+          \ ? 'SLAlert'
+          \ : get(l:diagnostics, 'warnings') ? 'SLHighlight' : ''
+    return s:color(' [' . join(l:linter, ', ') . ']', l:color, a:active)
+  catch /E5108/
+    return ''
+  endtry
 endfunction
 
 " }}}1
