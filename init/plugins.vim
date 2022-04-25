@@ -41,6 +41,7 @@ Plug 'lewis6991/impatient.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'SirVer/ultisnips'
 Plug 'hrsh7th/cmp-calc'

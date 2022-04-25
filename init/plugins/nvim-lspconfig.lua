@@ -1,9 +1,9 @@
--- This sets up language servers with nvim-lspconfig
--- See also: ../lsp.lua
-
 local lc = require 'lspconfig'
+local lsp_status = require 'lsp-status'
+lsp_status.register_progress()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_extend('keep', capabilities, lsp_status.capabilities)
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 
