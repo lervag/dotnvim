@@ -32,7 +32,7 @@ call plug#('git@github.com:lervag/vim-sikt')
 
 " Plugin: UI
 Plug 'Konfekt/FastFold'
-Plug 'andymass/vim-matchup', {'for': ['tex', 'python']}
+Plug 'andymass/vim-matchup'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
