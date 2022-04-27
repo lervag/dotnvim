@@ -14,5 +14,7 @@ require 'nvim-treesitter.configs'.setup {
       node_decremental = '<s-tab>',
     },
   },
+  matchup = {
+    enable = true,
+  }
 }
-
