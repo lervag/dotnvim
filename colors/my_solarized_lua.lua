@@ -130,8 +130,10 @@ local theme = {
   Folded = { fg = color11, bg = color07d, sp = color15, underline = true },
   IncSearch = { fg = color09, standout = true },
   LineNr = { fg = color14, bg = color07 },
-  MatchParen = { fg = black },
+  MatchParen = { bg = color07d, bold = true },
+  MatchParenCur = {},
   MatchWord = { fg = black, bold = true },
+  MatchWordCur = { bold = true },
   ModeMsg = { fg = color04 },
   MoreMsg = { fg = color04 },
   NonText = { fg = color12 },
@@ -226,9 +228,16 @@ local theme = {
 
   FloatBorder = { fg = black, bg = color15d },
 
-  -- {{{1 Diagnostics
+  -- {{{1 LSP and Diagnostics
 
-  -- See :help diagnostics-highlights
+  -- See :help lsp-highlight
+  LspReferenceRead = { bg = color07, underline = true },
+  LspReferenceWrite = { bg = color07, bold = true, italic = true },
+  LspReferenceText = { bg = color07, bold = true },
+  LspCodeLens = { bg = color07, fg = color00, bold = true },
+  LspCodeLensSeparator = { bg = color07, fg = color04, bold = true },
+
+  -- See :help diagnostic-highlights
   DiagnosticError = { fg = color01, bold = true },
   DiagnosticWarn = { fg = color09, bold = true },
   DiagnosticInfo = { fg = color04 },
@@ -527,3 +536,5 @@ local theme = {
 for k, v in pairs(theme) do
   vim.api.nvim_set_hl(0, k, v)
 end
+
+-- vim: foldmethod=marker
