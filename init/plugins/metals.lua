@@ -38,5 +38,5 @@ vim.api.nvim_create_autocmd("FileType", {
   group = group_id,
   pattern = "scala",
   desc = "Set omnifunction",
-  callback = function() vim.bo.omnifunc = vim.lsp.omnifunc end
+  callback = function() vim.bo.omnifunc = "vim.lsp.omnifunc" end
 })
