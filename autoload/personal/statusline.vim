@@ -69,14 +69,14 @@ function! s:main(bufnr, active, winnr) " {{{1
   " Change to right-hand side
   let stat .= '%='
 
-  " Add LSP status
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    let stat .= s:lsp_status(a:active)
-  endif
-
   " Add status message from nvim-metals
   if exists('g:metals_status') && !empty(g:metals_status)
     let stat .= s:color(' ' . g:metals_status, 'MetalsStatus', a:active)
+  endif
+
+  " Add LSP status
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    let stat .= s:lsp_status(a:active)
   endif
 
   " Previewwindows don't need more details
@@ -96,7 +96,10 @@ function! s:main(bufnr, active, winnr) " {{{1
   endif
 
   try
-    let stat .= ' ' . FugitiveHead(12)
+    let l:head = FugitiveHead(12)
+    if !empty(l:head)
+      let stat .= ' ' . l:head
+    endif
   catch
   endtry
 
