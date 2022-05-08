@@ -52,17 +52,3 @@ function! personal#init#toggle_diff() abort " {{{1
 endfunction
 
 " }}}1
-
-function personal#init#jk_escape(key) abort " {{{1
-  " Credit: u/jessekelighine
-  "         https://www.reddit.com/r/vim/comments/ufgrl8/journey_to_the_ultimate_imap_jk_esc/
-  if a:key ==# 'j'
-    let b:esc_j_lasttime = reltimefloat(reltime())
-    return a:key
-  endif
-
-  let l:timediff = reltimefloat(reltime()) - get(b:, 'esc_j_lasttime')
-  return l:timediff <= 0.1 && l:timediff > 0.001 ? "\b\e" : a:key
-endfunction
-
-" }}}1
