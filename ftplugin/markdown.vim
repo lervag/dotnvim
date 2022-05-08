@@ -3,14 +3,12 @@ let b:did_personal_markdown = 1
 
 call personal#markdown#init()
 
-let s:file = fnameescape(expand('<sfile>'))
-execute 'nnoremap <silent><buffer> <space>ar :source' s:file . "\<cr>"
 
 nnoremap <silent><buffer> <space>aa :call CreateNotes()<cr>
 nnoremap <silent><buffer> <space>ai :call PrepareImage()<cr>
 nnoremap <silent><buffer> <space>aI :call ViewImage()<cr>
 
-nmap <buffer> <leader>ar <Plug>(medieval-eval)
+nmap <buffer> <leader>ar <plug>(medieval-eval)
 
 function! CreateNotes() abort " {{{1
   " Create notes from list of question/answers
