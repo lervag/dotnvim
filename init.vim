@@ -145,9 +145,6 @@ let g:mapleader = "\<space>"
 noremap  <f1>  <nop>
 inoremap <f1>  <nop>
 
-inoremap <expr> j personal#init#jk_escape('j')
-inoremap <expr> k personal#init#jk_escape('k')
-
 " Some general/standard remappings
 nnoremap Y      y$
 nnoremap J      mzJ`z
