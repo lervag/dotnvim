@@ -35,11 +35,12 @@ function! s:resize_windows() " {{{1
 
   if has('gui') || empty($TMUX . $STY)
     let &columns = l:width
+    call system('xdotool key "super+c"')
   else
     let l:winid = systemlist('xdotool getactivewindow')[0]
     call system(printf('xdotool windowsize --usehints %s %d %d',
           \ l:winid, l:width, &lines+1))
-    sleep 50m
+    call system(printf('xdotool key --window %s "super+c"', l:winid))
   endif
 
   wincmd =
