@@ -26,10 +26,30 @@ function! personal#markdown#color_code_blocks() abort " {{{1
 
   augroup code_block_background
     autocmd! * <buffer>
-    autocmd InsertLeave  <buffer> call s:place_signs()
-    autocmd BufEnter     <buffer> call s:place_signs()
-    autocmd BufWritePost <buffer> call s:place_signs()
+    autocmd InsertLeave  <buffer> call personal#markdown#place_signs()
+    autocmd BufEnter     <buffer> call personal#markdown#place_signs()
+    autocmd BufWritePost <buffer> call personal#markdown#place_signs()
   augroup END
+endfunction
+
+" }}}1
+function! personal#markdown#place_signs() abort " {{{1
+  let l:continue = 0
+  let l:file = expand('%')
+
+  execute 'sign unplace * file=' . l:file
+
+  for l:lnum in range(1, line('$'))
+    let l:line = getline(l:lnum)
+    if l:continue || l:line =~# '^\s*```'
+      execute printf('sign place %d line=%d name=codeblock file=%s',
+            \ l:lnum, l:lnum, l:file)
+    endif
+
+    let l:continue = l:continue
+          \ ? l:line !~# '^\s*```$'
+          \ : l:line =~# '^\s*```'
+  endfor
 endfunction
 
 " }}}1
@@ -87,28 +107,6 @@ function! personal#markdown#foldtext() abort " {{{1
   let l:line = getline(v:foldstart)
   let l:text = substitute(l:line, '^\s*', repeat(' ',indent(v:foldstart)), '')
   return l:text
-endfunction
-
-" }}}1
-
-
-function! s:place_signs() abort " {{{1
-  let l:continue = 0
-  let l:file = expand('%')
-
-  execute 'sign unplace * file=' . l:file
-
-  for l:lnum in range(1, line('$'))
-    let l:line = getline(l:lnum)
-    if l:continue || l:line =~# '^\s*```'
-      execute printf('sign place %d line=%d name=codeblock file=%s',
-            \ l:lnum, l:lnum, l:file)
-    endif
-
-    let l:continue = l:continue
-          \ ? l:line !~# '^\s*```$'
-          \ : l:line =~# '^\s*```'
-  endfor
 endfunction
 
 " }}}1
