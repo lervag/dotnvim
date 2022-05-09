@@ -41,6 +41,7 @@ function! s:resize_windows() " {{{1
     call system(printf('xdotool windowsize --usehints %s %d %d',
           \ l:winid, l:width, &lines+1))
     call system(printf('xdotool key --window %s "super+c"', l:winid))
+    sleep 20m
   endif
 
   wincmd =
