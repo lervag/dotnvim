@@ -40,13 +40,14 @@ nnoremap <silent> <leader>oz       :Zotero<cr>
 nnoremap <silent> <leader>oo       :call MyFiles()<cr>
 nnoremap <silent> <leader>op       :call MyFiles('~/.local/plugged')<cr>
 
-nnoremap <silent> <leader>ev       :call fzf#run(fzf#wrap({
-      \ 'dir': '~/.config/nvim',
-      \ 'source': 'git ls-files --exclude-standard --others --cached',
-      \ 'options': [
-      \   '--prompt', 'Files ~/.config/nvim::',
-      \ ],
-      \}))<cr>
+nnoremap <silent> <leader>ev
+      \ :call fzf#run(fzf#wrap({
+      \    'dir': '~/.config/nvim',
+      \    'source': 'git ls-files --exclude-standard --others --cached',
+      \    'options': [
+      \      '--prompt', 'Files ~/.config/nvim::',
+      \    ],
+      \  }))<cr>
 
 augroup init_fzf
   autocmd!
