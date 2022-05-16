@@ -13,6 +13,10 @@ vim.fn.sign_define({
   { text='◉', texthl='DapSign', name = 'DapLogPoint'},
 })
 
+dap.listeners.before['event_terminated']['my-plugin'] = function(session, body)
+  print('Session terminated', vim.inspect(session), vim.inspect(body))
+end
+
 -- Define mappings
 local mappings = {
   ['<leader>dd'] = dap.continue,
@@ -54,51 +58,7 @@ for lhs, rhs in pairs(mappings) do
   vim.keymap.set('n', lhs, rhs)
 end
 
-dap.listeners.before['event_terminated']['my-plugin'] = function(session, body)
-  print('Session terminated', vim.inspect(session), vim.inspect(body))
-end
-
-
--- Adapters
-dap.adapters.nlua = function(callback, config)
-  callback({
-    type = 'server',
-    host = '127.0.0.1',
-    port = config.port
-  })
-end
-
-
--- Configurations
-dap.configurations.lua = {
-  {
-    type = 'nlua',
-    request = 'attach',
-    name = "Attach to running Neovim instance",
-    port = function()
-      local val = tonumber(vim.fn.input('Port: '))
-      assert(val, "Please provide a port number")
-      return val
-    end,
-  }
-}
-
-dap.configurations.scala = {
-  {
-    type = "scala",
-    request = "launch",
-    name = "RunOrTest",
-    metals = {
-      runType = "runOrTestFile",
-      --args = { "firstArg", "secondArg" },
-    },
-  },
-  {
-    type = "scala",
-    request = "launch",
-    name = "Test Target",
-    metals = {
-      runType = "testTarget",
-    },
-  },
-}
+-- NOTE: This script defines the global dap configuration. Adapters and
+--       configurations are defined either through plugins or under ftplugin.
+--       I can easily find the relevant files by searching for e.g.
+--       "dap.adapter" or "dap.config".
