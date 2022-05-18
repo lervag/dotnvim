@@ -1,4 +1,13 @@
-leap = require('leap')
+leap = require('leap').setup {
+  case_insensitive = false,
+  labels = {
+    "s", "f", "n", "j", "k",
+    "l", "o", "d", "w", "e",
+    "h", "m", "v", "g", "u",
+    "t", "c", ".", "z"
+  },
+  safe_labels = {},
+}
 
 vim.keymap.set('n', 's', '<plug>(leap-forward)')
 vim.keymap.set('n', 'S', '<plug>(leap-backward)')
