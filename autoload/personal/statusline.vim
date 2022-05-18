@@ -98,7 +98,7 @@ function! s:main(bufnr, active, winnr) " {{{1
   try
     let l:head = FugitiveHead(12)
     if !empty(l:head)
-      let stat .= ' ' . l:head
+      let stat .= ' ⑂' . l:head
     endif
   catch
   endtry
@@ -231,6 +231,7 @@ endfunction
 
 
 function! s:lsp_status(active) abort " {{{1
+  let l:symbol = '⯒'
   try
     let msg = get(luaeval('require("lsp-status").messages()'), 0, {})
     " Three kinds of messages:
@@ -254,23 +255,24 @@ function! s:lsp_status(active) abort " {{{1
     "   content = Message contents
     " }
     if has_key(msg, 'percentage')
-      return s:color(printf('[%s: %d %%%%]', msg.title, msg.percentage),
+      return s:color(printf('%s %s: %d %%%%',
+            \ l:symbol, msg.title, msg.percentage),
             \ 'SLHighlight', a:active)
     elseif has_key(msg, 'content')
-      return printf('[%s]', msg.content)
+      return printf('%s %s', l:symbol, msg.content)
     endif
 
     let l:diagnostics = luaeval('require("lsp-status").diagnostics()')
     let l:linter = map(filter([
           \   ['E', get(l:diagnostics, 'errors')],
           \   ['W', get(l:diagnostics, 'warnings')],
-          \ ], {_, x -> x[1] >= 0}), {_, x -> x[0] . x[1]})
-    if empty(l:linter) | return '' | endif
+          \ ], {_, x -> x[1] >= 1}), {_, x -> x[0] . x[1]})
+    if empty(l:linter) | return l:symbol | endif
 
     let l:color = get(l:diagnostics, 'errors')
           \ ? 'SLAlert'
           \ : get(l:diagnostics, 'warnings') ? 'SLHighlight' : ''
-    return s:color(' [' . join(l:linter, ', ') . ']', l:color, a:active)
+    return s:color(l:symbol . ' ' . join(l:linter, ' '), l:color, a:active)
   catch /E5108/
     return ''
   endtry
