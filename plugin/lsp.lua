@@ -21,6 +21,7 @@ vim.keymap.set('n', '<leader>lf', lsp.buf.formatting)
 vim.keymap.set('n', '<leader>lw', function ()
   print(vim.inspect(lsp.buf.list_workspace_folders()))
 end)
+vim.keymap.set('n', '<leader>lK', lsp.buf.hover)
 
 -- Unsure if I want/need these
 vim.keymap.set('n', '<leader>l1', lsp.buf.document_symbol)
