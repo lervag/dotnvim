@@ -1,6 +1,10 @@
+local function VimHelp()
+  vim.cmd [[execute 'help ' . expand('<cword>')]]
+end
+
 function MyHover()
   if vim.tbl_contains({ 'vim', 'help' }, vim.bo.filetype) then
-    vim.cmd [[execute 'help ' . expand('<cword>')]]
+    VimHelp()
     return
   end
 
@@ -13,6 +17,10 @@ function MyHover()
 
   if vim.bo.filetype == 'tex' then
     vim.cmd 'VimtexDocPackage'
+    return
+  end
+
+  if vim.bo.filetype == 'lua' and pcall(VimHelp) then
     return
   end
 
