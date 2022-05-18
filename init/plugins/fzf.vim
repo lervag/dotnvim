@@ -32,22 +32,9 @@ command! -bang Zotero call fzf#run(fzf#wrap(
             \   'options': '-m -d / --with-nth=-1' },
             \ <bang>0))
 
-nnoremap <silent> <leader><leader> :FZFFreshMru --prompt "History > "<cr>
-nnoremap <silent> <leader>ob       :Buffers<cr>
-nnoremap <silent> <leader>ot       :Tags<cr>
-nnoremap <silent> <leader>ow       :WikiFzfPages<cr>
+nnoremap <silent> <leader>om       :FZFFreshMru --prompt "History > "<cr>
+" nnoremap <silent> <leader>ow       :WikiFzfPages<cr>
 nnoremap <silent> <leader>oz       :Zotero<cr>
-nnoremap <silent> <leader>oo       :call MyFiles()<cr>
-nnoremap <silent> <leader>op       :call MyFiles('~/.local/plugged')<cr>
-
-nnoremap <silent> <leader>ev
-      \ :call fzf#run(fzf#wrap({
-      \    'dir': '~/.config/nvim',
-      \    'source': 'git ls-files --exclude-standard --others --cached',
-      \    'options': [
-      \      '--prompt', 'Files ~/.config/nvim::',
-      \    ],
-      \  }))<cr>
 
 augroup init_fzf
   autocmd!
@@ -56,21 +43,4 @@ augroup init_fzf
 augroup END
 
 function! s:nothing()
-endfunction
-
-function! MyFiles(...) abort
-  let l:dir = a:0 > 0 ? a:1 : FindRootDirectory()
-  if empty(l:dir)
-    let l:dir = getcwd()
-  endif
-  let l:dir = substitute(fnamemodify(l:dir, ':p'), '\/$', '', '')
-
-  let l:prompt_dir = len(l:dir) > 15 ? pathshorten(l:dir) : l:dir
-
-  call fzf#vim#files(l:dir, {
-      \ 'options': [
-      \   '-m',
-      \   '--prompt', 'Files ' . l:prompt_dir . '::'
-      \ ],
-      \})
 endfunction
