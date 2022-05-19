@@ -8,12 +8,6 @@ require('dressing').setup({
     min_width = nil,
   },
   select = {
-    fzf = {
-      window = {
-        width = 0.9,
-        height = 0.85,
-      },
-    },
     format_item_override = {
       codeaction = function(action_tuple)
         local title = action_tuple[2].title:gsub("\r\n", "\\r\\n")

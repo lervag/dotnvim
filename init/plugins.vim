@@ -60,12 +60,6 @@ Plug 'machakann/vim-sandwich'
 " Plugin: Finder, motions, and tags
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'junegunn/fzf', {
-      \ 'dir': '~/.fzf',
-      \ 'do': './install --all --no-update-rc',
-      \}
-Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'dyng/ctrlsf.vim'
 Plug 'machakann/vim-columnmove'
