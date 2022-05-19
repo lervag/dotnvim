@@ -39,6 +39,7 @@ Plug 'folke/zen-mode.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'lewis6991/impatient.nvim'
 Plug 'stevearc/dressing.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
@@ -60,6 +61,8 @@ Plug 'machakann/vim-sandwich'
 " Plugin: Finder, motions, and tags
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'tami5/sqlite.lua'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'dyng/ctrlsf.vim'
 Plug 'machakann/vim-columnmove'
