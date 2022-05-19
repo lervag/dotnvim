@@ -6,7 +6,9 @@ local telescope = require 'telescope'
 telescope.setup{
   defaults = {
     sorting_strategy = 'ascending',
-    preview = { hide_on_startup = true },
+    preview = {
+      hide_on_startup = true,
+    },
     layout_strategy = 'flex',
     layout_config = {
       prompt_position = 'top',
@@ -39,14 +41,19 @@ telescope.setup{
       fuzzy = false,
       override_file_sorter = true,
       override_generic_sorter = true,
+    },
+    frecency = {
+      show_scores = true,
+      ignore_patterns = {"*.git/*", "*/tmp/*", "*.cache/*"},
     }
   }
 }
 
 telescope.load_extension('fzf')
+telescope.load_extension('frecency')
 
 
-vim.keymap.set('n', '<leader><leader>', builtin.oldfiles)
+vim.keymap.set('n', '<leader><leader>', telescope.extensions.frecency.frecency)
 vim.keymap.set('n', '<leader>ot', builtin.tags)
 vim.keymap.set('n', '<leader>ob', builtin.buffers)
 vim.keymap.set('n', '<leader>og', builtin.git_files)
