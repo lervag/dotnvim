@@ -185,11 +185,6 @@ function! s:ft_wiki(bufnr, active, winnr) " {{{1
 endfunction
 
 " }}}1
-function! s:ft_fzf(bufnr, active, winnr) " {{{1
-  return s:color(repeat('⋯', winwidth(a:winnr)), 'SLFZF', a:active)
-endfunction
-
-" }}}1
 function! s:ft_manpage(bufnr, active, winnr) " {{{1
   return s:color(' %<%f', 'SLHighlight', a:active)
 endfunction
