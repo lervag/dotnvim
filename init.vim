@@ -175,10 +175,6 @@ nnoremap <silent> zk zckzOzz
 " Backspace and return for improved navigation
 nnoremap        <bs> <c-o>zvzz
 
-" Shortcuts for some files
-nnoremap <silent> <leader>xv :source $MYVIMRC<cr>
-nnoremap <leader>ez :edit ~/.zshrc<cr>
-
 xnoremap <silent><expr> ++ personal#visual_math#yank_and_analyse()
 nmap     <silent>       ++ vip++<esc>
 
@@ -186,7 +182,7 @@ nnoremap <leader>pp :hardcopy<cr>
 xnoremap <leader>pp :hardcopy<cr>
 
 " Terminal mappings
-tnoremap <esc> <c-\><c-n>
+tnoremap <esc>    <c-\><c-n>
 nnoremap <silent> <c-c><c-c> :split term://zsh<cr>i
 tnoremap <c-w>    <c-\><c-n><c-w>
 

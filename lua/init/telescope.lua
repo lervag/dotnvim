@@ -22,6 +22,13 @@ function M.files_nvim()
   })
 end
 
+function M.files_dotfiles()
+  builtin.git_files({
+    prompt_title = "Find Files: ~/.dotfiles",
+    cwd = '~/.dotfiles',
+  })
+end
+
 function M.files_plugged()
   builtin.find_files({
     prompt_title = "Find Files: ~/.local/plugged",
@@ -35,11 +42,7 @@ function M.files_wiki()
     prompt_title = "Wiki files",
     cwd = '~/.local/wiki',
     disable_devicons = true,
-    tiebreak = function(_current_entry, _existing_entry, prompt)
-      return false
-    end,
-    -- file_sorter = sorters.get_fzy_sorter,
-    -- file_sorter = sorters.fuzzy_with_index_bias,
+    find_command = { "rg", "--files", "--sort", "path" },
     file_ignore_patterns = {
       "%.stversions/",
       "%.git/",
