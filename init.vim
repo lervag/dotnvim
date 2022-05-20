@@ -3,13 +3,11 @@
 augroup init
   autocmd!
 
-  " Only use cursorline for current window, except when in diff mode
-  autocmd WinEnter,FocusGained * if !&diff | setlocal cursorline | endif
-  autocmd WinLeave,FocusLost   * if !&diff | setlocal nocursorline | endif
-
-  autocmd OptionSet diff call personal#init#toggle_diff()
   autocmd BufReadPost * call personal#init#go_to_last_known_position()
   autocmd CmdwinEnter * call personal#init#command_line_win()
+
+  autocmd WinEnter,FocusGained * call personal#init#toggle_cursorline(1)
+  autocmd WinLeave,FocusLost   * call personal#init#toggle_cursorline(0)
 augroup END
 
 " See also: after/plugin/init_autocmds.vim
@@ -82,9 +80,9 @@ set listchars=tab:▸\ ,nbsp:␣,trail:\ ,extends:…,precedes:…
 set fillchars=vert:│,fold:\ ,diff:⣿
 set matchtime=2
 set matchpairs+=<:>
-if !&diff
+" if !&diff
   set cursorline
-endif
+" endif
 set scrolloff=5
 set splitbelow
 set splitright
