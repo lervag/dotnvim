@@ -43,11 +43,12 @@ function! personal#init#go_to_last_known_position() abort " {{{1
 endfunction
 
 " }}}1
-function! personal#init#toggle_diff() abort " {{{1
-  if v:option_new
-    set nocursorline
+
+function! personal#init#toggle_cursorline(on) abort " {{{1
+  if a:on && &buflisted
+    setlocal cursorline
   else
-    set cursorline
+    setlocal nocursorline
   endif
 endfunction
 
