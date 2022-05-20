@@ -1,9 +1,9 @@
 local telescope = require 'telescope'
-local actions = require 'telescope.actions'
 
 telescope.setup{
   defaults = {
     sorting_strategy = 'ascending',
+    results_title = false,
     preview = {
       hide_on_startup = true,
     },
@@ -16,17 +16,18 @@ telescope.setup{
       "%.git/",
       "/tags$",
     },
+    history = false,
     borderchars = { "═", " ", " ", " ", " ", " ", " ", " " },
     mappings = {
       n = {
-        ["q"] = actions.close,
-        ["<esc>"] = actions.close,
+        ["q"] = "close",
+        ["<esc>"] = "close",
       },
       i = {
-        ["<esc>"] = actions.close,
+        ["<esc>"] = "close",
         ["<C-h>"] = "which_key",
         ["<C-u>"] = false,
-        ["<C-x>"] = actions.toggle_selection,
+        ["<C-x>"] = "toggle_selection",
       }
     }
   },
@@ -59,18 +60,34 @@ telescope.setup{
 }
 
 telescope.load_extension('fzf')
-telescope.load_extension('frecency')
 
 
-local builtin = require 'telescope.builtin'
-vim.keymap.set('n', '<leader><leader>', telescope.extensions.frecency.frecency)
-vim.keymap.set('n', '<leader>ot', builtin.tags)
-vim.keymap.set('n', '<leader>ob', builtin.buffers)
-vim.keymap.set('n', '<leader>og', builtin.git_files)
+-- Use lambdas to ensure lazy loading
+vim.keymap.set('n', '<leader><leader>', function()
+  telescope.extensions.frecency.frecency()
+end)
+vim.keymap.set('n', '<leader>ot', function()
+  require('telescope.builtin').tags()
+end)
+vim.keymap.set('n', '<leader>ob', function()
+  require('telescope.builtin').buffers()
+end)
+vim.keymap.set('n', '<leader>og', function()
+  require('telescope.builtin').git_files()
+end)
 
-local mine = require 'init.telescope'
-vim.keymap.set('n', '<leader>ev', mine.files_nvim)
-vim.keymap.set('n', '<leader>oo', mine.files)
-vim.keymap.set('n', '<leader>op', mine.files_plugged)
-vim.keymap.set('n', '<leader>ow', mine.files_wiki)
-vim.keymap.set('n', '<leader>oz', mine.files_zotero)
+vim.keymap.set('n', '<leader>ev', function()
+  require('init.telescope').files_nvim()
+end)
+vim.keymap.set('n', '<leader>oo', function()
+  require('init.telescope').files()
+end)
+vim.keymap.set('n', '<leader>op', function()
+  require('init.telescope').files_plugged()
+end)
+vim.keymap.set('n', '<leader>ow', function()
+  require('init.telescope').files_wiki()
+end)
+vim.keymap.set('n', '<leader>oz', function()
+  require('init.telescope').files_zotero()
+end)

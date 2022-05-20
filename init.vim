@@ -47,7 +47,7 @@ set autochdir
 set lazyredraw
 set confirm
 set hidden
-set shortmess=aoOtT
+set shortmess=aoOtTF
 silent! set shortmess+=cI
 set textwidth=79
 set nowrap
