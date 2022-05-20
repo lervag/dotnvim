@@ -45,7 +45,8 @@ function M.files_wiki()
       "%.git/",
     },
     path_display = function(_, path)
-      return path:match "(.+)%.[^.]+$"
+      local name = path:match "(.+)%.[^.]+$"
+      return name or path
     end,
   })
 end
