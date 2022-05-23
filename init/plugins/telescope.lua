@@ -53,7 +53,7 @@ telescope.setup{
         "*/tmp/*",
         "*.cache/*",
         "*.local/wiki/*",
-        "*.config/nvim/*",
+        "/usr/*",
       },
     }
   }
