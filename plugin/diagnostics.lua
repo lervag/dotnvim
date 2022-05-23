@@ -25,9 +25,13 @@ local diagnostics_active = true
 local toggle_diagnostics = function()
   diagnostics_active = not diagnostics_active
   if diagnostics_active then
+    vim.diagnostic.enable(0)
     vim.diagnostic.show()
+    vim.notify("Diagnostics enabled.", vim.log.levels.INFO)
   else
     vim.diagnostic.hide()
+    vim.diagnostic.disable(0)
+    vim.notify("Diagnostics disabled!", vim.log.levels.INFO, {title = 'Test'})
   end
 end
 
