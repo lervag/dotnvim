@@ -71,27 +71,23 @@ function! personal#qf#is_loc(...) abort " {{{1
 endfunction
 
 " }}}1isLast
-function! personal#qf#get_prop(cfg) abort " {{{1
-  let l:cfg = extend({
-        \ 'winnr': winnr(),
-        \ 'val': 0,
-        \}, a:cfg)
+function! personal#qf#get_prop(key, val, ...) abort " {{{1
+  let l:what = {a:key : a:val}
+  let l:winnr = a:0 > 0 ? a:1 : winnr()
 
-  let l:what = {l:cfg.key : l:cfg.val}
-
-  let l:listdict = personal#qf#is_loc(l:cfg.winnr)
-        \ ? getloclist(l:cfg.winnr, l:what) : getqflist(l:what)
-  return get(l:listdict, l:cfg.key)
+  let l:listdict = personal#qf#is_loc(l:winnr)
+        \ ? getloclist(l:winnr, l:what) : getqflist(l:what)
+  return get(l:listdict, a:key)
 endfunction
 
 " }}}1
 function! personal#qf#length(...) abort " {{{1
   let l:winnr = a:0 > 0 ? a:1 : winnr()
 
-  if empty(getqflist({'size':0}))
+  if empty(getqflist({'size': 0}))
     return len(personal#qf#is_loc(l:winnr) ? getloclist(l:winnr) : getqflist())
   else
-    return personal#qf#get_prop({'winnr': l:winnr, 'key': 'size'})
+    return personal#qf#get_prop('size', 0, l:winnr)
   endif
 endfunction
 
@@ -112,12 +108,12 @@ endfunction
 
 " }}}1
 function! s:is_first() abort " {{{1
-  return personal#qf#get_prop('nr') <= 1
+  return personal#qf#get_prop('nr', 0) <= 1
 endfunction
 
 " }}}1
 function! s:is_last() abort " {{{1
-  return personal#qf#get_prop('nr') == personal#qf#get_prop('nr', '$')
+  return personal#qf#get_prop('nr', 0) == personal#qf#get_prop('nr', '$')
 endfunction
 
 " }}}1
