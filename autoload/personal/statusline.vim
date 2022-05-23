@@ -119,15 +119,8 @@ endfunction
 
 " }}}1
 function! s:bt_quickfix(bufnr, active, winnr) " {{{1
-  let l:nr = personal#qf#get_prop({
-        \ 'winnr': a:winnr,
-        \ 'key': 'nr',
-        \})
-  let l:last = personal#qf#get_prop({
-        \ 'winnr': a:winnr,
-        \ 'key': 'nr',
-        \ 'val': '$',
-        \})
+  let l:nr = personal#qf#get_prop('nr', 0, a:winnr)
+  let l:last = personal#qf#get_prop('nr', '$', a:winnr)
 
   let text = ' ['
   let text .= personal#qf#is_loc(a:winnr) ? 'Loclist' : 'Quickfix'
@@ -137,10 +130,7 @@ function! s:bt_quickfix(bufnr, active, winnr) " {{{1
 
   let text .= '] (' . personal#qf#length(a:winnr) . ') '
 
-  let text .= personal#qf#get_prop({
-        \ 'winnr': a:winnr,
-        \ 'key': 'title',
-        \})
+  let text .= personal#qf#get_prop('title', 0, a:winnr)
   let stat  = s:color(text, 'SLHighlight', a:active)
 
   return stat
