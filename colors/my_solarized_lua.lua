@@ -284,6 +284,8 @@ local theme = {
   TelescopePromptPrefix = { fg = black },
   TelescopeTitle = { fg = color03, bold = true },
 
+  LTSymbol = { fg = base02 },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },

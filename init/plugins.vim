@@ -90,6 +90,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-rooter'
+Plug 'ldelossa/litee.nvim'
+Plug 'ldelossa/gh.nvim'
 
 " Plugin: Tmux (incl. filetype)
 Plug 'christoomey/vim-tmux-navigator'
