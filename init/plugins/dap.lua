@@ -48,10 +48,6 @@ local mappings = {
   ['<leader>dL'] = function()
     widgets.centered_float(widgets.scopes)
   end,
-  ['<leader>dR'] = function()
-    local filename = debug.getinfo(1, 'S').source:sub(2)
-    vim.cmd("luafile " .. filename)
-  end,
 }
 
 for lhs, rhs in pairs(mappings) do
