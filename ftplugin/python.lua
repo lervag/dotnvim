@@ -4,3 +4,6 @@ vim.wo.foldexpr = 'personal#python#foldexpr(v:lnum)'
 vim.wo.foldmethod = 'expr'
 
 vim.fn['personal#python#set_path']()
+
+-- Use custom dap command
+vim.keymap.set('n', '<leader>dd', ':Debugpy ')
