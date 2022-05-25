@@ -78,14 +78,15 @@ for lhs, rhs in pairs(mappings) do
 end
 
 -- NOTE: This script defines the global dap configuration. Adapters and
---       configurations are defined elsewhere:
+--       configurations are defined elsewhere. Assuming I remember to update
+--       the following list, these are the relevant files:
 --
---  Python
---    ~/.config/nvim/init/plugins/debugpy.lua
---    ~/.config/nvim/ftplugin/python.lua
+--       Python
+--         ~/.config/nvim/init/plugins/debugpy.lua
+--         ~/.config/nvim/ftplugin/python.lua
 --
---  Scala:
---    ~/.config/nvim/ftplugin/scala.lua
+--       Scala:
+--         ~/.config/nvim/ftplugin/scala.lua
 --
---  Lua:
---    ~/.config/nvim/ftplugin/lua.lua
+--       Lua:
+--         ~/.config/nvim/ftplugin/lua.lua
