@@ -6,4 +6,11 @@ vim.wo.foldmethod = 'expr'
 vim.fn['personal#python#set_path']()
 
 -- Use custom dap command
-vim.keymap.set('n', '<leader>dd', ':Debugpy ')
+vim.keymap.set('n', '<leader>dd', function()
+  local dap = require "dap"
+  if dap.status() == '' then
+    vim.fn.feedkeys(':Debugpy ', 'nt')
+  else
+    dap.continue()
+  end
+end)

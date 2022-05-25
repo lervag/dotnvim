@@ -7,11 +7,9 @@ Start debug session with ":Debugpy program".
 import sys
 from subprocess import call, run
 
-from docopt import docopt
-
 from pynotifier import Notification
 
-args = docopt(__doc__)
+args = { 'up': True }
 
 try:
     output = run('light', check=True, capture_output=True)
