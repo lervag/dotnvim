@@ -17,31 +17,54 @@ dap.listeners.before['event_terminated']['my-plugin'] = function(session, body)
   print('Session terminated', vim.inspect(session), vim.inspect(body))
 end
 
--- Define mappings
 local mappings = {
   ['<leader>dd'] = dap.continue,
   ['<leader>dD'] = dap.run_last,
   ['<leader>dc'] = dap.run_to_cursor,
   ['<leader>dx'] = dap.terminate,
-  ['<leader>db'] = dap.toggle_breakpoint,
-  ['<leader>dB'] = function()
-    dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-  end,
-  ['<leader>dl'] = dap.list_breakpoints,
-  ['<leader>dw'] = function()
-    dap.set_breakpoint(nil, nil, vim.fn.input("Watch: "))
-  end,
-  ['<leader>dW'] = function()
-    dap.set_breakpoint(vim.fn.input("Watch condition: "), nil, vim.fn.input("Watch: "))
-  end,
   ['<leader>dp'] = dap.step_back,
   ['<leader>dn'] = dap.step_over,
   ['<leader>dj'] = dap.step_into,
   ['<leader>dk'] = dap.step_out,
+
+  ['<leader>dl'] = function()
+    dap.list_breakpoints()
+    vim.cmd [[ :copen ]]
+  end,
+  ['<leader>db'] = dap.toggle_breakpoint,
+  ['<leader>dB'] = function()
+    vim.ui.input({ prompt = "Breakpoint condition: " },
+    function(condition)
+      dap.set_breakpoint(condition)
+    end)
+  end,
+
+  ['<leader>dw'] = function()
+    vim.ui.input({ prompt = "Watch: " },
+    function(watch)
+      dap.set_breakpoint(nil, nil, watch)
+    end)
+  end,
+  ['<leader>dW'] = function()
+    vim.ui.input({ prompt = "Watch condition: " },
+    function(condition)
+      vim.ui.input({ prompt = "Watch: " },
+      function(watch)
+        dap.set_breakpoint(condition, nil, watch)
+      end)
+    end)
+  end,
+
   ['<leader>dK'] = dap.up,
   ['<leader>dJ'] = dap.down,
   ['<leader>dr'] = dap.repl.toggle,
   ['<leader>dh'] = widgets.hover,
+  ['<leader>dH'] = function()
+    vim.ui.input({ prompt = "Evaluate: " },
+    function(expr)
+      widgets.hover(expr)
+    end)
+  end,
   ['<leader>dF'] = function()
     widgets.centered_float(widgets.frames)
   end,
@@ -55,6 +78,14 @@ for lhs, rhs in pairs(mappings) do
 end
 
 -- NOTE: This script defines the global dap configuration. Adapters and
---       configurations are defined either through plugins or under ftplugin.
---       I can easily find the relevant files by searching for e.g.
---       "dap.adapter" or "dap.config".
+--       configurations are defined elsewhere:
+--
+--  Python
+--    ~/.config/nvim/init/plugins/debugpy.lua
+--    ~/.config/nvim/ftplugin/python.lua
+--
+--  Scala:
+--    ~/.config/nvim/ftplugin/scala.lua
+--
+--  Lua:
+--    ~/.config/nvim/ftplugin/lua.lua
