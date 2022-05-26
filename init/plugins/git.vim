@@ -22,6 +22,7 @@ nnoremap <silent><leader>ge :Gedit<cr>
 nnoremap <silent><leader>gd :Gdiff<cr>:WinResize<cr>
 nnoremap <silent><leader>gb :GBrowse<cr>
 xnoremap <silent><leader>gb :GBrowse<cr>
+nnoremap <silent><leader>gB :Telescope git_branches<cr>
 
 augroup init_fugitive
   autocmd!
