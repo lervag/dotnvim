@@ -3,10 +3,12 @@
 "
 
 function! personal#tabline#get_tabline() " {{{1
-  let s = ' '
+  let s = ''
+  let l:tab = tabpagenr()
   for i in range(1, tabpagenr('$'))
-    let s .= s:color('%{personal#tabline#get_tablabel(' . i . ')} ',
-          \ 'TabLineSel', i == tabpagenr())
+    let s .= s:color(
+          \ '%{personal#tabline#get_tablabel(' . i . ')}',
+          \ 'TabLineSel', i == l:tab)
   endfor
 
   return s
@@ -18,18 +20,18 @@ function! personal#tabline#get_tablabel(n) " {{{1
   let winnr = tabpagewinnr(a:n)
 
   let name = bufname(buflist[winnr - 1])
-  if name !=# ''
-    let label = fnamemodify(name, ':t')
-  else
+  if empty(name)
     let type = getbufvar(buflist[winnr - 1], '&buftype')
     if type !=# ''
-      let label = '[' . type . ']'
+      let label = ' [' . type . '] '
     else
-      let label = '[No Name]'
+      let label = ' [No Name] '
     endif
+  else
+    let label = fnamemodify(name, ':t')
   endif
 
-  return printf('%1s %-15s', a:n, label)
+  return printf('  %s ', label)
 endfunction
 
 " }}}1

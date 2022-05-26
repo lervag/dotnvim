@@ -170,9 +170,9 @@ local theme = {
   SLHighlight = { fg = gold1, bg = color10 },
   SLInfo = { fg = color02l, bg = color10 },
   SLAlert = { fg = orange1, bg = color10 },
-  TabLine = { fg = color08, bg = color10, sp = color11 },
-  TabLineFill = { fg = color08, bg = color10, sp = color11 },
-  TabLineSel = { fg = gold1, bg = color10, sp = color11 },
+  TabLine = { fg = color08, bg = color10 },
+  TabLineFill = { fg = color08, bg = color10 },
+  TabLineSel = { fg = base2, bg = color00, bold = true },
 
   -- {{{1 Cursor colors
 
