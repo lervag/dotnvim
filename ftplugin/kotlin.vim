@@ -1,9 +1,12 @@
 if exists('b:did_ftplugin_personal') | finish | endif
 let b:did_ftplugin_personal = 1
 
+setlocal includeexpr=substitute(v:fname,'\\.','/','g')
+setlocal suffixesadd=.kt
+
 setlocal formatoptions-=t
-setlocal comments=O://
-let &l:commentstring = '// %s'
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//\ %s
 
 " Rely on Treesitter for folding
 setlocal foldmethod=expr
