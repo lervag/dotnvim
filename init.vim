@@ -210,6 +210,9 @@ map  <expr> g#   personal#search#wrap('g#', 1)
 xmap <expr> *    personal#search#wrap_visual('/')
 xmap <expr> #    personal#search#wrap_visual('?')
 
+" Copy path
+nnoremap y@ <cmd>call personal#util#copy_path()<cr>
+
 " {{{1 Configure plugins
 
 " Disable a lot of unnecessary internal plugins
