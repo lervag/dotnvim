@@ -5,6 +5,7 @@ setlocal nohlsearch
 setlocal foldmethod=expr
 setlocal foldexpr=personal#dagbok#foldlevel(v:lnum)
 setlocal fo-=n
+setlocal signcolumn=no
 
 nnoremap <buffer><silent> ,t /\C\%18c \?x<cr>
 nnoremap <buffer><silent> ,n Gonew<c-r>=UltiSnips#ExpandSnippet()<cr>
