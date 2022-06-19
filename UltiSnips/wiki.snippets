@@ -1,3 +1,33 @@
 snippet journal "Journal entries" w
 journal:`!v strftime("%Y-%m-%d")`
 endsnippet
+
+snippet template-latex "Template: Minimal LaTeX sample" b
+\`\`\`tex
+\documentclass{minimal}
+\begin{document}
+Hello World!
+\end{document}
+\`\`\`
+endsnippet
+
+snippet template-vimtex "Template: Minimal vimrc for VimTeX" b
+\`\`\`vim
+set nocompatible
+set runtimepath^=~/.local/plugged/vimtex
+set runtimepath+=~/.local/plugged/vimtex/after
+filetype plugin indent on
+syntax enable
+\`\`\`
+endsnippet
+
+snippet template-wiki "Template: Minimal vimrc for wiki.vim" b
+\`\`\`vim
+set nocompatible
+set runtimepath^=~/.local/plugged/wiki.vim
+filetype plugin indent on
+syntax enable
+
+nnoremap q :qall!<cr>
+\`\`\`
+endsnippet
