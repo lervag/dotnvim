@@ -159,7 +159,7 @@ local theme = {
   VertSplit = { fg = color12, bg = color12 },
   Visual = { fg = color15, bg = color14 },
   VisualNOS = { bg = color07, reverse = true },
-  WarningMsg = { fg = color09 },
+  WarningMsg = { fg = color03 },
   WildMenu = { fg = color00, bg = color07, reverse = true },
   Whitespace = { fg = color12, bg = color07 },
 
@@ -238,11 +238,11 @@ local theme = {
 
   -- See :help diagnostic-highlights
   DiagnosticError = { fg = color01, bold = true },
-  DiagnosticWarn = { fg = color09, bold = true },
+  DiagnosticWarn = { fg = color03, bold = true },
   DiagnosticInfo = { fg = color04 },
   DiagnosticHint = { fg = color06 },
   DiagnosticSignError = { fg = color01, bg = color07, bold = true },
-  DiagnosticSignWarn = { fg = color09, bg = color07, bold = true },
+  DiagnosticSignWarn = { fg = color03, bg = color07, bold = true },
   DiagnosticSignInfo = { fg = color04, bg = color07 },
   DiagnosticSignHint = { fg = color06, bg = color07 },
 
@@ -466,15 +466,17 @@ local theme = {
   -- {{{1 Filetype diff
 
   diffAdded = { link = 'Statement' },
-  diffBDiffer = { link = 'WarningMsg' },
-  diffCommon = { link = 'WarningMsg' },
-  diffDiffer = { link = 'WarningMsg' },
-  diffIdentical = { link = 'WarningMsg' },
-  diffIsA = { link = 'WarningMsg' },
+  diffBDiffer = { fg = color03 },
+  diffCommon = { fg = color03 },
+  diffDiffer = { fg = color03 },
+  diffIdentical = { fg = color03 },
+  QiffIdentical = { fg = color03 },
+  AiffDiffer = { fg = color03 },
+  diffIsA = { fg = color03 },
   diffLine = { link = 'Identifier' },
-  diffNoEOL = { link = 'WarningMsg' },
-  diffOnly = { link = 'WarningMsg' },
-  diffRemoved = { link = 'WarningMsg' },
+  diffNoEOL = { fg = color03 },
+  diffOnly = { fg = color03 },
+  diffRemoved = { fg = color09 },
 
   -- {{{1 Filetype python (semshi)
 
