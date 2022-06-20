@@ -162,6 +162,7 @@ nnoremap zS     :<c-u>TSHighlightCapturesUnderCursor<cr>
 
 nnoremap <c-w>-     <c-w>s
 nnoremap <c-w><bar> <c-w>v
+nnoremap <c-w>§     <c-w><bar>
 
 " Buffer navigation
 nnoremap <silent> gb    :bnext<cr>
