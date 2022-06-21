@@ -15,9 +15,9 @@ vim.diagnostic.config({
 })
 
 vim.fn.sign_define({
-  { text = '', name = 'DiagnosticSignError', texthl = 'DiagnosticSignError' },
-  { text = '', name = 'DiagnosticSignWarn', texthl = 'DiagnosticSignWarn' },
-  { text = '', name = 'DiagnosticSignInfo', texthl = 'DiagnosticSignInfo' },
+  { text = '', name = 'DiagnosticSignError', texthl = 'DiagnosticSignError' },
+  { text = '', name = 'DiagnosticSignWarn', texthl = 'DiagnosticSignWarn' },
+  { text = '', name = 'DiagnosticSignInfo', texthl = 'DiagnosticSignInfo' },
   { text = '', name = 'DiagnosticSignHint', texthl = 'DiagnosticSignHint' }
 })
 

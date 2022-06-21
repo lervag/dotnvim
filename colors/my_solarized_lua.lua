@@ -286,6 +286,27 @@ local theme = {
 
   LTSymbol = { fg = base02 },
 
+  NotifyTRACEBody = { link = 'Normal' },
+  NotifyTRACEBorder = { link = 'Normal' },
+  NotifyDEBUGBody = { link = 'NotifyTRACEBody' },
+  NotifyDEBUGBorder = { link = 'NotifyTRACEBorder' },
+  NotifyINFOBody = { link = 'NotifyTRACEBody' },
+  NotifyINFOBorder = { link = 'NotifyTRACEBorder' },
+  NotifyWARNBody = { link = 'NotifyTRACEBody' },
+  NotifyWARNBorder = { link = 'NotifyTRACEBorder' },
+  NotifyERRORBody = { link = 'NotifyTRACEBody' },
+  NotifyERRORBorder = { link = 'NotifyTRACEBorder' },
+  NotifyTRACEIcon = { fg = violet },
+  NotifyTRACETitle  = { fg = violet, bold = true },
+  NotifyDEBUGIcon = { fg = cyan },
+  NotifyDEBUGTitle  = { fg = cyan, bold = true },
+  NotifyINFOIcon = { fg = green },
+  NotifyINFOTitle = { fg = green, bold = true },
+  NotifyWARNIcon = { fg = yellow },
+  NotifyWARNTitle = { fg = yellow, bold = true },
+  NotifyERRORIcon = { fg = red },
+  NotifyERRORTitle  = { fg = red, bold = true },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },
