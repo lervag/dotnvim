@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
     vim.cmd 'highlight clear'
     vim.cmd 'silent update'
     vim.cmd 'colorscheme my_solarized_lua'
+    vim.notify('Updated colorscheme', 'warn', {title = 'my_solarized_lua'})
   end
 })
 
@@ -286,24 +287,24 @@ local theme = {
 
   LTSymbol = { fg = base02 },
 
-  NotifyTRACEBody = { link = 'Normal' },
-  NotifyTRACEBorder = { link = 'Normal' },
-  NotifyDEBUGBody = { link = 'NotifyTRACEBody' },
-  NotifyDEBUGBorder = { link = 'NotifyTRACEBorder' },
-  NotifyINFOBody = { link = 'NotifyTRACEBody' },
-  NotifyINFOBorder = { link = 'NotifyTRACEBorder' },
-  NotifyWARNBody = { link = 'NotifyTRACEBody' },
-  NotifyWARNBorder = { link = 'NotifyTRACEBorder' },
-  NotifyERRORBody = { link = 'NotifyTRACEBody' },
-  NotifyERRORBorder = { link = 'NotifyTRACEBorder' },
+  NotifyTRACEBody = { bg = color07d },
+  NotifyTRACEBorder = { fg = violet, bg = color07d },
   NotifyTRACEIcon = { fg = violet },
   NotifyTRACETitle  = { fg = violet, bold = true },
+  NotifyDEBUGBody = { bg = color07d },
+  NotifyDEBUGBorder = { fg = cyan, bg = color07d },
   NotifyDEBUGIcon = { fg = cyan },
   NotifyDEBUGTitle  = { fg = cyan, bold = true },
+  NotifyINFOBody = { link = 'NotifyTRACEBody' },
+  NotifyINFOBorder = { fg = green, bg = color07d },
   NotifyINFOIcon = { fg = green },
   NotifyINFOTitle = { fg = green, bold = true },
+  NotifyWARNBody = { link = 'NotifyTRACEBody' },
+  NotifyWARNBorder = { fg = yellow, bg = color07d },
   NotifyWARNIcon = { fg = yellow },
   NotifyWARNTitle = { fg = yellow, bold = true },
+  NotifyERRORBody = { link = 'NotifyTRACEBody' },
+  NotifyERRORBorder = { fg = red, bg = color07d },
   NotifyERRORIcon = { fg = red },
   NotifyERRORTitle  = { fg = red, bold = true },
 
