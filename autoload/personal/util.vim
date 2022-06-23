@@ -11,6 +11,7 @@ function! personal#util#copy_path() abort " {{{1
 
   let l:path = l:file . ':' . line('.')
   let @* = l:path
+  let @+ = l:path
   call v:lua.vim.notify('Copied path: ' . l:path)
 endfunction
 
