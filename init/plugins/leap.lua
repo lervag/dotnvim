@@ -1,5 +1,5 @@
 leap = require('leap').setup {
-  case_insensitive = false,
+  case_sensitive = true,
   labels = {
     "s", "f", "n", "j", "k",
     "l", "o", "d", "w", "e",
