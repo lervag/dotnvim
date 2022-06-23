@@ -75,9 +75,9 @@ function! s:main(bufnr, active, winnr) " {{{1
   endif
 
   " Add LSP status
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    let stat .= s:lsp_status(a:active)
-  endif
+  " if luaeval('#vim.lsp.buf_get_clients() > 0')
+  "   let stat .= s:lsp_status(a:active)
+  " endif
 
   " Previewwindows don't need more details
   set noautochdir
@@ -215,55 +215,55 @@ endfunction
 " }}}1
 
 
-function! s:lsp_status(active) abort " {{{1
-  let l:symbol = '⯒'
-  try
-    let msg = get(luaeval('require("lsp-status").messages()'), 0, {})
-    " Three kinds of messages:
-    " {
-    "   name = Server name,
-    "   title = Progress item title,
-    "   message = Current progress message (if any),
-    "   percentage = Current progress percentage (if any),
-    "   progress = true,
-    "   spinner = Spinner frames index,
-    " }
-    "
-    " {
-    "   name = Server name,
-    "   content = Message content,
-    "   uri = File URI,
-    "   status = true
-    " }
-    " {
-    "   name = Server name,
-    "   content = Message contents
-    " }
-    if has_key(msg, 'percentage')
-      return s:color(printf('%s %s: %d %%%%',
-            \ l:symbol, msg.title, msg.percentage),
-            \ 'SLHighlight', a:active)
-    elseif has_key(msg, 'content')
-      return printf('%s %s', l:symbol, msg.content)
-    endif
+"function! s:lsp_status(active) abort " {{{1
+"  let l:symbol = '⯒'
+"  try
+"    let msg = get(luaeval('require("lsp-status").messages()'), 0, {})
+"    " Three kinds of messages:
+"    " {
+"    "   name = Server name,
+"    "   title = Progress item title,
+"    "   message = Current progress message (if any),
+"    "   percentage = Current progress percentage (if any),
+"    "   progress = true,
+"    "   spinner = Spinner frames index,
+"    " }
+"    "
+"    " {
+"    "   name = Server name,
+"    "   content = Message content,
+"    "   uri = File URI,
+"    "   status = true
+"    " }
+"    " {
+"    "   name = Server name,
+"    "   content = Message contents
+"    " }
+"    if has_key(msg, 'percentage')
+"      return s:color(printf('%s %s: %d %%%%',
+"            \ l:symbol, msg.title, msg.percentage),
+"            \ 'SLHighlight', a:active)
+"    elseif has_key(msg, 'content')
+"      return printf('%s %s', l:symbol, msg.content)
+"    endif
 
-    let l:diagnostics = luaeval('require("lsp-status").diagnostics()')
-    let l:linter = map(filter([
-          \   ['E', get(l:diagnostics, 'errors')],
-          \   ['W', get(l:diagnostics, 'warnings')],
-          \ ], {_, x -> x[1] >= 1}), {_, x -> x[0] . x[1]})
-    if empty(l:linter) | return l:symbol | endif
+"    let l:diagnostics = luaeval('require("lsp-status").diagnostics()')
+"    let l:linter = map(filter([
+"          \   ['E', get(l:diagnostics, 'errors')],
+"          \   ['W', get(l:diagnostics, 'warnings')],
+"          \ ], {_, x -> x[1] >= 1}), {_, x -> x[0] . x[1]})
+"    if empty(l:linter) | return l:symbol | endif
 
-    let l:color = get(l:diagnostics, 'errors')
-          \ ? 'SLAlert'
-          \ : get(l:diagnostics, 'warnings') ? 'SLHighlight' : ''
-    return s:color(l:symbol . ' ' . join(l:linter, ' '), l:color, a:active)
-  catch /E5108/
-    return ''
-  endtry
-endfunction
+"    let l:color = get(l:diagnostics, 'errors')
+"          \ ? 'SLAlert'
+"          \ : get(l:diagnostics, 'warnings') ? 'SLHighlight' : ''
+"    return s:color(l:symbol . ' ' . join(l:linter, ' '), l:color, a:active)
+"  catch /E5108/
+"    return ''
+"  endtry
+"endfunction
 
-" }}}1
+"" }}}1
 
 
 " Utilities

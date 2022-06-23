@@ -42,6 +42,7 @@ Plug 'stevearc/dressing.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'https://gitlab.com/yorickpeterse/nvim-pqf'
 Plug 'rcarriga/nvim-notify'
+Plug 'j-hui/fidget.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
