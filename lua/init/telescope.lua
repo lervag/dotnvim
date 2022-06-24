@@ -51,6 +51,22 @@ function M.files_wiki()
       local name = path:match "(.+)%.[^.]+$"
       return name or path
     end,
+    attach_mappings = function(prompt_bufnr, _)
+      actions.select_default:replace_if(function()
+        return action_state.get_selected_entry() == nil
+      end, function()
+        actions.close(prompt_bufnr)
+
+        local new_name = action_state.get_current_line()
+        if new_name == nil or new_name == "" then
+          return
+        end
+
+        vim.fn["wiki#page#open"](new_name)
+      end)
+
+      return true
+    end,
   })
 end
 
