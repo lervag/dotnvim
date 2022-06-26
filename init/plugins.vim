@@ -89,7 +89,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 " Plugin: VCS
 Plug 'rbong/vim-flog'
-Plug 'tpope/vim-fugitive', {'commit': '92c73bb'}
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-rooter'
