@@ -1,15 +1,28 @@
 local notify = require("notify")
 
+vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
+  pattern = "nvim-notify.lua",
+  group = vim.api.nvim_create_augroup("init_plugins", {}),
+  desc = "Reload nvim-notify when config is changed",
+  callback = function()
+    if vim.o.modified then
+      vim.cmd [[ silent update ]]
+      vim.cmd [[ Runtime! init/plugins/nvim-notify.lua ]]
+      vim.notify('Updated nvim-notify', 'warn', {title = 'nvim-notify.lua'})
+    end
+  end
+})
+
 notify.setup {
-  timeout = 4000,
+  timeout = 3000,
   stages = {
     function(state)
       local stages_util = require("notify.stages.util")
-      local next_height = state.message.height + 2
+      local next_height = state.message.height
       local next_row = stages_util.available_slot(
-      state.open_windows,
-      next_height,
-      stages_util.DIRECTION.TOP_DOWN
+        state.open_windows,
+        next_height,
+        stages_util.DIRECTION.TOP_DOWN
       )
       if not next_row then
         return nil
@@ -17,24 +30,26 @@ notify.setup {
       return {
         relative = "editor",
         anchor = "NE",
+        focusable = false,
         width = state.message.width,
         height = state.message.height,
-        col = vim.opt.columns:get(),
+        col = vim.opt.columns:get() - 1,
         row = next_row,
         border = { "", "" ,"", " ", " ", " ", " ", " " },
         style = "minimal",
         opacity = 0,
+        noautocmd = true,
       }
     end,
     function()
       return {
         opacity = { 100 },
-        col = { vim.opt.columns:get() },
+        col = { vim.opt.columns:get() - 1 },
       }
     end,
     function()
       return {
-        col = { vim.opt.columns:get() },
+        col = { vim.opt.columns:get() - 1},
         time = true,
       }
     end,
@@ -47,7 +62,7 @@ notify.setup {
             return cur_opacity <= 4
           end,
         },
-        col = { vim.opt.columns:get() },
+        col = { vim.opt.columns:get() - 1 },
       }
     end,
   },
