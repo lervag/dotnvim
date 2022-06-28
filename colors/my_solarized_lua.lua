@@ -10,10 +10,12 @@ vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
   group = vim.api.nvim_create_augroup("init_colors", {}),
   desc = "Reload colorscheme when it is changed",
   callback = function()
-    vim.cmd 'highlight clear'
-    vim.cmd 'silent update'
-    vim.cmd 'colorscheme my_solarized_lua'
-    vim.notify('Updated colorscheme', 'warn', {title = 'my_solarized_lua'})
+    if vim.o.modified then
+      vim.cmd 'highlight clear'
+      vim.cmd 'silent update'
+      vim.cmd 'colorscheme my_solarized_lua'
+      vim.notify('Updated colorscheme', 'warn', {title = 'my_solarized_lua'})
+    end
   end
 })
 
