@@ -31,7 +31,6 @@ call plug#('git@github.com:lervag/wiki-ft.vim')
 call plug#('git@github.com:lervag/vim-sikt')
 
 " Plugin: UI
-Plug 'Konfekt/FastFold'
 Plug 'andymass/vim-matchup'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
