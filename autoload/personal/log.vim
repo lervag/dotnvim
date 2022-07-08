@@ -20,6 +20,24 @@ function! personal#log#log(msg) abort " {{{1
 endfunction
 
 " }}}1
+function! personal#log#autocmd(cmd) abort " {{{1
+  let l:log = a:cmd
+
+  let l:parts = []
+  for l:x in ['<abuf>', '<afile>', '<amatch>']
+    let l:match = expand(l:x)
+    if !empty(l:match)
+      let l:parts += [l:x . '=' . l:match]
+    endif
+  endfor
+  if !empty(l:parts)
+    let l:log .= ': ' . join(l:parts, ' ')
+  endif
+
+  call personal#log#log(l:log)
+endfunction
+
+" }}}1
 function! personal#log#autocmds() abort " {{{1
   augroup log_autocmds
     autocmd!
@@ -34,7 +52,9 @@ function! personal#log#autocmds() abort " {{{1
   call personal#log#log('Started autocmd log')
   augroup log_autocmds
     for l:au in s:aulist
-      silent execute 'autocmd' l:au '* call personal#log#log(''' . l:au . ''')'
+      silent execute printf(
+            \ 'autocmd %s * call personal#log#autocmd(''%s'')',
+            \ l:au, l:au)
     endfor
   augroup END
 endfunction
