@@ -94,6 +94,7 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-rooter'
 Plug 'ldelossa/litee.nvim'
 Plug 'ldelossa/gh.nvim'
+Plug 'sindrets/diffview.nvim'
 
 " Plugin: Tmux (incl. filetype)
 Plug 'christoomey/vim-tmux-navigator'
