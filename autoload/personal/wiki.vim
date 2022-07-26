@@ -1,20 +1,20 @@
 function! personal#wiki#file_handler(...) abort dict " {{{1
-  if self.path =~# 'pdf$'
+  if self.path =~# '\.pdf$'
     silent execute '!zathura' fnameescape(self.path) '&'
     return 1
   endif
 
-  if self.path =~# '\v(png|jpg)$'
+  if self.path =~# '\v\.(png|jpg)$'
     silent execute '!feh -.' fnameescape(self.path) '&'
     return 1
   endif
 
-  if self.path =~# '\v(svg)$'
+  if self.path =~# '\.svg$'
     silent execute '!display -.' fnameescape(self.path) '&'
     return 1
   endif
 
-  if self.path =~# '\v(doc|xls|ppt)x?$'
+  if self.path =~# '\v\.(doc|xls|ppt)x?$'
     silent execute '!libreoffice' fnameescape(self.path) '&'
     return 1
   endif
