@@ -1,6 +1,6 @@
 vim.diagnostic.config({
   virtual_text = {
-    severity = {min=vim.diagnostic.severity.WARN},
+    severity = { min = vim.diagnostic.severity.WARN },
   },
   update_in_insert = false,
   severity_sort = true,
@@ -22,7 +22,7 @@ vim.fn.sign_define({
 })
 
 local diagnostics_active = true
-local toggle_diagnostics = function()
+local function toggle_diagnostics()
   diagnostics_active = not diagnostics_active
   if diagnostics_active then
     vim.diagnostic.enable(0)
@@ -31,7 +31,7 @@ local toggle_diagnostics = function()
   else
     vim.diagnostic.hide()
     vim.diagnostic.disable(0)
-    vim.notify("Diagnostics disabled!", vim.log.levels.INFO, {title = 'Test'})
+    vim.notify("Diagnostics disabled!", vim.log.levels.INFO)
   end
 end
 
@@ -43,3 +43,16 @@ vim.keymap.set('n', '<leader>ql', vim.diagnostic.setqflist)
 vim.keymap.set('n', '<leader>qe', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>qc', '<cmd>cclose<cr>')
 vim.keymap.set('n', '<leader>qC', '<cmd>lclose<cr>')
+
+vim.api.nvim_create_autocmd('InsertEnter', {
+    callback = function()
+        vim.diagnostic.hide()
+    end,
+})
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+    pattern = 'i:*',
+    callback = function()
+        vim.diagnostic.show()
+    end,
+})
