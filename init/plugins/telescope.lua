@@ -64,8 +64,11 @@ telescope.load_extension("notify")
 
 
 -- Use lambdas to ensure lazy loading
+-- vim.keymap.set('n', '<leader><leader>', function()
+--   telescope.extensions.frecency.frecency()
+-- end)
 vim.keymap.set('n', '<leader><leader>', function()
-  telescope.extensions.frecency.frecency()
+  require('telescope.builtin').oldfiles()
 end)
 vim.keymap.set('n', '<leader>ot', function()
   require('telescope.builtin').tags()
