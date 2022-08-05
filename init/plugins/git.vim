@@ -9,6 +9,7 @@ augroup init_flog
   autocmd!
   autocmd FileType floggraph setlocal nolist
   autocmd FileType floggraph nmap <buffer><silent> q <plug>(FlogQuit)
+  autocmd FileType floggraph nmap <buffer><silent> <f5> <plug>(FlogUpdate)
   autocmd FileType floggraph nnoremap <buffer><silent> p
         \ :<c-u>call personal#git#display_file_current()<cr>
   autocmd FileType floggraph nnoremap <buffer><silent> <tab>
@@ -28,8 +29,9 @@ augroup init_fugitive
   autocmd!
   autocmd WinEnter index call fugitive#ReloadStatus(-1, 0)
   autocmd BufReadPost fugitive:// setlocal bufhidden=delete
-  autocmd FileType git setlocal foldlevel=1
-  autocmd FileType git,fugitive nnoremap <buffer><silent> q :bwipeout!<cr>
+
+  " Fugitive Status buffer
+  autocmd FileType fugitive nnoremap <buffer><silent> q :bwipeout!<cr>
   autocmd FileType fugitive
         \ nnoremap <buffer><silent> <f5> :call fugitive#ReloadStatus(-1, 0)<cr>
 augroup END
