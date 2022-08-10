@@ -53,6 +53,6 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 vim.api.nvim_create_autocmd('ModeChanged', {
     pattern = 'i:*',
     callback = function()
-        vim.diagnostic.show()
+        pcall(vim.diagnostic.show)
     end,
 })
