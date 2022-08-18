@@ -1,5 +1,17 @@
 local telescope = require 'telescope'
 
+-- https://github.com/nvim-telescope/telescope.nvim/issues/559
+vim.api.nvim_create_autocmd('BufRead', {
+  group = vim.api.nvim_create_augroup("init_telescope", {}),
+  desc = "Workaround for a silly fold issue",
+  callback = function()
+    vim.api.nvim_create_autocmd('BufWinEnter', {
+      once = true,
+      command = 'normal! zx'
+    })
+  end
+})
+
 telescope.setup{
   defaults = {
     sorting_strategy = 'ascending',

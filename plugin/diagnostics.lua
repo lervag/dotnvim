@@ -46,7 +46,7 @@ vim.keymap.set('n', '<leader>qC', '<cmd>lclose<cr>')
 
 vim.api.nvim_create_autocmd('InsertEnter', {
     callback = function()
-        vim.diagnostic.hide()
+        pcall(vim.diagnostic.hide)
     end,
 })
 
