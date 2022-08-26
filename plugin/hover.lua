@@ -15,11 +15,6 @@ function MyHover()
     return
   end
 
-  if vim.bo.filetype == 'tex' then
-    vim.cmd 'VimtexDocPackage'
-    return
-  end
-
   if vim.bo.filetype == 'lua' and pcall(VimHelp) then
     return
   end
