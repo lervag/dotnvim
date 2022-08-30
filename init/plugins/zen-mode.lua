@@ -1,7 +1,7 @@
 require "zen-mode".setup {
   window = {
     backdrop = 1,
-    width = 80,
+    width = 120,
     height = 1,
   },
   plugins = {
@@ -9,12 +9,12 @@ require "zen-mode".setup {
   },
   on_open = function(_)
     vim.cmd [[
-      call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
+      call system('xdotool windowstate --toggle FULLSCREEN $(xdotool getactivewindow)')
     ]]
   end,
   on_close = function()
     vim.cmd [[
-      call system('xdotool key --window $(xdotool getactivewindow) "super+f"')
+      call system('xdotool windowstate --toggle FULLSCREEN $(xdotool getactivewindow)')
     ]]
   end,
 }
