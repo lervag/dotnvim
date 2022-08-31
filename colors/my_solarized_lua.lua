@@ -251,6 +251,9 @@ local theme = {
 
   -- {{{1 Various plugins
 
+  -- colortils.nvim needs this
+  Bold = { bold = true },
+
   ctrlsfSelectedLine = { fg = blue2, bold = true },
   OperatorSandwichBuns = { fg = color05, bold = true },
   OperatorSandwichChange = { link = 'OperatorSandwichBuns' },

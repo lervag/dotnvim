@@ -107,7 +107,7 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'tyru/capture.vim', {'on': 'Capture'}
 Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/Colorizer'
-Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
+Plug 'nvim-colortils/colortils.nvim'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'dstein64/vim-startuptime'
