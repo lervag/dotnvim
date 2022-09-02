@@ -80,9 +80,7 @@ function! s:main(bufnr, active, winnr) " {{{1
   " endif
 
   " Previewwindows don't need more details
-  set noautochdir
   let l:preview = getwinvar(a:winnr, '&previewwindow')
-  set autochdir
   if l:preview
     let stat .= s:color(' [preview]', 'SLAlert', a:active) . ' '
     return stat

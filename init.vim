@@ -43,7 +43,6 @@ set backup
 set backupdir=$HOME/.local/share/nvim/backup//
 
 " Behaviour
-set autochdir
 set lazyredraw
 set confirm
 set hidden
