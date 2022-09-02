@@ -1,0 +1,11 @@
+snippet template-vimtex "Template: Minimal vimrc for VimTeX" b
+vim.opt.runtimepath:prepend "~/.local/plugged/vimtex"
+vim.opt.runtimepath:append "~/.local/plugged/vimtex/after"
+vim.cmd[[filetype plugin indent on]]
+
+vim.g.vimtex_view_method = "zathura"
+
+vim.keymap.set("n", "q", "<cmd>qall!<cr>")
+
+vim.cmd.edit "test.tex"
+endsnippet
