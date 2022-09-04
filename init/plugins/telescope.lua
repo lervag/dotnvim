@@ -72,7 +72,6 @@ telescope.setup{
 }
 
 telescope.load_extension('fzf')
-telescope.load_extension("notify")
 
 
 -- Use lambdas to ensure lazy loading
