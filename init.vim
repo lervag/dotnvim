@@ -213,6 +213,8 @@ xmap <expr> #    personal#search#wrap_visual('?')
 " Copy path
 nnoremap y@ <cmd>call personal#util#copy_path()<cr>
 
+nnoremap <f3> <cmd>:call personal#spell#toggle_language()<cr>
+
 " {{{1 Configure plugins
 
 " Disable a lot of unnecessary internal plugins
