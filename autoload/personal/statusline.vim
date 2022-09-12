@@ -169,6 +169,13 @@ function! s:ft_wiki(bufnr, active, winnr) " {{{1
         \ ? s:color(' [‼]', 'SLAlert', a:active) : ''
   let stat .= getbufvar(a:bufnr, '&modified')
         \ ? s:color(' [+]', 'SLAlert', a:active) : ''
+
+  let l:graph = wiki#graph#builder#get()
+  let l:broken_links = l:graph.get_broken_links_from(expand('%:p'))
+  if len(l:broken_links) > 0
+    let stat .= s:color(printf(' (🔗%d)',len(l:broken_links)) , 'SLAlert', a:active)
+  endif
+
   return stat
 endfunction
 
