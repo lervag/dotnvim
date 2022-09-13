@@ -41,12 +41,15 @@ function! personal#wiki#template(ctx) abort " {{{1
   call append(0, '# ' . a:ctx.name)
 
   if !empty(a:ctx.origin)
+    let l:link = !has_key(a:ctx.origin, 'pos_start')
+          \ ? personal#wiki#file_to_link(a:ctx.origin.origin)
+          \ : personal#wiki#file_to_link(a:ctx.origin.origin,
+          \                              a:ctx.origin.pos_start[0])
+
     call append(1, [
           \ '',
           \ 'Sjå også:',
-          \ '* ' . personal#wiki#file_to_link(
-          \   a:ctx.origin.origin,
-          \   a:ctx.origin.pos_start[0]),
+          \ '* ' . l:link
           \])
   endif
 
