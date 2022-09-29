@@ -11,7 +11,7 @@
 return {
   settings = {
     ltex = {
-      -- enabled = { "latex", "markdown" },
+      enabled = { "latex" },
       checkFrequency="save",
       language = "en-GB",
       disabledRules = {
