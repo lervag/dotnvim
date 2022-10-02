@@ -35,7 +35,6 @@ Plug 'andymass/vim-matchup'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
-Plug 'ggandor/leap.nvim'
 Plug 'lewis6991/impatient.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -82,6 +81,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'monaqa/dial.nvim'
+Plug 'ggandor/leap.nvim'
 Plug 'booperlv/nvim-gomove'
 Plug 'brianrodri/vim-sort-folds'
 Plug 'editorconfig/editorconfig-vim'
@@ -100,7 +100,6 @@ Plug 'benmills/vimux'
 " Plugin: Various
 Plug 'itchyny/calendar.vim'
 Plug 'tweekmonster/helpful.vim', {'on': 'HelpfulVersion'}
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'tyru/capture.vim', {'on': 'Capture'}
 Plug 'tpope/vim-unimpaired'
 Plug 'chrisbra/Colorizer'
