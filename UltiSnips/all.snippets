@@ -2,6 +2,10 @@ snippet today "Current date" i
 `!v strftime("%Y-%m-%d")`
 endsnippet
 
+snippet yesterday "Yesterdays date" i
+`!v strftime("%Y-%m-%d", localtime() - 86400)`
+endsnippet
+
 snippet shebang "Add shebang line" b
 #!/usr/bin/env ${1:`!v &filetype`}
 endsnippet
