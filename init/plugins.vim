@@ -91,8 +91,6 @@ Plug 'rbong/vim-flog'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-rooter'
-Plug 'ldelossa/litee.nvim'
-Plug 'ldelossa/gh.nvim'
 Plug 'sindrets/diffview.nvim'
 
 " Plugin: Tmux (incl. filetype)
