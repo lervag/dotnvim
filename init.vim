@@ -76,12 +76,10 @@ set thesaurus=$HOME/.config/nvim/spell/thesaurus-en.txt
 " Presentation
 set list
 set listchars=tab:▸\ ,nbsp:␣,trail:\ ,extends:…,precedes:…
-set fillchars=fold:\ ,diff:⣿
+set fillchars=fold:\ ,diff:╱
 set matchtime=2
 set matchpairs+=<:>
-" if !&diff
-  set cursorline
-" endif
+set cursorline
 set scrolloff=5
 set splitbelow
 set splitright
