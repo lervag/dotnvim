@@ -61,6 +61,7 @@ set winaltkeys=no
 set mouse=
 set gdefault
 set updatetime=500
+silent! set splitkeep=screen
 
 " Completion
 set wildmode=longest:full,full
