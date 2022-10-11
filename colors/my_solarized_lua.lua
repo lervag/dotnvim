@@ -151,7 +151,7 @@ local theme = {
   RedrawDebugNormal = { reverse = true },
   RedrawDebugRecompose = { bg = color09 },
   Search = { fg = magenta1, bold = true, underline = true },
-  CurSearch = { underline = true },
+  CurSearch = { fg = blue1, bold = true, underline = true },
   SignColumn = { fg = color11, bg = color07 },
   SpecialKey = { fg = color12, bg = color07 },
   SpellBad = { fg = red1, sp = color01, bold = true },
