@@ -33,7 +33,7 @@ function! personal#wiki#open_diary() abort " {{{1
         \ b:calendar.day().get_month(),
         \ b:calendar.day().get_day())
 
-  call wiki#journal#make_note(l:date)
+  call wiki#journal#open(l:date)
 endfunction
 
 " }}}1
