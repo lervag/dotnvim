@@ -9,9 +9,9 @@
 -- end
 
 return {
+  filetypes = { "tex" },
   settings = {
     ltex = {
-      enabled = { "latex" },
       checkFrequency="save",
       language = "en-GB",
       disabledRules = {
