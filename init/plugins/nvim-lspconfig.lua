@@ -2,9 +2,8 @@ local lc = require 'lspconfig'
 -- local lsp_status = require 'lsp-status'
 -- lsp_status.register_progress()
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- capabilities = vim.tbl_extend('keep', capabilities, lsp_status.capabilities)
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 
 -- Use separate files for each desired LSP placed in
