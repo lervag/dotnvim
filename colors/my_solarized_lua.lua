@@ -83,6 +83,7 @@ local blue2 = '#00afff'
 local blue3 = '#add8e6'
 local blue5 = '#5cc6e4'
 local gold1 = '#ffe055'
+local gold2 = '#ffeea2'
 local gray1 = '#d2e1e0'
 local green1 = '#719e07'
 local green2 = '#d7ffaf'
@@ -146,6 +147,7 @@ local theme = {
   PmenuSel = { fg = color14, bg = color00 },
   PmenuThumb = { fg = color11 },
   Question = { fg = color06 },
+  QuickFixLine = { bg = gold2 },
   RedrawDebugClear = { bg = color11 },
   RedrawDebugComposed = { bg = color02 },
   RedrawDebugNormal = { reverse = true },
