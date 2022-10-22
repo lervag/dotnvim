@@ -64,12 +64,14 @@ local bluev50 = '#175480'
 local base2v91 = '#e8e2ce'
 local base3v88 = '#e0dac9'
 local base3v100s7 = '#fffaed'
+local cyanlight = '#acdad7'
 
 local color00l = base02v45
 local color01d = redv50
 local color02l = greenv80
 local color03d = yellowv30
 local color04d = bluev50
+local color06l = cyanlight
 local color07d = base2v91
 local color09l = orange
 local color15d = base3v88
@@ -174,8 +176,9 @@ local theme = {
   Statusline = { fg = color15, bg = color10 },
   StatuslineNC = { fg = color08, bg = color10 },
   SLHighlight = { fg = gold1, bg = color10 },
-  SLInfo = { fg = color02l, bg = color10 },
+  SLInfo = { fg = color06l, bg = color10 },
   SLAlert = { fg = orange1, bg = color10 },
+  SLSuccess = { fg = color02l, bg = color10 },
   TabLine = { fg = color08, bg = color10 },
   TabLineFill = { fg = color08, bg = color10 },
   TabLineSel = { fg = base2, bg = color00, bold = true },

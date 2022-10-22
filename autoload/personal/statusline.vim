@@ -110,9 +110,11 @@ endfunction
 
 
 function! s:bt_help(bufnr, active, winnr) " {{{1
-  return s:color(
-        \ ' vimdoc: ' . fnamemodify(bufname(a:bufnr), ':t:r'),
-        \ 'SLInfo', a:active)
+  let stat  = s:color(' vimdoc: ', 'SLInfo', a:active)
+  let stat .= s:color(fnamemodify(bufname(a:bufnr), ':t:r'),
+        \ 'SLHighlight', a:active)
+
+  return stat
 endfunction
 
 " }}}1
@@ -146,7 +148,7 @@ function! s:ft_tex(bufnr, active, winnr) " {{{1
         \ ['[⏻] ', ''],
         \ ['[⏻] ', ''],
         \ ['[⟳] ', ''],
-        \ ['[✔︎] ', 'SLInfo'],
+        \ ['[✔︎] ', 'SLSuccess'],
         \ ['[✖] ', 'SLAlert']
         \], l:status)
 
@@ -156,8 +158,9 @@ endfunction
 
 " }}}1
 function! s:ft_wiki(bufnr, active, winnr) " {{{1
-  let stat  = s:color(' wiki: ', 'SLAlert', a:active)
-  let stat .= s:color(fnamemodify(bufname(a:bufnr), ':t:r'),
+  let stat  = s:color(' wiki: ', 'SLInfo', a:active)
+  let stat .= s:color(
+        \ fnamemodify(bufname(a:bufnr), ':t:r'),
         \ 'SLHighlight', a:active)
   if get(get(b:, 'wiki', {}), 'in_diary', 0)
     let stat .= s:color(' (diary)', 'SLAlert', a:active)
@@ -170,9 +173,10 @@ function! s:ft_wiki(bufnr, active, winnr) " {{{1
   let stat .= getbufvar(a:bufnr, '&modified')
         \ ? s:color(' [+]', 'SLAlert', a:active) : ''
 
-  if a:active
+  let l:file = fnamemodify(bufname(a:bufnr), ':p')
+  if filereadable(l:file)
     let l:graph = wiki#graph#builder#get()
-    let l:broken_links = l:graph.get_broken_links_from(expand('%:p'))
+    let l:broken_links = l:graph.get_broken_links_from(l:file)
     if len(l:broken_links) > 0
       let stat .= s:color(printf(' (🔗%d)',len(l:broken_links)) , 'SLAlert', a:active)
     endif
