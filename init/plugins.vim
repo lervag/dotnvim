@@ -107,6 +107,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'nvim-colortils/colortils.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'dstein64/vim-startuptime'
+Plug 'echuraev/translate-shell.vim'
 
 " Filetype: various
 Plug 'Vimjas/vim-python-pep8-indent'
