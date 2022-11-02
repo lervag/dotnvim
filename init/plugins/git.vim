@@ -35,3 +35,7 @@ augroup init_fugitive
   autocmd FileType fugitive
         \ nnoremap <buffer><silent> <f5> :call fugitive#ReloadStatus(-1, 0)<cr>
 augroup END
+
+" I only want GBrowse functionality from rhubarb
+let g:loaded_rhubarb = 1
+let g:fugitive_browse_handlers = [function('rhubarb#FugitiveUrl')]
