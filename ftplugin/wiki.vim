@@ -15,5 +15,8 @@ setlocal formatoptions-=o
 setlocal formatoptions+=n
 let &l:formatlistpat = '\v^\s*%(\d|\l|i+)\.\s'
 
+imap <c-l> __link_wiki__<c-r>=UltiSnips#ExpandSnippet()<cr>
+imap <c-L> __link_md__<c-r>=UltiSnips#ExpandSnippet()<cr>
+
 runtime ftplugin/markdown/medieval.vim
 nmap <buffer> <leader>ar <Plug>(medieval-eval)
