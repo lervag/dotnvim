@@ -1,4 +1,8 @@
-local cmp = require "cmp"
+local status, cmp = pcall(require, "cmp")
+if not status then return end
+
+-- Avoid "Need check nil" warnings
+---@cast cmp -?
 
 local kind_icons = {
   Class = "ﴯ",
@@ -96,7 +100,7 @@ cmp.setup({
     ["<tab>"] = cmp.mapping({
       i = function(fallback)
         if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          cmp.select_next_item()
         elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
           feedkeys("<plug>(ultisnips_jump_forward)")
         else
@@ -114,7 +118,7 @@ cmp.setup({
     ["<s-tab>"] = cmp.mapping({
       i = function(fallback)
         if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+          cmp.select_prev_item()
         elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
           feedkeys("<plug>(ultisnips_jump_backward)")
         else
