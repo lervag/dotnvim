@@ -35,6 +35,7 @@ set wildignore+=*.mod
 set diffopt=internal,filler,vertical,foldcolumn:0,context:4
 silent! set diffopt+=indent-heuristic,algorithm:patience
 silent! set diffopt+=hiddenoff,closeoff
+silent! set diffopt+=linematch:60
 
 " Backup, swap and undofile
 set noswapfile
