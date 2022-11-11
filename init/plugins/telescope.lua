@@ -1,16 +1,13 @@
 local telescope = require 'telescope'
+local actions = require'telescope.actions'
 
 -- https://github.com/nvim-telescope/telescope.nvim/issues/559
-vim.api.nvim_create_autocmd('BufRead', {
-  group = vim.api.nvim_create_augroup("init_telescope", {}),
-  desc = "Workaround for a silly fold issue",
-  callback = function()
-    vim.api.nvim_create_autocmd('BufWinEnter', {
-      once = true,
-      command = 'normal! zx'
-    })
+local function stopinsert(callback)
+  return function(prompt_bufnr)
+    vim.cmd.stopinsert()
+    vim.schedule(function() callback(prompt_bufnr) end)
   end
-})
+end
 
 telescope.setup{
   defaults = {
@@ -36,6 +33,9 @@ telescope.setup{
         ["<esc>"] = "close",
       },
       i = {
+        ["<cr>"] = stopinsert(actions.select_default),
+        ["|"] = stopinsert(actions.select_horizontal),
+        ["<c-v>"] = stopinsert(actions.select_vertical),
         ["<esc>"] = "close",
         ["<C-h>"] = "which_key",
         ["<C-u>"] = false,
