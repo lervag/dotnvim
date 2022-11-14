@@ -56,6 +56,7 @@ Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-path'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'barreiroleo/ltex-extra.nvim'
+Plug 'mfussenegger/nvim-jdtls'
 
 " Plugin: Text objects and similar
 Plug 'wellle/targets.vim'
