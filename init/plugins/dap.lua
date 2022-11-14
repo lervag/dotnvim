@@ -85,6 +85,9 @@ end
 --         ~/.config/nvim/init/plugins/debugpy.lua
 --         ~/.config/nvim/ftplugin/python.lua
 --
+--       Java:
+--         ~/.config/nvim/ftplugin/java.lua
+--
 --       Scala:
 --         ~/.config/nvim/ftplugin/scala.lua
 --
