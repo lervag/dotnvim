@@ -14,7 +14,9 @@ vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
       vim.cmd 'highlight clear'
       vim.cmd 'silent update'
       vim.cmd 'colorscheme my_solarized_lua'
-      vim.notify('Updated colorscheme', 'warn', {title = 'my_solarized_lua'})
+      vim.notify('Updated colorscheme',
+        vim.log.levels.WARN,
+        {title = 'my_solarized_lua'})
     end
   end
 })
@@ -231,10 +233,15 @@ local theme = {
   Structure = { link = 'Type' },
   Typedef = { link = 'Type' },
 
-  TSParameter = { link = 'PreProc' },
-  TSVariable = { fg = color10 },
-
   FloatBorder = { fg = black, bg = color15d },
+
+  -- {{{1 Tree-sitter groups
+
+  -- Highlight groups used by Tree-sitter
+  -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
+
+  ['@parameter'] = { link = 'PreProc' },
+  ['@variable'] = { fg = color10 },
 
   -- {{{1 LSP and Diagnostics
 
@@ -333,9 +340,6 @@ local theme = {
   vipmVar = { link = 'Identifier' },
   vimMapModKey = { link = 'PreProc' },
   vimNotation = { link = 'PreProc' },
-
-  vimTSKeyword = { link = 'Type' },
-  vimTSVariableBuiltin = { link = 'PreProc' },
 
   -- {{{1 Filetype Vim help
 
@@ -568,11 +572,6 @@ local theme = {
   perlVarPlain = { fg = color03 },
 
   rubyDefine = { fg = color10 },
-
-  bibtexTSKeyword = { link = 'Identifier' },
-  bibtexTSSymbol = { link = 'Special' },
-  bibtexTSField = { link = 'Keyword' },
-  bibtexTSString = {},
 
   -- }}}1
 }
