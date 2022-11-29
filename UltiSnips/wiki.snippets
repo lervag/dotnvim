@@ -36,6 +36,10 @@ snippet LLW "Create link" wA
 [[`!v b:wiki.in_journal ? '/' : '' `$1]]$0
 endsnippet
 
+snippet LLL "Create local link" wA
+[[#$1]]$0
+endsnippet
+
 snippet LLM "Create Markdown link from clipboard" wA
 [$1](`!v getreg('+')`)$0
 endsnippet

@@ -42,6 +42,7 @@ Plug 'https://gitlab.com/yorickpeterse/nvim-pqf'
 Plug 'rcarriga/nvim-notify'
 Plug 'j-hui/fidget.nvim'
 Plug 'justinmk/vim-dirvish'
+Plug 'Eandrju/cellular-automaton.nvim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
