@@ -323,6 +323,9 @@ local theme = {
   NotifyERRORIcon = { fg = red },
   NotifyERRORTitle  = { fg = red, bold = true },
 
+  AISign  = { fg = blue, bg=color07, bold = true },
+  AIHighlight  = { fg = blue },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },

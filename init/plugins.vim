@@ -43,6 +43,7 @@ Plug 'rcarriga/nvim-notify'
 Plug 'j-hui/fidget.nvim'
 Plug 'justinmk/vim-dirvish'
 Plug 'Eandrju/cellular-automaton.nvim'
+Plug 'aduros/ai.vim'
 
 " Plugin: Completion, LSP and snippets
 Plug 'neovim/nvim-lspconfig'
