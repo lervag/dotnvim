@@ -33,7 +33,6 @@ call plug#('git@github.com:lervag/vim-sikt')
 " Plugin: UI
 Plug 'andymass/vim-matchup'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
 Plug 'folke/zen-mode.nvim'
 Plug 'lewis6991/impatient.nvim'
 Plug 'stevearc/dressing.nvim'

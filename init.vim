@@ -157,7 +157,7 @@ xnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap gV     `[V`]
 onoremap gV     :normal gV<cr>
 onoremap gv     :normal! gv<cr>
-nnoremap zS     :<c-u>TSHighlightCapturesUnderCursor<cr>
+nnoremap zS     :<c-u>Inspect<cr>
 
 nnoremap <c-w>-     <c-w>s
 nnoremap <c-w><bar> <c-w>v
