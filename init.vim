@@ -118,9 +118,6 @@ elseif executable('ack-grep')
   set grepprg=ack-grep\ --nocolor
 endif
 
-" Printing
-set printexpr=personal#print_file(v:fname_in)
-
 " {{{1 Appearance and UI
 
 set winwidth=70
@@ -177,9 +174,6 @@ nnoremap        <bs> <c-o>zvzz
 
 xnoremap <silent><expr> ++ personal#visual_math#yank_and_analyse()
 nmap     <silent>       ++ vip++<esc>
-
-nnoremap <leader>pp :hardcopy<cr>
-xnoremap <leader>pp :hardcopy<cr>
 
 " Terminal mappings
 tnoremap <esc>    <c-\><c-n>
