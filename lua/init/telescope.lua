@@ -82,7 +82,7 @@ function M.files_zotero()
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()[1]
-        vim.fn.jobstart({'zathura', '--fork', path .. "/" .. selection})
+        vim.fn.jobstart({'sioyek', '--fork', path .. "/" .. selection})
       end)
       return true
     end,

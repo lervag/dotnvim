@@ -5,7 +5,7 @@ let g:vimtex_complete_bib = {
       \ 'simple': 1,
       \ 'menu_fmt': '@year, @author_short, @title',
       \}
-let g:vimtex_context_pdf_viewer = 'zathura'
+let g:vimtex_context_pdf_viewer = 'sioyek'
 let g:vimtex_doc_handlers = ['vimtex#doc#handlers#texdoc']
 let g:vimtex_echo_verbose_input = 0
 let g:vimtex_fold_enabled = 1
@@ -41,7 +41,7 @@ let g:vimtex_toc_config = {
       \}
 let g:vimtex_view_automatic = 0
 let g:vimtex_view_forward_search_on_start = 0
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'sioyek'
 
 let g:vimtex_grammar_vlty = {
       \ 'lt_command': 'languagetool',

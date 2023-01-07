@@ -1,6 +1,6 @@
 function! personal#wiki#file_handler(...) abort dict " {{{1
   if self.path =~# '\.pdf$'
-    silent execute '!zathura' fnameescape(self.path) '&'
+    silent execute '!sioyek' fnameescape(self.path) '&'
     return 1
   endif
 

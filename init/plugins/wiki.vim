@@ -1,6 +1,6 @@
 let g:wiki_root = '~/.local/wiki'
 let g:wiki_toc_title = 'Innhald'
-let g:wiki_viewer = {'pdf': 'zathura'}
+let g:wiki_viewer = {'_': 'sioyek'}
 let g:wiki_export = {
       \ 'output': 'printed',
       \}
