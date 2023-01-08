@@ -24,7 +24,7 @@ end)
 vim.keymap.set('n', '<leader>lK', lsp.buf.hover)
 
 -- Unsure if I want/need these
-vim.keymap.set('n', '<leader>l1', lsp.buf.document_symbol)
-vim.keymap.set('n', '<leader>l2', lsp.buf.workspace_symbol)
+vim.keymap.set('n', '<leader>l1', require("telescope.builtin").lsp_document_symbols)
+vim.keymap.set('n', '<leader>l2', require("telescope.builtin").lsp_dynamic_workspace_symbols)
 vim.keymap.set('n', '<leader>l3', lsp.buf.document_highlight)
 vim.keymap.set('n', '<leader>l4', lsp.buf.clear_references)

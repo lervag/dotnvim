@@ -4,10 +4,9 @@ dap.configurations.scala = {
   {
     type = "scala",
     request = "launch",
-    name = "RunOrTest",
+    name = "Run or test",
     metals = {
       runType = "runOrTestFile",
-      --args = { "firstArg", "secondArg" },
     },
   },
   {
@@ -18,4 +17,16 @@ dap.configurations.scala = {
       runType = "testTarget",
     },
   },
+  {
+    type = "scala",
+    request = "launch",
+    name = "Run or test with input",
+    metals = {
+      runType = "runOrTestFile",
+      args = function()
+        local args_string = vim.fn.input("Arguments: ")
+        return vim.split(args_string, " +")
+      end,
+    },
+  }
 }

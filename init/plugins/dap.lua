@@ -2,7 +2,9 @@ local dap = require "dap"
 local widgets = require "dap.ui.widgets"
 
 -- Load virtual text extension
-require "nvim-dap-virtual-text".setup()
+require "nvim-dap-virtual-text".setup {
+  virt_lines = true
+}
 
 -- Define sign symbols
 vim.fn.sign_define({

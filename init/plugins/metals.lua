@@ -3,40 +3,44 @@ local function init_metals()
 
   --  Define configuration
   metals_config = metals.bare_config()
+  metals_config.tvp = {
+    icons = { enabled = true }
+  }
   metals_config.init_options.statusBarProvider = "on"
   metals_config.settings = {
     showImplicitArguments = true,
     showInferredType = true,
-    decorationColor = "MetalsStatus",
+    decorationColor = "DiagnosticVirtualTextHint",
     -- excludedPackages = {
     --   "akka.actor.typed.javadsl",
     --   "com.github.swagger.akka.javadsl"
     -- },
   }
 
-  metals_config.on_attach = function(client, bufnr)
+  metals_config.on_attach = function(_, _)
     metals.setup_dap()
+
+    vim.keymap.set('v', 'K', require("metals").type_of_range)
+    vim.keymap.set('n', '<leader>mm', metals.commands)
+    vim.keymap.set('n', '<leader>mk', metals.hover_worksheet)
+    vim.keymap.set('n', '<leader>mt', require("metals.tvp").toggle_tree_view)
   end
 
   metals.initialize_or_attach(metals_config)
-
-  -- Specify keymaps
-  vim.keymap.set('n', '<leader>mi', metals.info)
-  vim.keymap.set('n', '<leader>mK', metals.hover_worksheet)
 end
 
 
 -- Autocommand for scala files
-local group_id = vim.api.nvim_create_augroup("init_metals", {})
+local group_id = vim.api.nvim_create_augroup("init_metals", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  group = group_id,
-  pattern = "scala,sbt",
   desc = "Initialize or attach metals",
-  callback = init_metals
+  pattern = { "scala", "sbt" },
+  callback = init_metals,
+  group = group_id,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  group = group_id,
-  pattern = "scala",
   desc = "Set omnifunction",
-  callback = function() vim.bo.omnifunc = "vim.lsp.omnifunc" end
+  pattern = "scala",
+  callback = function() vim.bo.omnifunc = "vim.lsp.omnifunc" end,
+  group = group_id,
 })
