@@ -66,7 +66,8 @@ local bluev50 = '#175480'
 local base2v91 = '#e8e2ce'
 local base3v88 = '#e0dac9'
 local base3v100s7 = '#fffaed'
-local cyanlight = '#acdad7'
+local cyanlight = '#6DBFB8'
+local cyanlighter = '#acdad7'
 
 local color00l = base02v45
 local color01d = redv50
@@ -74,6 +75,7 @@ local color02l = greenv80
 local color03d = yellowv30
 local color04d = bluev50
 local color06l = cyanlight
+local color06ll = cyanlighter
 local color07d = base2v91
 local color09l = orange
 local color15d = base3v88
@@ -257,10 +259,17 @@ local theme = {
   DiagnosticWarn = { fg = color03, bold = true },
   DiagnosticInfo = { fg = color04 },
   DiagnosticHint = { fg = color06 },
+  DiagnosticOk = { fg = green1 },
+  DiagnosticVirtualTextError = { fg = color01, bold = true },
+  DiagnosticVirtualTextWarn = { fg = color03, bold = true },
+  DiagnosticVirtualTextInfo = { fg = color04 },
+  DiagnosticVirtualTextHint = { fg = color06l },
+  DiagnosticVirtualTextOk = { fg = green1 },
   DiagnosticSignError = { fg = color01, bg = color07, bold = true },
   DiagnosticSignWarn = { fg = color03, bg = color07, bold = true },
   DiagnosticSignInfo = { fg = color04, bg = color07 },
   DiagnosticSignHint = { fg = color06, bg = color07 },
+  DiagnosticSignOk = { fg = green1, bg = color07 },
 
   -- {{{1 Various plugins
 
@@ -278,8 +287,6 @@ local theme = {
 
   DapSign = { fg = purple1, bg = color07 },
   DapStatus = { fg = pink1, bg = color10 },
-
-  MetalsStatus = { fg = blue5, bg = color10 },
 
   CmpItemAbbrMatch = { fg = blue1 },
   CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
