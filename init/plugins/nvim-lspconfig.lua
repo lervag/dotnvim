@@ -25,3 +25,13 @@ for _, server in pairs(servers) do
   }, user_opts)
   lc[server].setup(opts)
 end
+
+local au_group = vim.api.nvim_create_augroup("init_lsp", { clear = true })
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "Disable semantic token highlighting engine",
+  group = au_group,
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})

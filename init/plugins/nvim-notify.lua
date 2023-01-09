@@ -2,7 +2,7 @@ local notify = require("notify")
 
 vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
   pattern = "nvim-notify.lua",
-  group = vim.api.nvim_create_augroup("init_plugins", {}),
+  group = vim.api.nvim_create_augroup("init_plugins", { clear = true }),
   desc = "Reload nvim-notify when config is changed",
   callback = function()
     if vim.o.modified then
