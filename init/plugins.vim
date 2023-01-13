@@ -87,7 +87,6 @@ Plug 'monaqa/dial.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'booperlv/nvim-gomove'
 Plug 'brianrodri/vim-sort-folds'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/inline_edit.vim'
 Plug 'AndrewRadev/linediff.vim'
 
