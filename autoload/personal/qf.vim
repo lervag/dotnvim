@@ -38,10 +38,15 @@ endfunction
 " }}}1
 function! personal#qf#filter(include) abort " {{{1
   let l:rx = input(a:include ? 'Filter (include): ' : 'Filter (remove): ')
-  let l:oldqf = getqflist({'all': 1})
+
+  if personal#qf#is_loc()
+    let l:list = getloclist(0, {'all': 1})
+  else
+    let l:list = getqflist({'all': 1})
+  endif
 
   let l:new = []
-  for l:entry in l:oldqf.items
+  for l:entry in l:list.items
     let l:string = bufname(l:entry.bufnr) . ' | ' . l:entry.text
     if (a:include && match(l:string, l:rx) >= 0)
           \ || (!a:include && match(l:string, l:rx) < 0)
@@ -49,8 +54,12 @@ function! personal#qf#filter(include) abort " {{{1
     endif
   endfor
 
-  call setqflist(l:new, 'r')
-  call setqflist([], 'r', {'title': l:oldqf.title})
+  if personal#qf#is_loc()
+    call setloclist(0, l:new, 'r')
+  else
+    call setqflist(l:new, 'r')
+    call setqflist([], 'r', {'title': l:list.title})
+  endif
 endfunction
 
 " }}}1
