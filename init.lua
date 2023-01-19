@@ -30,6 +30,8 @@ vim.api.nvim_create_autocmd({"WinLeave", "FocusLost"}, {
 
 -- {{{1 Options
 
+local HOME = os.getenv "HOME"
+
 vim.opt.shada = { "!", "'10000", "<50", "s50", "h" }
 vim.opt.inccommand = "nosplit"
 vim.opt.tags = { "tags;~", ".tags;~" }
@@ -60,7 +62,7 @@ vim.opt.diffopt = {
 vim.opt.swapfile = false
 vim.opt.undofile = true
 vim.opt.backup = true
-vim.opt.backupdir = "$HOME/.local/share/nvim/backup//"
+vim.opt.backupdir = HOME .. "/.local/share/nvim/backup//"
 
 -- Behaviour
 vim.opt.lazyredraw = true
@@ -92,7 +94,7 @@ vim.opt.pumwidth = 35
 
 -- Spell checking
 vim.opt.spelllang = "en_gb"
-vim.opt.thesaurus = "$HOME/.config/nvim/spell/thesaurus-en.txt"
+vim.opt.thesaurus =  HOME .. "/.config/nvim/spell/thesaurus-en.txt"
 
 -- Presentation
 vim.opt.list = true
@@ -156,28 +158,29 @@ vim.g.mapleader = " "
 
 vim.keymap.set({"n", "i"}, "<f1>", "<nop>")
 
+-- Some general/standard remappings
+vim.keymap.set("n", "Y", "y$")
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "dp", "dp]c")
+vim.keymap.set("n", "do", "do]c")
+vim.keymap.set("n", "'", "`")
+vim.keymap.set("n", "<c-e>", "      <c-^>")
+vim.keymap.set("n", "<c-w><c-e>", " <c-w><c-^>")
+vim.keymap.set({"n", "x"}, "j", function()
+  return vim.v.count > 1 and "j" or "gj"
+end, { expr = true })
+vim.keymap.set({"n", "x"}, "k", function()
+  return vim.v.count > 1 and "k" or "gk"
+end, { expr = true })
+vim.keymap.set("n", "gV", "`[V`]")
+vim.keymap.set("o", "gV", "<cmd>normal gV<cr>")
+vim.keymap.set("o", "gv", "<cmd>normal! gv<cr>")
+vim.keymap.set("n", "zS", "<cmd>Inspect<cr>")
+vim.keymap.set("n", "<c-w>-", "    <c-w>s")
+vim.keymap.set("n", "<c-w><bar>", "<c-w>v")
+vim.keymap.set("n", "<c-w>§", "    <c-w><bar>")
+
 vim.cmd [[
-" Some general/standard remappings
-nnoremap Y      y$
-nnoremap J      mzJ`z
-nnoremap dp     dp]c
-nnoremap do     do]c
-nnoremap '      `
-nnoremap <c-e>       <c-^>
-nnoremap <c-w><c-e>  <c-w><c-^>
-nnoremap <expr> j v:count ? "j" : "gj"
-nnoremap <expr> k v:count ? "k" : "gk"
-xnoremap <expr> j v:count ? "j" : "gj"
-xnoremap <expr> k v:count ? "k" : "gk"
-nnoremap gV     `[V`]
-onoremap gV     :normal gV<cr>
-onoremap gv     :normal! gv<cr>
-nnoremap zS     :<c-u>Inspect<cr>
-
-nnoremap <c-w>-     <c-w>s
-nnoremap <c-w><bar> <c-w>v
-nnoremap <c-w>§     <c-w><bar>
-
 " Buffer navigation
 nnoremap <silent> gb    :bnext<cr>
 nnoremap <silent> gB    :bprevious<cr>
