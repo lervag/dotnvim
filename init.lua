@@ -87,7 +87,7 @@ vim.opt.splitkeep = "screen"
 
 -- Completion
 vim.opt.wildmode = { "longest:full", "full" }
-vim.opt.wildcharm = vim.fn.char2nr ""
+vim.opt.wildcharm = 26 -- char2nr(ctrl-z)
 vim.opt.complete:append { "U", "s", "k", "kspell", "]" }
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.pumwidth = 35
@@ -153,12 +153,11 @@ vim.fn["personal#init#tabline"]()
 -- {{{1 Mappings
 
 -- Use space as leader key
-vim.keymap.set("n", "<space>", "<nop>")
 vim.g.mapleader = " "
 
 vim.keymap.set({"n", "i"}, "<f1>", "<nop>")
+vim.keymap.set("n", "<space>", "<nop>")
 
--- Some general/standard remappings
 vim.keymap.set("n", "Y", "y$")
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "dp", "dp]c")
@@ -179,57 +178,54 @@ vim.keymap.set("n", "zS", "<cmd>Inspect<cr>")
 vim.keymap.set("n", "<c-w>-", "    <c-w>s")
 vim.keymap.set("n", "<c-w><bar>", "<c-w>v")
 vim.keymap.set("n", "<c-w>§", "    <c-w><bar>")
+vim.keymap.set("n", "<f3>",
+  "<cmd>call personal#spell#toggle_language()<cr>")
+vim.keymap.set("n", "y@",
+  "<cmd>call personal#util#copy_path()<cr>")
 
-vim.cmd [[
-" Buffer navigation
-nnoremap <silent> gb    :bnext<cr>
-nnoremap <silent> gB    :bprevious<cr>
+-- Navigation
+vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { silent = true })
+vim.keymap.set("n", "gB", "<cmd>bprevious<cr>", { silent = true })
+vim.keymap.set("n", "zv", "zMzvzz")
+vim.keymap.set("n", "zj", "zcjzOzz")
+vim.keymap.set("n", "zk", "zckzOzz")
+vim.keymap.set("n", "<bs>", "<c-o>zvzz")
 
-" Navigate folds
-nnoremap          zv zMzvzz
-nnoremap <silent> zj zcjzOzz
-nnoremap <silent> zk zckzOzz
+-- Simple math stuff
+vim.keymap.set("x", "++", function()
+  return vim.fn["personal#visual_math#yank_and_analyse"]()
+end, { silent = true, expr = true })
+vim.keymap.set("n", "++", "vip++<esc>", { remap = true })
 
-" Backspace and return for improved navigation
-nnoremap        <bs> <c-o>zvzz
+-- Terminal mappings
+vim.keymap.set("n", "<c-c><c-c>", "<cmd>split term://zsh<cr>i",
+  { silent = true })
+vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
+vim.keymap.set("t", "<c-w>", "<c-\\><c-n><c-w>")
 
-xnoremap <silent><expr> ++ personal#visual_math#yank_and_analyse()
-nmap     <silent>       ++ vip++<esc>
+-- Utility maps for repeatable quickly change/delete current word
+vim.keymap.set("n", "c*",   "*``cgn")
+vim.keymap.set("n", "c#",   "*``cgN")
+vim.keymap.set("n", "cg*", "g*``cgn")
+vim.keymap.set("n", "cg#", "g*``cgN")
+vim.keymap.set("n", "d*",   "*``dgn")
+vim.keymap.set("n", "d#",   "*``dgN")
+vim.keymap.set("n", "dg*", "g*``dgn")
+vim.keymap.set("n", "dg#", "g*``dgN")
 
-" Terminal mappings
-tnoremap <esc>    <c-\><c-n>
-nnoremap <silent> <c-c><c-c> :split term://zsh<cr>i
-tnoremap <c-w>    <c-\><c-n><c-w>
-
-" Utility maps for repeatable quickly change/delete current word
-nnoremap c*   *``cgn
-nnoremap c#   *``cgN
-nnoremap cg* g*``cgn
-nnoremap cg# g*``cgN
-nnoremap d*   *``dgn
-nnoremap d#   *``dgN
-nnoremap dg* g*``dgn
-nnoremap dg# g*``dgN
-
-" Improved search related mappings
-nnoremap <silent> gl :<c-u>set nohlsearch<cr>
-cmap <expr> <cr> personal#search#wrap("\<cr>")
-map  <expr> n    personal#search#wrap("n")
-map  <expr> N    personal#search#wrap("N")
-map  <expr> gd   personal#search#wrap("gd")
-map  <expr> gD   personal#search#wrap("gD")
-map  <expr> *    personal#search#wrap("*", 1)
-map  <expr> #    personal#search#wrap("#", 1)
-map  <expr> g*   personal#search#wrap("g*", 1)
-map  <expr> g#   personal#search#wrap("g#", 1)
-xmap <expr> *    personal#search#wrap_visual("/")
-xmap <expr> #    personal#search#wrap_visual("?")
-
-" Copy path
-nnoremap y@ <cmd>call personal#util#copy_path()<cr>
-
-nnoremap <f3> <cmd>:call personal#spell#toggle_language()<cr>
-]]
+-- Improved search related mappings
+vim.keymap.set("n", "gl", "<cmd>set nohlsearch<cr>")
+vim.keymap.set({"n", "o"}, "n", function() return vim.fn["personal#search#wrap"]("n") end, { expr = true })
+vim.keymap.set({"n", "o"}, "N", function() return vim.fn["personal#search#wrap"]("N") end, { expr = true })
+vim.keymap.set({"n", "o"}, "gd", function() return vim.fn["personal#search#wrap"]("gd") end, { expr = true })
+vim.keymap.set({"n", "o"}, "gD", function() return vim.fn["personal#search#wrap"]("gD") end, { expr = true })
+vim.keymap.set({"n", "o"}, "*", function() return vim.fn["personal#search#wrap"]("*", 1) end, { expr = true })
+vim.keymap.set({"n", "o"}, "#", function() return vim.fn["personal#search#wrap"]("#", 1) end, { expr = true })
+vim.keymap.set({"n", "o"}, "g*", function() return vim.fn["personal#search#wrap"]("g*", 1) end, { expr = true })
+vim.keymap.set({"n", "o"}, "g#", function() return vim.fn["personal#search#wrap"]("g#", 1) end, { expr = true })
+vim.keymap.set("c", "<cr>", function() return vim.fn["personal#search#wrap"]("<cr>") end, { expr = true })
+vim.keymap.set("x", "*", function() return vim.fn["personal#search#wrap_visual"]("/") end, { expr = true })
+vim.keymap.set("x", "#", function() return vim.fn["personal#search#wrap_visual"]("?") end, { expr = true })
 
 -- {{{1 Configure plugins
 
