@@ -1,9 +1,10 @@
-let g:flog_default_arguments = {}
-let g:flog_default_arguments.format = '[%h] %s%d'
-let g:flog_default_arguments.date = 'format:%Y-%m-%d %H:%M:%S'
+let g:flog_default_opts = {}
+let g:flog_default_opts.format = '[%h] %s%d'
+let g:flog_default_opts.date = 'format:%Y-%m-%d %H:%M'
 
-nnoremap <silent><leader>gl :silent Flog -all<cr>
-nnoremap <silent><leader>gL :silent Flog -all -path=%<cr>
+nnoremap <silent><leader>gl :Flog -all<cr>
+nnoremap <silent><leader>gL :Flog -all -path=%<cr>
+xnoremap <silent><leader>gl :Flog -all<cr>
 
 augroup init_flog
   autocmd!
@@ -11,11 +12,11 @@ augroup init_flog
   autocmd FileType floggraph nmap <buffer><silent> q <plug>(FlogQuit)
   autocmd FileType floggraph nmap <buffer><silent> <f5> <plug>(FlogUpdate)
   autocmd FileType floggraph nnoremap <buffer><silent> p
-        \ :<c-u>call personal#git#display_file_current()<cr>
+        \ <cmd>call personal#git#display_file_current()<cr>
   autocmd FileType floggraph nnoremap <buffer><silent> <tab>
-        \ :<c-u>call personal#git#display_file()<cr>
+        \ <cmd>call personal#git#display_file()<cr>
   autocmd FileType floggraph nnoremap <buffer><silent> df
-        \ :<c-u>call personal#git#diff_file()<cr>
+        \ <cmd>call personal#git#diff_file()<cr>
 augroup END
 
 nnoremap <silent><leader>gs :call personal#git#fugitive_toggle()<cr>

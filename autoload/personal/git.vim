@@ -14,28 +14,33 @@ endfunction
 " }}}1
 
 function! personal#git#display_file_current() abort " {{{1
-  if flog#has_commit_mark('m')
-    call flog#remove_commit_mark('m')
+  let l:state = flog#state#GetBufState()
+
+  if flog#state#HasCommitMark(l:state, 'm')
+    call flog#state#RemoveCommitMark(l:state, 'm')
   endif
-  call flog#run_command('vertical botright Gsplit %p', 0, 0, 1)
+
+  call flog#ExecTmp(flog#Format('vertical botright Gsplit %p'), 0, 0)
 endfunction
 
 " }}}1
 function! personal#git#display_file() abort " {{{1
-  call flog#set_commit_mark_at_line('m', '.')
-  call flog#run_command('vertical botright Gsplit %h:%p', 0, 0, 1)
+  call flog#floggraph#mark#Set('m', '.')
+  call flog#ExecTmp(flog#Format('vertical botright Gsplit %h:%p'), 0, 0)
 endfunction
 
 " }}}1
 function! personal#git#diff_file() abort " {{{1
-  if flog#has_commit_mark('m')
-    call flog#run_command(
-          \ "vertical botright Gsplit %h:%p \| Gdiffsplit %(h'm)",
-          \ 0, 0, 1)
+  let l:state = flog#state#GetBufState()
+
+  if flog#state#HasCommitMark(l:state, 'm')
+    call flog#ExecTmp(
+          \ flog#Format("vertical botright Gsplit %h:%p \| Gdiffsplit %(h'm)"),
+          \ 0, 0)
   else
-    call flog#run_command(
-          \ "vertical botright Gsplit %h:%p \| Gdiffsplit %p",
-          \ 0, 0, 1)
+    call flog#ExecTmp(
+          \ flog#Format("vertical botright Gsplit %h:%p \| Gdiffsplit %p"),
+          \ 0, 0)
   endif
 endfunction
 
