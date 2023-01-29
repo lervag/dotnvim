@@ -247,3 +247,5 @@ vim.g.python3_host_prog = "~/.local/venvs/nvim/bin/python"
 vim.cmd.runtime "init/plugins.vim"
 
 -- }}}1
+
+-- vim:fdm=marker

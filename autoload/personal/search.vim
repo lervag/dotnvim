@@ -21,7 +21,7 @@ endfunction
 " }}}1
 function! personal#search#wrap_visual(search_cmd) abort " {{{1
   let s:search_cmd = a:search_cmd
-  return "y\<plug>(trailer-visual)"
+  return "y<plug>(trailer-visual)"
 endfunction
 
 " }}}1

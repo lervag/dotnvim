@@ -344,6 +344,7 @@ local theme = {
   vimSynMtchOpt = { fg = color03 },
   vimSynType = { fg = color06 },
 
+  vimContinue = { link = 'Comment' },
   vimCommand = { link = 'Type' },
   vimFunc = { link = 'Function' },
   vimUserFunc = { link = 'Function' },
