@@ -7,7 +7,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 
 -- Use separate files for each desired LSP placed in
--- ~/.config/nvim/lua/init/lsp/
+-- ~/.config/nvim/lua/lervag/lsp/
 local servers = vim.tbl_map(
   function(x)
     return x:match("([^/]*).lua$")
@@ -16,7 +16,7 @@ local servers = vim.tbl_map(
 )
 
 for _, server in pairs(servers) do
-  local _, user_opts = pcall(require, "init.lsp." .. server)
+  local _, user_opts = pcall(require, "lervag.lsp." .. server)
   local opts = vim.tbl_deep_extend('force', {
     capabilities = capabilities,
     flags = {
