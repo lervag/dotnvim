@@ -1,4 +1,6 @@
-local function init_metals()
+local M = {}
+
+function M.init_metals()
   metals = require "metals"
 
   --  Define configuration
@@ -29,18 +31,4 @@ local function init_metals()
   metals.initialize_or_attach(metals_config)
 end
 
-
--- Autocommand for scala files
-local group_id = vim.api.nvim_create_augroup("init_metals", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "Initialize or attach metals",
-  pattern = { "scala", "sbt" },
-  callback = init_metals,
-  group = group_id,
-})
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "Set omnifunction",
-  pattern = "scala",
-  callback = function() vim.bo.omnifunc = "vim.lsp.omnifunc" end,
-  group = group_id,
-})
+return M

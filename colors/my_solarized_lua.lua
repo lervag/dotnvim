@@ -244,6 +244,8 @@ local theme = {
 
   ['@parameter'] = { link = 'PreProc' },
   ['@variable'] = { fg = color10 },
+  ['@constructor'] = { link = 'PreProc' },
+  ['@function.builtin'] = { fg = magenta1d },
 
   -- {{{1 LSP and Diagnostics
 

@@ -1,5 +1,6 @@
 -- This sets up the internal language server interface
--- See also: plugins/nvim-lspconfig.lua
+-- See also nvim-lspconfig configuration in
+-- lua/lervag/plugins/init.lua
 
 local lsp = vim.lsp
 
@@ -24,7 +25,11 @@ end)
 vim.keymap.set('n', '<leader>lK', lsp.buf.hover)
 
 -- Unsure if I want/need these
-vim.keymap.set('n', '<leader>l1', require("telescope.builtin").lsp_document_symbols)
-vim.keymap.set('n', '<leader>l2', require("telescope.builtin").lsp_dynamic_workspace_symbols)
+vim.keymap.set('n', '<leader>l1', function()
+  require("telescope.builtin").lsp_document_symbols()
+end)
+vim.keymap.set('n', '<leader>l2', function()
+  require("telescope.builtin").lsp_dynamic_workspace_symbols()
+end)
 vim.keymap.set('n', '<leader>l3', lsp.buf.document_highlight)
 vim.keymap.set('n', '<leader>l4', lsp.buf.clear_references)

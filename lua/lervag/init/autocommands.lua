@@ -25,4 +25,15 @@ vim.api.nvim_create_autocmd({"WinLeave", "FocusLost"}, {
   command = [[ call personal#init#toggle_cursorline(0) ]]
 })
 
+-- Statusline
+vim.api.nvim_create_autocmd({
+  "VimEnter", "WinEnter", "BufWinEnter", "FileType", "VimResized",
+  "BufHidden", "BufWinLeave", "BufUnload"
+}, {
+  group = group,
+  pattern = "*",
+  desc = "Refresh statusline",
+  command = [[ call personal#statusline#refresh() ]]
+})
+
 -- See also: after/plugin/init_autocmds.vim
