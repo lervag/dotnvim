@@ -24,6 +24,9 @@ require("lazy").setup {
     path = root,
     fallback = true,
   },
+  git = {
+    log = { "--since=7 days ago" },
+  },
   ui = {
     size = { width = 0.9, height = 0.9 },
   },
