@@ -28,7 +28,7 @@ require("lazy").setup {
     log = { "--since=7 days ago" },
   },
   ui = {
-    size = { width = 0.9, height = 0.9 },
+    size = { width = 1.0, height = 1.0 },
   },
   performance = {
     rtp = {
@@ -46,4 +46,4 @@ require("lazy").setup {
 }
 
 vim.keymap.set("n", "<leader>pp", "<cmd>Lazy profile<cr>")
-vim.keymap.set("n", "<leader>pu", "<cmd>Lazy update<cr>")
+vim.keymap.set("n", "<leader>pu", "<cmd>Lazy sync<cr>")
