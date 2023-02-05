@@ -4,7 +4,7 @@ local M = {
   {
     url = "git@github.com:lervag/vimtex",
     dev = true,
-    config = function()
+    init = function()
       -- See also ~/.config/nvim/ftplugin/tex.vim
       vim.g.vimtex_compiler_silent = 1
       vim.g.vimtex_complete_bib = {
@@ -66,7 +66,7 @@ local M = {
   {
     url = "git@github.com:lervag/wiki.vim",
     dev = true,
-    config = function()
+    init = function()
       vim.g.wiki_root = "~/.local/wiki"
       vim.g.wiki_toc_title = "Innhald"
       vim.g.wiki_viewer = { _ = "sioyek" }
@@ -127,7 +127,7 @@ local M = {
   {
     url = "git@github.com:lervag/lists.vim",
     dev = true,
-    config = function()
+    init = function()
       vim.g.lists_filetypes = { "markdown", "wiki", "help", "text" }
     end
   },
