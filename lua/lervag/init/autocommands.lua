@@ -1,28 +1,42 @@
 group = vim.api.nvim_create_augroup("init", { clear = true })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = group,
-  pattern = "*",
   desc = "Go to last known position on buffer open",
-  command = [[ call personal#init#go_to_last_known_position() ]]
+  group = group,
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local buf_lines = vim.api.nvim_buf_line_count(0)
+
+    if mark[1] > 0 and mark[1] <= buf_lines then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+
+    if vim.o.foldlevel == 0 then
+      vim.cmd [[normal! zMzvzz]]
+    end
+  end
 })
 vim.api.nvim_create_autocmd("CmdWinEnter", {
-  group = group,
-  pattern = "*",
   desc = "Set CmdLineWin mappings/options",
-  command = [[ call personal#init#command_line_win() ]]
+  group = group,
+  callback = function()
+    vim.keymap.set("n", "q", "<c-c><c-c>", { buffer = true })
+    vim.keymap.set("n", "<c-f>", "<c-c>", { buffer = true })
+  end
 })
 vim.api.nvim_create_autocmd({"WinEnter", "FocusGained"}, {
-  group = group,
-  pattern = "*",
   desc = "Toggle cursorline on enter",
-  command = [[ call personal#init#toggle_cursorline(1) ]]
+  group = group,
+  callback = function()
+    if vim.o.buflisted then
+      vim.wo.cursorline = true
+    end
+  end
 })
 vim.api.nvim_create_autocmd({"WinLeave", "FocusLost"}, {
-  group = group,
-  pattern = "*",
   desc = "Toggle cursorline on leave",
-  command = [[ call personal#init#toggle_cursorline(0) ]]
+  group = group,
+  callback = function() vim.wo.cursorline = false end
 })
 
 -- Statusline
@@ -30,9 +44,8 @@ vim.api.nvim_create_autocmd({
   "VimEnter", "WinEnter", "BufWinEnter", "FileType", "VimResized",
   "BufHidden", "BufWinLeave", "BufUnload"
 }, {
-  group = group,
-  pattern = "*",
   desc = "Refresh statusline",
+  group = group,
   command = [[ call personal#statusline#refresh() ]]
 })
 
