@@ -241,7 +241,7 @@ local M = {
   },
 
   {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     lazy = true
   },
 
@@ -1271,7 +1271,7 @@ local M = {
     event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
     },
   },
 
