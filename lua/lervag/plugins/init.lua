@@ -1075,12 +1075,12 @@ local M = {
     "monaqa/dial.nvim",
     lazy = true,
     init = function()
-      vim.keymap.set("n", "<C-a>",  function() require("dial.map").inc_normal()  end, { noremap = true })
-      vim.keymap.set("n", "<C-x>",  function() require("dial.map").dec_normal()  end, { noremap = true })
-      vim.keymap.set("v", "<C-a>",  function() require("dial.map").inc_visual()  end, { noremap = true })
-      vim.keymap.set("v", "<C-x>",  function() require("dial.map").dec_visual()  end, { noremap = true })
-      vim.keymap.set("v", "g<C-a>", function() require("dial.map").inc_gvisual() end, { noremap = true })
-      vim.keymap.set("v", "g<C-x>", function() require("dial.map").dec_gvisual() end, { noremap = true })
+      vim.keymap.set("n", "<C-a>",  function() return require("dial.map").inc_normal()  end, { expr = true })
+      vim.keymap.set("n", "<C-x>",  function() return require("dial.map").dec_normal()  end, { expr = true })
+      vim.keymap.set("v", "<C-a>",  function() return require("dial.map").inc_visual()  end, { expr = true })
+      vim.keymap.set("v", "<C-x>",  function() return require("dial.map").dec_visual()  end, { expr = true })
+      vim.keymap.set("v", "g<C-a>", function() return require("dial.map").inc_gvisual() end, { expr = true })
+      vim.keymap.set("v", "g<C-x>", function() return require("dial.map").dec_gvisual() end, { expr = true })
     end,
     config = function()
       local augend = require("dial.augend")
@@ -1215,7 +1215,7 @@ local M = {
       { "<leader>gs", "<cmd>call personal#git#fugitive_toggle()<cr>" },
       { "<leader>ge", "<cmd>Gedit<cr>" },
       { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>" },
-      { "<leader>gb", "<cmd>GBrowse<cr>", mode = { "n", "x" } },
+      { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" } },
       { "<leader>gB", "<cmd>Telescope git_branches<cr>" },
     },
     config = function()
@@ -1224,7 +1224,7 @@ local M = {
       -- * ftplugin/git.vim
       -- * ftplugin/gitcommit.vim
       vim.g.fugitive_browse_handlers = {
-        vim.fn["function"]('rhubarb#FugitiveUrl'),
+        vim.fn["rhubarb#FugitiveUrl"],
       }
       local g = vim.api.nvim_create_augroup("init_fugitive", { clear = true })
       vim.api.nvim_create_autocmd("WinEnter", {
