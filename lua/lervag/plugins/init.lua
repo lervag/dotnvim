@@ -1211,9 +1211,9 @@ local M = {
         end
       },
     },
+    cmd = { "Git", "Gedit", "Gdiff" },
     keys = {
-      { "<leader>gs", "<cmd>call personal#git#fugitive_toggle()<cr>" },
-      { "<leader>ge", "<cmd>Gedit<cr>" },
+      { "<leader>gs", function() require("lervag.util.git").toggle_fugitive() end },
       { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" } },
       { "<leader>gB", "<cmd>Telescope git_branches<cr>" },
@@ -1244,6 +1244,7 @@ local M = {
 
   {
     "rbong/vim-flog",
+    dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog" },
     keys = {
       { "<leader>gl", "<cmd>Flog -all<cr>", mode = { "n", "x" } },
