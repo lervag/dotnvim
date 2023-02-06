@@ -69,7 +69,7 @@ local M = {
     init = function()
       vim.g.wiki_root = "~/.local/wiki"
       vim.g.wiki_toc_title = "Innhald"
-      vim.g.wiki_viewer = { _ = "sioyek" }
+      -- vim.g.wiki_viewer = { _ = "sioyek" }
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_filetypes = { "wiki", "md" }
       vim.g.wiki_mappings_local = {

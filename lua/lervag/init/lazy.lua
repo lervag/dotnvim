@@ -45,5 +45,7 @@ require("lazy").setup {
   },
 }
 
+require("lazy.view.config").keys.profile_filter = "F"
+
 vim.keymap.set("n", "<leader>pp", "<cmd>Lazy profile<cr>")
 vim.keymap.set("n", "<leader>pu", "<cmd>Lazy sync<cr>")
