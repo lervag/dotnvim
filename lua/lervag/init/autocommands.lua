@@ -12,8 +12,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
 
     if vim.o.foldlevel == 0 then
-      vim.cmd [[normal! zMzvzz]]
+      vim.cmd [[normal! zM]]
     end
+
+    vim.cmd [[normal! zvzz]]
   end
 })
 vim.api.nvim_create_autocmd("CmdWinEnter", {
