@@ -1,4 +1,6 @@
 vim.bo.define = [[^\s*\(def\|class\)]]
+vim.bo.includeexpr = 'personal#python#includexpr()'
+
 vim.wo.colorcolumn = '80'
 vim.wo.foldexpr = 'personal#python#foldexpr(v:lnum)'
 vim.wo.foldmethod = 'expr'
