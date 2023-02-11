@@ -26,17 +26,6 @@ function! personal#wiki#file_handler(...) abort dict " {{{1
 endfunction
 
 " }}}1
-function! personal#wiki#open_diary() abort " {{{1
-  " Connection between calendar.vim and wiki plugin
-  let l:date = printf('%d-%0.2d-%0.2d',
-        \ b:calendar.day().get_year(),
-        \ b:calendar.day().get_month(),
-        \ b:calendar.day().get_day())
-
-  call wiki#journal#open(l:date)
-endfunction
-
-" }}}1
 function! personal#wiki#template(ctx) abort " {{{1
   call append(0, '# ' . a:ctx.name)
 
