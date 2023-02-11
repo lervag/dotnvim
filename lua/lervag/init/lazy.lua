@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup {
   root = root,
-  spec = {{ import = "lervag.plugins" }},
+  spec = {{ import = "lervag.packages" }},
   lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
   install = {
     colorscheme = { "my_solarized_lua" },
