@@ -172,15 +172,6 @@ local M = {
           enable = true,
           disable = { "vim", "markdown", "bibtex", "make" },
         },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<cr>',
-            scope_incremental = '<cr>',
-            node_incremental = '<tab>',
-            node_decremental = '<s-tab>',
-          },
-        },
         matchup = {
           enable = true,
         }
@@ -844,7 +835,7 @@ local M = {
   {
     "ludovicchabant/vim-gutentags",
     event = "VeryLazy",
-    config = function()
+    init = function()
       vim.g.gutentags_define_advanced_commands = 1
       vim.g.gutentags_cache_dir = vim.fn.stdpath("cache") .. '/ctags'
       vim.g.gutentags_ctags_extra_args = {
@@ -1214,7 +1205,7 @@ local M = {
     dependencies = {
       {
         "tpope/vim-rhubarb",
-        config = function()
+        init = function()
           -- I only want GBrowse functionality from rhubarb
           vim.g.loaded_rhubarb = 1
         end
