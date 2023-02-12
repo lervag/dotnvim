@@ -162,7 +162,6 @@ local M = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufReadPost",
     build = ":TSUpdate",
     config = function()
       require 'nvim-treesitter.configs'.setup {
@@ -904,7 +903,10 @@ local M = {
     dependencies = {
       {
         "theHamsta/nvim-dap-virtual-text",
-        dependencies = { "nvim-treesitter/nvim-treesitter" }
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = {
+          virt_lines = true
+        }
       },
       "jbyuki/one-small-step-for-vimkind",
       {
@@ -940,11 +942,6 @@ local M = {
 
       local dap = require "dap"
       local widgets = require "dap.ui.widgets"
-
-      -- Load virtual text extension
-      require "nvim-dap-virtual-text".setup {
-        virt_lines = true
-      }
 
       -- Define sign symbols
       vim.fn.sign_define({
