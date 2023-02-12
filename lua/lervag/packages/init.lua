@@ -470,6 +470,9 @@ local M = {
         completion = {
           keyword_length = 2,
         },
+        experimental = {
+          ghost_text = true
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
@@ -484,7 +487,10 @@ local M = {
           ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<c-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<c-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<c-u>"] = cmp.mapping.confirm({ select = true }),
+          ["<c-u>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true
+          }),
           ["<c-j>"] = cmp.mapping(function(fallback)
             if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
               feedkeys("<plug>(ultisnips_jump_forward)")
@@ -499,10 +505,12 @@ local M = {
               fallback()
             end
           end),
-          ["<cr>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false
-          }),
+          ["<cr>"] = function(fallback)
+            if cmp.visible() then
+              cmp.mapping.abort()
+            end
+            fallback()
+          end,
           ["<tab>"] = cmp.mapping({
             i = function(_)
               if cmp.visible() then
