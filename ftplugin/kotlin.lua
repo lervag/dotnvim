@@ -3,7 +3,7 @@ vim.bo.suffixesadd = ".kt"
 
 vim.opt_local.formatoptions:remove "t"
 vim.bo.comments = [[sO:* -,mO:*  ,exO:*/,s1:/*,mb:*,ex:*/,://]]
-vim.bo.commentstring = [[// %s]]
+vim.bo.commentstring = "// %s"
 
 -- Rely on Treesitter for folding
 vim.wo.foldmethod = "expr"
