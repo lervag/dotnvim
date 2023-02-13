@@ -477,10 +477,7 @@ local M = {
           ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<c-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<c-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<c-u>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true
-          }),
+          ["<c-u>"] = cmp.mapping.confirm({ select = true }),
           ["<c-j>"] = cmp.mapping(function(fallback)
             if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
               feedkeys("<plug>(ultisnips_jump_forward)")
@@ -647,11 +644,12 @@ local M = {
     "machakann/vim-sandwich",
     event = "VeryLazy",
     dependencies = { "tpope/vim-repeat" },
-    config = function()
+    init = function()
       vim.g.sandwich_no_default_key_mappings = 1
       vim.g.operator_sandwich_no_default_key_mappings = 1
       vim.g.textobj_sandwich_no_default_key_mappings = 1
-
+    end,
+    config = function()
       -- Support for python like function names
       vim.g["sandwich#magicchar#f#patterns"] = {
         {
