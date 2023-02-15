@@ -2,21 +2,21 @@
 -- https://gist.github.com/clason/c164d718dcefbc27f08d3e0272cf93ae
 
 vim.o.background = 'light'
-vim.g.colors_name = 'my_solarized_lua'
+vim.g.colors_name = 'solarized_custom'
 
 -- This enables dynamic reloading of the colorscheme
 vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
-  pattern = "my_solarized_lua.lua",
+  pattern = "solarized_custom.lua",
   group = vim.api.nvim_create_augroup("init_colors", {}),
   desc = "Reload colorscheme when it is changed",
   callback = function()
     if vim.o.modified then
       vim.cmd 'highlight clear'
       vim.cmd 'silent update'
-      vim.cmd 'colorscheme my_solarized_lua'
+      vim.cmd 'colorscheme solarized_custom'
       vim.notify('Updated colorscheme',
         vim.log.levels.WARN,
-        {title = 'my_solarized_lua'})
+        {title = 'solarized_custom'})
     end
   end
 })

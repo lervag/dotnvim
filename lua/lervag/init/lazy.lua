@@ -18,7 +18,7 @@ require("lazy").setup {
   spec = {{ import = "lervag.packages" }},
   lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
   install = {
-    colorscheme = { "my_solarized_lua" },
+    colorscheme = { "solarized_custom" },
   },
   dev = {
     path = root,

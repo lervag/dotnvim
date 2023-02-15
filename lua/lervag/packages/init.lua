@@ -1367,7 +1367,7 @@ local M = {
       local g = vim.api.nvim_create_augroup("init_colorizer", { clear = true })
       vim.api.nvim_create_autocmd("BufRead", {
         group = g,
-        pattern = "my_solarized_lua.lua",
+        pattern = "solarized_custom.lua",
         desc = "Activate colorizer for colorscheme file",
         command = "ColorHighlight"
       })

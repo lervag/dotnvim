@@ -120,7 +120,7 @@ vim.opt.guicursor = {
   "a:blinkon0"
 }
 
-vim.cmd.colorscheme "my_solarized_lua"
+vim.cmd.colorscheme "solarized_custom"
 
 -- {{{1 Configure built-in filetype plugins
 vim.g.vimsyn_embed = "lP"
