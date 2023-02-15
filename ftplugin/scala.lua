@@ -1,5 +1,3 @@
-vim.bo.omnifunc = "vim.lsp.omnifunc"
-
 require("lervag.util.metals").init_metals()
 
 require("dap").configurations.scala = {
