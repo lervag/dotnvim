@@ -7,54 +7,36 @@ let b:current_syntax = 1
 syntax sync minlines=100
 
 " Set spell option
-syn spell default
+syntax spell default
 
 " Standard syntax elements
-syn match date    /^\d\d\d\d-\d\d-\d\d/
-syn match entries /^  .*/                    contains=error,number
-syn match entries /^  \(La meg\|Sto opp\).*/ contains=error,time
-syn match entries /^  Trening.*/             contains=trening
+syntax match date    /^\d\d\d\d-\d\d-\d\d/
+syntax match entries /^  .*/                    contains=error,number
+syntax match entries /^  \(La meg\|Sto opp\).*/ contains=error,time
+syntax match entries /^  Trening.*/             contains=trening
 
-syn match are        /^  Are/
-syn match areentries /^    \(Sto opp\|Dupp\|Mat\|La seg\|\s*\).*/
-      \ contains=error,number,time
+syntax match are        /^  Are/
+syntax match areentries /^    \(Sto opp\|Dupp\|Mat\|La seg\|\s*\).*/ contains=error,number,time
 
-syn match error   /[0-9x]\+.[0-9x]\+.*/         contained
-syn match time    /[0-9][0-9]:[0-9][0-9]/       contained
-syn match number  /[0-9]\+\.[0-9]\+\( \w\+\)\?/ contained
-syn match trening /\%>17c.*/                    contained
+syntax match error   /[0-9x]\+.[0-9x]\+.*/         contained
+syntax match time    /[0-9][0-9]:[0-9][0-9]/       contained
+syntax match number  /[0-9]\+\.[0-9]\+\( \w\+\)\?/ contained
+syntax match trening /\%>17c.*/                    contained
 
 " Syntax regions
-syn region gullkorn
-      \ matchgroup=entries
-      \ start = /^  Gullkorn\s\+/
-      \ end =   /^\ze  \w\+/
-      \ contains=@Spell
-
-syn region snop
-      \ matchgroup=entries
-      \ start = /^  Snop\s\+/
-      \ end =   /^\ze  \w\+/
-      \ contains=@Spell
-
-syn region notat
-      \ matchgroup=entries
-      \ start = /^  Notat\s\+/
-      \ end =   /^$/
-      \ contains=@Spell
+syntax region gullkorn matchgroup=entries start=/^ Gullkorn\s\+/ end=/^\ze \w\+/ contains=@Spell
+syntax region snop     matchgroup=entries start=/^ Snop\s\+/     end=/^\ze \w\+/ contains=@Spell
+syntax region notat    matchgroup=entries start=/^ Notat\s\+/    end=/^$/        contains=@Spell
 
 " Define fold regions
-syn region fold
-      \ start = /^\d\d\d\d-\d\d-\d\d/
-      \ end =   /^$/
-      \ transparent fold
+syntax region fold start=/^\d\d\d\d-\d\d-\d\d/ end=/^$/ transparent fold
 
 " Set colors
-hi link date    MoreMsg
-hi link entries Statement
-hi link time    number
-hi link numbers number
-hi link unit    number
+highlight link date    MoreMsg
+highlight link entries Statement
+highlight link time    number
+highlight link numbers number
+highlight link unit    number
 
-hi link are     entries
-hi def areentries guifg=black
+highlight link are     entries
+highlight def areentries guifg=black
