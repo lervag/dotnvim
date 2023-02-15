@@ -111,6 +111,33 @@ endfunction
 
 " }}}1
 
+function personal#markdown#indentexpr(lnum) abort " {{{1
+  " Unordered lists
+  let cline = getline(a:lnum)
+  if cline =~ '^\s*\*'
+    return indent(a:lnum)
+  endif
+
+  let pline = getline(a:lnum - 1)
+  if pline =~ '^\s*\*'
+    return indent(a:lnum - 1) + &shiftwidth
+  endif
+
+  " Ordered lists
+  if cline =~ '^\s*\d\+\.\?\s\+'
+    return indent(a:lnum)
+  endif
+
+  if pline =~ '^\s*\d\+\.\?\s\+'
+    let match = searchpos('^\s*\d\+\.\?\s\+','bcne')
+    return match[1]
+  endif
+
+  return indent(a:lnum - 1)
+endfunction
+
+" }}}1
+
 function! personal#markdown#create_notes() abort " {{{1
   " Create notes from list of question/answers
   "
