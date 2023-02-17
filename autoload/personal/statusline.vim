@@ -37,6 +37,14 @@ function! personal#statusline#main(winnr) abort " {{{1
   endtry
 
 
+  let l:match = tolower(
+        \ matchstr(bufname(l:ctx.bufnr),
+        \          '\v_\zs%(LOCAL|REMOTE)\ze_\d+'))
+  if !empty(l:match) && getwinvar(l:ctx.winnr, '&diff')
+    return s:scheme_merge_{l:match}(l:ctx)
+  endif
+
+
   try
     let l:filetype = getbufvar(l:ctx.bufnr, '&filetype')
     return s:ft_{l:filetype}(l:ctx)
@@ -97,6 +105,16 @@ function! s:scheme_fugitive(ctx) abort " {{{1
   endif
 
   return a:ctx.color_alt(l:stat, ['SLHighlight', 'Statusline'])
+endfunction
+
+" }}}1
+function! s:scheme_merge_local(ctx) abort " {{{1
+  return a:ctx.color_alt(' Merge conflict: LOCAL', ['SLHighlight', 'SLInfo'])
+endfunction
+
+" }}}1
+function! s:scheme_merge_remote(ctx) abort " {{{1
+  return a:ctx.color_alt(' Merge conflict: REMOTE', ['SLHighlight', 'SLInfo'])
 endfunction
 
 " }}}1
