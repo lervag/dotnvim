@@ -166,10 +166,9 @@ local M = {
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = "all",
-        ignore_install = { "latex" },
         highlight = {
           enable = true,
-          disable = { "vim", "markdown", "bibtex", "make" },
+          disable = { "markdown", "make", "latex" },
         },
         matchup = {
           enable = true,
