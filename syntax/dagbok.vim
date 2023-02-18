@@ -24,9 +24,9 @@ syntax match number  /[0-9]\+\.[0-9]\+\( \w\+\)\?/ contained
 syntax match trening /\%>17c.*/                    contained
 
 " Syntax regions
-syntax region gullkorn matchgroup=entries start=/^ Gullkorn\s\+/ end=/^\ze \w\+/ contains=@Spell
-syntax region snop     matchgroup=entries start=/^ Snop\s\+/     end=/^\ze \w\+/ contains=@Spell
-syntax region notat    matchgroup=entries start=/^ Notat\s\+/    end=/^$/        contains=@Spell
+syntax region gullkorn matchgroup=entries start=/^  Gullkorn\s\+/ end=/^\ze \w\+/ contains=@Spell
+syntax region snop     matchgroup=entries start=/^  Snop\s\+/     end=/^\ze \w\+/ contains=@Spell
+syntax region notat    matchgroup=entries start=/^  Notat\s\+/    end=/^$/        contains=@Spell
 
 " Define fold regions
 syntax region fold start=/^\d\d\d\d-\d\d-\d\d/ end=/^$/ transparent fold
