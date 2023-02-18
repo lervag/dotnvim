@@ -1,5 +1,22 @@
+local function is_rebasing()
+  local is_git_dir = function(dir)
+    local path = ""
+    local file = io.popen("git rev-parse --git-path " .. dir)
+    if file then
+      path = file:read("*l")
+      file:close()
+    end
+
+    return vim.fn.isdirectory(path) == 1
+  end
+
+  return is_git_dir("rebase-apply") or is_git_dir("rebase-merge")
+end
+
 local function setup(this, all)
   if not vim.wo.diff then return end
+
+  vim.w.__merge_mode = this
 
   vim.keymap.set("n", "[[", "[c", { buffer = true })
   vim.keymap.set("n", "]]", "]c", { buffer = true })
@@ -20,6 +37,12 @@ local function setup(this, all)
     vim.bo.swapfile = false
     vim.bo.modifiable = false
 
+    if this.version == "mine" then
+      vim.cmd.wincmd "H"
+    else
+      vim.cmd.wincmd "L"
+    end
+
     vim.keymap.set("n", "u", function()
       vim.api.nvim_win_call(all.current.winid, function() vim.cmd.normal { "u", bang = true } end)
     end, { buffer = true })
@@ -36,6 +59,15 @@ end
 local function setup_merge_mode()
   local winids = vim.api.nvim_list_wins()
 
+  local mine, other
+  if is_rebasing() then
+    mine = "_REMOTE_"
+    other = "_LOCAL_"
+  else
+    mine = "_LOCAL_"
+    other = "_REMOTE_"
+  end
+
   local all = {}
   local windows = {}
 
@@ -48,9 +80,9 @@ local function setup_merge_mode()
       bufname = name
     }
 
-    if name:match('_LOCAL_') then
+    if name:match(mine) then
       object.version = "mine"
-    elseif name:match('_REMOTE_') then
+    elseif name:match(other) then
       object.version = "other"
     else
       object.version = "current"

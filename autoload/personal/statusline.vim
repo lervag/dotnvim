@@ -41,7 +41,7 @@ function! personal#statusline#main(winnr) abort " {{{1
         \ matchstr(bufname(l:ctx.bufnr),
         \          '\v_\zs%(LOCAL|REMOTE)\ze_\d+'))
   if !empty(l:match) && getwinvar(l:ctx.winnr, '&diff')
-    return s:scheme_merge_{l:match}(l:ctx)
+    return s:scheme_merge(l:ctx, l:match)
   endif
 
 
@@ -108,13 +108,16 @@ function! s:scheme_fugitive(ctx) abort " {{{1
 endfunction
 
 " }}}1
-function! s:scheme_merge_local(ctx) abort " {{{1
-  return a:ctx.color_alt(' Merge conflict: LOCAL', ['SLHighlight', 'SLInfo'])
-endfunction
-
-" }}}1
-function! s:scheme_merge_remote(ctx) abort " {{{1
-  return a:ctx.color_alt(' Merge conflict: REMOTE', ['SLHighlight', 'SLInfo'])
+function! s:scheme_merge(ctx, version) abort " {{{1
+  let l:mm = getwinvar(a:ctx.winnr, '__merge_mode', {})
+  if !empty(l:mm)
+    let l:version = l:mm.version ==# 'mine' ? 'LOCAL' : 'REMOTE'
+  else
+    let l:version = a:version
+  endif
+  return a:ctx.color_alt(
+        \ ' Merge conflict: ' . l:version,
+        \ ['SLHighlight', 'SLInfo'])
 endfunction
 
 " }}}1
