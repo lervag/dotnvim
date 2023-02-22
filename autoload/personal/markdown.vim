@@ -20,6 +20,8 @@ endfunction
 function! personal#markdown#color_code_blocks() abort " {{{1
   " This is based on an idea from reddit:
   " https://www.reddit.com/r/vim/comments/fob3sg/different_background_color_for_markdown_code/
+  "
+  " See also tsnode-marker.nvim (utilizes treesitter)
   setlocal signcolumn=no
 
   sign define codeblock linehl=codeBlockBackground
