@@ -144,19 +144,11 @@ function! s:ft_wiki(ctx) abort " {{{1
   let l:stat = a:ctx.info(' wiki: ')
   let l:stat .= a:ctx.hlight(fnamemodify(bufname(a:ctx.bufnr), ':t:r'))
 
-  if get(get(b:, 'wiki', {}), 'in_diary', 0)
-    let l:stat .= a:ctx.alert(' (diary)')
+  if get(get(b:, 'wiki', {}), 'in_journal', 0)
+    let l:stat .= a:ctx.info('  ')
   endif
 
-  if !getbufvar(a:ctx.bufnr, '&modifiable')
-    let l:stat .= a:ctx.alert(' [Locked]')
-  endif
-  if getbufvar(a:ctx.bufnr, '&readonly')
-    let l:stat .= a:ctx.alert(' [‼]')
-  endif
-  if getbufvar(a:ctx.bufnr, '&modified')
-    let l:stat .= a:ctx.alert(' [+]')
-  endif
+  let l:stat .= s:status_modified(a:ctx)
 
   let l:file = fnamemodify(bufname(a:ctx.bufnr), ':p')
   if filereadable(l:file)
@@ -179,16 +171,7 @@ endfunction
 
 function! s:fallback(ctx) abort " {{{1
   let l:stat = a:ctx.hlight(' %<%f')
-
-  if !getbufvar(a:ctx.bufnr, '&modifiable')
-    let l:stat .= a:ctx.alert(' [Locked]')
-  endif
-  if getbufvar(a:ctx.bufnr, '&readonly')
-    let l:stat .= a:ctx.alert(' [‼]')
-  endif
-  if getbufvar(a:ctx.bufnr, '&modified')
-    let l:stat .= a:ctx.alert(' [+]')
-  endif
+  let l:stat .= s:status_modified(a:ctx)
 
   " Add status message from dap.nvim
   try
@@ -231,6 +214,21 @@ endfunction
 
 " }}}1
 
+function! s:status_modified(ctx) abort " {{{1
+  let l:stat = ''
+
+  if !getbufvar(a:ctx.bufnr, '&modifiable')
+        \ || getbufvar(a:ctx.bufnr, '&readonly')
+    let l:stat .= a:ctx.alert(' ')
+  endif
+  if getbufvar(a:ctx.bufnr, '&modified')
+    let l:stat .= a:ctx.alert(' ')
+  endif
+
+  return empty(l:stat) ? '' : ' ' . l:stat
+endfunction
+
+" }}}1
 
 let s:ctx = {
       \ 'active': v:false,
