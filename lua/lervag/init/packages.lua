@@ -452,12 +452,6 @@ local M = {
 
       local cmp = require "cmp"
 
-      local sources_shared = {
-        { name = "ultisnips" },
-        { name = "path", option = { trailing_slash = true } },
-        { name = "calc" },
-      }
-
       cmp.setup {
         snippet = {
           expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end,
@@ -470,9 +464,12 @@ local M = {
           ghost_text = true
         },
         sources = cmp.config.sources({
+          { name = "ultisnips" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-        }, sources_shared),
+          { name = "path", option = { trailing_slash = true } },
+          { name = "calc" },
+        }),
         mapping = {
           ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<c-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
@@ -539,14 +536,22 @@ local M = {
 
       cmp.setup.filetype("lua", {
         sources = cmp.config.sources({
+          { name = "ultisnips" },
           { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-        }, sources_shared),
+          { name = "path", option = { trailing_slash = true } },
+          { name = "calc" },
+        }),
       })
 
       cmp.setup.filetype({ "tex", "wiki" }, {
-        sources = cmp.config.sources({ { name = "omni" } }, sources_shared)
+        sources = cmp.config.sources({
+          { name = "ultisnips" },
+          { name = "omni" },
+          { name = "path", option = { trailing_slash = true } },
+          { name = "calc" },
+        })
       })
 
       cmp.setup.filetype({ 'markdown', 'help' }, {
