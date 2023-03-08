@@ -7,8 +7,11 @@ end
 local function open_current()
   local state = vim.fn["flog#state#GetBufState"]()
   local has_commit_mark = vim.fn["flog#state#HasCommitMark"](state, "m") > 0
+
   if has_commit_mark then
-    vim.fn["flog#state#RemoveCommitMark"](state, "m")
+    vim.cmd [[
+      call flog#state#RemoveCommitMark(flog#state#GetBufState(), "m")
+    ]]
   end
 
   local cmd = vim.fn["flog#Format"]("vertical botright Gsplit %p")
