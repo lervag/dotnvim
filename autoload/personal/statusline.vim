@@ -85,26 +85,18 @@ endfunction
 
 function! s:scheme_fugitive(ctx) abort " {{{1
   let l:bufname = bufname(a:ctx.bufnr)
-  let l:striplen = strlen(l:bufname) - winwidth(a:ctx.winnr) + 3
 
-  if l:striplen > 0
-    let l:parts = split(strpart(l:bufname, 11), '/')
-    let l:n = 0
-    while l:n < l:striplen && len(l:parts) > 0
-      let l:p = remove(l:parts, 0)
-      let l:n += 1 + strlen(l:p)
-    endwhile
-
-    if len(l:parts) == 0
-      let l:stat = ' ⋯/' . l:p
-    else
-      let l:stat = printf(' %s⋯/%s', l:bufname[:10], join(l:parts, '/'))
-    endif
-  else
-    let l:stat = ' ' . l:bufname
+  let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
+  let l:fname = matchstr(l:bufname, '\.git\/\/\x*\/\zs.*')
+  if empty(l:fname)
+    let l:fname = matchstr(l:bufname, '\.git\/\/\zs\x*')
   endif
 
-  return a:ctx.color_alt(l:stat, ['SLHighlight', 'Statusline'])
+  let l:stat = a:ctx.info(' fugitive: %<') . a:ctx.hlight(l:fname)
+  let l:stat .= s:status_modified(a:ctx)
+  let l:stat .= '%= ⑂' . l:commit . ' '
+
+  return l:stat
 endfunction
 
 " }}}1
