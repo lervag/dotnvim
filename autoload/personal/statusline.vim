@@ -86,15 +86,20 @@ endfunction
 function! s:scheme_fugitive(ctx) abort " {{{1
   let l:bufname = bufname(a:ctx.bufnr)
 
-  let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
   let l:fname = matchstr(l:bufname, '\.git\/\/\x*\/\zs.*')
   if empty(l:fname)
     let l:fname = matchstr(l:bufname, '\.git\/\/\zs\x*')
   endif
 
+  if empty(l:fname)
+    return a:ctx.info(' fugitive: ') . a:ctx.hlight('Git status')
+  endif
+
   let l:stat = a:ctx.info(' fugitive: %<') . a:ctx.hlight(l:fname)
   let l:stat .= s:status_modified(a:ctx)
-  let l:stat .= '%= ⑂' . l:commit . ' '
+
+  let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
+  let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
 
   return l:stat
 endfunction
@@ -194,7 +199,7 @@ function! s:fallback(ctx) abort " {{{1
   endif
 
   try
-    let l:head = FugitiveHead(12)
+    let l:head = FugitiveHead(7, a:ctx.bufnr)
     if !empty(l:head)
       let l:stat .= ' ⑂' . l:head
     endif
