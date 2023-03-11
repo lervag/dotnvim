@@ -105,6 +105,29 @@ function! s:scheme_fugitive(ctx) abort " {{{1
 endfunction
 
 " }}}1
+function! s:scheme_diffview(ctx) abort " {{{1
+  let l:bufname = bufname(a:ctx.bufnr)
+
+  let l:fname = matchstr(l:bufname, '\.git\/[0-9a-z:]*\/\zs.*')
+  if empty(l:fname)
+    let l:fname = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]*')
+  endif
+
+  if empty(l:fname)
+    let l:name = matchstr(l:bufname, 'panels\/\d\+\/\zs.*')
+    return a:ctx.info(' diffview: ') . a:ctx.hlight(l:name)
+  endif
+
+  let l:stat = a:ctx.info(' diffview: %<') . a:ctx.hlight(l:fname)
+  let l:stat .= s:status_modified(a:ctx)
+
+  let l:commit = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]\{7}')
+  let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
+
+  return l:stat
+endfunction
+
+" }}}1
 function! s:scheme_merge(ctx, version) abort " {{{1
   let l:mm = getwinvar(a:ctx.winnr, '__merge_mode', {})
   if !empty(l:mm)
