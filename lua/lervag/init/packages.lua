@@ -23,15 +23,17 @@ local M = {
       vim.g.vimtex_imaps_leader = "¨"
       vim.g.vimtex_imaps_list = {
         {
-          lhs = "ii", rhs = "\\item ", leader = "",
+          lhs = "ii",
+          rhs = "\\item ",
+          leader = "",
           wrapper = "vimtex#imaps#wrap_environment",
-          context = { "itemize", "enumerate", "description" }
+          context = { "itemize", "enumerate", "description" },
         },
-        { lhs = ".",  rhs = "\\cdot" },
-        { lhs = "*",  rhs = "\\times" },
-        { lhs = "a",  rhs = "\\alpha" },
-        { lhs = "r",  rhs = "\\rho" },
-        { lhs = "p",  rhs = "\\varphi" },
+        { lhs = ".", rhs = "\\cdot" },
+        { lhs = "*", rhs = "\\times" },
+        { lhs = "a", rhs = "\\alpha" },
+        { lhs = "r", rhs = "\\rho" },
+        { lhs = "p", rhs = "\\varphi" },
       }
       vim.g.vimtex_quickfix_open_on_warning = 0
       vim.g.vimtex_quickfix_ignore_filters = { "Generic hook" }
@@ -58,9 +60,9 @@ local M = {
         group = vim.api.nvim_create_augroup("init_vimtex", { clear = true }),
         pattern = "VimtexEventViewReverse",
         desc = "VimTeX: Center view on inverse search",
-        command = [[ normal! zMzvzz ]]
+        command = [[ normal! zMzvzz ]],
       })
-    end
+    end,
   },
 
   {
@@ -73,7 +75,7 @@ local M = {
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_filetypes = { "wiki", "md" }
       vim.g.wiki_mappings_local = {
-        ["<plug>(wiki-link-toggle-operator)"]  ="gL",
+        ["<plug>(wiki-link-toggle-operator)"] = "gL",
       }
       vim.g.wiki_month_names = {
         "Januar",
@@ -87,7 +89,7 @@ local M = {
         "September",
         "Oktober",
         "November",
-        "Desember"
+        "Desember",
       }
       vim.g.wiki_template_title_week = "# Samandrag veke %(week), %(year)"
       vim.g.wiki_template_title_month = "# Samandrag frå %(month-name) %(year)"
@@ -99,12 +101,11 @@ local M = {
       vim.g.wiki_templates = {
         {
           match_func = function(ctx)
-            return ctx.path:sub(-5) == ".wiki"
-              and not ctx.path:find("journal/")
+            return ctx.path:sub(-5) == ".wiki" and not ctx.path:find "journal/"
           end,
           source_func = function(ctx)
             return vim.fn["personal#wiki#template"](ctx)
-          end
+          end,
         },
       }
 
@@ -113,15 +114,15 @@ local M = {
         group = g,
         pattern = "WikiLinkFollowed",
         desc = "Wiki: Center view on link follow",
-        command = [[ normal! zz ]]
+        command = [[ normal! zz ]],
       })
       vim.api.nvim_create_autocmd("User", {
         group = g,
         pattern = "WikiBufferInitialized",
         desc = "Wiki: add mapping for gf",
-        command = [[ nmap <buffer> gf <plug>(wiki-link-follow) ]]
+        command = [[ nmap <buffer> gf <plug>(wiki-link-follow) ]],
       })
-    end
+    end,
   },
 
   {
@@ -129,7 +130,7 @@ local M = {
     dev = true,
     init = function()
       vim.g.lists_filetypes = { "markdown", "wiki", "help", "text" }
-    end
+    end,
   },
 
   {
@@ -164,7 +165,7 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require 'nvim-treesitter.configs'.setup {
+      require("nvim-treesitter.configs").setup {
         ensure_installed = "all",
         highlight = {
           enable = true,
@@ -172,9 +173,9 @@ local M = {
         },
         matchup = {
           enable = true,
-        }
+        },
       }
-    end
+    end,
   },
 
   {
@@ -222,16 +223,20 @@ local M = {
           codeaction = function(action_tuple)
             local title = action_tuple[2].title:gsub("\r\n", "\\r\\n")
             local client = vim.lsp.get_client_by_id(action_tuple[1])
-            return string.format("%s\t[%s]", title:gsub("\n", "\\n"), client.name)
+            return string.format(
+              "%s\t[%s]",
+              title:gsub("\n", "\\n"),
+              client.name
+            )
           end,
-        }
+        },
       },
-    }
+    },
   },
 
   {
     "nvim-tree/nvim-web-devicons",
-    lazy = true
+    lazy = true,
   },
 
   {
@@ -242,12 +247,12 @@ local M = {
         timeout = 3000,
         stages = {
           function(state)
-            local stages_util = require("notify.stages.util")
+            local stages_util = require "notify.stages.util"
             local next_height = state.message.height
             local next_row = stages_util.available_slot(
-            state.open_windows,
-            next_height,
-            stages_util.DIRECTION.TOP_DOWN
+              state.open_windows,
+              next_height,
+              stages_util.DIRECTION.TOP_DOWN
             )
             if not next_row then
               return nil
@@ -260,7 +265,7 @@ local M = {
               height = state.message.height,
               col = vim.opt.columns:get() - 1,
               row = next_row,
-              border = { "", "" ,"", " ", " ", " ", " ", " " },
+              border = { "", "", "", " ", " ", " ", " ", " " },
               style = "minimal",
               opacity = 0,
               noautocmd = true,
@@ -274,7 +279,7 @@ local M = {
           end,
           function()
             return {
-              col = { vim.opt.columns:get() - 1},
+              col = { vim.opt.columns:get() - 1 },
               time = true,
             }
           end,
@@ -292,7 +297,7 @@ local M = {
           end,
         },
         render = function(bufnr, notif, highlights, config)
-          local base = require("notify.render.base")
+          local base = require "notify.render.base"
           local left_icon = notif.icon .. " "
           local max_message_width = math.max(unpack(vim.tbl_map(function(line)
             return vim.fn.strchars(line)
@@ -301,10 +306,11 @@ local M = {
           local right_title = notif.title[2]
           local left_title = notif.title[1]
           local title_accum = vim.str_utfindex(left_icon)
-          + vim.str_utfindex(right_title)
-          + vim.str_utfindex(left_title)
+            + vim.str_utfindex(right_title)
+            + vim.str_utfindex(left_title)
 
-          local left_buffer = string.rep(" ", math.max(0, max_message_width - title_accum))
+          local left_buffer =
+            string.rep(" ", math.max(0, max_message_width - title_accum))
 
           local namespace = base.namespace()
           vim.api.nvim_buf_set_lines(bufnr, 0, 1, false, { "", "" })
@@ -325,8 +331,11 @@ local M = {
             virt_text = {
               {
                 string.rep(
-                "─",
-                math.max(vim.str_utfindex(left_buffer) + title_accum + 2, config.minimum_width())
+                  "─",
+                  math.max(
+                    vim.str_utfindex(left_buffer) + title_accum + 2,
+                    config.minimum_width()
+                  )
                 ),
                 highlights.border,
               },
@@ -342,17 +351,17 @@ local M = {
             end_col = #notif.message[#notif.message],
             priority = 50, -- Allow treesitter to override
           })
-        end
+        end,
       }
 
-      vim.notify = require("notify")
-    end
+      vim.notify = require "notify"
+    end,
   },
 
   {
     "j-hui/fidget.nvim",
     event = "VeryLazy",
-    config = true
+    config = true,
   },
 
   {
@@ -360,7 +369,7 @@ local M = {
     config = function()
       vim.g.dirvish_mode = [[:sort ,^.*[\/],]]
       vim.keymap.set("n", "-", "<Plug>(dirvish_up)")
-    end
+    end,
   },
 
   {
@@ -378,7 +387,7 @@ local M = {
     config = function()
       vim.g.ai_no_mappings = 1
       -- Highlightrules are also added in colorscheme!
-    end
+    end,
   },
 
   -- }}}1
@@ -454,37 +463,39 @@ local M = {
 
       cmp.setup {
         snippet = {
-          expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end,
+          expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+          end,
         },
         formatting = { format = formatter },
         completion = {
           keyword_length = 2,
         },
         experimental = {
-          ghost_text = true
+          ghost_text = true,
         },
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = "ultisnips" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
-        }),
+        },
         mapping = {
           ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<c-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<c-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<c-u>"] = cmp.mapping.confirm({ select = true }),
+          ["<c-u>"] = cmp.mapping.confirm { select = true },
           ["<c-j>"] = cmp.mapping(function(fallback)
             if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-              feedkeys("<plug>(ultisnips_jump_forward)")
+              feedkeys "<plug>(ultisnips_jump_forward)"
             else
               fallback()
             end
           end),
           ["<c-k>"] = cmp.mapping(function(fallback)
             if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-              feedkeys("<plug>(ultisnips_jump_backward)")
+              feedkeys "<plug>(ultisnips_jump_backward)"
             else
               fallback()
             end
@@ -495,71 +506,71 @@ local M = {
             end
             fallback()
           end,
-          ["<tab>"] = cmp.mapping({
+          ["<tab>"] = cmp.mapping {
             i = function(_)
               if cmp.visible() then
                 cmp.select_next_item()
               elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                feedkeys("<plug>(ultisnips_jump_forward)")
+                feedkeys "<plug>(ultisnips_jump_forward)"
               else
                 feedkeys("<tab>", "n")
               end
             end,
             s = function(fallback)
               if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                feedkeys("<plug>(ultisnips_jump_forward)")
+                feedkeys "<plug>(ultisnips_jump_forward)"
               else
                 fallback()
               end
-            end
-          }),
-          ["<s-tab>"] = cmp.mapping({
+            end,
+          },
+          ["<s-tab>"] = cmp.mapping {
             i = function(_)
               if cmp.visible() then
                 cmp.select_prev_item()
               elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                feedkeys("<plug>(ultisnips_jump_backward)")
+                feedkeys "<plug>(ultisnips_jump_backward)"
               else
                 feedkeys("<bs>", "n")
               end
             end,
             s = function(fallback)
               if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                feedkeys("<plug>(ultisnips_jump_backward)")
+                feedkeys "<plug>(ultisnips_jump_backward)"
               else
                 fallback()
               end
-            end
-          }),
+            end,
+          },
         },
       }
 
       cmp.setup.filetype("lua", {
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = "ultisnips" },
           { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
-        }),
+        },
       })
 
       cmp.setup.filetype({ "tex", "wiki" }, {
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = "ultisnips" },
           { name = "omni" },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
-        })
+        },
       })
 
-      cmp.setup.filetype({ 'markdown', 'help' }, {
+      cmp.setup.filetype({ "markdown", "help" }, {
         window = {
-          documentation = cmp.config.disable
-        }
+          documentation = cmp.config.disable,
+        },
       })
-    end
+    end,
   },
 
   {
@@ -567,19 +578,20 @@ local M = {
     lazy = true,
     opts = {
       documentation = function(snippet)
-        local snippet_docs = string.format(
-        "```%s\n%s\n```",
-        vim.bo.filetype, snippet.value)
+        local snippet_docs =
+          string.format("```%s\n%s\n```", vim.bo.filetype, snippet.value)
         local formatted = table.concat(
-        vim.lsp.util.convert_input_to_markdown_lines(snippet_docs), "\n")
+          vim.lsp.util.convert_input_to_markdown_lines(snippet_docs),
+          "\n"
+        )
         if snippet.description == "" then
           return formatted
         end
 
         local description = "*" .. snippet.description:sub(2, -2) .. "*"
         return string.format("%s\n\n%s", description, formatted)
-      end
-    }
+      end,
+    },
   },
 
   {
@@ -589,10 +601,11 @@ local M = {
       vim.g.UltiSnipsJumpForwardTrigger = "<plug>(ultisnips_jump_forward)"
       vim.g.UltiSnipsJumpBackwardTrigger = "<plug>(ultisnips_jump_backward)"
       vim.g.UltiSnipsRemoveSelectModeMappings = 0
-      vim.g.UltiSnipsSnippetDirectories = { vim.env.HOME .. '/.config/nvim/UltiSnips' }
+      vim.g.UltiSnipsSnippetDirectories =
+        { vim.env.HOME .. "/.config/nvim/UltiSnips" }
 
       vim.keymap.set("n", "<leader>es", "<cmd>UltiSnipsEdit!<cr>")
-    end
+    end,
   },
 
   {
@@ -605,20 +618,18 @@ local M = {
       -- Use separate files for each desired LSP placed in
       -- ~/.config/nvim/lua/lervag/lsp/
       local servers = vim.tbl_map(function(x)
-          return x:match("([^/]*).lua$")
-        end,
-        vim.api.nvim_get_runtime_file("lua/lervag/lsp/*.lua", true)
-      )
+        return x:match "([^/]*).lua$"
+      end, vim.api.nvim_get_runtime_file("lua/lervag/lsp/*.lua", true))
 
-      local lspconfig = require("lspconfig")
+      local lspconfig = require "lspconfig"
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       for _, server in pairs(servers) do
         local _, user_opts = pcall(require, "lervag.lsp." .. server)
         local opts = vim.tbl_deep_extend("force", {
           capabilities = capabilities,
           flags = {
-            debounce_text_changes = 150
-          }
+            debounce_text_changes = 150,
+          },
         }, user_opts)
         lspconfig[server].setup(opts)
       end
@@ -631,7 +642,7 @@ local M = {
           client.server_capabilities.semanticTokensProvider = nil
         end,
       })
-    end
+    end,
   },
 
   {
@@ -656,13 +667,13 @@ local M = {
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
+      local null_ls = require "null-ls"
+      null_ls.setup {
         sources = {
-          null_ls.builtins.formatting.stylua
-        }
-      })
-    end
+          null_ls.builtins.formatting.stylua,
+        },
+      }
+    end,
   },
 
   -- }}}1
@@ -675,8 +686,9 @@ local M = {
       vim.g.targets_argOpening = "[({[]"
       vim.g.targets_argClosing = "[]})]"
       vim.g.targets_separators = ", . ; : + - = ~ _ * # / | \\ &"
-      vim.g.targets_seekRanges = "cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr ll rb al rB Al bb aa bB Aa BB AA"
-    end
+      vim.g.targets_seekRanges =
+        "cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr ll rb al rB Al bb aa bB Aa BB AA"
+    end,
   },
 
   {
@@ -762,7 +774,7 @@ local M = {
               \ },
               \]
       ]]
-    end
+    end,
   },
 
   -- {{{1 Finder, motions, and tags
@@ -779,37 +791,59 @@ local M = {
     },
     init = function()
       -- vim.keymap.set('n', '<leader><leader>', function() telescope.extensions.frecency.frecency() end)
-      vim.keymap.set('n', '<leader><leader>', function() require('telescope.builtin').oldfiles() end)
-      vim.keymap.set('n', '<leader>ot', function() require('telescope.builtin').tags() end)
-      vim.keymap.set('n', '<leader>ob', function() require('telescope.builtin').buffers() end)
-      vim.keymap.set('n', '<leader>og', function() require('telescope.builtin').git_files() end)
+      vim.keymap.set("n", "<leader><leader>", function()
+        require("telescope.builtin").oldfiles()
+      end)
+      vim.keymap.set("n", "<leader>ot", function()
+        require("telescope.builtin").tags()
+      end)
+      vim.keymap.set("n", "<leader>ob", function()
+        require("telescope.builtin").buffers()
+      end)
+      vim.keymap.set("n", "<leader>og", function()
+        require("telescope.builtin").git_files()
+      end)
 
-      vim.keymap.set('n', '<leader>ev', function() require('lervag.util.ts').files_nvim() end)
-      vim.keymap.set('n', '<leader>ez', function() require('lervag.util.ts').files_dotfiles() end)
+      vim.keymap.set("n", "<leader>ev", function()
+        require("lervag.util.ts").files_nvim()
+      end)
+      vim.keymap.set("n", "<leader>ez", function()
+        require("lervag.util.ts").files_dotfiles()
+      end)
 
-      vim.keymap.set('n', '<leader>oo', function() require('lervag.util.ts').files() end)
-      vim.keymap.set('n', '<leader>op', function() require('lervag.util.ts').files_plugged() end)
-      vim.keymap.set('n', '<leader>ow', function() require('lervag.util.ts').files_wiki() end)
-      vim.keymap.set('n', '<leader>oz', function() require('lervag.util.ts').files_zotero() end)
+      vim.keymap.set("n", "<leader>oo", function()
+        require("lervag.util.ts").files()
+      end)
+      vim.keymap.set("n", "<leader>op", function()
+        require("lervag.util.ts").files_plugged()
+      end)
+      vim.keymap.set("n", "<leader>ow", function()
+        require("lervag.util.ts").files_wiki()
+      end)
+      vim.keymap.set("n", "<leader>oz", function()
+        require("lervag.util.ts").files_zotero()
+      end)
     end,
     config = function()
       -- https://github.com/nvim-telescope/telescope.nvim/issues/559
       local function stopinsert(callback)
         return function(prompt_bufnr)
           vim.cmd.stopinsert()
-          vim.schedule(function() callback(prompt_bufnr) end)
+          vim.schedule(function()
+            callback(prompt_bufnr)
+          end)
         end
       end
 
-      local actions = require("telescope.actions")
+      local actions = require "telescope.actions"
       require("telescope").setup {
         defaults = {
-          sorting_strategy = 'ascending',
+          sorting_strategy = "ascending",
           results_title = false,
           preview = {
             hide_on_startup = true,
           },
-          layout_strategy = 'center',
+          layout_strategy = "center",
           layout_config = {
             width = 0.95,
             height = 0.99,
@@ -835,15 +869,15 @@ local M = {
               ["<C-h>"] = "which_key",
               ["<C-u>"] = false,
               ["<C-x>"] = "toggle_selection",
-            }
-          }
+            },
+          },
         },
         pickers = {
           find_files = {
             follow = true,
             hidden = true,
             no_ignore = true,
-            find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+            find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
           },
         },
         extensions = {
@@ -862,12 +896,12 @@ local M = {
               "*.local/wiki/*",
               "/usr/*",
             },
-          }
-        }
+          },
+        },
       }
 
-      require("telescope").load_extension('fzf')
-    end
+      require("telescope").load_extension "fzf"
+    end,
   },
 
   {
@@ -875,18 +909,18 @@ local M = {
     event = "VeryLazy",
     init = function()
       vim.g.gutentags_define_advanced_commands = 1
-      vim.g.gutentags_cache_dir = vim.fn.stdpath("cache") .. '/ctags'
+      vim.g.gutentags_cache_dir = vim.fn.stdpath "cache" .. "/ctags"
       vim.g.gutentags_ctags_extra_args = {
         "--tag-relative=yes",
         "--fields=+aimS",
       }
       vim.g.gutentags_file_list_command = {
         markers = {
-          ['.git'] = 'git ls-files',
-          ['.hg'] = 'hg files',
+          [".git"] = "git ls-files",
+          [".hg"] = "hg files",
         },
       }
-    end
+    end,
   },
 
   {
@@ -905,10 +939,10 @@ local M = {
       vim.g.ctrlsf_context = "-B 2"
       vim.g.ctrlsf_default_root = "project+fw"
       vim.g.ctrlsf_populate_qflist = 1
-      if vim.fn.executable("rg") then
+      if vim.fn.executable "rg" then
         vim.g.ctrlsf_ackprg = "rg"
       end
-    end
+    end,
   },
 
   {
@@ -931,7 +965,7 @@ local M = {
       vim.fn["columnmove#utility#map"]("nxo", "E", "øE", "block")
       vim.fn["columnmove#utility#map"]("nxo", "ge", "øge", "block")
       vim.fn["columnmove#utility#map"]("nxo", "gE", "øgE", "block")
-    end
+    end,
   },
 
   -- {{{1 Debugging, and code runners
@@ -944,8 +978,8 @@ local M = {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         opts = {
-          virt_lines = true
-        }
+          virt_lines = true,
+        },
       },
       "jbyuki/one-small-step-for-vimkind",
       {
@@ -956,9 +990,9 @@ local M = {
           }
 
           require("debugpy").run = function(config)
-            require("dap").run(vim.tbl_extend('keep', config, default_config))
+            require("dap").run(vim.tbl_extend("keep", config, default_config))
           end
-        end
+        end,
       },
     },
     config = function()
@@ -983,78 +1017,84 @@ local M = {
       local widgets = require "dap.ui.widgets"
 
       -- Define sign symbols
-      vim.fn.sign_define({
-        { text='🡆', texthl='DapSign', name = 'DapStopped', linehl='CursorLine'},
-        { text='●', texthl='DapSign', name = 'DapBreakpoint'},
-        { text='', texthl='DapSign', name = 'DapBreakpointCondition'},
-        { text='▪', texthl='DapSign', name = 'DapBreakpointRejected'},
-        { text='◉', texthl='DapSign', name = 'DapLogPoint'},
-      })
+      vim.fn.sign_define {
+        {
+          text = "🡆",
+          texthl = "DapSign",
+          name = "DapStopped",
+          linehl = "CursorLine",
+        },
+        { text = "●", texthl = "DapSign", name = "DapBreakpoint" },
+        { text = "", texthl = "DapSign", name = "DapBreakpointCondition" },
+        { text = "▪", texthl = "DapSign", name = "DapBreakpointRejected" },
+        { text = "◉", texthl = "DapSign", name = "DapLogPoint" },
+      }
 
-      dap.listeners.before['event_terminated']['my-plugin'] = function(session, body)
-        print('Session terminated', vim.inspect(session), vim.inspect(body))
+      dap.listeners.before["event_terminated"]["my-plugin"] = function(
+        session,
+        body
+      )
+        print("Session terminated", vim.inspect(session), vim.inspect(body))
       end
 
       local mappings = {
-        ['<leader>dd'] = dap.continue,
-        ['<leader>dD'] = dap.run_last,
-        ['<leader>dc'] = dap.run_to_cursor,
-        ['<leader>dx'] = dap.terminate,
-        ['<leader>dp'] = dap.step_back,
-        ['<leader>dn'] = dap.step_over,
-        ['<leader>dj'] = dap.step_into,
-        ['<leader>dk'] = dap.step_out,
+        ["<leader>dd"] = dap.continue,
+        ["<leader>dD"] = dap.run_last,
+        ["<leader>dc"] = dap.run_to_cursor,
+        ["<leader>dx"] = dap.terminate,
+        ["<leader>dp"] = dap.step_back,
+        ["<leader>dn"] = dap.step_over,
+        ["<leader>dj"] = dap.step_into,
+        ["<leader>dk"] = dap.step_out,
 
-        ['<leader>dl'] = function()
+        ["<leader>dl"] = function()
           dap.list_breakpoints()
           vim.cmd [[ :copen ]]
         end,
-        ['<leader>db'] = dap.toggle_breakpoint,
-        ['<leader>dB'] = function()
-          vim.ui.input({ prompt = "Breakpoint condition: " },
-          function(condition)
-            dap.set_breakpoint(condition)
-          end)
+        ["<leader>db"] = dap.toggle_breakpoint,
+        ["<leader>dB"] = function()
+          vim.ui.input(
+            { prompt = "Breakpoint condition: " },
+            function(condition)
+              dap.set_breakpoint(condition)
+            end
+          )
         end,
 
-        ['<leader>dw'] = function()
-          vim.ui.input({ prompt = "Watch: " },
-          function(watch)
+        ["<leader>dw"] = function()
+          vim.ui.input({ prompt = "Watch: " }, function(watch)
             dap.set_breakpoint(nil, nil, watch)
           end)
         end,
-        ['<leader>dW'] = function()
-          vim.ui.input({ prompt = "Watch condition: " },
-          function(condition)
-            vim.ui.input({ prompt = "Watch: " },
-            function(watch)
+        ["<leader>dW"] = function()
+          vim.ui.input({ prompt = "Watch condition: " }, function(condition)
+            vim.ui.input({ prompt = "Watch: " }, function(watch)
               dap.set_breakpoint(condition, nil, watch)
             end)
           end)
         end,
 
-        ['<leader>dK'] = dap.up,
-        ['<leader>dJ'] = dap.down,
-        ['<leader>dr'] = dap.repl.toggle,
-        ['<leader>dh'] = widgets.hover,
-        ['<leader>dH'] = function()
-          vim.ui.input({ prompt = "Evaluate: " },
-          function(expr)
+        ["<leader>dK"] = dap.up,
+        ["<leader>dJ"] = dap.down,
+        ["<leader>dr"] = dap.repl.toggle,
+        ["<leader>dh"] = widgets.hover,
+        ["<leader>dH"] = function()
+          vim.ui.input({ prompt = "Evaluate: " }, function(expr)
             widgets.hover(expr)
           end)
         end,
-        ['<leader>dF'] = function()
+        ["<leader>dF"] = function()
           widgets.centered_float(widgets.frames)
         end,
-        ['<leader>dL'] = function()
+        ["<leader>dL"] = function()
           widgets.centered_float(widgets.scopes)
         end,
       }
 
       for lhs, rhs in pairs(mappings) do
-        vim.keymap.set('n', lhs, rhs)
+        vim.keymap.set("n", lhs, rhs)
       end
-    end
+    end,
   },
 
   -- {{{1 Editing
@@ -1076,24 +1116,27 @@ local M = {
     "junegunn/vim-easy-align",
     keys = {
       {
-        "<leader>ea", "<plug>(LiveEasyAlign)",
+        "<leader>ea",
+        "<plug>(LiveEasyAlign)",
         mode = { "n", "v" },
-        desc = "LiveEasyAlign"
+        desc = "LiveEasyAlign",
       },
       {
-        "<leader>eA", "<plug>(EasyAlign)",
+        "<leader>eA",
+        "<plug>(EasyAlign)",
         mode = { "n", "v" },
-        desc = "EasyAlign"
+        desc = "EasyAlign",
       },
       {
-        ".", "<plug>(EasyAlignRepeat)",
+        ".",
+        "<plug>(EasyAlignRepeat)",
         mode = "v",
-        desc = "EasyAlignRepeat"
+        desc = "EasyAlignRepeat",
       },
     },
     config = function()
       vim.g.easy_align_bypass_fold = 1
-    end
+    end,
   },
 
   {
@@ -1101,24 +1144,35 @@ local M = {
     event = "BufReadPost",
     config = function()
       vim.g.table_mode_auto_align = 0
-      vim.g.table_mode_corner = '|'
-    end
+      vim.g.table_mode_corner = "|"
+    end,
   },
-
 
   {
     "monaqa/dial.nvim",
     lazy = true,
     init = function()
-      vim.keymap.set("n", "<C-a>",  function() return require("dial.map").inc_normal()  end, { expr = true })
-      vim.keymap.set("n", "<C-x>",  function() return require("dial.map").dec_normal()  end, { expr = true })
-      vim.keymap.set("v", "<C-a>",  function() return require("dial.map").inc_visual()  end, { expr = true })
-      vim.keymap.set("v", "<C-x>",  function() return require("dial.map").dec_visual()  end, { expr = true })
-      vim.keymap.set("v", "g<C-a>", function() return require("dial.map").inc_gvisual() end, { expr = true })
-      vim.keymap.set("v", "g<C-x>", function() return require("dial.map").dec_gvisual() end, { expr = true })
+      vim.keymap.set("n", "<C-a>", function()
+        return require("dial.map").inc_normal()
+      end, { expr = true })
+      vim.keymap.set("n", "<C-x>", function()
+        return require("dial.map").dec_normal()
+      end, { expr = true })
+      vim.keymap.set("v", "<C-a>", function()
+        return require("dial.map").inc_visual()
+      end, { expr = true })
+      vim.keymap.set("v", "<C-x>", function()
+        return require("dial.map").dec_visual()
+      end, { expr = true })
+      vim.keymap.set("v", "g<C-a>", function()
+        return require("dial.map").inc_gvisual()
+      end, { expr = true })
+      vim.keymap.set("v", "g<C-x>", function()
+        return require("dial.map").dec_gvisual()
+      end, { expr = true })
     end,
     config = function()
-      local augend = require("dial.augend")
+      local augend = require "dial.augend"
       require("dial.config").augends:register_group {
         default = {
           augend.integer.alias.decimal_int,
@@ -1132,76 +1186,91 @@ local M = {
           },
           augend.constant.alias.bool,
           augend.constant.new {
-            elements = {"yes", "no"},
+            elements = { "yes", "no" },
             word = true,
             cyclic = true,
           },
           augend.constant.new {
-            elements = {"and", "or"},
+            elements = { "and", "or" },
             word = true,
             cyclic = true,
           },
           augend.case.new {
-            types = {"camelCase", "snake_case"},
+            types = { "camelCase", "snake_case" },
             cyclic = true,
           },
         },
       }
-    end
+    end,
   },
 
   {
     "ggandor/leap.nvim",
     keys = {
-      {"s", "<plug>(leap-forward)"},
-      {"S", "<plug>(leap-backward)"},
-      {"z", "<plug>(leap-forward)", mode = { "x", "o" }},
-      {"Z", "<plug>(leap-backward)", mode = { "x", "o" }},
+      { "s", "<plug>(leap-forward)" },
+      { "S", "<plug>(leap-backward)" },
+      { "z", "<plug>(leap-forward)", mode = { "x", "o" } },
+      { "Z", "<plug>(leap-backward)", mode = { "x", "o" } },
     },
     config = function()
-      opts = require('leap').opts
+      opts = require("leap").opts
       opts.case_sensitive = true
       opts.labels = {
-          "s", "f", "n", "j", "k",
-          "l", "o", "d", "w", "e",
-          "h", "m", "v", "g", "u",
-          "t", "c", ".", "z"
-        }
+        "s",
+        "f",
+        "n",
+        "j",
+        "k",
+        "l",
+        "o",
+        "d",
+        "w",
+        "e",
+        "h",
+        "m",
+        "v",
+        "g",
+        "u",
+        "t",
+        "c",
+        ".",
+        "z",
+      }
       opts.safe_labels = {}
-    end
+    end,
   },
 
   {
     "booperlv/nvim-gomove",
     keys = {
-      {"<left>", "<plug>GoNSMLeft"},
-      {"<down>", "<plug>GoNSMDown"},
-      {"<up>", "<plug>GoNSMUp"},
-      {"<right>", "<plug>GoNSMRight"},
-      {"<c-left>", "<plug>GoNSDLeft"},
-      {"<c-down>", "<plug>GoNSDDown"},
-      {"<c-up>", "<plug>GoNSDUp"},
-      {"<c-right>", "<plug>GoNSDRight"},
-      {"<left>", "<plug>GoVSMLeft", mode = "x"},
-      {"<down>", "<plug>GoVSMDown", mode = "x"},
-      {"<up>", "<plug>GoVSMUp", mode = "x"},
-      {"<right>", "<plug>GoVSMRight", mode = "x"},
-      {"<c-left>", "<plug>GoVSDLeft", mode = "x"},
-      {"<c-down>", "<plug>GoVSDDown", mode = "x"},
-      {"<c-up>", "<plug>GoVSDUp", mode = "x"},
-      {"<c-right>", "<plug>GoVSDRight", mode = "x"},
+      { "<left>", "<plug>GoNSMLeft" },
+      { "<down>", "<plug>GoNSMDown" },
+      { "<up>", "<plug>GoNSMUp" },
+      { "<right>", "<plug>GoNSMRight" },
+      { "<c-left>", "<plug>GoNSDLeft" },
+      { "<c-down>", "<plug>GoNSDDown" },
+      { "<c-up>", "<plug>GoNSDUp" },
+      { "<c-right>", "<plug>GoNSDRight" },
+      { "<left>", "<plug>GoVSMLeft", mode = "x" },
+      { "<down>", "<plug>GoVSMDown", mode = "x" },
+      { "<up>", "<plug>GoVSMUp", mode = "x" },
+      { "<right>", "<plug>GoVSMRight", mode = "x" },
+      { "<c-left>", "<plug>GoVSDLeft", mode = "x" },
+      { "<c-down>", "<plug>GoVSDDown", mode = "x" },
+      { "<c-up>", "<plug>GoVSDUp", mode = "x" },
+      { "<c-right>", "<plug>GoVSDRight", mode = "x" },
     },
     opts = {
       map_defaults = false,
       move_past_end_col = true,
-    }
+    },
   },
 
   {
     "brianrodri/vim-sort-folds",
     keys = {
       { "<leader>s", "<cmd>call sortfolds#SortFolds()<cr>" },
-    }
+    },
   },
 
   {
@@ -1214,7 +1283,7 @@ local M = {
       vim.g.inline_edit_proxy_type = "tempfile"
       -- vim.g.inline_edit_modify_statusline = 0
       -- vim.g.inline_edit_new_buffer_command = "tabedit"
-    end
+    end,
   },
 
   {
@@ -1228,9 +1297,9 @@ local M = {
         group = vim.api.nvim_create_augroup("init_linediff", { clear = true }),
         pattern = "LinediffBufferReady",
         desc = "Linediff buffer ready",
-        command = [[ nnoremap <buffer> <leader>eq :LinediffReset<cr> ]]
+        command = [[ nnoremap <buffer> <leader>eq :LinediffReset<cr> ]],
       })
-    end
+    end,
   },
 
   -- {{{1 VCS
@@ -1244,12 +1313,17 @@ local M = {
         init = function()
           -- I only want GBrowse functionality from rhubarb
           vim.g.loaded_rhubarb = 1
-        end
+        end,
       },
     },
     cmd = { "Git", "Gedit", "Gdiff" },
     keys = {
-      { "<leader>gs", function() require("lervag.util.git").toggle_fugitive() end },
+      {
+        "<leader>gs",
+        function()
+          require("lervag.util.git").toggle_fugitive()
+        end,
+      },
       { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" } },
       { "<leader>gB", "<cmd>Telescope git_branches<cr>" },
@@ -1267,15 +1341,19 @@ local M = {
         group = g,
         pattern = "index",
         desc = "Fugitive: reload status",
-        callback = function() vim.fn["fugitive#ReloadStatus"](-1, 0) end
+        callback = function()
+          vim.fn["fugitive#ReloadStatus"](-1, 0)
+        end,
       })
       vim.api.nvim_create_autocmd("BufReadPost", {
         group = g,
         pattern = "fugitive://",
         desc = "Fugitive: hidden fugitive buffers",
-        callback = function() vim.bo.bufhidden = "delete" end
+        callback = function()
+          vim.bo.bufhidden = "delete"
+        end,
       })
-    end
+    end,
   },
 
   {
@@ -1292,7 +1370,7 @@ local M = {
         format = "[%h] %s%d",
         date = "format:%Y-%m-%d %H:%M",
       }
-    end
+    end,
   },
 
   {
@@ -1300,7 +1378,7 @@ local M = {
     config = function()
       vim.g.rooter_patterns = { ".git", ".hg", ".bzr", ".svn", "build.sbt" }
       vim.g.rooter_silent_chdir = 1
-    end
+    end,
   },
 
   {
@@ -1325,7 +1403,7 @@ local M = {
     init = function()
       vim.g.tmux_navigator_no_mappings = 1
       vim.g.tmux_navigator_disable_when_zoomed = 1
-    end
+    end,
   },
 
   {
@@ -1345,7 +1423,7 @@ local M = {
       vim.g.VimuxOrientation = "h"
       vim.g.VimuxHeight = "50"
       vim.g.VimuxResetSequence = ""
-    end
+    end,
   },
 
   -- {{{1 Various
@@ -1361,7 +1439,7 @@ local M = {
       vim.g.calendar_date_endian = "big"
       vim.g.calendar_frame = "space"
       vim.g.calendar_week_number = 1
-    end
+    end,
   },
 
   {
@@ -1391,17 +1469,17 @@ local M = {
         group = g,
         pattern = "solarized_custom.lua",
         desc = "Activate colorizer for colorscheme file",
-        command = "ColorHighlight"
+        command = "ColorHighlight",
       })
-    end
+    end,
   },
 
   {
     "nvim-colortils/colortils.nvim",
     event = "BufReadPost",
     opts = {
-      background = '#e0dac9',
-      color_preview =  "██ %s",
+      background = "#e0dac9",
+      color_preview = "██ %s",
       border = "single",
       mappings = {
         replace_default_format = "<cr>",
@@ -1411,8 +1489,8 @@ local M = {
         -- export = "E",
         -- set_value = "c",
         -- transparency = "T",
-      }
-    }
+      },
+    },
   },
 
   {
@@ -1429,9 +1507,9 @@ local M = {
     "Konfekt/FastFold",
     enabled = false,
     config = function()
-      vim.g.fastfold_fold_command_suffixes =  { "x", "X", "M", "R" }
+      vim.g.fastfold_fold_command_suffixes = { "x", "X", "M", "R" }
       vim.g.fastfold_fold_movement_commands = {}
-    end
+    end,
   },
 
   -- {{{1 Various filetype plugins
@@ -1440,16 +1518,16 @@ local M = {
     url = "https://gitlab.com/yorickpeterse/nvim-pqf",
     event = "VeryLazy",
     config = function()
-      require('pqf').setup {
+      require("pqf").setup {
         show_multiple_lines = true,
         signs = {
-          error = '',
-          warning = '',
-          info = '',
-          hint = ''
-        }
+          error = "",
+          warning = "",
+          info = "",
+          hint = "",
+        },
       }
-    end
+    end,
   },
 
   { "Vimjas/vim-python-pep8-indent" },
@@ -1478,7 +1556,7 @@ local M = {
       vim.g.vim_markdown_conceal_code_blocks = 0
       vim.g.vim_markdown_math = 1
       vim.g.vim_markdown_strikethrough = 1
-    end
+    end,
   },
 
   {
@@ -1490,7 +1568,7 @@ local M = {
         "bash",
         "console=bash",
       }
-    end
+    end,
   },
 
   {

@@ -1,44 +1,46 @@
 -- Thanks to Clason for the inspiration:
 -- https://gist.github.com/clason/c164d718dcefbc27f08d3e0272cf93ae
 
-vim.o.background = 'light'
-vim.g.colors_name = 'solarized_custom'
+vim.o.background = "light"
+vim.g.colors_name = "solarized_custom"
 
 -- This enables dynamic reloading of the colorscheme
-vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = "solarized_custom.lua",
   group = vim.api.nvim_create_augroup("init_colors", {}),
   desc = "Reload colorscheme when it is changed",
   callback = function()
     if vim.o.modified then
-      vim.cmd 'highlight clear'
-      vim.cmd 'silent update'
-      vim.cmd 'colorscheme solarized_custom'
-      vim.notify('Updated colorscheme',
+      vim.cmd "highlight clear"
+      vim.cmd "silent update"
+      vim.cmd "colorscheme solarized_custom"
+      vim.notify(
+        "Updated colorscheme",
         vim.log.levels.WARN,
-        {title = 'solarized_custom'})
+        { title = "solarized_custom" }
+      )
     end
-  end
+  end,
 })
 
 -- {{{1 Define colors
 
-local base03 = '#002b36'
-local base02 = '#073642'
-local base01 = '#586e75'
-local base00 = '#657b83'
-local base0 = '#839496'
-local base1 = '#93a1a1'
-local base2 = '#eee8d5'
-local base3 = '#fdf6e3'
-local yellow = '#b58900'
-local orange = '#cb4b16'
-local red = '#dc322f'
-local magenta = '#d33682'
-local violet = '#6c71c4'
-local blue = '#268bd2'
-local cyan = '#2aa198'
-local green = '#859900'
+local base03 = "#002b36"
+local base02 = "#073642"
+local base01 = "#586e75"
+local base00 = "#657b83"
+local base0 = "#839496"
+local base1 = "#93a1a1"
+local base2 = "#eee8d5"
+local base3 = "#fdf6e3"
+local yellow = "#b58900"
+local orange = "#cb4b16"
+local red = "#dc322f"
+local magenta = "#d33682"
+local violet = "#6c71c4"
+local blue = "#268bd2"
+local cyan = "#2aa198"
+local green = "#859900"
 
 local color00 = base02
 local color01 = red
@@ -58,16 +60,16 @@ local color14 = base1
 local color15 = base3
 
 -- Extra "base" colors
-local base02v45 = '#0d5e73'
-local redv50 = '#801c1b'
-local greenv80 = '#b1cc00'
-local yellowv30 = '#4d3800'
-local bluev50 = '#175480'
-local base2v91 = '#e8e2ce'
-local base3v88 = '#e0dac9'
-local base3v100s7 = '#fffaed'
-local cyanlight = '#6DBFB8'
-local cyanlighter = '#acdad7'
+local base02v45 = "#0d5e73"
+local redv50 = "#801c1b"
+local greenv80 = "#b1cc00"
+local yellowv30 = "#4d3800"
+local bluev50 = "#175480"
+local base2v91 = "#e8e2ce"
+local base3v88 = "#e0dac9"
+local base3v100s7 = "#fffaed"
+local cyanlight = "#6DBFB8"
+local cyanlighter = "#acdad7"
 
 local color00l = base02v45
 local color01d = redv50
@@ -81,36 +83,36 @@ local color09l = orange
 local color15d = base3v88
 local color15w = base3v100s7
 
-local army1 = '#878700'
-local army2 = '#87875f'
-local black = '#000000'
-local blue1 = '#0087ff'
-local blue2 = '#00afff'
-local blue3 = '#add8e6'
-local blue5 = '#5cc6e4'
-local gold1 = '#ffe055'
-local gold2 = '#ffeea2'
-local gray1 = '#d2e1e0'
-local green1 = '#719e07'
-local green2 = '#d7ffaf'
-local magenta1 = '#ff00ff'
-local magenta1d = '#8b008b'
-local orange1 = '#ff5f00'
-local pink1 = '#f7cfbf'
-local purple1 = '#8787d7'
-local red1 = '#af0000'
-local yellow1 = '#ffff5f'
+local army1 = "#878700"
+local army2 = "#87875f"
+local black = "#000000"
+local blue1 = "#0087ff"
+local blue2 = "#00afff"
+local blue3 = "#add8e6"
+local blue5 = "#5cc6e4"
+local gold1 = "#ffe055"
+local gold2 = "#ffeea2"
+local gray1 = "#d2e1e0"
+local green1 = "#719e07"
+local green2 = "#d7ffaf"
+local magenta1 = "#ff00ff"
+local magenta1d = "#8b008b"
+local orange1 = "#ff5f00"
+local pink1 = "#f7cfbf"
+local purple1 = "#8787d7"
+local red1 = "#af0000"
+local yellow1 = "#ffff5f"
 
-vim.g.terminal_color_0  = color00
-vim.g.terminal_color_1  = color01
-vim.g.terminal_color_2  = color02
-vim.g.terminal_color_3  = color03
-vim.g.terminal_color_4  = color04
-vim.g.terminal_color_5  = color05
-vim.g.terminal_color_6  = color06
-vim.g.terminal_color_7  = color07
-vim.g.terminal_color_8  = color08
-vim.g.terminal_color_9  = color09
+vim.g.terminal_color_0 = color00
+vim.g.terminal_color_1 = color01
+vim.g.terminal_color_2 = color02
+vim.g.terminal_color_3 = color03
+vim.g.terminal_color_4 = color04
+vim.g.terminal_color_5 = color05
+vim.g.terminal_color_6 = color06
+vim.g.terminal_color_7 = color07
+vim.g.terminal_color_8 = color08
+vim.g.terminal_color_9 = color09
 vim.g.terminal_color_10 = color10
 vim.g.terminal_color_11 = color11
 vim.g.terminal_color_12 = color12
@@ -192,7 +194,7 @@ local theme = {
   iCursor = { bg = color03 },
   rCursor = { bg = color01 },
   vCursor = { bg = color05 },
-  lCursor = { link = 'Cursor' },
+  lCursor = { link = "Cursor" },
 
   -- {{{1 Default syntax groups
 
@@ -210,30 +212,30 @@ local theme = {
   Type = { fg = color03 },
   Underlined = { fg = color13 },
 
-  Boolean = { link = 'ConstantValue' },
-  Character = { link = 'ConstantValue' },
-  Float = { link = 'ConstantValue' },
-  Number = { link = 'ConstantValue' },
-  String = { link = 'ConstantValue' },
-  Function = { link = 'Identifier' },
-  Define = { link = 'PreProc' },
-  Include = { link = 'PreProc' },
-  Macro = { link = 'PreProc' },
-  PreCondit = { link = 'PreProc' },
-  Delimiter = { link = 'PreProc' },
-  Debug = { link = 'Special' },
-  SpecialChar = { link = 'Special' },
-  SpecialComment = { link = 'Special' },
-  Tag = { link = 'Special' },
-  Conditional = { link = 'Statement' },
-  Exception = { link = 'Statement' },
-  Keyword = { link = 'Statement' },
-  Label = { link = 'Statement' },
-  Operator = { link = 'Statement' },
-  Repeat = { link = 'Statement' },
-  StorageClass = { link = 'Type' },
-  Structure = { link = 'Type' },
-  Typedef = { link = 'Type' },
+  Boolean = { link = "ConstantValue" },
+  Character = { link = "ConstantValue" },
+  Float = { link = "ConstantValue" },
+  Number = { link = "ConstantValue" },
+  String = { link = "ConstantValue" },
+  Function = { link = "Identifier" },
+  Define = { link = "PreProc" },
+  Include = { link = "PreProc" },
+  Macro = { link = "PreProc" },
+  PreCondit = { link = "PreProc" },
+  Delimiter = { link = "PreProc" },
+  Debug = { link = "Special" },
+  SpecialChar = { link = "Special" },
+  SpecialComment = { link = "Special" },
+  Tag = { link = "Special" },
+  Conditional = { link = "Statement" },
+  Exception = { link = "Statement" },
+  Keyword = { link = "Statement" },
+  Label = { link = "Statement" },
+  Operator = { link = "Statement" },
+  Repeat = { link = "Statement" },
+  StorageClass = { link = "Type" },
+  Structure = { link = "Type" },
+  Typedef = { link = "Type" },
 
   FloatBorder = { fg = black, bg = color15d },
 
@@ -242,10 +244,10 @@ local theme = {
   -- Highlight groups used by Tree-sitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 
-  ['@parameter'] = { link = 'PreProc' },
-  ['@variable'] = { fg = color10 },
-  ['@constructor'] = { link = 'PreProc' },
-  ['@function.builtin'] = { fg = magenta1d },
+  ["@parameter"] = { link = "PreProc" },
+  ["@variable"] = { fg = color10 },
+  ["@constructor"] = { link = "PreProc" },
+  ["@function.builtin"] = { fg = magenta1d },
 
   -- {{{1 LSP and Diagnostics
 
@@ -277,11 +279,11 @@ local theme = {
 
   ctrlsfSelectedLine = { fg = blue2, bold = true },
   OperatorSandwichBuns = { fg = color05, bold = true },
-  OperatorSandwichChange = { link = 'OperatorSandwichBuns' },
+  OperatorSandwichChange = { link = "OperatorSandwichBuns" },
 
-  ALEErrorLine = { link = 'ErrorMsg' },
-  ALEWarningLine = { link = 'WarningMsg' },
-  ALEInfoLine = { link = 'ModeMsg' },
+  ALEErrorLine = { link = "ErrorMsg" },
+  ALEWarningLine = { link = "WarningMsg" },
+  ALEInfoLine = { link = "ModeMsg" },
 
   illuminatedWord = { underline = true },
 
@@ -291,17 +293,17 @@ local theme = {
   DapStatus = { fg = pink1, bg = color10 },
 
   CmpItemAbbrMatch = { fg = blue1 },
-  CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
+  CmpItemAbbrMatchFuzzy = { link = "CmpItemAbbrMatch" },
   CmpItemKind = { fg = color00l },
   CmpItemMenu = { fg = black },
 
   CmpItemKindFunction = { fg = color05 },
-  CmpItemKindMethod = { link = 'CmpItemKindFunction' },
+  CmpItemKindMethod = { link = "CmpItemKindFunction" },
 
   TelescopeBorder = { fg = black, bg = color07d, bold = true },
   TelescopeFrecencyScores = { fg = base2 },
   TelescopeMatching = { fg = blue, bold = true },
-  TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
+  TelescopeMultiIcon = { link = "TelescopeMultiSelection" },
   TelescopeMultiSelection = { fg = green, bold = true },
   TelescopeNormal = { bg = color07d },
   TelescopePromptCounter = { fg = green, bold = true },
@@ -314,25 +316,25 @@ local theme = {
   NotifyTRACEBody = { bg = color07d },
   NotifyTRACEBorder = { fg = violet, bg = color07d },
   NotifyTRACEIcon = { fg = violet },
-  NotifyTRACETitle  = { fg = violet, bold = true },
+  NotifyTRACETitle = { fg = violet, bold = true },
   NotifyDEBUGBody = { bg = color07d },
   NotifyDEBUGBorder = { fg = cyan, bg = color07d },
   NotifyDEBUGIcon = { fg = cyan },
-  NotifyDEBUGTitle  = { fg = cyan, bold = true },
-  NotifyINFOBody = { link = 'NotifyTRACEBody' },
+  NotifyDEBUGTitle = { fg = cyan, bold = true },
+  NotifyINFOBody = { link = "NotifyTRACEBody" },
   NotifyINFOBorder = { fg = green, bg = color07d },
   NotifyINFOIcon = { fg = green },
   NotifyINFOTitle = { fg = green, bold = true },
-  NotifyWARNBody = { link = 'NotifyTRACEBody' },
+  NotifyWARNBody = { link = "NotifyTRACEBody" },
   NotifyWARNBorder = { fg = yellow, bg = color07d },
   NotifyWARNIcon = { fg = yellow },
   NotifyWARNTitle = { fg = yellow, bold = true },
-  NotifyERRORBody = { link = 'NotifyTRACEBody' },
+  NotifyERRORBody = { link = "NotifyTRACEBody" },
   NotifyERRORBorder = { fg = red, bg = color07d },
   NotifyERRORIcon = { fg = red },
-  NotifyERRORTitle  = { fg = red, bold = true },
+  NotifyERRORTitle = { fg = red, bold = true },
 
-  AIIndicator = { fg = blue, bg=color07, bold = true },
+  AIIndicator = { fg = blue, bg = color07, bold = true },
   AIHighlight = { fg = blue },
 
   -- {{{1 Filetype Vimscript
@@ -346,13 +348,13 @@ local theme = {
   vimSynMtchOpt = { fg = color03 },
   vimSynType = { fg = color06 },
 
-  vimContinue = { link = 'Comment' },
-  vimCommand = { link = 'Type' },
-  vimFunc = { link = 'Function' },
-  vimUserFunc = { link = 'Function' },
-  vipmVar = { link = 'Identifier' },
-  vimMapModKey = { link = 'PreProc' },
-  vimNotation = { link = 'PreProc' },
+  vimContinue = { link = "Comment" },
+  vimCommand = { link = "Type" },
+  vimFunc = { link = "Function" },
+  vimUserFunc = { link = "Function" },
+  vipmVar = { link = "Identifier" },
+  vimMapModKey = { link = "PreProc" },
+  vimNotation = { link = "PreProc" },
 
   -- {{{1 Filetype Vim help
 
@@ -361,13 +363,13 @@ local theme = {
   helpNote = { fg = color05 },
   helpOption = { fg = color06 },
   helpVim = { fg = color05 },
-  helpExample = { link = 'PreProc' },
-  helpHeader = { link = 'Special' },
-  helpSpecial = { link = 'Special' },
-  helpIgnore = { link = 'Special' },
-  helpBacktick = { link = 'Special' },
-  helpBar = { link = 'Special' },
-  helpStar = { link = 'Special' },
+  helpExample = { link = "PreProc" },
+  helpHeader = { link = "Special" },
+  helpSpecial = { link = "Special" },
+  helpIgnore = { link = "Special" },
+  helpBacktick = { link = "Special" },
+  helpBar = { link = "Special" },
+  helpStar = { link = "Special" },
 
   -- {{{1 Filetype pandoc
 
@@ -456,14 +458,14 @@ local theme = {
   pandocVerbatimInlineHeading = { fg = color09 },
   pandocVerbatimInlineTable = { fg = color04 },
 
-  pandocCodeBlock = { link = 'pandocVerbatimBlock' },
-  pandocCodeBlockDelim = { link = 'pandocVerbatimBlock' },
-  pandocEscapedCharacter = { link = 'pandocEscapePair' },
-  pandocLineBreak = { link = 'pandocEscapePair' },
-  pandocMetadataTitle = { link = 'pandocMetadata' },
-  pandocTableStructureEnd = { link = 'pandocTableStructure' },
-  pandocTableStructureTop = { link = 'pandocTableStructure' },
-  pandocVerbatimBlockDeep = { link = 'pandocVerbatimBlock' },
+  pandocCodeBlock = { link = "pandocVerbatimBlock" },
+  pandocCodeBlockDelim = { link = "pandocVerbatimBlock" },
+  pandocEscapedCharacter = { link = "pandocEscapePair" },
+  pandocLineBreak = { link = "pandocEscapePair" },
+  pandocMetadataTitle = { link = "pandocMetadata" },
+  pandocTableStructureEnd = { link = "pandocTableStructure" },
+  pandocTableStructureTop = { link = "pandocTableStructure" },
+  pandocVerbatimBlockDeep = { link = "pandocVerbatimBlock" },
 
   -- {{{1 Filetype Git
 
@@ -480,13 +482,13 @@ local theme = {
   gitcommitUnmergedFile = { fg = color03 },
   gitcommitUntrackedFile = { fg = color06 },
 
-  gitcommitDiscarded = { link = 'gitcommitComment' },
-  gitcommitDiscardedArrow = { link = 'gitcommitDiscardedFile' },
-  gitcommitNoBranch = { link = 'gitcommitBranch' },
-  gitcommitSelected = { link = 'gitcommitComment' },
-  gitcommitSelectedArrow = { link = 'gitcommitSelectedFile' },
-  gitcommitUnmergedArrow = { link = 'gitcommitUnmergedFile' },
-  gitcommitUntracked = { link = 'gitcommitComment' },
+  gitcommitDiscarded = { link = "gitcommitComment" },
+  gitcommitDiscardedArrow = { link = "gitcommitDiscardedFile" },
+  gitcommitNoBranch = { link = "gitcommitBranch" },
+  gitcommitSelected = { link = "gitcommitComment" },
+  gitcommitSelectedArrow = { link = "gitcommitSelectedFile" },
+  gitcommitUnmergedArrow = { link = "gitcommitUnmergedFile" },
+  gitcommitUntracked = { link = "gitcommitComment" },
 
   -- {{{1 Filetype Haskell
 
@@ -504,15 +506,15 @@ local theme = {
   hs_OpFunctionName = { fg = color03 },
   hs_hlFunctionName = { fg = color04 },
 
-  hsDelimTypeExport = { link = 'Delimiter' },
-  hsImportParams = { link = 'Delimiter' },
-  hsModuleStartLabel = { link = 'hsStructure' },
-  hsModuleWhereLabel = { link = 'hsModuleStartLabel' },
-  htmlLink = { link = 'Function' },
+  hsDelimTypeExport = { link = "Delimiter" },
+  hsImportParams = { link = "Delimiter" },
+  hsModuleStartLabel = { link = "hsStructure" },
+  hsModuleWhereLabel = { link = "hsModuleStartLabel" },
+  htmlLink = { link = "Function" },
 
   -- {{{1 Filetype diff
 
-  diffAdded = { link = 'Statement' },
+  diffAdded = { link = "Statement" },
   diffBDiffer = { fg = color03 },
   diffCommon = { fg = color03 },
   diffDiffer = { fg = color03 },
@@ -520,7 +522,7 @@ local theme = {
   QiffIdentical = { fg = color03 },
   AiffDiffer = { fg = color03 },
   diffIsA = { fg = color03 },
-  diffLine = { link = 'Identifier' },
+  diffLine = { link = "Identifier" },
   diffNoEOL = { fg = color03 },
   diffOnly = { fg = color03 },
   diffRemoved = { fg = color09 },
@@ -534,8 +536,8 @@ local theme = {
   semshiFree = { fg = magenta1d },
   semshiAttribute = { fg = blue3 },
   semshiSelected = { underline = true },
-  semshiUnresolved = { link = 'Normal' },
-  semshiBuiltin = { link = 'Function' },
+  semshiUnresolved = { link = "Normal" },
+  semshiBuiltin = { link = "Function" },
 
   -- {{{1 Filetype tex
 
@@ -556,15 +558,15 @@ local theme = {
   texSymbol = { fg = color00 },
   texTitleArg = { fg = color03d, bold = true },
 
-  texAuthorArg = { link = 'texArg' },
-  texCmdBooktabs = { link = 'texEnvArgName' },
-  texCmdItem = { link = 'PreProc' },
-  texMathEnvArgName = { link = 'texMathCmd' },
-  texMathSymbol = { link = 'texMathCmd' },
-  texNewenvArgName = { link = 'texArgNew' },
-  texPgfType = { link = 'texCmd' },
-  texSpecialChar = { link = 'texSymbol' },
-  texTabularChar = { link = 'texMathOper' },
+  texAuthorArg = { link = "texArg" },
+  texCmdBooktabs = { link = "texEnvArgName" },
+  texCmdItem = { link = "PreProc" },
+  texMathEnvArgName = { link = "texMathCmd" },
+  texMathSymbol = { link = "texMathCmd" },
+  texNewenvArgName = { link = "texArgNew" },
+  texPgfType = { link = "texCmd" },
+  texSpecialChar = { link = "texSymbol" },
+  texTabularChar = { link = "texMathOper" },
 
   -- {{{1 Various filetypes
 
@@ -572,7 +574,7 @@ local theme = {
 
   htmlArg = { fg = color12 },
   htmlEndTag = { fg = color14 },
-  htmlSpecialTagName = { fg = color04, italic = true } ,
+  htmlSpecialTagName = { fg = color04, italic = true },
   htmlTag = { fg = color14 },
   htmlTagN = { fg = color10 },
   htmlTagName = { fg = color04 },

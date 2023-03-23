@@ -13,7 +13,7 @@ vim.opt.wildignore:append {
   ".git/*",
   ".hg/*",
   ".svn/*",
-  "CVS/*"
+  "CVS/*",
 }
 vim.opt.diffopt = {
   "internal",
@@ -45,8 +45,7 @@ vim.opt.linebreak = true
 vim.opt.comments = "n:>"
 vim.opt.joinspaces = false
 vim.opt.formatoptions:append "ronl1j"
-vim.opt.formatlistpat =
-     [[^\s*[-*]\s\+]]
+vim.opt.formatlistpat = [[^\s*[-*]\s\+]]
   .. [[\|^\s*(\(\d\+\|[a-z]\))\s\+]]
   .. [[\|^\s*\(\d\+\|[a-z]\)[:).]\s\+]]
 vim.opt.winaltkeys = "no"
@@ -66,7 +65,7 @@ vim.opt.pumwidth = 35
 -- {{{1 Spell checking
 
 vim.opt.spelllang = "en_gb"
-vim.opt.thesaurus =  vim.env.HOME .. "/.config/nvim/spell/thesaurus-en.txt"
+vim.opt.thesaurus = vim.env.HOME .. "/.config/nvim/spell/thesaurus-en.txt"
 
 -- {{{1 Presentation
 
@@ -76,7 +75,7 @@ vim.opt.listchars = {
   nbsp = "␣",
   trail = " ",
   extends = "…",
-  precedes = "…"
+  precedes = "…",
 }
 vim.opt.fillchars = { fold = " ", diff = "╱" }
 vim.opt.matchtime = 2
@@ -127,7 +126,7 @@ vim.opt.guicursor = {
   "v:vCursor",
   "i-ci-sm:ver30-iCursor",
   "r-cr:hor20-rCursor",
-  "a:blinkon0"
+  "a:blinkon0",
 }
 
 vim.cmd.colorscheme "solarized_custom"
@@ -140,15 +139,15 @@ vim.g.loaded_python_provider = 0
 vim.g.python3_host_prog = "~/.local/venvs/nvim/bin/python"
 
 -- Detect som additional filetypes
-vim.filetype.add({
-  extension = { pf = 'fortran', },
+vim.filetype.add {
+  extension = { pf = "fortran" },
   filename = {
     ["dagbok.txt"] = "dagbok",
   },
   pattern = {
     [".*pylintrc"] = "cfg",
     ["Jenkinsfile.*"] = "groovy",
-  }
-})
+  },
+}
 
 -- vim: fdm=marker

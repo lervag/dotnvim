@@ -1,11 +1,11 @@
 local dap = require "dap"
 
 dap.adapters.java = function(callback)
-  callback({
-    type = 'server',
-    host = '127.0.0.1',
+  callback {
+    type = "server",
+    host = "127.0.0.1",
     port = 5005,
-  })
+  }
 end
 
 dap.configurations.java = {
@@ -18,39 +18,43 @@ dap.configurations.java = {
   },
 }
 
-local jdtls = require('jdtls')
-local root_dir = require('jdtls.setup').find_root({'mvnw', '.git'})
+local jdtls = require "jdtls"
+local root_dir = require("jdtls.setup").find_root { "mvnw", ".git" }
 
-local extendedClientCapabilities = jdtls.extendedClientCapabilities;
-extendedClientCapabilities.resolveAdditionalTextEditsSupport = true;
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local config = {
   cmd = {
-    '/home/lervag/.asdf/installs/java/temurin-17.0.5+8/bin/java',
-    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-    '-Dosgi.bundles.defaultStartLevel=4',
-    '-Declipse.product=org.eclipse.jdt.ls.core.product',
-    '-Dosgi.checkConfiguration=true',
-    '-Dosgi.sharedConfiguration.area=/usr/share/java/jdtls/config_linux',
-    '-Dosgi.sharedConfiguration.area.readOnly=true',
-    '-Dosgi.configuration.cascaded=true',
-    '-Dlog.protocol=true',
-    '-Dlog.level=ALL',
-    '-Xmx4g',
-    '--add-modules=ALL-SYSTEM',
-    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-    '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-    '-jar', vim.fn.glob(
-      '/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar'),
-    '-configuration', '/home/lervag/.local/share/eclipse/config',
-    '-data', '/home/lervag/.local/share/eclipse/'
+    "/home/lervag/.asdf/installs/java/temurin-17.0.5+8/bin/java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dosgi.checkConfiguration=true",
+    "-Dosgi.sharedConfiguration.area=/usr/share/java/jdtls/config_linux",
+    "-Dosgi.sharedConfiguration.area.readOnly=true",
+    "-Dosgi.configuration.cascaded=true",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    "-Xmx4g",
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens",
+    "java.base/java.util=ALL-UNNAMED",
+    "--add-opens",
+    "java.base/java.lang=ALL-UNNAMED",
+    "-jar",
+    vim.fn.glob "/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar",
+    "-configuration",
+    "/home/lervag/.local/share/eclipse/config",
+    "-data",
+    "/home/lervag/.local/share/eclipse/"
       .. vim.fn.fnamemodify(root_dir, ":p:h:t"),
   },
   root_dir = root_dir,
   settings = {
     java = {
-      signatureHelp = { enabled = true };
-      contentProvider = { preferred = 'fernflower' };
+      signatureHelp = { enabled = true },
+      contentProvider = { preferred = "fernflower" },
       completion = {
         favoriteStaticMembers = {
           "org.assertj.core.api.Assertions.assertThat",
@@ -63,7 +67,7 @@ local config = {
           "org.junit.jupiter.api.Assertions.*",
           "java.util.Objects.requireNonNull",
           "java.util.Objects.requireNonNullElse",
-          "org.mockito.Mockito.*"
+          "org.mockito.Mockito.*",
         },
         filteredTypes = {
           "com.sun.*",
@@ -72,26 +76,26 @@ local config = {
           "jdk.*",
           "sun.*",
         },
-      };
+      },
       sources = {
         organizeImports = {
-          starThreshold = 9999;
-          staticStarThreshold = 9999;
-        };
-      };
+          starThreshold = 9999,
+          staticStarThreshold = 9999,
+        },
+      },
       codeGeneration = {
         toString = {
-          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
+          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
         },
         hashCodeEquals = {
           useJava7Objects = true,
         },
         useBlocks = true,
-      };
-    };
+      },
+    },
   },
   on_attach = function(client, bufnr)
-    jdtls.setup_dap({hotcodereplace = 'auto'})
+    jdtls.setup_dap { hotcodereplace = "auto" }
     jdtls.setup.add_commands()
     -- local opts = { silent = true, buffer = bufnr }
     -- vim.keymap.set('n', "<A-o>", jdtls.organize_imports, opts)
@@ -118,9 +122,9 @@ local config = {
     -- })
   end,
   init_options = {
-    bundles = {};
-    extendedClientCapabilities = extendedClientCapabilities;
-  }
+    bundles = {},
+    extendedClientCapabilities = extendedClientCapabilities,
+  },
   -- mute; having progress reports is enough
   -- handlers['language/status'] = function() end
 }

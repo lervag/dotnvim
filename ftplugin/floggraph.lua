@@ -1,6 +1,6 @@
 local function open_commit()
   vim.fn["flog#floggraph#mark#Set"]("m", ".")
-  local cmd = vim.fn["flog#Format"]("vertical botright Gsplit %h:%p")
+  local cmd = vim.fn["flog#Format"] "vertical botright Gsplit %h:%p"
   vim.fn["flog#ExecTmp"](cmd, 0, 0)
 end
 
@@ -14,7 +14,7 @@ local function open_current()
     ]]
   end
 
-  local cmd = vim.fn["flog#Format"]("vertical botright Gsplit %p")
+  local cmd = vim.fn["flog#Format"] "vertical botright Gsplit %p"
   vim.fn["flog#ExecTmp"](cmd, 0, 0)
 end
 

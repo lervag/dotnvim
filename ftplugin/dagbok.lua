@@ -32,16 +32,16 @@ vim.bo.indentexpr = "v:lua.GetDagbokIndent(v:lnum)"
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "dagbok.txt",
   once = true,
-  command = [[silent! normal {,tlzv]]
+  command = [[silent! normal {,tlzv]],
 })
 
-for lhs, rhs in pairs({
+for lhs, rhs in pairs {
   [",t"] = [[/\C\%18c \?x<cr>]],
   [",n"] = "Gonew<c-r>=UltiSnips#ExpandSnippet()<cr>",
-}) do
+} do
   vim.keymap.set("n", lhs, rhs, { buffer = true, silent = true })
 end
 vim.keymap.set("n", ",a", "zRgg/^2006-<cr>?^200<cr>k2yy}Pj$<c-a>oadd", {
   buffer = true,
-  remap = true
+  remap = true,
 })

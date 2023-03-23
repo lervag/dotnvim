@@ -3,19 +3,19 @@ local function VimHelp()
 end
 
 function MyHover()
-  if vim.tbl_contains({ 'vim', 'help' }, vim.bo.filetype) then
+  if vim.tbl_contains({ "vim", "help" }, vim.bo.filetype) then
     VimHelp()
     return
   end
 
-  if vim.bo.filetype == 'neomuttrc' then
-    local cword = vim.fn.expand('<cword>')
+  if vim.bo.filetype == "neomuttrc" then
+    local cword = vim.fn.expand "<cword>"
     vim.cmd [[Man neomuttrc]]
     vim.fn.search(cword)
     return
   end
 
-  if vim.bo.filetype == 'lua' and pcall(VimHelp) then
+  if vim.bo.filetype == "lua" and pcall(VimHelp) then
     return
   end
 
@@ -24,4 +24,4 @@ function MyHover()
   end
 end
 
-vim.keymap.set('n', 'K', MyHover)
+vim.keymap.set("n", "K", MyHover)

@@ -1,4 +1,4 @@
-vim.diagnostic.config({
+vim.diagnostic.config {
   virtual_text = {
     severity = { min = vim.diagnostic.severity.WARN },
   },
@@ -12,14 +12,18 @@ vim.diagnostic.config({
     header = "",
     prefix = "",
   },
-})
+}
 
-vim.fn.sign_define({
-  { text = '', name = 'DiagnosticSignError', texthl = 'DiagnosticSignError' },
-  { text = '', name = 'DiagnosticSignWarn', texthl = 'DiagnosticSignWarn' },
-  { text = '', name = 'DiagnosticSignInfo', texthl = 'DiagnosticSignInfo' },
-  { text = '', name = 'DiagnosticSignHint', texthl = 'DiagnosticSignHint' }
-})
+vim.fn.sign_define {
+  {
+    text = "",
+    name = "DiagnosticSignError",
+    texthl = "DiagnosticSignError",
+  },
+  { text = "", name = "DiagnosticSignWarn", texthl = "DiagnosticSignWarn" },
+  { text = "", name = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" },
+  { text = "", name = "DiagnosticSignHint", texthl = "DiagnosticSignHint" },
+}
 
 local diagnostics_active = true
 local function toggle_diagnostics()
@@ -35,24 +39,24 @@ local function toggle_diagnostics()
   end
 end
 
-vim.keymap.set('n', '<leader>qq', toggle_diagnostics)
-vim.keymap.set('n', '<leader>qp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<leader>qn', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>qL', vim.diagnostic.setloclist)
-vim.keymap.set('n', '<leader>ql', vim.diagnostic.setqflist)
-vim.keymap.set('n', '<leader>qe', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>qc', '<cmd>cclose<cr>')
-vim.keymap.set('n', '<leader>qC', '<cmd>lclose<cr>')
+vim.keymap.set("n", "<leader>qq", toggle_diagnostics)
+vim.keymap.set("n", "<leader>qp", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "<leader>qn", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
+vim.keymap.set("n", "<leader>qe", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>qc", "<cmd>cclose<cr>")
+vim.keymap.set("n", "<leader>qC", "<cmd>lclose<cr>")
 
-vim.api.nvim_create_autocmd('InsertEnter', {
-    callback = function()
-        pcall(vim.diagnostic.hide)
-    end,
+vim.api.nvim_create_autocmd("InsertEnter", {
+  callback = function()
+    pcall(vim.diagnostic.hide)
+  end,
 })
 
-vim.api.nvim_create_autocmd('ModeChanged', {
-    pattern = 'i:*',
-    callback = function()
-        pcall(vim.diagnostic.show)
-    end,
+vim.api.nvim_create_autocmd("ModeChanged", {
+  pattern = "i:*",
+  callback = function()
+    pcall(vim.diagnostic.show)
+  end,
 })

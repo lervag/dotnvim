@@ -3,36 +3,68 @@ local function is_rebasing()
     local path = ""
     local file = io.popen("git rev-parse --git-path " .. dir)
     if file then
-      path = file:read("*l")
+      path = file:read "*l"
       file:close()
     end
 
     return vim.fn.isdirectory(path) == 1
   end
 
-  return is_git_dir("rebase-apply") or is_git_dir("rebase-merge")
+  return is_git_dir "rebase-apply" or is_git_dir "rebase-merge"
 end
 
 local function setup(this, all)
-  if not vim.wo.diff then return end
+  if not vim.wo.diff then
+    return
+  end
 
   vim.w.__merge_mode = this
 
   vim.keymap.set("n", "[[", "[c", { buffer = true })
   vim.keymap.set("n", "]]", "]c", { buffer = true })
-  vim.keymap.set("n", "Q", "<cmd>xa!<cr>", { buffer = true, silent = true, nowait = true })
-  vim.keymap.set("n", "<c-q>", "<cmd>xa!<cr>", { buffer = true, silent = true, nowait = true })
+  vim.keymap.set(
+    "n",
+    "Q",
+    "<cmd>xa!<cr>",
+    { buffer = true, silent = true, nowait = true }
+  )
+  vim.keymap.set(
+    "n",
+    "<c-q>",
+    "<cmd>xa!<cr>",
+    { buffer = true, silent = true, nowait = true }
+  )
 
   if this.version == "current" then
     vim.keymap.set("n", "do", "", { buffer = true })
 
     local get_mine = ":diffget " .. all.mine.bufid .. "<cr>"
-    vim.keymap.set({"n", "x"}, "dol", get_mine, { buffer = true, silent = true })
-    vim.keymap.set({"n", "x"}, "do1", get_mine, { buffer = true, silent = true })
+    vim.keymap.set(
+      { "n", "x" },
+      "dol",
+      get_mine,
+      { buffer = true, silent = true }
+    )
+    vim.keymap.set(
+      { "n", "x" },
+      "do1",
+      get_mine,
+      { buffer = true, silent = true }
+    )
 
     local get_other = ":diffget " .. all.other.bufid .. "<cr>"
-    vim.keymap.set({"n", "x"}, "dor", get_other, { buffer = true, silent = true })
-    vim.keymap.set({"n", "x"}, "do3", get_other, { buffer = true, silent = true })
+    vim.keymap.set(
+      { "n", "x" },
+      "dor",
+      get_other,
+      { buffer = true, silent = true }
+    )
+    vim.keymap.set(
+      { "n", "x" },
+      "do3",
+      get_other,
+      { buffer = true, silent = true }
+    )
   else
     vim.bo.swapfile = false
     vim.bo.modifiable = false
@@ -44,15 +76,19 @@ local function setup(this, all)
     end
 
     vim.keymap.set("n", "u", function()
-      vim.api.nvim_win_call(all.current.winid, function() vim.cmd.normal { "u", bang = true } end)
+      vim.api.nvim_win_call(all.current.winid, function()
+        vim.cmd.normal { "u", bang = true }
+      end)
     end, { buffer = true })
     vim.keymap.set("n", "<c-r>", function()
       local keys = vim.api.nvim_replace_termcodes("<c-r>", true, false, true)
-      vim.api.nvim_win_call(all.current.winid, function() vim.cmd.normal { keys, bang = true } end)
+      vim.api.nvim_win_call(all.current.winid, function()
+        vim.cmd.normal { keys, bang = true }
+      end)
     end, { buffer = true })
 
     local cmd = ":diffput " .. all.current.bufid .. "<cr>"
-    vim.keymap.set({"n", "x"}, "dp", cmd, { buffer = true, silent = true })
+    vim.keymap.set({ "n", "x" }, "dp", cmd, { buffer = true, silent = true })
   end
 end
 
@@ -77,7 +113,7 @@ local function setup_merge_mode()
     local object = {
       winid = winid,
       bufid = bufid,
-      bufname = name
+      bufname = name,
     }
 
     if name:match(mine) then
@@ -93,7 +129,9 @@ local function setup_merge_mode()
   end
 
   for _, winid in ipairs(winids) do
-    vim.api.nvim_win_call(winid, function() setup(windows[winid], all) end)
+    vim.api.nvim_win_call(winid, function()
+      setup(windows[winid], all)
+    end)
   end
 
   vim.api.nvim_set_current_win(all.current.winid)

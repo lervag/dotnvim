@@ -1,9 +1,9 @@
 local M = {}
 
 function M.toggle_fugitive()
-  local bufnr = vim.fn.bufnr(".git//$")
+  local bufnr = vim.fn.bufnr ".git//$"
   if vim.fn.buflisted(bufnr) > 0 then
-    vim.cmd.bdelete (bufnr)
+    vim.cmd.bdelete(bufnr)
     return
   end
 
@@ -11,7 +11,7 @@ function M.toggle_fugitive()
   if ok then
     vim.cmd.normal "gg)"
   else
-    vim.notify("Not in a Git repo!")
+    vim.notify "Not in a Git repo!"
   end
 end
 
