@@ -334,8 +334,7 @@ local theme = {
   NotifyERRORIcon = { fg = red },
   NotifyERRORTitle = { fg = red, bold = true },
 
-  AIIndicator = { fg = blue, bg = color07, bold = true },
-  AIHighlight = { fg = blue },
+  ChatGPTBorder = { fg = blue, bg = color15 },
 
   -- {{{1 Filetype Vimscript
 

@@ -15,7 +15,7 @@ command! -bang -complete=buffer -nargs=? WinBufDelete
 " Mappings
 nnoremap <silent> <c-w><c-o> :WinOnly<cr>
 nnoremap <silent> <c-u>      :WinBufDelete<cr>
-nnoremap <silent> <f1>       :WinResize<cr>
+nnoremap <silent> <f2>       :WinResize<cr>
 
 " Main functions
 function! s:remove_all_but_current() " {{{1
@@ -86,7 +86,7 @@ function! s:buf_delete(bang, buffer_name) " {{{1
 
     " If no new buffer, then create new empty buffer
     if bufnr('%') == buffer
-      call s:new(a:bang) 
+      call s:new(a:bang)
     endif
   endfor
 

@@ -378,15 +378,47 @@ local M = {
   },
 
   {
-    "aduros/ai.vim",
-    enabled = false,
+    "jackmort/chatgpt.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
     keys = {
-      { "<f1>", "<cmd>AI<cr>", mode = "i" },
-      { "<f1>", ":AI ", mode = { "n", "x" } },
+      { "<f1>", "<cmd>ChatGPT<cr>", desc = "ChatGPT" },
+    },
+    cmd = {
+      "ChatGPT",
+      "ChatGPTActAs",
+      "ChatGPTCompleteCode",
+      "ChatGPTEditWithInstructions",
+      "ChatGPTRun",
+      "ChatGPTRunCustomCodeAction",
     },
     config = function()
-      vim.g.ai_no_mappings = 1
-      -- Highlightrules are also added in colorscheme!
+      require("chatgpt").setup {
+        openai_params = {
+          model = "gpt-3.5-turbo-0301",
+        },
+        settings_window = { border = { highlight = "ChatGPTBorder" } },
+        sessions_window = { border = { highlight = "ChatGPTBorder" } },
+        chat_window = { border = { highlight = "ChatGPTBorder" } },
+        chat_input = { border = { highlight = "ChatGPTBorder" } },
+        keymaps = {
+          close = { "<C-c>" },
+          submit = "<cr>",
+          yank_last = "<nop>",
+          yank_last_code = "<nop>",
+          scroll_up = "<nop>",
+          scroll_down = "<nop>",
+          toggle_settings = "<C-o>",
+          new_session = "<C-n>",
+          cycle_windows = "<Tab>",
+          select_session = "<cr>",
+          rename_session = "r",
+          delete_session = "d",
+        },
+      }
     end,
   },
 
