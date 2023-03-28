@@ -1321,7 +1321,7 @@ local M = {
   {
     "AndrewRadev/linediff.vim",
     keys = {
-      { "<leader>ed", "<cmd>Linediff<cr> ", mode = "x" },
+      { "<leader>ed", ":Linediff<cr> ", mode = "x" },
       { "<leader>ed", "<plug>(linediff-operator)" },
     },
     config = function()
