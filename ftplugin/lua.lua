@@ -1,14 +1,15 @@
 local dap = require "dap"
 
 vim.api.nvim_create_autocmd("BufWritePre", {
+  buffer = vim.api.nvim_get_current_buf(),
   group = vim.api.nvim_create_augroup("init_lua", { clear = true }),
   callback = function(arg)
-    vim.lsp.buf.format({
+    vim.lsp.buf.format {
       filter = function(client)
         return client.name == "null-ls"
       end,
       bufnr = arg.buf,
-    })
+    }
   end,
 })
 

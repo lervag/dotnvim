@@ -703,7 +703,7 @@ local M = {
 
   {
     "jose-elias-alvarez/null-ls.nvim",
-    ft = "lua",
+    event = "BufReadPost",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -712,6 +712,18 @@ local M = {
       null_ls.setup {
         sources = {
           null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.prettierd.with {
+            filetypes = {
+              "css",
+              "json",
+              "jsonc",
+              "javascript",
+              "typescript",
+              "javascript.glimmer",
+              "typescript.glimmer",
+              "handlebars",
+            },
+          },
         },
       }
     end,
