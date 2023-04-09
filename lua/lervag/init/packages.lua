@@ -263,9 +263,18 @@ local M = {
               focusable = false,
               width = state.message.width,
               height = state.message.height,
-              col = vim.opt.columns:get() - 1,
-              row = next_row,
-              border = { "", "", "", " ", " ", " ", " ", " " },
+              col = vim.opt.columns:get(),
+              row = next_row - 1,
+              border = {
+                "▗",
+                "▄",
+                "▖",
+                "▌",
+                "▘",
+                "▀",
+                "▝",
+                "▐",
+              },
               style = "minimal",
               opacity = 0,
               noautocmd = true,
@@ -274,12 +283,12 @@ local M = {
           function()
             return {
               opacity = { 100 },
-              col = { vim.opt.columns:get() - 1 },
+              col = { vim.opt.columns:get() },
             }
           end,
           function()
             return {
-              col = { vim.opt.columns:get() - 1 },
+              col = { vim.opt.columns:get() },
               time = true,
             }
           end,
@@ -292,7 +301,7 @@ local M = {
                   return cur_opacity <= 4
                 end,
               },
-              col = { vim.opt.columns:get() - 1 },
+              col = { vim.opt.columns:get() },
             }
           end,
         },
@@ -337,7 +346,7 @@ local M = {
                     config.minimum_width()
                   )
                 ),
-                highlights.border,
+                highlights.title,
               },
             },
             virt_text_win_col = 0,
