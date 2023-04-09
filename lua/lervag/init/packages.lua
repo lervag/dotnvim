@@ -74,6 +74,8 @@ local M = {
       -- vim.g.wiki_viewer = { _ = "sioyek" }
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_filetypes = { "wiki", "md" }
+      vim.g.wiki_link_target_type = "wiki"
+      vim.g.wiki_link_extension = ""
       vim.g.wiki_mappings_local = {
         ["<plug>(wiki-link-toggle-operator)"] = "gL",
       }
