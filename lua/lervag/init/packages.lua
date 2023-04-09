@@ -1357,6 +1357,11 @@ local M = {
     end,
   },
 
+  {
+    "xorid/asciitree.nvim",
+    cmd = { "AsciiTree" },
+  },
+
   -- {{{1 VCS
 
   {
