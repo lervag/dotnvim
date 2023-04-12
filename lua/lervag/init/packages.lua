@@ -521,7 +521,10 @@ local M = {
           { name = "ultisnips" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-          { name = "path", option = { trailing_slash = true } },
+          {
+            name = "path",
+            option = { trailing_slash = true },
+          },
           { name = "calc" },
         },
         mapping = {
@@ -594,7 +597,10 @@ local M = {
           { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-          { name = "path", option = { trailing_slash = true } },
+          {
+            name = "path",
+            option = { trailing_slash = true },
+          },
           { name = "calc" },
         },
       })
@@ -649,6 +655,16 @@ local M = {
 
       vim.keymap.set("n", "<leader>es", "<cmd>UltiSnipsEdit!<cr>")
     end,
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    cmd = {
+      "LspInfo",
+    },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
   },
 
   {
@@ -948,7 +964,12 @@ local M = {
       { "<leader>ff", ":CtrlSF ", desc = "CtrlSF" },
       { "<leader>ft", "<cmd>CtrlSFToggle<cr>", desc = "CtrlSFToggle" },
       { "<leader>fu", "<cmd>CtrlSFUpdate<cr>", desc = "CtrlSFUpdate" },
-      { "<leader>f", "<plug>CtrlSFVwordExec", mode = "x", desc = "CtrlSF" },
+      {
+        "<leader>f",
+        "<plug>CtrlSFVwordExec",
+        mode = "x",
+        desc = "CtrlSF",
+      },
     },
     config = function()
       vim.g.ctrlsf_indent = 2
@@ -1064,7 +1085,6 @@ local M = {
         ["<leader>dn"] = dap.step_over,
         ["<leader>dj"] = dap.step_into,
         ["<leader>dk"] = dap.step_out,
-
         ["<leader>dl"] = function()
           dap.list_breakpoints()
           vim.cmd [[ :copen ]]
@@ -1078,7 +1098,6 @@ local M = {
             end
           )
         end,
-
         ["<leader>dw"] = function()
           vim.ui.input({ prompt = "Watch: " }, function(watch)
             dap.set_breakpoint(nil, nil, watch)
@@ -1091,7 +1110,6 @@ local M = {
             end)
           end)
         end,
-
         ["<leader>dK"] = dap.up,
         ["<leader>dJ"] = dap.down,
         ["<leader>dr"] = dap.repl.toggle,
@@ -1446,7 +1464,11 @@ local M = {
       { "<leader>ii", "<cmd>VimuxRunCommand 'jkk'<cr>" },
       { "<leader>is", "<cmd>set opfunc=personal#vimux#operator<cr>g@" },
       { "<leader>iss", "<cmd>call VimuxRunCommand(getline('.'))<cr>" },
-      { "<leader>is", [["vy :call VimuxSendText(@v)<cr>]], mode = "x" },
+      {
+        "<leader>is",
+        [["vy :call VimuxSendText(@v)<cr>]],
+        mode = "x",
+      },
     },
     init = function()
       vim.g.VimuxOrientation = "h"
