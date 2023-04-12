@@ -1561,10 +1561,6 @@ local M = {
 
   { "Vimjas/vim-python-pep8-indent" },
 
-  -- Metals is configured in
-  -- lua/lervag/util/metals.lua
-  --
-  -- It is loaded manually in ftplugin/{scala,sbt}.lua
   {
     "scalameta/nvim-metals",
     dependencies = {

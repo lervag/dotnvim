@@ -1,5 +1,3 @@
-require("lervag.util.metals").init_metals()
-
 require("dap").configurations.scala = {
   {
     type = "scala",
