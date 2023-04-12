@@ -69,7 +69,6 @@ local base2v91 = "#e8e2ce"
 local base3v88 = "#e0dac9"
 local base3v100s7 = "#fffaed"
 local cyanlight = "#6DBFB8"
-local cyanlighter = "#acdad7"
 
 local color00l = base02v45
 local color01d = redv50
@@ -77,7 +76,6 @@ local color02l = greenv80
 local color03d = yellowv30
 local color04d = bluev50
 local color06l = cyanlight
-local color06ll = cyanlighter
 local color07d = base2v91
 local color09l = orange
 local color15d = base3v88
@@ -89,7 +87,6 @@ local black = "#000000"
 local blue1 = "#0087ff"
 local blue2 = "#00afff"
 local blue3 = "#add8e6"
-local blue5 = "#5cc6e4"
 local gold1 = "#ffe055"
 local gold2 = "#ffeea2"
 local gray1 = "#d2e1e0"
@@ -139,7 +136,7 @@ local theme = {
   Directory = { fg = color04 },
   ErrorMsg = { fg = color01, bold = true },
   FoldColumn = { fg = color11, bg = color07 },
-  Folded = { fg = color11, bg = color07d, sp = color15, underline = true },
+  Folded = { fg = color12, bg = color07 },
   IncSearch = { fg = color09, standout = true },
   LineNr = { fg = color14, bg = color07 },
   MatchParen = { bg = color07d, bold = true },
@@ -237,7 +234,9 @@ local theme = {
   Structure = { link = "Type" },
   Typedef = { link = "Type" },
 
-  FloatBorder = { fg = black, bg = color15d },
+  NormalFloat = { fg = color11, bg = color07d },
+  FloatBorder = { fg = color07d, bg = color15 },
+  FloatTitle = { fg = color03, bg = color07d, bold = true },
 
   -- {{{1 Tree-sitter groups
 
@@ -314,23 +313,23 @@ local theme = {
   LTSymbol = { fg = base02 },
 
   NotifyTRACEBody = { bg = color07d },
-  NotifyTRACEBorder = { fg = color07d, bg = color15 },
+  NotifyTRACEBorder = { link = "FloatBorder" },
   NotifyTRACEIcon = { fg = violet },
   NotifyTRACETitle = { fg = violet, bold = true },
   NotifyDEBUGBody = { link = "NotifyTRACEBody" },
-  NotifyDEBUGBorder = { link = "NotifyTRACEBorder" },
+  NotifyDEBUGBorder = { link = "FloatBorder" },
   NotifyDEBUGIcon = { fg = cyan },
   NotifyDEBUGTitle = { fg = cyan, bold = true },
   NotifyINFOBody = { link = "NotifyTRACEBody" },
-  NotifyINFOBorder = { link = "NotifyTRACEBorder" },
+  NotifyINFOBorder = { link = "FloatBorder" },
   NotifyINFOIcon = { fg = green },
   NotifyINFOTitle = { fg = green, bold = true },
   NotifyWARNBody = { link = "NotifyTRACEBody" },
-  NotifyWARNBorder = { link = "NotifyTRACEBorder" },
+  NotifyWARNBorder = { link = "FloatBorder" },
   NotifyWARNIcon = { fg = yellow },
   NotifyWARNTitle = { fg = yellow, bold = true },
   NotifyERRORBody = { link = "NotifyTRACEBody" },
-  NotifyERRORBorder = { link = "NotifyTRACEBorder" },
+  NotifyERRORBorder = { link = "FloatBorder" },
   NotifyERRORIcon = { fg = red },
   NotifyERRORTitle = { fg = red, bold = true },
 

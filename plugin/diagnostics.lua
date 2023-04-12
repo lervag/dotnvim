@@ -7,7 +7,7 @@ vim.diagnostic.config {
   float = {
     focusable = false,
     style = "minimal",
-    border = "rounded",
+    border = require("lervag.const").border,
     source = "if_many",
     header = "",
     prefix = "",

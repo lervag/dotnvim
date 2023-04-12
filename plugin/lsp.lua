@@ -1,11 +1,14 @@
 local lsp = vim.lsp
 local map = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
+local const = require "lervag.const"
 
 lsp.handlers["textDocument/hover"] =
-    lsp.with(lsp.handlers.hover, { border = "double" })
-lsp.handlers["textDocument/signatureHelp"] =
-    lsp.with(lsp.handlers.signature_help, { border = "double" })
+  lsp.with(lsp.handlers.hover, { border = const.border, title = " hover " })
+lsp.handlers["textDocument/signatureHelp"] = lsp.with(
+  lsp.handlers.signature_help,
+  { border = const.border, title = "signature" }
+)
 
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", { clear = true })
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -27,7 +30,23 @@ autocmd("LspAttach", {
     -- client.server_capabilities.semanticTokensProvider = nil
 
     map("n", "<leader>ld", lsp.buf.definition)
-    map("n", "<leader>lD", lsp.buf.declaration)
+    map("n", "<leader>lD", function()
+      local params = lsp.util.make_position_params()
+      return lsp.buf_request(
+        0,
+        "textDocument/definition",
+        params,
+        function(_, result)
+          if result == nil or vim.tbl_isempty(result) then
+            return
+          end
+          lsp.util.preview_location(result[1], {
+            border = const.border,
+            title = " Definition ",
+          })
+        end
+      )
+    end)
     map("n", "<leader>lt", lsp.buf.type_definition)
     map("n", "<leader>lr", lsp.buf.references)
     map("n", "<leader>li", lsp.buf.implementation)
@@ -42,20 +61,6 @@ autocmd("LspAttach", {
     map("n", "<leader>lK", lsp.buf.hover)
 
     -- Unsure if I want/need these
-    map("n", "<leader>l5", function()
-      local params = lsp.util.make_position_params()
-      return lsp.buf_request(
-        0,
-        "textDocument/definition",
-        params,
-        function(_, result)
-          if result == nil or vim.tbl_isempty(result) then
-            return
-          end
-          lsp.util.preview_location(result[1], { border = "rounded" })
-        end
-      )
-    end)
     map("n", "<leader>l1", function()
       require("telescope.builtin").lsp_document_symbols()
     end)
