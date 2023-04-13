@@ -398,14 +398,24 @@ local M = {
       "ChatGPTRunCustomCodeAction",
     },
     config = function()
+      local window_opts = {
+        win_options = {
+          winhighlight = "Normal:NormalFloat",
+        },
+        border = {
+          style = require("lervag.const").border,
+          highlight = "FloatBorder",
+        },
+      }
+
       require("chatgpt").setup {
         openai_params = {
           model = "gpt-3.5-turbo-0301",
         },
-        settings_window = { border = { highlight = "ChatGPTBorder" } },
-        sessions_window = { border = { highlight = "ChatGPTBorder" } },
-        chat_window = { border = { highlight = "ChatGPTBorder" } },
-        chat_input = { border = { highlight = "ChatGPTBorder" } },
+        settings_window = window_opts,
+        sessions_window = window_opts,
+        chat_window = window_opts,
+        chat_input = window_opts,
         keymaps = {
           close = { "<C-c>" },
           submit = "<cr>",

@@ -333,7 +333,12 @@ local theme = {
   NotifyERRORIcon = { fg = red },
   NotifyERRORTitle = { fg = red, bold = true },
 
-  ChatGPTBorder = { fg = blue, bg = color15 },
+  -- ChatGPTBorder = { link = FloatBorder },
+  -- ChatGPTCompletion = { link = FloatBorder },
+  ChatGPTQuestion = { fg = cyan, italic = true, bold = true },
+  -- ChatGPTTotalTokens = { link = FloatBorder },
+  -- ChatGPTTotalTokensBorder = { link = FloatBorder },
+  -- ChatGPTWelcome = { fg = pink, italic = true },
 
   -- {{{1 Filetype Vimscript
 
