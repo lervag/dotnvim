@@ -210,6 +210,10 @@ autocmd("FileType", {
 -- }}}1
 -- {{{1 ltex (DISABLED)
 
+-- TODO: Denne er oppdatert og fungerer annerledes nå!
+--       Se README.md for mer info om hvordan man konfigurerer!
+--       https://github.com/barreiroleo/ltex_extra.nvim
+
 -- https://valentjn.github.io/ltex/
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/ltex.lua
 
