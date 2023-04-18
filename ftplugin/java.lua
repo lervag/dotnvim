@@ -18,6 +18,9 @@ dap.configurations.java = {
   },
 }
 
+-- Merk at java-versjon er installert med rtx
+-- * rtx install java@temurin-17.0.5+8
+-- * rtx x java@temurin-17.0.5+8 -- which java
 local jdtls = require "jdtls"
 local root_dir = require("jdtls.setup").find_root { "mvnw", ".git" }
 
@@ -26,7 +29,7 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local config = {
   cmd = {
-    "/home/lervag/.asdf/installs/java/temurin-17.0.5+8/bin/java",
+    "/home/lervag/./installs/java/temurin-17.0.5+8/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",

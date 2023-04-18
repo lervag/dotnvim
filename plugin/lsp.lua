@@ -152,6 +152,11 @@ autocmd("FileType", {
 })
 
 -- }}}1
+-- {{{1 jdtls
+
+-- see ftplugin/java.lua
+
+-- }}}1
 -- {{{1 jsonls
 
 -- https://github.com/hrsh7th/vscode-langservers-extracted

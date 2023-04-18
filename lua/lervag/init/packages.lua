@@ -71,7 +71,7 @@ local M = {
     init = function()
       vim.g.wiki_root = "~/.local/wiki"
       vim.g.wiki_toc_title = "Innhald"
-      -- vim.g.wiki_viewer = { _ = "sioyek" }
+      vim.g.wiki_viewer = { pdf = "sioyek" }
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_filetypes = { "wiki", "md" }
       vim.g.wiki_link_target_type = "wiki"
@@ -413,22 +413,24 @@ local M = {
           model = "gpt-3.5-turbo-0301",
         },
         settings_window = window_opts,
-        sessions_window = window_opts,
-        chat_window = window_opts,
-        chat_input = window_opts,
-        keymaps = {
-          close = { "<C-c>" },
-          submit = "<cr>",
-          yank_last = "<nop>",
-          yank_last_code = "<nop>",
-          scroll_up = "<nop>",
-          scroll_down = "<nop>",
-          toggle_settings = "<C-o>",
-          new_session = "<C-n>",
-          cycle_windows = "<Tab>",
-          select_session = "<cr>",
-          rename_session = "r",
-          delete_session = "d",
+        popup_window = window_opts,
+        popup_input = window_opts,
+        chat = {
+          sessions_window = window_opts,
+          keymaps = {
+            close = { "<C-c>" },
+            submit = "<cr>",
+            yank_last = "<nop>",
+            yank_last_code = "<nop>",
+            scroll_up = "<nop>",
+            scroll_down = "<nop>",
+            toggle_settings = "<C-o>",
+            new_session = "<C-n>",
+            cycle_windows = "<Tab>",
+            select_session = "<cr>",
+            rename_session = "r",
+            delete_session = "d",
+          },
         },
       }
     end,
