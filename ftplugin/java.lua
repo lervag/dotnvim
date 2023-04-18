@@ -29,7 +29,7 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local config = {
   cmd = {
-    "/home/lervag/./installs/java/temurin-17.0.5+8/bin/java",
+    "/home/lervag/.local/share/rtx/installs/java/temurin-17.0.5+8/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
