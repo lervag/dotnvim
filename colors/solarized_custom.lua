@@ -238,7 +238,7 @@ local theme = {
   FloatBorder = { fg = color07d, bg = color15 },
   FloatTitle = { fg = color03, bg = color07d, bold = true },
 
-  -- {{{1 Tree-sitter groups
+  -- {{{1 Tree-sitter and LSP semantic highlighting
 
   -- Highlight groups used by Tree-sitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
@@ -247,6 +247,32 @@ local theme = {
   ["@variable"] = { fg = color10 },
   ["@constructor"] = { link = "PreProc" },
   ["@function.builtin"] = { fg = magenta1d },
+
+  -- See :help lsp-semantic-highlight
+  ['@lsp.type.variable'] = {},
+  -- ["@lsp.type.class"]         = { link = "Structure" },
+  -- ["@lsp.type.decorator"]     = { link = "Function" },
+  -- ["@lsp.type.enum"]          = { link = "Structure" },
+  -- ["@lsp.type.enumMember"]    = { link = "Constant" },
+  -- ["@lsp.type.function"]      = { link = "Function" },
+  -- ["@lsp.type.interface"]     = { link = "Structure" },
+  -- ["@lsp.type.macro"]         = { link = "Macro" },
+  -- ["@lsp.type.method"]        = { link = "Function" },
+  -- ["@lsp.type.namespace"]     = { link = "Structure" },
+  ["@lsp.type.parameter"]     = { link = "@parameter" },
+  -- ["@lsp.type.property"]      = { link = "Identifier" },
+  -- ["@lsp.type.struct"]        = { link = "Structure" },
+  -- ["@lsp.type.type"]          = { link = "Type" },
+  -- ["@lsp.type.typeParameter"] = { link = "TypeDef" },
+  -- ["@lsp.type.variable"]      = { link = "Identifier" },
+
+  ["@lsp.mod.deprecated"] = { underline = true, bold = true, bg = colo03 },
+  -- ["@lsp.mod.declaration"] = {},
+  ["@lsp.mod.defaultLibrary"] = { link = "@function.builtin" },
+
+  -- ["@lsp.typemod.function.declaration"] = {},
+  -- ["@lsp.typemod.function.defaultLibrary"] = {},
+  ["@lsp.typemod.function.async"] = { bold = true },
 
   -- {{{1 LSP and Diagnostics
 
