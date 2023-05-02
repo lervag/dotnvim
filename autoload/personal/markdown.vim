@@ -97,7 +97,7 @@ function! personal#markdown#foldlevel(lnum) abort " {{{1
           \ : '='
   endif
 
-  if l:line =~# g:wiki#rx#header
+  if l:line =~# g:wiki#rx#header_md_atx
     return '>' . len(matchstr(l:line, '#*'))
   endif
 
