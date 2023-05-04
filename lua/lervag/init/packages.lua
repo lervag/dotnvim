@@ -1324,10 +1324,15 @@ local M = {
       { "<leader>ee", "<cmd>InlineEdit<cr>" },
       { "<leader>ee", ":InlineEdit ", mode = "x" },
     },
-    config = function()
+    init = function()
       vim.g.inline_edit_proxy_type = "tempfile"
-      -- vim.g.inline_edit_modify_statusline = 0
-      -- vim.g.inline_edit_new_buffer_command = "tabedit"
+      vim.g.inline_edit_modify_statusline = 0
+      vim.g.inline_edit_patterns = {
+        {
+          main_filetype = "wiki",
+          callback = "inline_edit#MarkdownFencedCode",
+        },
+      }
     end,
   },
 
