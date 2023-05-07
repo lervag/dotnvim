@@ -70,12 +70,10 @@ local M = {
     dev = true,
     init = function()
       vim.g.wiki_root = "~/.local/wiki"
+      vim.g.wiki_filetypes = { "wiki", "md" }
       vim.g.wiki_toc_title = "Innhald"
       vim.g.wiki_viewer = { pdf = "sioyek" }
       vim.g.wiki_export = { output = "printed" }
-      vim.g.wiki_filetypes = { "wiki", "md" }
-      vim.g.wiki_link_target_type = "wiki"
-      vim.g.wiki_link_extension = ""
       vim.g.wiki_mappings_local = {
         ["<plug>(wiki-link-toggle-operator)"] = "gL",
       }
