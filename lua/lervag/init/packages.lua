@@ -1021,6 +1021,10 @@ local M = {
           virt_lines = true,
         },
       },
+      {
+        "LiadOz/nvim-dap-repl-highlights",
+        config = true,
+      },
       "jbyuki/one-small-step-for-vimkind",
       {
         "HiPhish/debugpy.nvim",
