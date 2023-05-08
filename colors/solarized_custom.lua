@@ -65,6 +65,7 @@ local redv50 = "#801c1b"
 local greenv80 = "#b1cc00"
 local yellowv30 = "#4d3800"
 local bluev50 = "#175480"
+local base1light = "#B8C1C1"
 local base2v91 = "#e8e2ce"
 local base3v88 = "#e0dac9"
 local base3v100s7 = "#fffaed"
@@ -78,6 +79,7 @@ local color04d = bluev50
 local color06l = cyanlight
 local color07d = base2v91
 local color09l = orange
+local color14l = base1light
 local color15d = base3v88
 local color15w = base3v100s7
 
@@ -249,22 +251,22 @@ local theme = {
   ["@function.builtin"] = { fg = magenta1d },
 
   -- See :help lsp-semantic-highlight
-  ['@lsp.type.variable'] = {},
-  -- ["@lsp.type.class"]         = { link = "Structure" },
-  -- ["@lsp.type.decorator"]     = { link = "Function" },
-  -- ["@lsp.type.enum"]          = { link = "Structure" },
-  -- ["@lsp.type.enumMember"]    = { link = "Constant" },
-  -- ["@lsp.type.function"]      = { link = "Function" },
-  -- ["@lsp.type.interface"]     = { link = "Structure" },
-  -- ["@lsp.type.macro"]         = { link = "Macro" },
-  -- ["@lsp.type.method"]        = { link = "Function" },
-  -- ["@lsp.type.namespace"]     = { link = "Structure" },
-  ["@lsp.type.parameter"]     = { link = "@parameter" },
-  -- ["@lsp.type.property"]      = { link = "Identifier" },
-  -- ["@lsp.type.struct"]        = { link = "Structure" },
-  -- ["@lsp.type.type"]          = { link = "Type" },
+  ["@lsp.type.variable"] = {},
+  -- ["@lsp.type.class"] = { link = "Structure" },
+  -- ["@lsp.type.decorator"] = { link = "Function" },
+  -- ["@lsp.type.enum"] = { link = "Structure" },
+  -- ["@lsp.type.enumMember"] = { link = "Constant" },
+  -- ["@lsp.type.function"] = { link = "Function" },
+  -- ["@lsp.type.interface"] = { link = "Structure" },
+  -- ["@lsp.type.macro"] = { link = "Macro" },
+  -- ["@lsp.type.method"] = { link = "Function" },
+  -- ["@lsp.type.namespace"] = { link = "Structure" },
+  ["@lsp.type.parameter"] = { link = "@parameter" },
+  -- ["@lsp.type.property"] = { link = "Identifier" },
+  -- ["@lsp.type.struct"] = { link = "Structure" },
+  -- ["@lsp.type.type"] = { link = "Type" },
   -- ["@lsp.type.typeParameter"] = { link = "TypeDef" },
-  -- ["@lsp.type.variable"]      = { link = "Identifier" },
+  -- ["@lsp.type.variable"] = { link = "Identifier" },
 
   ["@lsp.mod.deprecated"] = { underline = true, bold = true, bg = colo03 },
   -- ["@lsp.mod.declaration"] = {},
@@ -316,6 +318,8 @@ local theme = {
 
   DapSign = { fg = purple1, bg = color07 },
   DapStatus = { fg = pink1, bg = color10 },
+
+  CmpGhostText = { fg = color14l, italic = true },
 
   CmpItemAbbrMatch = { fg = blue1 },
   CmpItemAbbrMatchFuzzy = { link = "CmpItemAbbrMatch" },

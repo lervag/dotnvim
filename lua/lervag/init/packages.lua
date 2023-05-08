@@ -516,7 +516,7 @@ local M = {
           keyword_length = 2,
         },
         experimental = {
-          ghost_text = true,
+          ghost_text = { hl_group = "CmpGhostText" },
         },
         sources = cmp.config.sources {
           { name = "ultisnips" },
