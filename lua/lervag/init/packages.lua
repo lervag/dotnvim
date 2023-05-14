@@ -75,9 +75,16 @@ local M = {
       vim.g.wiki_viewer = { pdf = "sioyek" }
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_mappings_local = {
-        ["<plug>(wiki-link-toggle-operator)"] = "gL",
+        ["<plug>(wiki-link-transform-operator)"] = "gL",
       }
-      vim.g.wiki_month_names = {
+      vim.g.wiki_toc_depth = 2
+      vim.g.wiki_link_schemes = {
+        file = {
+          handler = vim.fn["personal#wiki#file_handler"],
+        },
+      }
+
+      vim.g.wiki_template_month_names = {
         "Januar",
         "Februar",
         "Mars",
@@ -93,10 +100,6 @@ local M = {
       }
       vim.g.wiki_template_title_week = "# Samandrag veke %(week), %(year)"
       vim.g.wiki_template_title_month = "# Samandrag frå %(month-name) %(year)"
-      vim.g.wiki_write_on_nav = 1
-
-      vim.g.wiki_toc_depth = 2
-      vim.g.wiki_file_handler = "personal#wiki#file_handler"
 
       vim.g.wiki_templates = {
         {

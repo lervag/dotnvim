@@ -1,29 +1,36 @@
-function! personal#wiki#file_handler(...) abort dict " {{{1
-  if self.path =~# '\.pdf$'
-    call jobstart(['sioyek', self.path], {
-          \ 'detach': 1,
-          \})
-    return 1
+function! personal#wiki#file_handler(resolved, ...) abort " {{{1
+  if a:resolved.path =~# '\.pdf$'
+    call jobstart(
+          \ ['sioyek', a:resolved.path],
+          \ { 'detach': 1 })
+    return
   endif
 
-  if self.path =~# '\v\.(png|jpg)$'
-    silent execute '!feh -.' fnameescape(self.path) '&'
-    return 1
+  if a:resolved.path =~# '\v\.(png|jpg)$'
+    silent execute '!feh -.' fnameescape(a:resolved.path) '&'
+    return
   endif
 
-  if self.path =~# '\.svg$'
-    silent execute '!display -.' fnameescape(self.path) '&'
-    return 1
+  if a:resolved.path =~# '\.svg$'
+    silent execute '!display -.' fnameescape(a:resolved.path) '&'
+    return
   endif
 
-  if self.path =~# '\v\.(doc|xls|ppt)x?$'
-    silent execute '!libreoffice' fnameescape(self.path) '&'
-    return 1
+  if a:resolved.path =~# '\v\.(doc|xls|ppt)x?$'
+    silent execute '!libreoffice' fnameescape(a:resolved.path) '&'
+    return
   endif
 
-  if filereadable(self.path)
-    silent execute 'edit' fnameescape(self.path)
-    return 1
+  if filereadable(a:resolved.path)
+    silent execute 'edit' fnameescape(a:resolved.path)
+    return
+  endif
+
+  let l:cmd = get(g:wiki_viewer, a:resolved.ext, g:wiki_viewer._)
+  if l:cmd ==# ':edit'
+    silent execute 'edit' fnameescape(a:resolved.path)
+  else
+    call wiki#jobs#run(l:cmd . ' ' . shellescape(a:resolved.path) . '&')
   endif
 endfunction
 
