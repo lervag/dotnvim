@@ -1150,7 +1150,7 @@ local M = {
   {
     "tpope/vim-commentary",
     keys = {
-      { "gc", mode = { "n", "v", "o" } },
+      { "gc", mode = { "n", "v", "o" }, desc = "vim-commentary" },
     },
   },
   {
@@ -1261,10 +1261,10 @@ local M = {
   {
     "ggandor/leap.nvim",
     keys = {
-      { "s", "<plug>(leap-forward)" },
-      { "S", "<plug>(leap-backward)" },
-      { "z", "<plug>(leap-forward)", mode = { "x", "o" } },
-      { "Z", "<plug>(leap-backward)", mode = { "x", "o" } },
+      { "s", "<plug>(leap-forward)", desc = "leap.nvim" },
+      { "S", "<plug>(leap-backward)", desc = "leap.nvim" },
+      { "z", "<plug>(leap-forward)", mode = { "x", "o" }, desc = "leap.nvim" },
+      { "Z", "<plug>(leap-backward)", mode = { "x", "o" }, desc = "leap.nvim" },
     },
     config = function()
       opts = require("leap").opts
@@ -1297,22 +1297,22 @@ local M = {
   {
     "booperlv/nvim-gomove",
     keys = {
-      { "<left>", "<plug>GoNSMLeft" },
-      { "<down>", "<plug>GoNSMDown" },
-      { "<up>", "<plug>GoNSMUp" },
-      { "<right>", "<plug>GoNSMRight" },
-      { "<c-left>", "<plug>GoNSDLeft" },
-      { "<c-down>", "<plug>GoNSDDown" },
-      { "<c-up>", "<plug>GoNSDUp" },
-      { "<c-right>", "<plug>GoNSDRight" },
-      { "<left>", "<plug>GoVSMLeft", mode = "x" },
-      { "<down>", "<plug>GoVSMDown", mode = "x" },
-      { "<up>", "<plug>GoVSMUp", mode = "x" },
-      { "<right>", "<plug>GoVSMRight", mode = "x" },
-      { "<c-left>", "<plug>GoVSDLeft", mode = "x" },
-      { "<c-down>", "<plug>GoVSDDown", mode = "x" },
-      { "<c-up>", "<plug>GoVSDUp", mode = "x" },
-      { "<c-right>", "<plug>GoVSDRight", mode = "x" },
+      { "<left>", "<plug>GoNSMLeft", desc = "nvim-gomove" },
+      { "<down>", "<plug>GoNSMDown", desc = "nvim-gomove" },
+      { "<up>", "<plug>GoNSMUp", desc = "nvim-gomove" },
+      { "<right>", "<plug>GoNSMRight", desc = "nvim-gomove" },
+      { "<c-left>", "<plug>GoNSDLeft", desc = "nvim-gomove" },
+      { "<c-down>", "<plug>GoNSDDown", desc = "nvim-gomove" },
+      { "<c-up>", "<plug>GoNSDUp", desc = "nvim-gomove" },
+      { "<c-right>", "<plug>GoNSDRight", desc = "nvim-gomove" },
+      { "<left>", "<plug>GoVSMLeft", mode = "x", desc = "nvim-gomove" },
+      { "<down>", "<plug>GoVSMDown", mode = "x", desc = "nvim-gomove" },
+      { "<up>", "<plug>GoVSMUp", mode = "x", desc = "nvim-gomove" },
+      { "<right>", "<plug>GoVSMRight", mode = "x", desc = "nvim-gomove" },
+      { "<c-left>", "<plug>GoVSDLeft", mode = "x", desc = "nvim-gomove" },
+      { "<c-down>", "<plug>GoVSDDown", mode = "x", desc = "nvim-gomove" },
+      { "<c-up>", "<plug>GoVSDUp", mode = "x", desc = "nvim-gomove" },
+      { "<c-right>", "<plug>GoVSDRight", mode = "x", desc = "nvim-gomove" },
     },
     opts = {
       map_defaults = false,
@@ -1323,15 +1323,20 @@ local M = {
   {
     "brianrodri/vim-sort-folds",
     keys = {
-      { "<leader>s", "<cmd>call sortfolds#SortFolds()<cr>" },
+      {
+        "<leader>s",
+        "<cmd>call sortfolds#SortFolds()<cr>",
+        mode = "x",
+        desc = "SortFolds",
+      },
     },
   },
 
   {
     "AndrewRadev/inline_edit.vim",
     keys = {
-      { "<leader>ee", "<cmd>InlineEdit<cr>" },
-      { "<leader>ee", ":InlineEdit ", mode = "x" },
+      { "<leader>ee", "<cmd>InlineEdit<cr>", desc = "inline_edit" },
+      { "<leader>ee", ":InlineEdit ", mode = "x", desc = "inline_edit" },
     },
     init = function()
       vim.g.inline_edit_proxy_type = "tempfile"
@@ -1348,8 +1353,8 @@ local M = {
   {
     "AndrewRadev/linediff.vim",
     keys = {
-      { "<leader>ed", ":Linediff<cr> ", mode = "x" },
-      { "<leader>ed", "<plug>(linediff-operator)" },
+      { "<leader>ed", ":Linediff<cr> ", mode = "x", desc = "linediff" },
+      { "<leader>ed", "<plug>(linediff-operator)", desc = "linediff" },
     },
     config = function()
       vim.api.nvim_create_autocmd("User", {
@@ -1387,10 +1392,11 @@ local M = {
         function()
           require("lervag.util.git").toggle_fugitive()
         end,
+        desc = "fugitive",
       },
-      { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>" },
-      { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" } },
-      { "<leader>gB", "<cmd>Telescope git_branches<cr>" },
+      { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>", desc = "fugitive" },
+      { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" }, desc = "fugitive" },
+      { "<leader>gB", "<cmd>Telescope git_branches<cr>", desc = "fugitive" },
     },
     config = function()
       -- See also:
@@ -1425,8 +1431,13 @@ local M = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog" },
     keys = {
-      { "<leader>gl", "<cmd>Flog -all<cr>", mode = { "n", "x" } },
-      { "<leader>gL", "<cmd>Flog -all -path=%<cr>" },
+      {
+        "<leader>gl",
+        "<cmd>Flog -all<cr>",
+        mode = { "n", "x" },
+        desc = "flog",
+      },
+      { "<leader>gL", "<cmd>Flog -all -path=%<cr>", desc = "flog" },
     },
     config = function()
       -- See also ftplugin/floggraph.vim
@@ -1459,10 +1470,10 @@ local M = {
   {
     "christoomey/vim-tmux-navigator",
     keys = {
-      { "<c-h>", "<cmd>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd>TmuxNavigateRight<cr>" },
+      { "<c-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "tmux-navigator" },
+      { "<c-j>", "<cmd>TmuxNavigateDown<cr>", desc = "tmux-navigator" },
+      { "<c-k>", "<cmd>TmuxNavigateUp<cr>", desc = "tmux-navigator" },
+      { "<c-l>", "<cmd>TmuxNavigateRight<cr>", desc = "tmux-navigator" },
     },
     init = function()
       vim.g.tmux_navigator_no_mappings = 1
@@ -1474,17 +1485,26 @@ local M = {
     "benmills/vimux",
     cmd = { "VimuxOpenRunner" },
     keys = {
-      { "<leader>io", "<cmd>call VimuxOpenRunner()<cr>" },
-      { "<leader>iq", "<cmd>VimuxCloseRunner<cr>" },
-      { "<leader>ip", "<cmd>VimuxPromptCommand<cr>" },
-      { "<leader>in", "<cmd>VimuxInspectRunner<cr>" },
-      { "<leader>ii", "<cmd>VimuxRunCommand 'jkk'<cr>" },
-      { "<leader>is", "<cmd>set opfunc=personal#vimux#operator<cr>g@" },
-      { "<leader>iss", "<cmd>call VimuxRunCommand(getline('.'))<cr>" },
+      { "<leader>io", "<cmd>call VimuxOpenRunner()<cr>", desc = "vimux" },
+      { "<leader>iq", "<cmd>VimuxCloseRunner<cr>", desc = "vimux" },
+      { "<leader>ip", "<cmd>VimuxPromptCommand<cr>", desc = "vimux" },
+      { "<leader>in", "<cmd>VimuxInspectRunner<cr>", desc = "vimux" },
+      { "<leader>ii", "<cmd>VimuxRunCommand 'jkk'<cr>", desc = "vimux" },
+      {
+        "<leader>is",
+        "<cmd>set opfunc=personal#vimux#operator<cr>g@",
+        desc = "vimux",
+      },
+      {
+        "<leader>iss",
+        "<cmd>call VimuxRunCommand(getline('.'))<cr>",
+        desc = "vimux",
+      },
       {
         "<leader>is",
         [["vy :call VimuxSendText(@v)<cr>]],
         mode = "x",
+        desc = "vimux",
       },
     },
     init = function()
@@ -1499,7 +1519,11 @@ local M = {
   {
     "itchyny/calendar.vim",
     keys = {
-      { "<leader>c", "<cmd>Calendar -position=here<cr>" },
+      {
+        "<leader>c",
+        "<cmd>Calendar -position=here<cr>",
+        desc = "calendar.vim",
+      },
     },
     init = function()
       -- See also ftplugin/calendar.vim
