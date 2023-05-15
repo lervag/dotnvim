@@ -79,6 +79,15 @@ local M = {
       }
       vim.g.wiki_toc_depth = 2
       vim.g.wiki_link_schemes = {
+        jira = {
+          resolver = function(url)
+            return {
+              scheme = "https",
+              stripped = "unit.atlassian.net/browse/" .. url.stripped,
+              url = "https://unit.atlassian.net/browse/" .. url.stripped,
+            }
+          end,
+        },
         file = {
           handler = vim.fn["personal#wiki#file_handler"],
         },
@@ -143,11 +152,6 @@ local M = {
 
   {
     url = "git@github.com:lervag/wiki-ft.vim",
-    dev = true,
-  },
-
-  {
-    url = "git@github.com:lervag/vim-sikt",
     dev = true,
   },
 
