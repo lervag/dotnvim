@@ -39,15 +39,10 @@ function! personal#wiki#template(ctx) abort " {{{1
   call append(0, '# ' . a:ctx.name)
 
   if !empty(a:ctx.origin)
-    let l:link = !has_key(a:ctx.origin, 'pos_start')
-          \ ? personal#wiki#file_to_link(a:ctx.origin.origin)
-          \ : personal#wiki#file_to_link(a:ctx.origin.origin,
-          \                              a:ctx.origin.pos_start[0])
-
     call append(1, [
           \ '',
           \ 'Sjå også:',
-          \ '* ' . l:link
+          \ '* ' . personal#wiki#get_origin_link(a:ctx.origin)
           \])
   endif
 
@@ -55,21 +50,19 @@ function! personal#wiki#template(ctx) abort " {{{1
 endfunction
 
 " }}}1
-function! personal#wiki#file_to_link(filename, ...) abort " {{{1
-  let l:page = wiki#paths#shorten_relative(a:filename)
+function! personal#wiki#get_origin_link(origin) abort " {{{1
+  let l:page = wiki#paths#shorten_relative(a:origin.file)
   let l:page = fnamemodify(l:page, ':r')
 
-  if a:0 > 0
-    let l:a = []
-    for l:e in wiki#toc#gather_entries(#{lines: readfile(a:filename)})
-      if l:e.lnum > a:1 | break | endif
-      let l:a = l:e.anchors
-    endfor
+  let l:a = []
+  for l:e in wiki#toc#gather_entries(#{lines: readfile(a:origin.file)})
+    if l:e.lnum > a:origin.cursor[1] | break | endif
+    let l:a = l:e.anchors
+  endfor
 
-    let l:anchors = join(l:a, '#')
-    if !empty(l:anchors) && l:anchors !=# l:page
-      let l:page .= '#' . l:anchors
-    endif
+  let l:anchors = join(l:a, '#')
+  if !empty(l:anchors) && l:anchors !=# l:page
+    let l:page .= '#' . l:anchors
   endif
 
   return '[[' . l:page . ']]'
