@@ -29,7 +29,7 @@ autocmd("LspAttach", {
     -- local client = vim.lsp.get_client_by_id(args.data.client_id)
     -- client.server_capabilities.semanticTokensProvider = nil
 
-    map("n", "<leader>ld", lsp.buf.definition)
+    map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
     map("n", "<leader>lD", function()
       local params = lsp.util.make_position_params()
       return lsp.buf_request(
@@ -46,29 +46,64 @@ autocmd("LspAttach", {
           })
         end
       )
-    end)
-    map("n", "<leader>lt", lsp.buf.type_definition)
-    map("n", "<leader>lr", lsp.buf.references)
-    map("n", "<leader>li", lsp.buf.implementation)
-    map("n", "<leader>lk", lsp.buf.signature_help)
-    map("n", "<leader>lR", lsp.buf.rename)
-    map("n", "<leader>la", lsp.buf.code_action)
-    map("n", "<leader>lc", lsp.codelens.run)
-    map("n", "<leader>lf", lsp.buf.format)
+    end, { desc = "Show definition" })
+    map(
+      "n",
+      "<leader>lt",
+      lsp.buf.type_definition,
+      { desc = "Jump to type definition" }
+    )
+    map("n", "<leader>lr", lsp.buf.references, { desc = "List all references" })
+    map(
+      "n",
+      "<leader>li",
+      lsp.buf.implementation,
+      { desc = "List all implementations" }
+    )
+    map(
+      "n",
+      "<leader>lk",
+      lsp.buf.signature_help,
+      { desc = "Show signature information" }
+    )
+    map("n", "<leader>lR", lsp.buf.rename, { desc = "Rename all references" })
+    map("n", "<leader>la", lsp.buf.code_action, { desc = "Select code action" })
+    map(
+      "n",
+      "<leader>lc",
+      lsp.codelens.run,
+      { desc = "Run codelens in current line" }
+    )
+    map("n", "<leader>lf", lsp.buf.format, { desc = "Format buffer" })
     map("n", "<leader>lw", function()
       print(vim.inspect(lsp.buf.list_workspace_folders()))
-    end)
-    map("n", "<leader>lK", lsp.buf.hover)
+    end, { desc = "List workspace folders" })
+    map(
+      "n",
+      "<leader>lK",
+      lsp.buf.hover,
+      { desc = "Display hover information" }
+    )
 
     -- Unsure if I want/need these
     map("n", "<leader>l1", function()
       require("telescope.builtin").lsp_document_symbols()
-    end)
+    end, { desc = "List LSP document symbols" })
     map("n", "<leader>l2", function()
       require("telescope.builtin").lsp_dynamic_workspace_symbols()
-    end)
-    map("n", "<leader>l3", lsp.buf.document_highlight)
-    map("n", "<leader>l4", lsp.buf.clear_references)
+    end, { desc = "Dynamically list LSP for workspace symbols" })
+    map(
+      "n",
+      "<leader>l3",
+      lsp.buf.document_highlight,
+      { desc = "Resolve document highlights for current position" }
+    )
+    map(
+      "n",
+      "<leader>l4",
+      lsp.buf.clear_references,
+      { desc = "Remove document highlights" }
+    )
   end,
 })
 
