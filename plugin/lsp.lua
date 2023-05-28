@@ -29,6 +29,12 @@ autocmd("LspAttach", {
     -- local client = vim.lsp.get_client_by_id(args.data.client_id)
     -- client.server_capabilities.semanticTokensProvider = nil
 
+    autocmd({"CursorHold", "InsertLeave"}, {
+      desc = "Refresh codelenses",
+      buffer = args.buf,
+      callback = vim.lsp.codelens.refresh
+    })
+
     map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
     map("n", "<leader>lD", function()
       local params = lsp.util.make_position_params()
