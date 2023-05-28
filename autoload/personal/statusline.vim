@@ -206,8 +206,8 @@ function! s:fallback(ctx) abort " {{{1
   let l:stat .= '%='
 
   " Add status message from nvim-metals
-  if exists('g:metals_status') && !empty(g:metals_status)
-    let l:stat .= a:ctx.info(' ' . g:metals_status)
+  if exists('g:metals_status') && !empty(g:metals_status) && a:ctx.active
+    let l:stat .= '%#SLInfo# ' . g:metals_status . '%*'
   endif
 
   " Previewwindows don't need more details

@@ -353,18 +353,20 @@ autocmd("FileType", {
 
     local metals_config = metals.bare_config()
     metals_config.tvp = {
-      icons = { enabled = true },
-      symbols = {
-        class = "󰠱",
-        enum = "",
-        field = "󰜢",
-        interface = "",
-        method = "󰆧",
-        object = "",
-        package = "",
-        trait = "",
-        val = "",
-        var = "",
+      icons = {
+        enabled = true,
+        symbols = {
+          class = "󰠱",
+          enum = "",
+          field = "󰜢",
+          interface = "",
+          method = "󰆧",
+          object = "",
+          package = "",
+          trait = "",
+          val = "",
+          var = "",
+        },
       },
     }
     metals_config.init_options.statusBarProvider = "on"
