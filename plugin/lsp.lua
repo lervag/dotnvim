@@ -354,6 +354,18 @@ autocmd("FileType", {
     local metals_config = metals.bare_config()
     metals_config.tvp = {
       icons = { enabled = true },
+      symbols = {
+        class = "󰠱",
+        enum = "",
+        field = "󰜢",
+        interface = "",
+        method = "󰆧",
+        object = "",
+        package = "",
+        trait = "",
+        val = "",
+        var = "",
+      },
     }
     metals_config.init_options.statusBarProvider = "on"
     metals_config.capabilities = capabilities
@@ -361,19 +373,57 @@ autocmd("FileType", {
       showImplicitArguments = true,
       showInferredType = true,
       decorationColor = "DiagnosticVirtualTextHint",
-      -- excludedPackages = {
-      --   "akka.actor.typed.javadsl",
-      --   "com.github.swagger.akka.javadsl"
-      -- },
+      excludedPackages = {
+        "akka.actor.typed.javadsl",
+        "com.github.swagger.akka.javadsl"
+      },
+      -- enableSemanticHighlighting = false,
     }
 
-    metals_config.on_attach = function(_, _)
+    metals_config.on_attach = function(_, bufnr)
       metals.setup_dap()
 
-      vim.keymap.set("v", "K", require("metals").type_of_range)
-      vim.keymap.set("n", "<leader>mm", metals.commands)
-      vim.keymap.set("n", "<leader>mk", metals.hover_worksheet)
-      vim.keymap.set("n", "<leader>mt", require("metals.tvp").toggle_tree_view)
+      vim.keymap.set(
+        "v",
+        "K",
+        require("metals").type_of_range,
+        { buffer = bufnr, desc = "Metals: Type of range" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>mm",
+        metals.commands,
+        { buffer = bufnr, desc = "Metals: Commands" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>mk",
+        metals.hover_worksheet,
+        { buffer = bufnr, desc = "Metals: Hover worksheet" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>mt",
+        require("metals.tvp").toggle_tree_view,
+        { buffer = bufnr, desc = "Metals: Toggle tree view" }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>mr",
+        require("metals.tvp").reveal_in_tree,
+        { buffer = bufnr, desc = "Metals: Reveal in tree" }
+      )
+      vim.keymap.set("n", "<leader>msi", function()
+        metals.toggle_setting "showImplicitArguments"
+      end, { buffer = bufnr, desc = "Metals: Show implicit args" })
+      vim.keymap.set(
+        "n",
+        "<leader>mss",
+        function()
+          metals.toggle_setting "enableSemanticHighlighting"
+        end,
+        { buffer = bufnr, desc = "Metals: Toggle enableSemanticHighlighting" }
+      )
     end
 
     metals.initialize_or_attach(metals_config)
