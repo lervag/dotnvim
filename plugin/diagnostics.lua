@@ -22,7 +22,7 @@ vim.fn.sign_define {
   },
   { text = "", name = "DiagnosticSignWarn", texthl = "DiagnosticSignWarn" },
   { text = "", name = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" },
-  { text = "", name = "DiagnosticSignHint", texthl = "DiagnosticSignHint" },
+  { text = "", name = "DiagnosticSignHint", texthl = "DiagnosticSignHint" },
 }
 
 local diagnostics_active = true
