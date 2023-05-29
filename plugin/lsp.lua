@@ -21,19 +21,22 @@ local find_root = function(markers, file)
   )
 end
 
--- {{{1 Mappings
+-- {{{1 Mappings and autocmds
 autocmd("LspAttach", {
   group = lspgroup,
   desc = "Configure LSP: Mappings and similar",
   callback = function(args)
-    -- local client = vim.lsp.get_client_by_id(args.data.client_id)
-    -- client.server_capabilities.semanticTokensProvider = nil
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    autocmd({ "CursorHold", "InsertLeave" }, {
-      desc = "Refresh codelenses",
-      buffer = args.buf,
-      callback = vim.lsp.codelens.refresh,
-    })
+    if client.server_capabilities.codeLensProvider then
+      autocmd({ "CursorHold", "InsertLeave" }, {
+        desc = "Refresh codelenses",
+        buffer = args.buf,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
+
+    -- client.server_capabilities.semanticTokensProvider = nil
 
     map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
     map("n", "<leader>lD", function()
