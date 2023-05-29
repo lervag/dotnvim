@@ -34,6 +34,7 @@ local opts = { buffer = true }
 
 vim.keymap.set("n", "q", "<plug>(FlogQuit)", opts)
 vim.keymap.set("n", "<f5>", "<plug>(FlogUpdate)", opts)
+vim.keymap.set("n", "gP", "<cmd>Flogsetargs -- --first-parent<cr>", opts)
 vim.keymap.set("n", "<tab>", open_commit, opts)
 vim.keymap.set("n", "p", open_current, opts)
 vim.keymap.set("n", "df", diff_marked, opts)
