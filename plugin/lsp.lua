@@ -29,10 +29,10 @@ autocmd("LspAttach", {
     -- local client = vim.lsp.get_client_by_id(args.data.client_id)
     -- client.server_capabilities.semanticTokensProvider = nil
 
-    autocmd({"CursorHold", "InsertLeave"}, {
+    autocmd({ "CursorHold", "InsertLeave" }, {
       desc = "Refresh codelenses",
       buffer = args.buf,
-      callback = vim.lsp.codelens.refresh
+      callback = vim.lsp.codelens.refresh,
     })
 
     map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
@@ -383,7 +383,7 @@ autocmd("FileType", {
       decorationColor = "DiagnosticVirtualTextHint",
       excludedPackages = {
         "akka.actor.typed.javadsl",
-        "com.github.swagger.akka.javadsl"
+        "com.github.swagger.akka.javadsl",
       },
       -- enableSemanticHighlighting = false,
     }
@@ -461,7 +461,7 @@ autocmd("FileType", {
           analysis = {
             autoSearchPaths = true,
             useLibraryCodeForTypes = true,
-            diagnosticMode = "workspace",
+            diagnosticMode = "openFilesOnly",
           },
         },
       },
