@@ -176,7 +176,7 @@ local M = {
         ensure_installed = "all",
         highlight = {
           enable = true,
-          disable = { "markdown", "make", "latex" },
+          disable = { "make", "latex" },
         },
         matchup = {
           enable = true,
@@ -1072,6 +1072,8 @@ local M = {
 
       local dap = require "dap"
       local widgets = require "dap.ui.widgets"
+
+      dap.set_log_level "INFO"
 
       -- Define sign symbols
       vim.fn.sign_define {
