@@ -444,6 +444,7 @@ autocmd("FileType", {
 -- }}}1
 -- {{{1 pyright
 
+-- https://microsoft.github.io/pyright/#/
 -- https://github.com/microsoft/pyright
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/pyright.lua
 
