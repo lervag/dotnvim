@@ -276,6 +276,9 @@ local theme = {
   -- ["@lsp.typemod.function.defaultLibrary"] = {},
   ["@lsp.typemod.function.async"] = { bold = true },
 
+  ["@text.strong"] = { bold = true },
+  ["@text.emphasis"] = { italic = true },
+
   -- {{{1 LSP and Diagnostics
 
   -- See :help lsp-highlight
