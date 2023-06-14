@@ -65,6 +65,16 @@ function! s:bt_help(ctx) abort " {{{1
 endfunction
 
 " }}}1
+function! s:bt_nofile(ctx) abort " {{{1
+  return a:ctx.info(' %f') . '%= %l av %L '
+endfunction
+
+" }}}1
+function! s:bt_prompt(ctx) abort " {{{1
+  return a:ctx.info(' %f') . '%= %l/%L '
+endfunction
+
+" }}}1
 function! s:bt_quickfix(ctx) abort " {{{1
   let l:stat = ' ['
   let l:stat .= personal#qf#is_loc(a:ctx.winnr) ? 'Loclist' : 'Quickfix'
