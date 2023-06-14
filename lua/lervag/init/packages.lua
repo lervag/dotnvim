@@ -224,6 +224,7 @@ local M = {
         prefer_width = 80,
         max_width = nil,
         min_width = nil,
+        border = require("lervag.const").border,
       },
       select = {
         format_item_override = {
@@ -422,7 +423,7 @@ local M = {
 
       require("chatgpt").setup {
         openai_params = {
-          model = "gpt-3.5-turbo-0301",
+          model = "gpt-3.5-turbo-0613",
         },
         settings_window = window_opts,
         popup_window = window_opts,
@@ -1031,9 +1032,7 @@ local M = {
       {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = {
-          virt_lines = true,
-        },
+        config = true,
       },
       {
         "LiadOz/nvim-dap-repl-highlights",
@@ -1134,17 +1133,34 @@ local M = {
         ["<leader>dK"] = dap.up,
         ["<leader>dJ"] = dap.down,
         ["<leader>dr"] = dap.repl.toggle,
-        ["<leader>dh"] = widgets.hover,
+        ["<leader>dh"] = function()
+          widgets.hover("<cexpr>", {
+            border = require("lervag.const").border,
+            title = " hover ",
+          })
+        end,
         ["<leader>dH"] = function()
-          vim.ui.input({ prompt = "Evaluate: " }, function(expr)
-            widgets.hover(expr)
+          vim.ui.input({
+            prompt = " evaluate ",
+            border = require("lervag.const").border,
+          }, function(expr)
+            widgets.hover(expr, {
+              border = require("lervag.const").border,
+              title = " evaluated: " .. expr .. " ",
+            })
           end)
         end,
         ["<leader>dF"] = function()
-          widgets.centered_float(widgets.frames)
+          widgets.centered_float(widgets.frames, {
+            border = require("lervag.const").border,
+            title = " frames ",
+          })
         end,
         ["<leader>dL"] = function()
-          widgets.centered_float(widgets.scopes)
+          widgets.centered_float(widgets.scopes, {
+            border = require("lervag.const").border,
+            title = " scopes ",
+          })
         end,
       }
 
