@@ -240,44 +240,179 @@ local theme = {
   FloatBorder = { fg = color07d, bg = color15 },
   FloatTitle = { fg = color03, bg = color07d, bold = true },
 
-  -- {{{1 Tree-sitter and LSP semantic highlighting
+  -- {{{1 Tree-sitter
 
   -- Highlight groups used by Tree-sitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 
-  ["@parameter"] = { link = "PreProc" },
-  ["@variable"] = { fg = color10 },
-  ["@constructor"] = { link = "PreProc" },
-  ["@function.builtin"] = { fg = magenta1d },
+  -- {{{2 Text
 
-  -- See :help lsp-semantic-highlight
-  ["@lsp.type.variable"] = {},
-  -- ["@lsp.type.class"] = { link = "Structure" },
-  -- ["@lsp.type.decorator"] = { link = "Function" },
-  -- ["@lsp.type.enum"] = { link = "Structure" },
-  -- ["@lsp.type.enumMember"] = { link = "Constant" },
-  -- ["@lsp.type.function"] = { link = "Function" },
-  -- ["@lsp.type.interface"] = { link = "Structure" },
-  -- ["@lsp.type.macro"] = { link = "Macro" },
-  -- ["@lsp.type.method"] = { link = "Function" },
-  -- ["@lsp.type.namespace"] = { link = "Structure" },
-  ["@lsp.type.parameter"] = { link = "@parameter" },
-  -- ["@lsp.type.property"] = { link = "Identifier" },
-  -- ["@lsp.type.struct"] = { link = "Structure" },
-  -- ["@lsp.type.type"] = { link = "Type" },
-  -- ["@lsp.type.typeParameter"] = { link = "TypeDef" },
-  -- ["@lsp.type.variable"] = { link = "Identifier" },
-
-  ["@lsp.mod.deprecated"] = { underline = true, bold = true, bg = colo03 },
-  -- ["@lsp.mod.declaration"] = {},
-  ["@lsp.mod.defaultLibrary"] = { link = "@function.builtin" },
-
-  -- ["@lsp.typemod.function.declaration"] = {},
-  -- ["@lsp.typemod.function.defaultLibrary"] = {},
-  ["@lsp.typemod.function.async"] = { bold = true },
-
+  -- ["@text"] = {},
   ["@text.strong"] = { bold = true },
   ["@text.emphasis"] = { italic = true },
+  ["@text.underline"] = { underline = true },
+  ["@text.strike"] = { strikethrough = true },
+  -- ["@text.title"] = {},
+  -- ["@text.quote"] = {},
+  -- ["@text.uri"] = {},
+  -- ["@text.math"] = {},
+  -- ["@text.environment"] = {},
+  -- ["@text.environment.name"] = {},
+  -- ["@text.reference"] = {},
+
+  -- ["@text.literal"] = {},
+  -- ["@text.literal.block"] = {},
+
+  -- ["@text.todo"] = {},
+  -- ["@text.note"] = {},
+  -- ["@text.warning"] = {},
+  -- ["@text.danger"] = {},
+
+  -- ["@text.diff.add"] = {},
+  -- ["@text.diff.delete"] = {},
+
+  -- {{{2 Tags
+
+  -- For XML and HTML and similar
+
+  -- ["@tag"] = {},
+  -- ["@tag.attribute"] = {},
+  -- ["@tag.delimiter"] = {},
+
+  -- {{{2 Types
+
+  -- type or class definitions and annotations
+  -- ["@type"] = {},
+
+  -- ["@type.builtin"] = {},
+
+  -- type definitions (e.g. `typedef` in C)
+  -- ["@type.definition"] = {},
+
+  -- type qualifiers (e.g. `const`)
+  -- ["@type.qualifier"] = {},
+
+  -- modifiers that affect storage in memory or life-time
+  -- ["@storageclass"] = {},
+
+  -- attribute annotations (e.g. Python decorators)
+  -- ["@attribute"] = {},
+
+  -- object and struct fields
+  -- ["@field"] = {},
+
+  -- similar to `@field`
+  -- ["@property"] = {},
+
+  -- {{{2 Functions
+
+  -- ["@function"] = {},         -- function definitions
+  ["@function.builtin"] = { fg = magenta1d },
+  -- ["@function.call"] = {},    -- function calls
+  -- ["@function.macro"] = {},   -- preprocessor macros
+
+  -- ["@method"] = {},           -- method definitions
+  -- ["@method.call"] = {},      -- method calls
+
+  ["@constructor"] = { link = "PreProc" },
+  ["@parameter"] = { link = "PreProc" },
+
+  -- {{{2 Keywords
+
+  -- ["@keyword"] = {},
+  -- ["@keyword.coroutine"] = {},
+  -- ["@keyword.function"] = {},
+  -- ["@keyword.operator"] = {},
+  -- ["@keyword.return"] = {},
+
+  -- ["@conditional"] = {},
+  -- ["@conditional.ternary"] = {},
+
+  -- ["@repeat"] = {},
+  -- ["@debug"] = {},
+  -- ["@label"] = {},
+  -- ["@include"] = {},
+  -- ["@exception"] = {},
+
+  -- {{{2 Literals
+
+  -- ["@string"] = {},
+  -- ["@string.documentation"] = {},
+  -- ["@string.regex"] = {},
+  -- ["@string.escape"] = {},
+  -- ["@string.special"] = {},       -- other special strings (e.g. dates)
+
+  -- ["@character"] = {},
+  -- ["@character.special"] = {},
+
+  -- ["@boolean"] = {},
+  -- ["@number"] = {},
+  -- ["@float"] = {},
+
+  -- {{{2 Identifiers
+
+  ["@variable"] = { fg = color10 },
+  -- ["@variable.builtin"] = {},
+
+  -- ["@constant"] = {},
+  -- ["@constant.builtin"] = {},
+  -- ["@constant.macro"] = {},
+
+  -- ["@namespace"] = {},
+  -- ["@symbol"] = {},
+
+  -- {{{2 Miscellaneous
+
+  -- ["@comment"] = {},
+  -- ["@comment.documentation"] = {},
+  -- ["@error"] = {},                 -- syntax/parser errors
+  -- ["@none"] = {},                  -- completely disable the highlight
+  -- ["@preproc"] = {},               -- various preprocessor directives & shebangs
+  -- ["@define"] = {},                -- preprocessor definition directives
+  -- ["@operator"] = {},              -- symbolic operators (e.g. `+` / `*`)
+
+  -- {{{2 Punctuation
+
+  -- ["@punctuation.delimiter"] -- delimiters (e.g. `--` / `.` / `,`)
+  -- ["@punctuation.bracket"]   -- brackets (e.g. `()` / `{}` / `[]`)
+  -- ["@punctuation.special"]   -- special symbols (e.g. `{}` in string interpolation)
+
+  -- {{{1 LSP semantic highlighting
+
+  -- See :help lsp-semantic-highlight
+
+  ["@lsp.type.variable"] = { link = "@variable" },
+  ["@lsp.type.class"] = { link = "@type" },
+  ["@lsp.type.enum"] = { link = "@type" },
+  ["@lsp.type.type"] = { link = "@type" },
+  ["@lsp.type.interface"] = { link = "@type" },
+  ["@lsp.type.enumMember"] = { link = "@constant" },
+  ["@lsp.type.decorator"] = { link = "@function" },
+  ["@lsp.type.function"] = { link = "@function" },
+  ["@lsp.type.macro"] = { link = "@macro" },
+  ["@lsp.type.method"] = { link = "@method" },
+  ["@lsp.type.namespace"] = { link = "@namespace" },
+  ["@lsp.type.parameter"] = { link = "@parameter" },
+  ["@lsp.type.property"] = { link = "@property" },
+  ["@lsp.type.struct"] = { link = "@structure" },
+  -- ["@lsp.type.typeParameter"] = { link = "TypeDef" },
+
+  -- Mods: affect all types with given modifier
+  ["@lsp.mod.deprecated"] = { underline = true, bold = true, bg = color03 },
+  ["@lsp.mod.defaultLibrary"] = { link = "@function.builtin" },
+  ["@lsp.mod.unused"] = { bg = color03, italic = true },
+  ["@lsp.mod.undefined"] = { bg = color04, italic = true },
+  -- ["@lsp.mod.declaration"] = {},
+  -- ["@lsp.mod.readonly"] = { italic = true },
+  -- ["@lsp.mod.functionScope"] = {},
+  -- ["@lsp.mod.classScope"] = {},
+  -- ["@lsp.mod.fileScope"] = {},
+  -- ["@lsp.mod.globalScope"] = {},
+
+  -- Typemods: affect all of a specific type with the given modifier
+  -- ["@lsp.typemod.function.declaration"] = {},
+  -- ["@lsp.typemod.function.defaultLibrary"] = {},
+  -- ["@lsp.typemod.function.async"] = { bold = true },
 
   -- {{{1 LSP and Diagnostics
 
