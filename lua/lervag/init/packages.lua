@@ -1046,6 +1046,7 @@ local M = {
             justMyCode = false,
           }
 
+          ---@diagnostic disable-next-line: duplicate-set-field
           require("debugpy").run = function(config)
             require("dap").run(vim.tbl_extend("keep", config, default_config))
           end

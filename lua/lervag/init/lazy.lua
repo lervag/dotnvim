@@ -1,7 +1,7 @@
 local root = vim.env.HOME .. "/.local/plugged"
 
 local lazypath = root .. "/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     "git",
     "clone",
