@@ -1633,7 +1633,7 @@ local M = {
   -- {{{1 Various filetype plugins
 
   {
-    url = "https://gitlab.com/yorickpeterse/nvim-pqf",
+    "yorickpeterse/nvim-pqf",
     event = "VeryLazy",
     config = function()
       require("pqf").setup {
