@@ -6,19 +6,13 @@
 " - http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
 "
 
-function! personal#statusline#refresh() abort " {{{1
-  call map(
-        \ filter(
-        \   range(1, winnr('$')),
-        \   { _, x -> bufname(winbufnr(x)) !~# '^\%(undotree\|diffpanel\)' }),
-        \ { _, x -> setwinvar(x, '&statusline', '%!personal#statusline#main(' . x . ')')})
-endfunction
+function! personal#statusline#main() abort " {{{1
+  let l:winnr = win_id2win(g:statusline_winid)
+  let l:bufnr = winbufnr(l:winnr)
 
-"}}}1
-function! personal#statusline#main(winnr) abort " {{{1
   let l:ctx = deepcopy(s:ctx)
-  let l:ctx.winnr = winbufnr(a:winnr) == -1 ? 1 : a:winnr
-  let l:ctx.bufnr = winbufnr(l:ctx.winnr)
+  let l:ctx.winnr = l:bufnr == -1 ? 1 : l:winnr
+  let l:ctx.bufnr = l:bufnr
   let l:ctx.active = l:ctx.winnr == winnr()
 
   try

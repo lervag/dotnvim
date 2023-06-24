@@ -43,20 +43,4 @@ vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
   end,
 })
 
--- Statusline
-vim.api.nvim_create_autocmd({
-  "VimEnter",
-  "WinEnter",
-  "BufWinEnter",
-  "FileType",
-  "VimResized",
-  "BufHidden",
-  "BufWinLeave",
-  "BufUnload",
-}, {
-  desc = "Refresh statusline",
-  group = group,
-  command = [[ call personal#statusline#refresh() ]],
-})
-
 -- See also: after/plugin/init_autocmds.vim
