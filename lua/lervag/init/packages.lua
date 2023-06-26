@@ -709,6 +709,7 @@ local M = {
       null_ls.setup {
         sources = {
           null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.prettierd.with {
             filetypes = {
               "css",
