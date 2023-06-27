@@ -926,8 +926,14 @@ local M = {
           find_files = {
             follow = true,
             hidden = true,
-            no_ignore = true,
-            find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+            find_command = {
+              "fd",
+              "--type",
+              "f",
+              "--color",
+              "never",
+              "--strip-cwd-prefix",
+            },
           },
         },
         extensions = {
