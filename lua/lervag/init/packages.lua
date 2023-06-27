@@ -1090,13 +1090,6 @@ local M = {
         { text = "◉", texthl = "DapSign", name = "DapLogPoint" },
       }
 
-      dap.listeners.before["event_terminated"]["my-plugin"] = function(
-        session,
-        body
-      )
-        print("Session terminated", vim.inspect(session), vim.inspect(body))
-      end
-
       local mappings = {
         ["<leader>dd"] = dap.continue,
         ["<leader>dD"] = dap.run_last,

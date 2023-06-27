@@ -37,6 +37,5 @@ dap.configurations.scala = {
 }
 
 dap.listeners.after["event_terminated"]["nvim-metals"] = function(_, _)
-  vim.notify("Tests have finished!", vim.log.levels.INFO, { title = "Metals" })
   dap.repl.open()
 end
