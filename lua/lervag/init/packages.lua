@@ -1405,8 +1405,14 @@ local M = {
       {
         "tpope/vim-rhubarb",
         init = function()
-          -- I only want GBrowse functionality from rhubarb
           vim.g.loaded_rhubarb = 1
+        end,
+      },
+      {
+        "shumphrey/fugitive-gitlab.vim",
+        init = function()
+          vim.g.loaded_fugitive_gitlab = 1
+          vim.g.fugitive_gitlab_domains = { "https://gitlab.sikt.no" }
         end,
       },
     },
@@ -1430,6 +1436,7 @@ local M = {
       -- * ftplugin/gitcommit.vim
       vim.g.fugitive_browse_handlers = {
         vim.fn["rhubarb#FugitiveUrl"],
+        vim.fn["gitlab#fugitive#handler"],
       }
       local g = vim.api.nvim_create_augroup("init_fugitive", { clear = true })
       vim.api.nvim_create_autocmd("WinEnter", {
