@@ -508,6 +508,13 @@ local theme = {
   -- ChatGPTTotalTokensBorder = { link = FloatBorder },
   -- ChatGPTWelcome = { fg = pink, italic = true },
 
+  -- Lspsaga
+  -- Refer to: ~/.local/plugged/lspsaga.nvim/lua/lspsaga/highlight.lua
+  SagaNormal = { link = "NormalFloat" },
+  RenameNormal = { fg = color13, bg = color07d },
+  TitleString = { fg = color09, bg = color07d, bold = true },
+  ActionPreviewTitle = { link = "TitleString" },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },

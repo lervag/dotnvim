@@ -77,8 +77,10 @@ autocmd("LspAttach", {
       lsp.buf.signature_help,
       { desc = "Show signature information" }
     )
-    map("n", "<leader>lR", lsp.buf.rename, { desc = "Rename all references" })
-    map("n", "<leader>la", lsp.buf.code_action, { desc = "Select code action" })
+    map("n", "<f6>", lsp.buf.rename, { desc = "Rename all references" })
+    map("n", "<leader>lR", "<cmd>Lspsaga rename<cr>", { desc = "Rename all references" })
+    map("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", { desc = "Select code action" })
+
     map(
       "n",
       "<leader>lc",
