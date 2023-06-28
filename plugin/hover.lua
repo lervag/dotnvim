@@ -15,11 +15,7 @@ function MyHover()
     return
   end
 
-  if vim.bo.filetype == "lua" and pcall(VimHelp) then
-    return
-  end
-
-  if not vim.tbl_isempty(vim.lsp.buf_get_clients()) then
+  if not vim.tbl_isempty(vim.lsp.get_active_clients()) then
     vim.lsp.buf.hover()
   end
 end
