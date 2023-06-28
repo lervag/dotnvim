@@ -705,18 +705,6 @@ local theme = {
   diffOnly = { fg = color03 },
   diffRemoved = { fg = color09 },
 
-  -- {{{1 Filetype python (semshi)
-
-  semshiImported = { fg = color08 },
-  semshiGlobal = { fg = color05 },
-  semshiParameter = { fg = army2 },
-  semshiParameterUnused = { fg = army1 },
-  semshiFree = { fg = magenta1d },
-  semshiAttribute = { fg = blue3 },
-  semshiSelected = { underline = true },
-  semshiUnresolved = { link = "Normal" },
-  semshiBuiltin = { link = "Function" },
-
   -- {{{1 Filetype tex
 
   texArg = { fg = color04 },
