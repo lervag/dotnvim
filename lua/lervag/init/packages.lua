@@ -1697,6 +1697,14 @@ local M = {
   },
 
   {
+    "folke/neodev.nvim",
+    lazy = true,
+    opts = {
+      lspconfig = false,
+    },
+  },
+
+  {
     "preservim/vim-markdown",
     config = function()
       vim.g.vim_markdown_folding_disabled = 1

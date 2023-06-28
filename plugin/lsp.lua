@@ -73,7 +73,7 @@ autocmd("LspAttach", {
     )
     map(
       "n",
-      "<leader>lk",
+      "<leader>lK",
       lsp.buf.signature_help,
       { desc = "Show signature information" }
     )
@@ -103,7 +103,7 @@ autocmd("LspAttach", {
     end, { desc = "List workspace folders" })
     map(
       "n",
-      "<leader>lK",
+      "<leader>lk",
       lsp.buf.hover,
       { desc = "Display hover information" }
     )
@@ -337,27 +337,11 @@ autocmd("FileType", {
   group = lspgroup,
   callback = function(args)
     lsp.start {
-      name = "luals",
+      name = "lua-language-server",
       cmd = { "lua-language-server" },
       root_dir = find_root({ ".stylua.toml", "stylua.toml" }, args.file),
-      settings = {
-        Lua = {
-          runtime = { version = "LuaJIT" },
-          diagnostics = {
-            -- globals = { "vim" },
-            disable = { "undefined-global", "lowercase-global" },
-          },
-          workspace = {
-            library = vim.api.nvim_get_runtime_file("", true),
-            checkThirdParty = false,
-          },
-          completion = {
-            callSnippet = "Replace",
-            -- keywordSnippet = "Replace",
-            showWord = "Disable",
-          },
-        },
-      },
+      before_init = require("neodev.lsp").before_init,
+      settings = { Lua = {} },
       single_file_support = true,
       log_level = vim.lsp.protocol.MessageType.Warning,
       capabilities = capabilities,
