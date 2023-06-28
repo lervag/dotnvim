@@ -78,8 +78,18 @@ autocmd("LspAttach", {
       { desc = "Show signature information" }
     )
     map("n", "<f6>", lsp.buf.rename, { desc = "Rename all references" })
-    map("n", "<leader>lR", "<cmd>Lspsaga rename<cr>", { desc = "Rename all references" })
-    map("n", "<leader>la", "<cmd>Lspsaga code_action<cr>", { desc = "Select code action" })
+    map(
+      "n",
+      "<leader>lR",
+      "<cmd>Lspsaga rename<cr>",
+      { desc = "Rename all references" }
+    )
+    map(
+      "n",
+      "<leader>la",
+      "<cmd>Lspsaga code_action<cr>",
+      { desc = "Select code action" }
+    )
 
     map(
       "n",
@@ -386,6 +396,7 @@ autocmd("FileType", {
     metals_config.capabilities = capabilities
     metals_config.settings = {
       showImplicitArguments = true,
+      showImplicitConversionsAndClasses = true,
       showInferredType = true,
       decorationColor = "DiagnosticVirtualTextHint",
       excludedPackages = {
