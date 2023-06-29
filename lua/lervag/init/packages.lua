@@ -705,7 +705,7 @@ local M = {
         },
         lightbulb = {
           enable_in_insert = false,
-          virtual_text = false,
+          sign = false,
         },
         ui = {
           title = false,
