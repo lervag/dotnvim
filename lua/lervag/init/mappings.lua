@@ -1,6 +1,9 @@
 -- Use space as leader key
 vim.g.mapleader = " "
 
+-- Ting jeg kan bruke i maps
+-- <cr> (forsiktig med wiki.vim-konflikt)
+
 vim.keymap.set({ "n", "i" }, "<f1>", "<nop>")
 vim.keymap.set("n", "<space>", "<nop>")
 
@@ -33,7 +36,6 @@ vim.keymap.set("n", "gB", "<cmd>bprevious<cr>", { silent = true })
 vim.keymap.set("n", "zv", "zMzvzz")
 vim.keymap.set("n", "zj", "zcjzOzz")
 vim.keymap.set("n", "zk", "zckzOzz")
-vim.keymap.set("n", "<bs>", "<c-o>zvzz")
 
 -- Simple math stuff
 vim.keymap.set("x", "++", function()
@@ -60,6 +62,7 @@ vim.keymap.set("n", "d*", "*``dgn")
 vim.keymap.set("n", "d#", "*``dgN")
 vim.keymap.set("n", "dg*", "g*``dgn")
 vim.keymap.set("n", "dg#", "g*``dgN")
+vim.keymap.set("n", "<bs>", "ciw")
 
 -- Improved search related mappings
 vim.keymap.set("n", "gl", "<cmd>set nohlsearch<cr>")
