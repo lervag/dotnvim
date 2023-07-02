@@ -35,7 +35,6 @@ vim.opt.backupdir = vim.env.HOME .. "/.local/share/nvim/backup//"
 
 -- {{{1 Behaviour
 
-vim.opt.lazyredraw = true
 vim.opt.confirm = true
 vim.opt.hidden = true
 vim.opt.shortmess = "aoOtTFcCI"
