@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   group = vim.api.nvim_create_augroup("init_colors", {}),
   desc = "Reload colorscheme when it is changed",
   callback = function()
-    if vim.o.modified then
+    if vim.o.modified and not vim.o.diff then
       vim.cmd "highlight clear"
       vim.cmd "silent update"
       vim.cmd "colorscheme solarized_custom"
@@ -83,12 +83,10 @@ local color14l = base1light
 local color15d = base3v88
 local color15w = base3v100s7
 
-local army1 = "#878700"
-local army2 = "#87875f"
 local black = "#000000"
 local blue1 = "#0087ff"
 local blue2 = "#00afff"
-local blue3 = "#add8e6"
+local blue3 = "#9fc6d3"
 local gold1 = "#ffe055"
 local gold2 = "#ffeea2"
 local gray1 = "#d2e1e0"
@@ -150,9 +148,9 @@ local theme = {
   NonText = { fg = color12 },
   NvimInternalError = { fg = color09, bg = color01 },
   Pmenu = { fg = color11, bg = color15d },
-  PmenuSbar = { fg = color00, bg = color11 },
   PmenuSel = { fg = color14, bg = color00 },
-  PmenuThumb = { fg = color11 },
+  PmenuSbar = { bg = color15d },
+  PmenuThumb = { bg = color11 },
   Question = { fg = color06 },
   QuickFixLine = { bg = gold2 },
   RedrawDebugClear = { bg = color11 },
@@ -431,8 +429,8 @@ local theme = {
   DiagnosticOk = { fg = green1 },
   DiagnosticVirtualTextError = { fg = color01, bold = true },
   DiagnosticVirtualTextWarn = { fg = color03, bold = true },
-  DiagnosticVirtualTextInfo = { fg = color04 },
-  DiagnosticVirtualTextHint = { fg = color06l },
+  DiagnosticVirtualTextInfo = { fg = blue3, italic = true },
+  DiagnosticVirtualTextHint = { fg = color06l, italic = true },
   DiagnosticVirtualTextOk = { fg = green1 },
   DiagnosticSignError = { fg = color01, bg = color07, bold = true },
   DiagnosticSignWarn = { fg = color03, bg = color07, bold = true },
