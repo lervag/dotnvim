@@ -20,11 +20,7 @@ endfunction
 function! personal#markdown#color_code_blocks() abort " {{{1
   " This is based on an idea from reddit:
   " https://www.reddit.com/r/vim/comments/fob3sg/different_background_color_for_markdown_code/
-  "
-  " See also tsnode-marker.nvim (utilizes treesitter)
-  setlocal signcolumn=no
-
-  sign define codeblock linehl=codeBlockBackground
+  call sign_define('codeBackground', #{linehl: 'codeBlockBackground'})
 
   augroup code_block_background
     autocmd! * <buffer>
@@ -36,17 +32,16 @@ endfunction
 
 " }}}1
 function! personal#markdown#place_signs() abort " {{{1
-  let l:continue = 0
   let l:file = expand('%')
   if empty(l:file) | return | endif
 
-  execute 'sign unplace * file=' . l:file
+  call sign_unplace('codeGroup', #{buffer: ""})
 
+  let l:continue = 0
   for l:lnum in range(1, line('$'))
     let l:line = getline(l:lnum)
     if l:continue || l:line =~# '^\s*```'
-      execute printf('sign place %d line=%d name=codeblock file=%s',
-            \ l:lnum, l:lnum, l:file)
+      call sign_place(0, 'codeGroup', 'codeBackground', "", #{lnum: l:lnum})
     endif
 
     let l:continue = l:continue
