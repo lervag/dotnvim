@@ -336,6 +336,9 @@ autocmd("FileType", {
   pattern = "lua",
   group = lspgroup,
   callback = function(args)
+    if args.file:sub(1, 12) == "fugitive:///" then
+      return
+    end
     lsp.start {
       name = "lua-language-server",
       cmd = { "lua-language-server" },
