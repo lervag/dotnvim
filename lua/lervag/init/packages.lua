@@ -1452,7 +1452,13 @@ local M = {
       },
       { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>", desc = "fugitive" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" }, desc = "fugitive" },
-      { "<leader>gB", "<cmd>Telescope git_branches<cr>", desc = "fugitive" },
+      {
+        "<leader>gB",
+        function()
+          require("telescope.builtin").git_branches()
+        end,
+        desc = "fugitive",
+      },
     },
     config = function()
       -- See also:
