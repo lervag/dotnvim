@@ -11,12 +11,13 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   desc = "Reload colorscheme when it is changed",
   callback = function()
     if vim.o.modified and not vim.o.diff then
-      vim.cmd "highlight clear"
+      -- vim.cmd "highlight clear"
       vim.cmd "silent update"
       vim.cmd "colorscheme solarized_custom"
+      vim.cmd [[echom "Updated colorscheme (msg)"]]
       vim.notify(
-        "Updated colorscheme",
-        vim.log.levels.WARN,
+        "Updated colorscheme (notification)",
+        vim.log.levels.INFO,
         { title = "solarized_custom" }
       )
     end
@@ -27,20 +28,47 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 
 local base03 = "#002b36"
 local base02 = "#073642"
+local base02v45 = "#0d5e73"
 local base01 = "#586e75"
 local base00 = "#657b83"
 local base0 = "#839496"
 local base1 = "#93a1a1"
+local base1light = "#b8c1c1"
 local base2 = "#eee8d5"
+local base2v91 = "#e8e2ce"
 local base3 = "#fdf6e3"
+local base3v88 = "#e0dac9"
+local base3v100s7 = "#fffaed"
 local yellow = "#b58900"
+local yellowv30 = "#4d3800"
 local orange = "#cb4b16"
 local red = "#dc322f"
+local redv50 = "#801c1b"
 local magenta = "#d33682"
 local violet = "#6c71c4"
 local blue = "#268bd2"
+local bluev50 = "#175480"
 local cyan = "#2aa198"
+local cyanlight = "#6dbfb8"
 local green = "#859900"
+local greenv80 = "#b1cc00"
+
+local black = "#000000"
+local blue1 = "#0087ff"
+local blue2 = "#00afff"
+local blue3 = "#9fc6d3"
+local gold1 = "#ffe055"
+local gold2 = "#ffeea2"
+local gray1 = "#d2e1e0"
+local green1 = "#719e07"
+local green2 = "#d7ffaf"
+local magenta1 = "#ff00ff"
+local magenta1d = "#8b008b"
+local orange1 = "#ff5f00"
+local pink1 = "#f7cfbf"
+local purple1 = "#8787d7"
+local red1 = "#af0000"
+local yellow1 = "#ffff5f"
 
 local color00 = base02
 local color01 = red
@@ -59,18 +87,6 @@ local color13 = violet
 local color14 = base1
 local color15 = base3
 
--- Extra "base" colors
-local base02v45 = "#0d5e73"
-local redv50 = "#801c1b"
-local greenv80 = "#b1cc00"
-local yellowv30 = "#4d3800"
-local bluev50 = "#175480"
-local base1light = "#B8C1C1"
-local base2v91 = "#e8e2ce"
-local base3v88 = "#e0dac9"
-local base3v100s7 = "#fffaed"
-local cyanlight = "#6DBFB8"
-
 local color00l = base02v45
 local color01d = redv50
 local color02l = greenv80
@@ -82,23 +98,6 @@ local color09l = orange
 local color14l = base1light
 local color15d = base3v88
 local color15w = base3v100s7
-
-local black = "#000000"
-local blue1 = "#0087ff"
-local blue2 = "#00afff"
-local blue3 = "#9fc6d3"
-local gold1 = "#ffe055"
-local gold2 = "#ffeea2"
-local gray1 = "#d2e1e0"
-local green1 = "#719e07"
-local green2 = "#d7ffaf"
-local magenta1 = "#ff00ff"
-local magenta1d = "#8b008b"
-local orange1 = "#ff5f00"
-local pink1 = "#f7cfbf"
-local purple1 = "#8787d7"
-local red1 = "#af0000"
-local yellow1 = "#ffff5f"
 
 vim.g.terminal_color_0 = color00
 vim.g.terminal_color_1 = color01
