@@ -37,7 +37,7 @@ autocmd("LspAttach", {
     end
 
     if client.server_capabilities.inlayHintProvider then
-      vim.lsp.buf.inlay_hint(args.buf, true)
+      vim.lsp.inlay_hint(args.buf, true)
     end
 
     map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
