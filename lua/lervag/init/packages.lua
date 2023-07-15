@@ -1613,39 +1613,33 @@ local M = {
   },
 
   {
-    "chrisbra/Colorizer",
-    event = "BufReadPost",
-    config = function()
-      vim.g.colorizer_auto_filetype = "css,html"
-      vim.g.colorizer_colornames = 0
-
-      local g = vim.api.nvim_create_augroup("init_colorizer", { clear = true })
-      vim.api.nvim_create_autocmd("BufRead", {
-        group = g,
-        pattern = "solarized_custom.lua",
-        desc = "Activate colorizer for colorscheme file",
-        command = "ColorHighlight",
-      })
-    end,
-  },
-
-  {
-    "nvim-colortils/colortils.nvim",
-    event = "BufReadPost",
+    "uga-rosa/ccc.nvim",
+    cmd = {
+      "CccPick",
+      "CccConvert",
+      "CccHighlighterEnable",
+      "CccHighlighterDisable",
+      "CccHighlighterToggle",
+    },
+    keys = {
+      { "<f4>", "<cmd>CccPick<cr>", desc = "ccc.nvim" },
+      { "<s-f4>", "<cmd>CccHighlighterToggle<cr>", desc = "ccc.nvim" },
+    },
     opts = {
-      background = "#e0dac9",
-      color_preview = "██ %s",
-      border = "single",
-      mappings = {
-        replace_default_format = "<cr>",
-        replace_choose_format = "<m-cr>",
-        set_register_default_format = "g<cr>",
-        set_register_choose_format = "g<m-cr>",
-        -- export = "E",
-        -- set_value = "c",
-        -- transparency = "T",
+      point_char = "❚",
+      empty_point_bg = false,
+      win_opts = {
+        border = require("lervag.const").border,
       },
     },
+    init = function()
+      vim.api.nvim_create_autocmd("BufRead", {
+        group = vim.api.nvim_create_augroup("init_ccc", {}),
+        pattern = "solarized_custom.lua",
+        desc = "Activate CccHighlighter for colorscheme file",
+        command = "CccHighlighterEnable",
+      })
+    end,
   },
 
   {
