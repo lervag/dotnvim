@@ -13,7 +13,6 @@ local M = {
       }
       vim.g.vimtex_context_pdf_viewer = "sioyek"
       vim.g.vimtex_doc_handlers = { "vimtex#doc#handlers#texdoc" }
-      vim.g.vimtex_echo_verbose_input = 0
       vim.g.vimtex_fold_enabled = 1
       vim.g.vimtex_fold_types = {
         markers = { enabled = 0 },
@@ -1625,13 +1624,22 @@ local M = {
       { "<f4>", "<cmd>CccPick<cr>", desc = "ccc.nvim" },
       { "<s-f4>", "<cmd>CccHighlighterToggle<cr>", desc = "ccc.nvim" },
     },
-    opts = {
-      point_char = "❚",
-      empty_point_bg = false,
-      win_opts = {
-        border = require("lervag.const").border,
-      },
-    },
+    config = function()
+      local ccc = require "ccc"
+      ccc.setup {
+        point_char = "❚",
+        empty_point_bg = false,
+        inputs = {
+          ccc.input.rgb,
+          ccc.input.hsv,
+          ccc.input.hsl,
+          ccc.input.cmyk,
+        },
+        win_opts = {
+          border = require("lervag.const").border,
+        },
+      }
+    end,
     init = function()
       vim.api.nvim_create_autocmd("BufRead", {
         group = vim.api.nvim_create_augroup("init_ccc", {}),

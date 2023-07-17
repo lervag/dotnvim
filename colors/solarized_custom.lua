@@ -257,7 +257,7 @@ local theme = {
   -- ["@text.environment.name"] = {},
   -- ["@text.reference"] = {},
 
-  -- ["@text.literal"] = {},
+  ["@text.literal"] = { link = "PreProc" },
   -- ["@text.literal.block"] = {},
 
   -- ["@text.todo"] = {},
@@ -372,7 +372,8 @@ local theme = {
 
   -- ["@punctuation.delimiter"] -- delimiters (e.g. `--` / `.` / `,`)
   -- ["@punctuation.bracket"]   -- brackets (e.g. `()` / `{}` / `[]`)
-  -- ["@punctuation.special"]   -- special symbols (e.g. `{}` in string interpolation)
+  -- special symbols (e.g. `{}` in string interpolation)
+  ["@punctuation.special"] = { link = "Identifier" },
 
   -- {{{1 LSP semantic highlighting
 
