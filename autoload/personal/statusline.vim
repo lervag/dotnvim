@@ -7,226 +7,73 @@
 "
 
 function! personal#statusline#main() abort " {{{1
-  let l:winnr = win_id2win(g:statusline_winid)
-  let l:bufnr = winbufnr(l:winnr)
-
-  let l:ctx = deepcopy(s:ctx)
-  let l:ctx.winnr = l:bufnr == -1 ? 1 : l:winnr
-  let l:ctx.bufnr = l:bufnr
-  let l:ctx.active = l:ctx.winnr == winnr()
+  let l:context = {}
+  let l:context.winnr = win_id2win(g:statusline_winid)
+  let l:context.bufnr = winbufnr(l:winnr)
+  if l:context.bufnr == -1
+    let l:context.winnr = 1
+  endif
+  let l:context.active = l:winnr == winnr()
 
   try
-    let l:buftype = getbufvar(l:ctx.bufnr, '&buftype')
-    return s:bt_{l:buftype}(l:ctx)
+    let l:buftype = getbufvar(l:context.bufnr, '&buftype')
+    return s:buftype_{l:buftype}(l:context)
   catch /E117: Unknown function/
   endtry
 
-
   try
-    let l:match = matchstr(bufname(l:ctx.bufnr), '^\w\+\ze:\/\/')
+    let l:match = matchstr(bufname(l:context.bufnr), '^\w\+\ze:\/\/')
     if !empty(l:match)
-      return s:scheme_{l:match}(l:ctx)
+      return s:scheme_{l:match}(l:context)
     endif
   catch /E117: Unknown function/
   endtry
-
 
   let l:match = tolower(
-        \ matchstr(bufname(l:ctx.bufnr),
+        \ matchstr(bufname(l:context.bufnr),
         \          '\v_\zs%(LOCAL|REMOTE)\ze_\d+'))
-  if !empty(l:match) && getwinvar(l:ctx.winnr, '&diff')
-    return s:scheme_merge(l:ctx, l:match)
+  if !empty(l:match) && getwinvar(l:context.winnr, '&diff')
+    return s:scheme_merge(l:context, l:match)
   endif
 
-
   try
-    let l:filetype = getbufvar(l:ctx.bufnr, '&filetype')
-    return s:ft_{l:filetype}(l:ctx)
+    let l:filetype = getbufvar(l:context.bufnr, '&filetype')
+    return s:filetype_{l:filetype}(l:context)
   catch /E117: Unknown function/
   endtry
 
-
-  return s:fallback(l:ctx)
+  return s:main(l:context)
 endfunction
 
 " }}}1
 
 
-function! s:bt_help(ctx) abort " {{{1
-  return a:ctx.info(' vimdoc: ')
-        \ . a:ctx.hlight(
-        \     fnamemodify(bufname(a:ctx.bufnr), ':t:r'))
-endfunction
-
-" }}}1
-function! s:bt_nofile(ctx) abort " {{{1
-  return a:ctx.info(' %f') . '%= %l av %L '
-endfunction
-
-" }}}1
-function! s:bt_prompt(ctx) abort " {{{1
-  return a:ctx.info(' %f') . '%= %l/%L '
-endfunction
-
-" }}}1
-function! s:bt_quickfix(ctx) abort " {{{1
-  let l:stat = ' ['
-  let l:stat .= personal#qf#is_loc(a:ctx.winnr) ? 'Loclist' : 'Quickfix'
-  let l:qf_last = personal#qf#get_prop('nr', '$', a:ctx.winnr)
-  if l:qf_last > 1
-    let l:qf_nr = personal#qf#get_prop('nr', 0, a:ctx.winnr)
-    let l:stat .= ' ' . l:qf_nr . '/' . l:qf_last
-  endif
-
-  let l:stat .= '] (' . personal#qf#length(a:ctx.winnr) . ') '
-
-  let l:stat .= personal#qf#get_prop('title', 0, a:ctx.winnr)
-
-  return a:ctx.hlight(l:stat)
-endfunction
-
-" }}}1
-
-function! s:scheme_fugitive(ctx) abort " {{{1
-  let l:bufname = bufname(a:ctx.bufnr)
-
-  let l:fname = matchstr(l:bufname, '\.git\/\/\x*\/\zs.*')
-  if empty(l:fname)
-    let l:fname = matchstr(l:bufname, '\.git\/\/\zs\x*')
-  endif
-
-  if empty(l:fname)
-    return a:ctx.info(' fugitive: ') . a:ctx.hlight('Git status')
-  endif
-
-  let l:stat = a:ctx.info(' fugitive: %<') . a:ctx.hlight(l:fname)
-  let l:stat .= s:status_modified(a:ctx)
-
-  let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
-  let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
-
-  return l:stat
-endfunction
-
-" }}}1
-function! s:scheme_diffview(ctx) abort " {{{1
-  let l:bufname = bufname(a:ctx.bufnr)
-
-  let l:fname = matchstr(l:bufname, '\.git\/[0-9a-z:]*\/\zs.*')
-  if empty(l:fname)
-    let l:fname = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]*')
-  endif
-
-  if empty(l:fname)
-    let l:name = matchstr(l:bufname, 'panels\/\d\+\/\zs.*')
-    return a:ctx.info(' diffview: ') . a:ctx.hlight(l:name)
-  endif
-
-  let l:stat = a:ctx.info(' diffview: %<') . a:ctx.hlight(l:fname)
-  let l:stat .= s:status_modified(a:ctx)
-
-  let l:commit = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]\{7}')
-  let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
-
-  return l:stat
-endfunction
-
-" }}}1
-function! s:scheme_merge(ctx, version) abort " {{{1
-  let l:mm = getwinvar(a:ctx.winnr, '__merge_mode', {})
-  if !empty(l:mm)
-    let l:version = l:mm.version ==# 'mine' ? 'LOCAL' : 'REMOTE'
-  else
-    let l:version = a:version
-  endif
-  return a:ctx.color_alt(
-        \ ' Merge conflict: ' . l:version,
-        \ ['SLHighlight', 'SLInfo'])
-endfunction
-
-" }}}1
-
-function! s:ft_tex(ctx) abort " {{{1
-  let l:vimtex = getbufvar(a:ctx.bufnr, 'vimtex')
-  let l:status = exists('l:vimtex.compiler.status')
-        \ ? l:vimtex.compiler.status + 1
-        \ : -1
-
-  let [l:symbol, l:color] = get([
-        \ ['[⏻] ', ''],
-        \ ['[⏻] ', ''],
-        \ ['[⟳] ', ''],
-        \ ['[✔︎] ', 'SLSuccess'],
-        \ ['[✖] ', 'SLAlert']
-        \], l:status)
-
-  return s:fallback(a:ctx) . a:ctx.color(l:symbol, l:color)
-endfunction
-
-" }}}1
-function! s:ft_wiki(ctx) abort " {{{1
-  let l:stat = a:ctx.info(' wiki: ')
-  let l:stat .= a:ctx.hlight(fnamemodify(bufname(a:ctx.bufnr), ':t:r'))
-
-  if get(get(b:, 'wiki', {}), 'in_journal', 0)
-    let l:stat .= a:ctx.info('  ')
-  endif
-
-  let l:stat .= s:status_modified(a:ctx)
-
-  let l:file = fnamemodify(bufname(a:ctx.bufnr), ':p')
-  if filereadable(l:file)
-    let l:graph = wiki#graph#builder#get()
-    let l:broken_links = l:graph.get_broken_links_from(l:file)
-    if len(l:broken_links) > 0
-      let l:stat .= a:ctx.alert(printf(' (🔗%d)',len(l:broken_links)))
-    endif
-  endif
-
-  return l:stat
-endfunction
-
-" }}}1
-function! s:ft_man(ctx) abort " {{{1
-  return a:ctx.hlight(' %<%f')
-endfunction
-
-" }}}1
-
-function! s:fallback(ctx) abort " {{{1
-  let l:stat = a:ctx.hlight(' %<%f')
-  let l:stat .= s:status_modified(a:ctx)
-
-  " Add status message from dap.nvim
-  try
-    let l:dap = luaeval('require "dap".status()')
-    if !empty(l:dap)
-      let l:stat .= '%=' . a:ctx.color('[dap: ' . l:dap . ']', 'DapStatus')
-    endif
-  catch /E5108/
-  endtry
+function! s:main(context) abort " {{{1
+  let l:stat = s:_highlight(a:context, ' %<%f')
+  let l:stat .= s:status_modified(a:context)
+  let l:stat .= s:status_dap(a:context)
 
   " Change to right-hand side
   let l:stat .= '%='
 
   " Add status message from nvim-metals
-  if exists('g:metals_status') && !empty(g:metals_status) && a:ctx.active
+  if exists('g:metals_status') && !empty(g:metals_status) && a:context.active
     let l:stat .= '%#SLInfo# ' . g:metals_status . '%*'
   endif
 
   " Previewwindows don't need more details
-  if getwinvar(a:ctx.winnr, '&previewwindow')
-    return l:stat . a:ctx.alert(' [preview] ')
+  if getwinvar(a:context.winnr, '&previewwindow')
+    return l:stat . s:_alert(a:context, ' [preview] ')
   endif
 
   " Add column number if above textwidth
   let cn = virtcol('$') - 1
   if &textwidth > 0 && cn > &textwidth
-    let l:stat .= a:ctx.alert(printf(' [%s > %s &tw]', cn, &textwidth))
+    let l:stat .= s:_alert(a:context, printf(' [%s > %s &tw]', cn, &textwidth))
   endif
 
   try
-    let l:head = FugitiveHead(7, a:ctx.bufnr)
+    let l:head = FugitiveHead(7, a:context.bufnr)
     if !empty(l:head)
       let l:stat .= ' ⑂' . l:head
     endif
@@ -238,56 +85,212 @@ endfunction
 
 " }}}1
 
-function! s:status_modified(ctx) abort " {{{1
+function! s:buftype_help(context) abort " {{{1
+  return s:_info(a:context, ' vimdoc: ')
+        \ . s:_highlight(a:context,
+        \     fnamemodify(bufname(a:context.bufnr), ':t:r'))
+endfunction
+
+" }}}1
+function! s:buftype_nofile(context) abort " {{{1
+  return s:_info(a:context, ' %f') . '%= %l av %L '
+endfunction
+
+" }}}1
+function! s:buftype_prompt(context) abort " {{{1
+  return s:_info(a:context, ' %f') . '%= %l/%L '
+endfunction
+
+" }}}1
+function! s:buftype_quickfix(context) abort " {{{1
+  let l:stat = ' ['
+  let l:stat .= personal#qf#is_loc(a:context.winnr) ? 'Loclist' : 'Quickfix'
+  let l:qf_last = personal#qf#get_prop('nr', '$', a:context.winnr)
+  if l:qf_last > 1
+    let l:qf_nr = personal#qf#get_prop('nr', 0, a:context.winnr)
+    let l:stat .= ' ' . l:qf_nr . '/' . l:qf_last
+  endif
+
+  let l:stat .= '] (' . personal#qf#length(a:context.winnr) . ') '
+
+  let l:stat .= personal#qf#get_prop('title', 0, a:context.winnr)
+
+  return s:_highlight(a:context, l:stat)
+endfunction
+
+" }}}1
+
+function! s:scheme_fugitive(context) abort " {{{1
+  let l:bufname = bufname(a:context.bufnr)
+
+  let l:fname = matchstr(l:bufname, '\.git\/\/\x*\/\zs.*')
+  if empty(l:fname)
+    let l:fname = matchstr(l:bufname, '\.git\/\/\zs\x*')
+  endif
+
+  if empty(l:fname)
+    return s:_info(a:context, ' fugitive: ')
+          \ . s:_highlight(a:context, 'Git status')
+  endif
+
+  let l:stat = s:_info(a:context, ' fugitive: %<')
+  let l:stat .= s:_highlight(a:context, l:fname)
+  let l:stat .= s:status_modified(a:context)
+
+  let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
+  let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
+
+  return l:stat
+endfunction
+
+" }}}1
+function! s:scheme_diffview(context) abort " {{{1
+  let l:bufname = bufname(a:context.bufnr)
+
+  let l:fname = matchstr(l:bufname, '\.git\/[0-9a-z:]*\/\zs.*')
+  if empty(l:fname)
+    let l:fname = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]*')
+  endif
+
+  if empty(l:fname)
+    let l:name = matchstr(l:bufname, 'panels\/\d\+\/\zs.*')
+    return s:_info(a:context, ' diffview: ') . s:_highlight(a:context, l:name)
+  endif
+
+  let l:stat = s:_info(a:context, ' diffview: %<')
+  let l:stat .= s:_highlight(a:context, l:fname)
+  let l:stat .= s:status_modified(a:context)
+
+  let l:commit = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]\{7}')
+  let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
+
+  return l:stat
+endfunction
+
+" }}}1
+function! s:scheme_merge(context, version) abort " {{{1
+  let l:mm = getwinvar(a:context.winnr, '__merge_mode', {})
+  if !empty(l:mm)
+    let l:version = l:mm.version ==# 'mine' ? 'LOCAL' : 'REMOTE'
+  else
+    let l:version = a:version
+  endif
+
+  return s:_c2(a:context,
+        \ ' Merge conflict: ' . l:version,
+        \ ['SLHighlight', 'SLInfo'])
+endfunction
+
+" }}}1
+
+function! s:filetype_tex(context) abort " {{{1
+  let l:vimtex = getbufvar(a:context.bufnr, 'vimtex')
+  let l:status = exists('l:vimtex.compiler.status')
+        \ ? l:vimtex.compiler.status + 1
+        \ : -1
+
+  let [l:symbol, l:color] = get([
+        \ ['[⏻] ', ''],
+        \ ['[⏻] ', ''],
+        \ ['[⟳] ', ''],
+        \ ['[✔︎] ', 'success'],
+        \ ['[✖] ', 'alert']
+        \], l:status)
+
+  if !empty(l:color)
+    let l:symbol = s:_{l:color}(a:context, l:symbol)
+  endif
+
+  return s:main(a:context) . l:symbol
+endfunction
+
+" }}}1
+function! s:filetype_wiki(context) abort " {{{1
+  let l:fname = fnamemodify(bufname(a:context.bufnr), ':t:r')
+  let l:stat = s:_info(a:context, ' wiki: ')
+  let l:stat .= s:_highlight(a:context, l:fname)
+
+  if get(get(b:, 'wiki', {}), 'in_journal', 0)
+    let l:stat .= s:_info(a:context, '  ')
+  endif
+
+  let l:stat .= s:status_modified(a:context)
+
+  let l:file = fnamemodify(bufname(a:context.bufnr), ':p')
+  if filereadable(l:file)
+    let l:graph = wiki#graph#builder#get()
+    let l:broken_links = l:graph.get_broken_links_from(l:file)
+    if len(l:broken_links) > 0
+      let l:stat .= s:_alert(a:context, printf(' (🔗%d)',len(l:broken_links)))
+    endif
+  endif
+
+  return l:stat
+endfunction
+
+" }}}1
+function! s:filetype_man(context) abort " {{{1
+  return s:_highlight(a:context, ' %<%f')
+endfunction
+
+" }}}1
+
+function! s:status_modified(context) abort " {{{1
   let l:stat = ''
 
-  if !getbufvar(a:ctx.bufnr, '&modifiable')
-        \ || getbufvar(a:ctx.bufnr, '&readonly')
-    let l:stat .= a:ctx.alert(' ')
+  if !getbufvar(a:context.bufnr, '&modifiable')
+        \ || getbufvar(a:context.bufnr, '&readonly')
+    let l:stat .= s:_alert(a:context, ' ')
   endif
-  if getbufvar(a:ctx.bufnr, '&modified')
-    let l:stat .= a:ctx.alert(' ')
+  if getbufvar(a:context.bufnr, '&modified')
+    let l:stat .= s:_alert(a:context, ' ')
   endif
 
   return empty(l:stat) ? '' : ' ' . l:stat
 endfunction
 
 " }}}1
-
-let s:ctx = {
-      \ 'active': v:false,
-      \}
-
-function! s:ctx.alert(content) dict abort " {{{1
-  return self.active
-        \ ? '%#SLAlert#' . a:content . '%*'
-        \ : a:content
+function! s:status_dap(context) abort " {{{1
+  try
+    let l:dap = luaeval('require "dap".status()')
+    if !empty(l:dap)
+      return '%=' . s:_c1(a:context, '[dap: ' . l:dap . ']', 'DapStatus')
+    endif
+  catch /E5108/
+    return ''
+  endtry
 endfunction
 
 " }}}1
-function! s:ctx.info(content) dict abort " {{{1
-  return self.active
-        \ ? '%#SLInfo#' . a:content . '%*'
-        \ : a:content
+
+function! s:_info(context, text) abort " {{{1
+  return a:context.active ? '%#SLInfo#' . a:text . '%*' : a:text
 endfunction
 
 " }}}1
-function! s:ctx.hlight(content) dict abort " {{{1
-  return self.active
-        \ ? '%#SLHighlight#' . a:content . '%*'
-        \ : a:content
+function! s:_alert(context, text) abort " {{{1
+  return a:context.active ? '%#SLAlert#' . a:text . '%*' : a:text
 endfunction
 
 " }}}1
-function! s:ctx.color(content, group) dict abort " {{{1
-  return self.active && !empty(a:group)
-        \ ? '%#' . a:group . '#' . a:content . '%*'
-        \ : a:content
+function! s:_success(context, text) abort " {{{1
+  return a:context.active ? '%#SLSuccess#' . a:text . '%*' : a:text
 endfunction
 
 " }}}1
-function! s:ctx.color_alt(content, groups) dict abort " {{{1
-  return '%#' . a:groups[!self.active] . '#' . a:content . '%*'
+function! s:_highlight(context, text) abort " {{{1
+  return a:context.active ? '%#SLHighlight#' . a:text . '%*' : a:text
+endfunction
+
+" }}}1
+
+function! s:_c1(context, text, group) abort " {{{1
+  return a:context.active ? '%#' . a:group . '#' . a:text . '%*' : a:text
+endfunction
+
+" }}}1
+function! s:_c2(context, text, groups) abort " {{{1
+  return '%#' . a:groups[!a:context.active] . '#' . a:text . '%*'
 endfunction
 
 " }}}1
