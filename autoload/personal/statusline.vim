@@ -51,6 +51,7 @@ endfunction
 function! s:main(context) abort " {{{1
   let l:stat = s:_highlight(a:context, ' %<%f')
   let l:stat .= s:status_modified(a:context)
+  let l:stat .= s:status_mode(a:context)
   let l:stat .= s:status_dap(a:context)
 
   " Change to right-hand side
@@ -257,6 +258,18 @@ function! s:status_dap(context) abort " {{{1
       return '%=' . s:_c1(a:context, '[dap: ' . l:dap . ']', 'DapStatus')
     endif
   catch /E5108/
+    return ''
+  endtry
+endfunction
+
+" }}}1
+function! s:status_mode(context) abort " {{{1
+  try
+    let l:stat = luaeval('require("noice").api.statusline.mode.has()')
+          \ ? luaeval('require("noice").api.statusline.mode.get()')
+          \ : ''
+    return !empty(l:stat) ? s:_info(a:context, ' ' . l:stat) : ''
+  catch
     return ''
   endtry
 endfunction

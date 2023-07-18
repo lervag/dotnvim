@@ -158,6 +158,124 @@ local M = {
   -- {{{1 UI
 
   {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      vim.keymap.set("c", "<s-enter>", function()
+        require("noice").redirect(vim.fn.getcmdline())
+      end, { desc = "Redirect Cmdline" })
+
+      require("noice").setup {
+        presets = {
+          bottom_search = true,
+          command_palette = false,
+          long_message_to_split = true,
+          lsp_doc_border = false,
+        },
+        cmdline = {
+          view = "cmdline",
+          format = {
+            cmdline = { icon = " :" },
+            search_down = { icon = "  " },
+            search_up = { icon = "  " },
+            filter = { icon = " $" },
+            lua = { icon = " " },
+            help = { icon = " " },
+            calculator = { icon = " " },
+          },
+        },
+        messages = {
+          view = "mini_msg",
+        },
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+          hover = {
+            silent = false,
+          },
+        },
+        routes = {
+          {
+            view = "split",
+            filter = {
+              any = {
+                { event = "msg_show", min_height = 10 },
+                { event = "msg_show", find = "^Treesitter" },
+                { event = "msg_show", find = "^Syntax" },
+              },
+            },
+            opts = { size = "auto", title = "Notify" },
+          },
+        },
+        views = {
+          cmdline_popup = {
+            border = {
+              padding = { 0, 0 },
+              style = require("lervag.const").border,
+            },
+          },
+          confirm = {
+            border = {
+              style = require("lervag.const").border,
+            },
+          },
+          popup = {
+            border = {
+              style = require("lervag.const").border,
+            },
+          },
+          messages = {
+            win_options = {
+              winhighlight = {
+                Normal = "Normal",
+              },
+            },
+          },
+          split = {
+            win_options = {
+              winhighlight = {
+                Normal = "Normal",
+              },
+            },
+          },
+          mini = {
+            size = {
+              width = "auto",
+              height = "auto",
+              max_height = 20,
+            },
+          },
+          mini_msg = {
+            view = "mini",
+            zindex = 59,
+            align = "message-left",
+            timeout = 4000,
+            reverse = false,
+            position = { col = 1 },
+            size = {
+              width = "100%",
+              height = "auto",
+            },
+            win_options = {
+              winblend = 30,
+              winhighlight = {
+                Normal = "NoiceMiniMsg",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+
+  {
     "andymass/vim-matchup",
     event = "BufReadPost",
     config = function()
@@ -369,13 +487,6 @@ local M = {
 
       vim.notify = require "notify"
     end,
-  },
-
-  {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    event = "VeryLazy",
-    config = true,
   },
 
   {

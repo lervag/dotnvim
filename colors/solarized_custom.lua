@@ -438,6 +438,37 @@ local theme = {
   DiagnosticSignHint = { fg = color06, bg = color07 },
   DiagnosticSignOk = { fg = green1, bg = color07 },
 
+  -- {{{1 Plugin: Noice
+
+  NoiceMiniMsg = { fg = black, bg = color15, italic = true },
+
+  NoiceCmdLine = { link = "NormalFloat" },
+  NoiceCmdlineIcon = { fg = color03, bold = true },
+  NoiceCmdlineIconSearch = { link = "Keyword" },
+  NoiceCmdlinePopup = { link = "NormalFloat" },
+  NoiceCmdlinePopupBorder = { link = "FloatBorder" },
+  NoiceCmdlinePopupBorderSearch = { link = "FloatBorder" },
+  NoiceCmdlinePopupTitle = { link = "FloatTitle" },
+
+  NoiceFormatProgressDone = { bg = color15 },
+  NoiceFormatProgressTodo = { link = "NoiceFormatProgressDone" },
+
+  NoiceConfirm = { link = "NormalFloat" },
+  NoiceConfirmBorder = { link = "FloatBorder" },
+
+  NoicePopup = { link = "NormalFloat" },
+  NoicePopupBorder = { link = "FloatBorder" },
+
+  NoicePopupmenu = { link = "NormalFloat" },
+  NoicePopupmenuBorder = { link = "FloatBorder" },
+  NoicePopupmenuMatch = { link = "Special" },
+
+  NoiceSplit = { link = "NormalFloat" },
+  NoiceSplitBorder = { link = "FloatBorder" },
+
+  NoiceScrollbar = { link = "NormalFloat" },
+  NoiceScrollbarThumb = { link = "Cursor" },
+
   -- {{{1 Various plugins
 
   ctrlsfSelectedLine = { fg = blue2, bold = true },
