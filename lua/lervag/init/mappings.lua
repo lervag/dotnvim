@@ -34,8 +34,8 @@ vim.keymap.set("n", "y@", "<cmd>call personal#util#copy_path()<cr>")
 vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { silent = true })
 vim.keymap.set("n", "gB", "<cmd>bprevious<cr>", { silent = true })
 vim.keymap.set("n", "zv", "zMzvzz")
-vim.keymap.set("n", "zj", "zcjzOzz")
-vim.keymap.set("n", "zk", "zckzOzz")
+vim.keymap.set("n", "zj", "<cmd>silent! normal! zcjzOzz<cr>")
+vim.keymap.set("n", "zk", "<cmd>silent! normal! zckzOzz<cr>")
 
 -- Simple math stuff
 vim.keymap.set("x", "++", function()
