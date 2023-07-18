@@ -9,11 +9,11 @@
 function! personal#statusline#main() abort " {{{1
   let l:context = {}
   let l:context.winnr = win_id2win(g:statusline_winid)
-  let l:context.bufnr = winbufnr(l:winnr)
+  let l:context.bufnr = winbufnr(l:context.winnr)
   if l:context.bufnr == -1
     let l:context.winnr = 1
   endif
-  let l:context.active = l:winnr == winnr()
+  let l:context.active = l:context.winnr == winnr()
 
   try
     let l:buftype = getbufvar(l:context.bufnr, '&buftype')
@@ -254,9 +254,9 @@ endfunction
 function! s:status_dap(context) abort " {{{1
   try
     let l:dap = luaeval('require "dap".status()')
-    if !empty(l:dap)
-      return '%=' . s:_c1(a:context, '[dap: ' . l:dap . ']', 'DapStatus')
-    endif
+    return empty(l:dap)
+          \ ? ''
+          \ : '%=' . s:_c1(a:context, '[dap: ' . l:dap . ']', 'DapStatus')
   catch /E5108/
     return ''
   endtry
