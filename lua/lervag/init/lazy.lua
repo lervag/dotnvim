@@ -28,7 +28,7 @@ require("lazy").setup {
     log = { "--since=7 days ago" },
   },
   ui = {
-    size = { width = 1.0, height = 1.0 },
+    size = { width = 1.0, height = 0.95 },
   },
   change_detection = {
     notify = false,
