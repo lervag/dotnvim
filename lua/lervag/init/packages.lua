@@ -336,7 +336,6 @@ local M = {
     opts = {
       input = {
         prompt_align = "center",
-        anchor = "NW",
         relative = "editor",
         prefer_width = 80,
         max_width = nil,
