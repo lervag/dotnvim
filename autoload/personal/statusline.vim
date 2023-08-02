@@ -50,8 +50,7 @@ endfunction
 
 function! s:main(context) abort " {{{1
   let l:stat = s:_highlight(a:context, ' %<%f')
-  let l:stat .= s:status_modified(a:context)
-  let l:stat .= s:status_mode(a:context)
+  let l:stat .= status_common(a:context)
   let l:stat .= s:status_dap(a:context)
 
   " Change to right-hand side
@@ -136,7 +135,7 @@ function! s:scheme_fugitive(context) abort " {{{1
 
   let l:stat = s:_info(a:context, ' fugitive: %<')
   let l:stat .= s:_highlight(a:context, l:fname)
-  let l:stat .= s:status_modified(a:context)
+  let l:stat .= s:status_common(a:context)
 
   let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
   let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
@@ -160,7 +159,7 @@ function! s:scheme_diffview(context) abort " {{{1
 
   let l:stat = s:_info(a:context, ' diffview: %<')
   let l:stat .= s:_highlight(a:context, l:fname)
-  let l:stat .= s:status_modified(a:context)
+  let l:stat .= s:status_common(a:context)
 
   let l:commit = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]\{7}')
   let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
@@ -215,7 +214,7 @@ function! s:filetype_wiki(context) abort " {{{1
     let l:stat .= s:_info(a:context, '  ')
   endif
 
-  let l:stat .= s:status_modified(a:context)
+  let l:stat .= s:status_common(a:context)
 
   let l:file = fnamemodify(bufname(a:context.bufnr), ':p')
   if filereadable(l:file)
@@ -236,8 +235,19 @@ endfunction
 
 " }}}1
 
-function! s:status_modified(context) abort " {{{1
+function! s:status_common(context) abort " {{{1
   let l:stat = ''
+
+  try
+    let l:mode = luaeval('require("noice").api.statusline.mode.has()')
+          \ ? luaeval('require("noice").api.statusline.mode.get()')
+          \ : ''
+    if !empty(l:mode)
+      let l:mode = substitute(l:mode, '^recording @', '●', '')
+      let l:stat .= s:_success(a:context, l:mode) . ' '
+    endif
+  catch
+  endtry
 
   if !getbufvar(a:context.bufnr, '&modifiable')
         \ || getbufvar(a:context.bufnr, '&readonly')
@@ -258,18 +268,6 @@ function! s:status_dap(context) abort " {{{1
           \ ? ''
           \ : '%=' . s:_c1(a:context, '[dap: ' . l:dap . ']', 'DapStatus')
   catch /E5108/
-    return ''
-  endtry
-endfunction
-
-" }}}1
-function! s:status_mode(context) abort " {{{1
-  try
-    let l:stat = luaeval('require("noice").api.statusline.mode.has()')
-          \ ? luaeval('require("noice").api.statusline.mode.get()')
-          \ : ''
-    return !empty(l:stat) ? s:_info(a:context, ' ' . l:stat) : ''
-  catch
     return ''
   endtry
 endfunction
