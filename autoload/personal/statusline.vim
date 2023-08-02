@@ -50,7 +50,7 @@ endfunction
 
 function! s:main(context) abort " {{{1
   let l:stat = s:_highlight(a:context, ' %<%f')
-  let l:stat .= status_common(a:context)
+  let l:stat .= s:status_common(a:context)
   let l:stat .= s:status_dap(a:context)
 
   " Change to right-hand side
