@@ -540,18 +540,10 @@ local M = {
         chat = {
           sessions_window = window_opts,
           keymaps = {
-            close = { "<C-c>" },
-            submit = "<cr>",
             yank_last = "<nop>",
             yank_last_code = "<nop>",
             scroll_up = "<nop>",
             scroll_down = "<nop>",
-            toggle_settings = "<C-o>",
-            new_session = "<C-n>",
-            cycle_windows = "<Tab>",
-            select_session = "<cr>",
-            rename_session = "r",
-            delete_session = "d",
           },
         },
       }
