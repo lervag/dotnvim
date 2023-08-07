@@ -1244,6 +1244,7 @@ local M = {
             end
           )
         end,
+        ["<leader>d<c-b>"] = dap.clear_breakpoints,
         ["<leader>dw"] = function()
           vim.ui.input({ prompt = "Watch: " }, function(watch)
             dap.set_breakpoint(nil, nil, watch)
