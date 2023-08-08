@@ -47,7 +47,7 @@ vim.keymap.set("n", "++", "vip++<esc>", { remap = true })
 vim.keymap.set(
   "n",
   "<c-c><c-c>",
-  "<cmd>split term://zsh<cr>i",
+  "<cmd>split term://%:p:h//zsh<cr>i",
   { silent = true }
 )
 vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
