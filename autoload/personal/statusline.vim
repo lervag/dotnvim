@@ -249,12 +249,24 @@ function! s:status_common(context) abort " {{{1
   catch
   endtry
 
-  if !getbufvar(a:context.bufnr, '&modifiable')
+  let l:locked = !getbufvar(a:context.bufnr, '&modifiable')
         \ || getbufvar(a:context.bufnr, '&readonly')
+  if l:locked
     let l:stat .= s:_alert(a:context, ' ')
   endif
   if getbufvar(a:context.bufnr, '&modified')
-    let l:stat .= s:_alert(a:context, ' ')
+    let l:stat .= s:_info(a:context, ' ')
+  endif
+
+  if !l:locked
+    let l:ne = luaeval('#vim.diagnostic.get(0, {severity = vim.diagnostic.severity.ERROR})')
+    if l:ne > 0
+      let l:stat .= s:_alert(a:context, printf('  %d', l:ne))
+    endif
+    let l:nw = luaeval('#vim.diagnostic.get(0, {severity = vim.diagnostic.severity.WARN})')
+    if l:nw > 0
+      let l:stat .= s:_highlight(a:context, printf('  %d', l:nw))
+    endif
   endif
 
   return empty(l:stat) ? '' : ' ' . l:stat
