@@ -1,3 +1,5 @@
+---@diagnostic disable: missing-fields
+
 local M = {
   -- {{{1 Dev
 
@@ -345,13 +347,15 @@ local M = {
       select = {
         format_item_override = {
           codeaction = function(action_tuple)
-            local title = action_tuple[2].title:gsub("\r\n", "\\r\\n")
             local client = vim.lsp.get_client_by_id(action_tuple[1])
-            return string.format(
-              "%s\t[%s]",
-              title:gsub("\n", "\\n"),
-              client.name
-            )
+            if client then
+              local title = action_tuple[2].title:gsub("\r\n", "\\r\\n")
+              return string.format(
+                "%s\t[%s]",
+                title:gsub("\n", "\\n"),
+                client.name
+              )
+            end
           end,
         },
         telescope = {
@@ -631,6 +635,7 @@ local M = {
         completion = {
           keyword_length = 2,
         },
+        preselect = cmp.PreselectMode.None,
         experimental = {
           ghost_text = { hl_group = "CmpGhostText" },
         },
@@ -1419,7 +1424,7 @@ local M = {
       { "Z", "<plug>(leap-backward)", mode = { "x", "o" }, desc = "leap.nvim" },
     },
     config = function()
-      opts = require("leap").opts
+      local opts = require("leap").opts
       opts.case_sensitive = true
       opts.labels = {
         "s",
