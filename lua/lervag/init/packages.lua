@@ -1589,14 +1589,18 @@ local M = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog" },
     keys = {
-      {
-        "<leader>gl",
-        "<cmd>Flog -all<cr>",
-        mode = { "n", "x" },
-        desc = "flog",
-      },
-      { "<leader>gL", "<cmd>Flog -all -path=%<cr>", desc = "flog" },
+      { "<leader>gl", ":Flog<cr>", mode = { "x" }, desc = "flog", },
+      { "<leader>gL", "<cmd>Flog -path=%<cr>", desc = "flog" },
     },
+    init = function()
+      vim.keymap.set("n", "<leader>gl", function()
+        local main_name = "master"
+        if pcall(vim.fn["fugitive#RevParse"], "main") then
+          main_name = "main"
+        end
+        vim.cmd("Flog -- HEAD " .. main_name)
+      end, { desc = "Flog HEAD and master/main" })
+    end,
     config = function()
       -- See also ftplugin/floggraph.vim
       vim.g.flog_default_opts = {
