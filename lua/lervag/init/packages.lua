@@ -58,7 +58,7 @@ local M = {
       }
 
       vim.api.nvim_create_autocmd("User", {
-        group = vim.api.nvim_create_augroup("init_vimtex", { clear = true }),
+        group = vim.api.nvim_create_augroup("init_vimtex", {}),
         pattern = "VimtexEventViewReverse",
         desc = "VimTeX: Center view on inverse search",
         command = [[ normal! zMzvzz ]],
@@ -122,7 +122,7 @@ local M = {
         },
       }
 
-      local g = vim.api.nvim_create_augroup("init_wiki", { clear = true })
+      local g = vim.api.nvim_create_augroup("init_wiki", {})
       vim.api.nvim_create_autocmd("User", {
         group = g,
         pattern = "WikiLinkFollowed",
@@ -1321,22 +1321,10 @@ local M = {
     "junegunn/vim-easy-align",
     keys = {
       {
-        "<leader>ea",
-        "<plug>(LiveEasyAlign)",
+        "ga",
+        "<plug>(align)",
         mode = { "n", "v" },
-        desc = "LiveEasyAlign",
-      },
-      {
-        "<leader>eA",
-        "<plug>(EasyAlign)",
-        mode = { "n", "v" },
-        desc = "EasyAlign",
-      },
-      {
-        ".",
-        "<plug>(EasyAlignRepeat)",
-        mode = "v",
-        desc = "EasyAlignRepeat",
+        desc = "My custom LiveEasyAlign",
       },
     },
     config = function()
@@ -1515,7 +1503,7 @@ local M = {
     },
     config = function()
       vim.api.nvim_create_autocmd("User", {
-        group = vim.api.nvim_create_augroup("init_linediff", { clear = true }),
+        group = vim.api.nvim_create_augroup("init_linediff", {}),
         pattern = "LinediffBufferReady",
         desc = "Linediff buffer ready",
         command = [[ nnoremap <buffer> <leader>eq :LinediffReset<cr> ]],
@@ -1576,7 +1564,7 @@ local M = {
         vim.fn["rhubarb#FugitiveUrl"],
         vim.fn["gitlab#fugitive#handler"],
       }
-      local g = vim.api.nvim_create_augroup("init_fugitive", { clear = true })
+      local g = vim.api.nvim_create_augroup("init_fugitive", {})
       vim.api.nvim_create_autocmd("WinEnter", {
         group = g,
         pattern = "index",
