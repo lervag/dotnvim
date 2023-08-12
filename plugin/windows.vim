@@ -1,10 +1,3 @@
-if exists('g:windows_loaded') | finish | endif
-let g:windows_loaded = 1
-
-let s:save_cpoptions = &cpoptions
-set cpoptions&vim
-
-" Commands
 command! WinOnly
       \ call s:remove_all_but_current()
 command! WinResize
@@ -12,12 +5,10 @@ command! WinResize
 command! -bang -complete=buffer -nargs=? WinBufDelete
       \ call s:buf_delete(<q-bang>, <q-args>)
 
-" Mappings
 nnoremap <silent> <c-w><c-o> :WinOnly<cr>
 nnoremap <silent> <c-u>      :WinBufDelete<cr>
 nnoremap <silent> <f2>       :WinResize<cr>
 
-" Main functions
 function! s:remove_all_but_current() " {{{1
   silent! wincmd o
 
@@ -108,7 +99,6 @@ endfunction
 
 " }}}1
 
-" Utility functions
 function! s:get_target_width() " {{{1
   let l:heights = map(filter(split(winrestcmd(), '|'),
         \ {_, x -> x =~# '^:\?\d'}),
@@ -158,5 +148,3 @@ function! s:has_sign_cols() " {{{1
 endfunction
 
 " }}}1
-
-let &cpoptions = s:save_cpoptions

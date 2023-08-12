@@ -1,6 +1,3 @@
-if exists('g:loaded_openinbrowser') | finish | endif
-let g:loaded_openinbrowser = 1
-
 function! OpenInBrowser()
   let url = expand('<cWORD>')
 
