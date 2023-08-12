@@ -28,16 +28,18 @@ autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if client.server_capabilities.codeLensProvider then
-      autocmd({ "CursorHold", "InsertLeave" }, {
-        desc = "Refresh codelenses",
-        buffer = args.buf,
-        callback = vim.lsp.codelens.refresh,
-      })
-    end
+    if client then
+      if client.server_capabilities.codeLensProvider then
+        autocmd({ "CursorHold", "InsertLeave" }, {
+          desc = "Refresh codelenses",
+          buffer = args.buf,
+          callback = vim.lsp.codelens.refresh,
+        })
+      end
 
-    if client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint(args.buf, true)
+      if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint(args.buf, true)
+      end
     end
 
     map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
