@@ -48,7 +48,7 @@ vim.keymap.set(
   { buffer = true, silent = true }
 )
 
-group = vim.api.nvim_create_augroup("init_qf", { clear = true })
+local group = vim.api.nvim_create_augroup("init_qf", {})
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = group,
   pattern = "quickfix",

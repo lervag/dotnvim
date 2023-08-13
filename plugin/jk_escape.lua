@@ -19,7 +19,7 @@ vim.keymap.set("i", "k", escape, {
   expr = true,
 })
 
-group = vim.api.nvim_create_augroup("init_escape", { clear = true })
+local group = vim.api.nvim_create_augroup("init_escape", {})
 vim.api.nvim_create_autocmd("InsertCharPre", {
   group = group,
   callback = function()

@@ -1,4 +1,4 @@
-group = vim.api.nvim_create_augroup("init_help", { clear = true })
+local group = vim.api.nvim_create_augroup("init_help", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
   group = group,
   buffer = 0,

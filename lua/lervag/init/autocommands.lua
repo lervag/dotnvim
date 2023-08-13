@@ -1,4 +1,4 @@
-group = vim.api.nvim_create_augroup("init", { clear = true })
+local group = vim.api.nvim_create_augroup("init", {})
 
 vim.api.nvim_create_autocmd({ "VimEnter", "BufReadPost" }, {
   desc = "Go to last known position on buffer open",

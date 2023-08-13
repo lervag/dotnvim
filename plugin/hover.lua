@@ -15,7 +15,7 @@ function MyHover()
     return
   end
 
-  if not vim.tbl_isempty(vim.lsp.get_active_clients()) then
+  if not vim.tbl_isempty(vim.lsp.get_clients()) then
     vim.lsp.buf.hover()
   end
 end
