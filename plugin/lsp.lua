@@ -344,12 +344,47 @@ autocmd("FileType", {
     lsp.start {
       name = "lua-language-server",
       cmd = { "lua-language-server" },
-      root_dir = find_root({ ".stylua.toml", "stylua.toml" }, args.file),
-      before_init = require("neodev.lsp").before_init,
-      settings = { Lua = {} },
       single_file_support = true,
       log_level = vim.lsp.protocol.MessageType.Warning,
       capabilities = capabilities,
+      root_dir = find_root({
+        ".luarc.json",
+        ".stylua.toml",
+        "stylua.toml",
+      }, args.file),
+      settings = {
+        Lua = {
+          hint = {
+            enable = true,
+            paramName = "Literal",
+            setType = true,
+          },
+        },
+      },
+      on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if
+          not vim.uv.fs_stat(path .. "/.luarc.json")
+          and not vim.uv.fs_stat(path .. "/.luarc.jsonc")
+        then
+          local cfg = vim.tbl_deep_extend("force", client.config.settings, {
+            Lua = {
+              runtime = {
+                version = "LuaJIT",
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  "${3rd}/busted/library",
+                  "${3rd}/luv/library",
+                },
+              },
+            },
+          })
+          client.notify("workspace/didChangeConfiguration", { settings = cfg })
+        end
+      end,
     }
   end,
 })
