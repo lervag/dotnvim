@@ -59,6 +59,7 @@ local blue2 = "#00afff"
 local blue3 = "#9fc6d3"
 local gold1 = "#ffe055"
 local gold2 = "#ffeea2"
+local gold3 = "#c6b079"
 local gray1 = "#d2e1e0"
 local green1 = "#719e07"
 local green2 = "#d7ffaf"
@@ -562,6 +563,7 @@ local theme = {
   -- Lspsaga
   -- Refer to: ~/.local/plugged/lspsaga.nvim/lua/lspsaga/highlight.lua
   SagaNormal = { link = "NormalFloat" },
+  SagaLightBulb = { fg = gold3, bold = true },
   RenameNormal = { fg = color13, bg = color07d },
   TitleString = { fg = color09, bg = color07d, bold = true },
   ActionPreviewTitle = { link = "TitleString" },

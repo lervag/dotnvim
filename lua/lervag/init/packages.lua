@@ -806,6 +806,7 @@ local M = {
           sign = false,
         },
         ui = {
+          code_action = ' ',
           title = false,
           border = require("lervag.const").border,
         },
