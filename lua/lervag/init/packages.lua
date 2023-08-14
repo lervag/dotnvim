@@ -1166,6 +1166,7 @@ local M = {
     "mfussenegger/nvim-dap",
     event = "BufReadPost",
     dependencies = {
+      "rcarriga/nvim-dap-ui",
       {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -1192,8 +1193,8 @@ local M = {
     },
     config = function()
       -- NOTE: This script defines the global dap configuration. Adapters and
-      --       configurations are defined elsewhere. Assuming I remember to update
-      --       the following list, these are the relevant files:
+      --       configurations are defined elsewhere. Assuming I remember to
+      --       update the following list, these are the relevant files:
       --
       --       Python
       --         ~/.config/nvim/init/plugins/debugpy.lua
@@ -1209,9 +1210,20 @@ local M = {
       --         ~/.config/nvim/ftplugin/lua.lua
 
       local dap = require "dap"
+      local dapui = require "dapui"
       local widgets = require "dap.ui.widgets"
 
       dap.set_log_level "INFO"
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
 
       -- Define sign symbols
       vim.fn.sign_define {
@@ -1231,16 +1243,19 @@ local M = {
         ["<leader>dd"] = dap.continue,
         ["<leader>dD"] = dap.run_last,
         ["<leader>dc"] = dap.run_to_cursor,
-        ["<leader>dx"] = dap.terminate,
+        ["<leader>dx"] = function()
+          dapui.close()
+          dap.terminate()
+        end,
         ["<leader>dp"] = dap.step_back,
         ["<leader>dn"] = dap.step_over,
         ["<leader>dj"] = dap.step_into,
         ["<leader>dk"] = dap.step_out,
-        ["<leader>dl"] = function()
-          dap.list_breakpoints()
-          vim.cmd [[ :copen ]]
-        end,
+        ["<leader>dK"] = dap.up,
+        ["<leader>dJ"] = dap.down,
+        ["<leader>dr"] = dap.repl.toggle,
         ["<leader>db"] = dap.toggle_breakpoint,
+        ["<leader>d<c-b>"] = dap.clear_breakpoints,
         ["<leader>dB"] = function()
           vim.ui.input(
             { prompt = "Breakpoint condition: " },
@@ -1249,7 +1264,6 @@ local M = {
             end
           )
         end,
-        ["<leader>d<c-b>"] = dap.clear_breakpoints,
         ["<leader>dw"] = function()
           vim.ui.input({ prompt = "Watch: " }, function(watch)
             dap.set_breakpoint(nil, nil, watch)
@@ -1262,16 +1276,14 @@ local M = {
             end)
           end)
         end,
-        ["<leader>dK"] = dap.up,
-        ["<leader>dJ"] = dap.down,
-        ["<leader>dr"] = dap.repl.toggle,
         ["<leader>dh"] = function()
           widgets.hover("<cexpr>", {
             border = require("lervag.const").border,
             title = " hover ",
           })
         end,
-        ["<leader>dH"] = function()
+        ["<leader>de"] = dapui.eval,
+        ["<leader>dE"] = function()
           vim.ui.input({
             prompt = " evaluate ",
             border = require("lervag.const").border,
@@ -1282,24 +1294,44 @@ local M = {
             })
           end)
         end,
-        ["<leader>dF"] = function()
-          widgets.centered_float(widgets.frames, {
-            border = require("lervag.const").border,
-            title = " frames ",
-          })
-        end,
-        ["<leader>dL"] = function()
-          widgets.centered_float(widgets.scopes, {
-            border = require("lervag.const").border,
-            title = " scopes ",
-          })
-        end,
       }
 
       for lhs, rhs in pairs(mappings) do
         vim.keymap.set("n", lhs, rhs)
       end
+
+      vim.keymap.set("v", "<leader>de", dapui.eval)
     end,
+  },
+
+  {
+    "rcarriga/nvim-dap-ui",
+    lazy = true,
+    opts = {
+      controls = { enabled = false },
+      layouts = {
+        {
+          elements = {
+            { id = "stacks", size = 0.25 },
+            { id = "scopes", size = 0.25 },
+            { id = "breakpoints", size = 0.25 },
+            { id = "watches", size = 0.25 },
+          },
+          position = "left",
+          size = 45,
+        },
+        {
+          elements = {
+            { id = "repl", size = 0.5 },
+          },
+          position = "right",
+          size = 82,
+        },
+      },
+      icons = {
+        current_frame = "🡆",
+      },
+    },
   },
 
   -- {{{1 Editing
