@@ -1589,7 +1589,7 @@ local M = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog" },
     keys = {
-      { "<leader>gl", ":Flog<cr>", mode = { "x" }, desc = "flog", },
+      { "<leader>gl", ":Flog<cr>", mode = { "x" }, desc = "flog" },
       { "<leader>gL", "<cmd>Flog -path=%<cr>", desc = "flog" },
     },
     init = function()
@@ -1598,7 +1598,7 @@ local M = {
         if pcall(vim.fn["fugitive#RevParse"], "main") then
           main_name = "main"
         end
-        vim.cmd("Flog -- HEAD " .. main_name)
+        vim.cmd("Flog -- HEAD " .. main_name .. " origin/" .. main_name)
       end, { desc = "Flog HEAD and master/main" })
     end,
     config = function()
