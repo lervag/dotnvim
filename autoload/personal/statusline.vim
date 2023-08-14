@@ -259,14 +259,19 @@ function! s:status_common(context) abort " {{{1
   endif
 
   if !l:locked
-    let l:ne = luaeval('#vim.diagnostic.get(0, {severity = vim.diagnostic.severity.ERROR})')
-    if l:ne > 0
-      let l:stat .= s:_alert(a:context, printf('  %d', l:ne))
-    endif
-    let l:nw = luaeval('#vim.diagnostic.get(0, {severity = vim.diagnostic.severity.WARN})')
-    if l:nw > 0
-      let l:stat .= s:_highlight(a:context, printf('  %d', l:nw))
-    endif
+    for l:cfg in [
+          \ #{ severity: 'ERROR', method: 'alert',     symbol: ''},
+          \ #{ severity: 'WARN',  method: 'highlight', symbol: ''},
+          \ #{ severity: 'INFO',  method: 'info',      symbol: ''},
+          \]
+      let l:n = luaeval(printf(
+            \ '#vim.diagnostic.get(%d, {severity = vim.diagnostic.severity.%s})',
+            \ a:context.bufnr,
+            \ l:cfg.severity))
+      if l:n > 0
+        let l:stat .= s:_{l:cfg.method}(a:context, printf(' %s %d', l:cfg.symbol, l:n))
+      endif
+    endfor
   endif
 
   return empty(l:stat) ? '' : ' ' . l:stat
