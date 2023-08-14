@@ -51,14 +51,14 @@ endfunction
 function! s:main(context) abort " {{{1
   let l:stat = s:_highlight(a:context, ' %<%f')
   let l:stat .= s:status_common(a:context)
-  let l:stat .= s:status_dap(a:context)
 
   " Change to right-hand side
   let l:stat .= '%='
 
   " Add status message from nvim-metals
-  if exists('g:metals_status') && !empty(g:metals_status) && a:context.active
-    let l:stat .= '%#SLInfo# ' . g:metals_status . '%*'
+  let l:metals_status = trim(get(g:, 'metals_status', ''))
+  if !empty(l:metals_status) && a:context.active
+    let l:stat .= '%#SLInfo# ' . l:metals_status . '%*'
   endif
 
   " Previewwindows don't need more details
@@ -71,6 +71,16 @@ function! s:main(context) abort " {{{1
   if &textwidth > 0 && cn > &textwidth
     let l:stat .= s:_alert(a:context, printf(' [%s > %s &tw]', cn, &textwidth))
   endif
+
+  try
+    let l:dap = luaeval('require "dap".status()')
+    let l:dap = empty(l:dap)
+          \ ? ''
+          \ : ' ' . s:_highlight(a:context, '  ' . l:dap)
+  catch /E5108/
+    let l:dap = ''
+  endtry
+  let l:stat .= l:dap
 
   try
     let l:head = FugitiveHead(7, a:context.bufnr)
@@ -275,18 +285,6 @@ function! s:status_common(context) abort " {{{1
   endif
 
   return empty(l:stat) ? '' : ' ' . l:stat
-endfunction
-
-" }}}1
-function! s:status_dap(context) abort " {{{1
-  try
-    let l:dap = luaeval('require "dap".status()')
-    return empty(l:dap)
-          \ ? ''
-          \ : '%=' . s:_c1(a:context, '[dap: ' . l:dap . ']', 'DapStatus')
-  catch /E5108/
-    return ''
-  endtry
 endfunction
 
 " }}}1
