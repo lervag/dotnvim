@@ -248,17 +248,6 @@ endfunction
 function! s:status_common(context) abort " {{{1
   let l:stat = ''
 
-  try
-    let l:mode = luaeval('require("noice").api.statusline.mode.has()')
-          \ ? luaeval('require("noice").api.statusline.mode.get()')
-          \ : ''
-    if !empty(l:mode)
-      let l:mode = substitute(l:mode, '^recording @', '●', '')
-      let l:stat .= s:_success(a:context, l:mode) . ' '
-    endif
-  catch
-  endtry
-
   let l:locked = !getbufvar(a:context.bufnr, '&modifiable')
         \ || getbufvar(a:context.bufnr, '&readonly')
   if l:locked
@@ -267,6 +256,20 @@ function! s:status_common(context) abort " {{{1
   if getbufvar(a:context.bufnr, '&modified')
     let l:stat .= s:_info(a:context, ' ')
   endif
+  if !empty(l:stat)
+    let l:stat = ' ' . l:stat
+  endif
+
+  try
+    let l:mode = luaeval('require("noice").api.statusline.mode.has()')
+          \ ? luaeval('require("noice").api.statusline.mode.get()')
+          \ : ''
+    if !empty(l:mode)
+      let l:mode = substitute(l:mode, '^recording @', ' ●', '')
+      let l:stat .= s:_success(a:context, l:mode)
+    endif
+  catch
+  endtry
 
   if !l:locked
     for l:cfg in [
@@ -284,7 +287,7 @@ function! s:status_common(context) abort " {{{1
     endfor
   endif
 
-  return empty(l:stat) ? '' : ' ' . l:stat
+  return empty(l:stat) ? '' : l:stat
 endfunction
 
 " }}}1
