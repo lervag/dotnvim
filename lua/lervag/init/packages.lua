@@ -204,6 +204,14 @@ local M = {
           },
         },
         routes = {
+          -- {
+          --   view = "mini_msg",
+          --   filter = {
+          --     any = {
+          --       { event = "msg_show", find = "E486" },
+          --     },
+          --   },
+          -- },
           {
             view = "split",
             filter = {
@@ -213,7 +221,7 @@ local M = {
                 { event = "msg_show", find = "^Syntax" },
               },
             },
-            opts = { size = "auto", title = "Notify" },
+            opts = { size = "auto" },
           },
         },
         views = {
@@ -805,8 +813,11 @@ local M = {
           enable_in_insert = false,
           sign = false,
         },
+        callhierarchy = {
+          layout = "normal",
+        },
         ui = {
-          code_action = ' ',
+          code_action = " ",
           title = false,
           border = require("lervag.const").border,
         },
