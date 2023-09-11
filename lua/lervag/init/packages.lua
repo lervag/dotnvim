@@ -1633,18 +1633,24 @@ local M = {
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog" },
     keys = {
+      {
+        "<leader>gl",
+        function()
+          local branch = vim.fn.FugitiveHead()
+          local branch_origin = "origin/" .. branch
+          if pcall(vim.fn["fugitive#RevParse"], branch_origin) then
+            branch_origin = " " .. branch_origin
+          else
+            branch_origin = ""
+          end
+          vim.cmd("Flog -- HEAD " .. branch .. branch_origin)
+        end,
+        mode = { "n" },
+        desc = "Flog",
+      },
       { "<leader>gl", ":Flog<cr>", mode = { "x" }, desc = "flog" },
       { "<leader>gL", "<cmd>Flog -path=%<cr>", desc = "flog" },
     },
-    init = function()
-      vim.keymap.set("n", "<leader>gl", function()
-        local main_name = "master"
-        if pcall(vim.fn["fugitive#RevParse"], "main") then
-          main_name = "main"
-        end
-        vim.cmd("Flog -- HEAD " .. main_name .. " origin/" .. main_name)
-      end, { desc = "Flog HEAD and master/main" })
-    end,
     config = function()
       -- See also ftplugin/floggraph.vim
       vim.g.flog_default_opts = {
