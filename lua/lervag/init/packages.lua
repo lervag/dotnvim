@@ -744,6 +744,15 @@ local M = {
         },
       })
 
+      cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
+        sources = cmp.config.sources {
+          { name = "ultisnips" },
+          { name = "vim-dadbod-completion" },
+          { name = "path", option = { trailing_slash = true } },
+          { name = "calc" },
+        },
+      })
+
       cmp.setup.filetype({ "markdown", "help" }, {
         window = {
           documentation = cmp.config.disable,
@@ -1816,6 +1825,25 @@ local M = {
     config = function()
       vim.g.fastfold_fold_command_suffixes = { "x", "X", "M", "R" }
       vim.g.fastfold_fold_movement_commands = {}
+    end,
+  },
+
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod", lazy = true },
+      {
+        "kristijanhusak/vim-dadbod-completion",
+        ft = { "sql", "mysql", "plsql" },
+        lazy = true,
+      },
+    },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+    },
+    init = function()
+      vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
 
