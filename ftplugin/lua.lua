@@ -2,8 +2,12 @@ local dap = require "dap"
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   buffer = vim.api.nvim_get_current_buf(),
-  group = vim.api.nvim_create_augroup("init_lua", { clear = true }),
+  group = vim.api.nvim_create_augroup("init_lua", {}),
   callback = function(arg)
+    if arg.file:sub(1, 10) == "fugitive:/" then
+      return
+    end
+
     vim.lsp.buf.format {
       filter = function(client)
         return client.name == "null-ls"
