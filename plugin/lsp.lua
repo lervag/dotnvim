@@ -109,6 +109,9 @@ autocmd("LspAttach", {
       lsp.buf.hover,
       { desc = "Display hover information" }
     )
+    map("n", "<leader>lI", function()
+      vim.lsp.inlay_hint(0, nil)
+    end, { desc = "Toggle inlay hints" })
 
     -- Unsure if I want/need these
     map("n", "<leader>l1", function()
