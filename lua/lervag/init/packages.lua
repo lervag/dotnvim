@@ -735,10 +735,19 @@ local M = {
         },
       })
 
-      cmp.setup.filetype({ "tex", "wiki" }, {
+      cmp.setup.filetype("wiki", {
         sources = cmp.config.sources {
           { name = "ultisnips" },
-          { name = "omni" },
+          { name = "omni", trigger_characters = { "[" } },
+          { name = "path", option = { trailing_slash = true } },
+          { name = "calc" },
+        },
+      })
+
+      cmp.setup.filetype("tex", {
+        sources = cmp.config.sources {
+          { name = "ultisnips" },
+          { name = "omni", trigger_characters = { "{", "/" } },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
         },
