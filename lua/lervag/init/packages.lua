@@ -647,14 +647,11 @@ local M = {
         experimental = {
           ghost_text = { hl_group = "CmpGhostText" },
         },
-        sources = cmp.config.sources {
+        sources = {
           { name = "ultisnips" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-          {
-            name = "path",
-            option = { trailing_slash = true },
-          },
+          { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
         },
         mapping = {
@@ -722,21 +719,18 @@ local M = {
       }
 
       cmp.setup.filetype("lua", {
-        sources = cmp.config.sources {
+        sources = {
           { name = "ultisnips" },
           { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-          {
-            name = "path",
-            option = { trailing_slash = true },
-          },
+          { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
         },
       })
 
       cmp.setup.filetype("wiki", {
-        sources = cmp.config.sources {
+        sources = {
           { name = "ultisnips" },
           { name = "omni", trigger_characters = { "[" } },
           { name = "path", option = { trailing_slash = true } },
@@ -745,16 +739,16 @@ local M = {
       })
 
       cmp.setup.filetype("tex", {
-        sources = cmp.config.sources {
+        sources = {
           { name = "ultisnips" },
-          { name = "omni", trigger_characters = { "{", "/" } },
+          { name = "omni", trigger_characters = { "{", "\\" } },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
         },
       })
 
       cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
-        sources = cmp.config.sources {
+        sources = {
           { name = "ultisnips" },
           { name = "vim-dadbod-completion" },
           { name = "path", option = { trailing_slash = true } },
