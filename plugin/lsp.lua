@@ -38,7 +38,7 @@ autocmd("LspAttach", {
       end
 
       if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint(args.buf, true)
+        vim.lsp.inlay_hint.enable(args.buf, true)
       end
     end
 
@@ -110,7 +110,8 @@ autocmd("LspAttach", {
       { desc = "Display hover information" }
     )
     map("n", "<leader>lI", function()
-      vim.lsp.inlay_hint(0, nil)
+      local is_enabled = vim.lsp.inlay_hint.is_enabled(0)
+      vim.lsp.inlay_hint.enable(0, not is_enabled)
     end, { desc = "Toggle inlay hints" })
 
     -- Unsure if I want/need these
