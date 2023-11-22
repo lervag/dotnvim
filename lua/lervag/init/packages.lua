@@ -576,6 +576,7 @@ local M = {
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lua",
       "quangnguyen30192/cmp-nvim-ultisnips",
+      { "micangl/cmp-vimtex" },
     },
     config = function()
       local kind_icons = {
@@ -608,19 +609,17 @@ local M = {
 
       local function formatter(entry, item)
         if entry.source.name == "omni" then
-          item.kind = "Ѵ"
+          item.kind = ""
           return item
         end
 
         item.kind = kind_icons[item.kind] .. " "
-        item.menu = ({
-          buffer = "[buffer]",
-          nvim_lsp = "[lsp]",
-          nvim_lua = "[lua]",
-          ultisnips = "[snip]",
-        })[entry.source.name]
         if not item.menu then
-          item.menu = string.format("[%s]", entry.source.name)
+          item.menu = ({
+            nvim_lsp = "[lsp]",
+            nvim_lua = "[lua]",
+            ultisnips = "[snip]",
+          })[entry.source.name] or string.format("[%s]", entry.source.name)
         end
 
         return item
@@ -741,7 +740,7 @@ local M = {
       cmp.setup.filetype("tex", {
         sources = {
           { name = "ultisnips" },
-          { name = "omni", trigger_characters = { "{", "\\" } },
+          { name = "vimtex" },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
         },
