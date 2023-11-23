@@ -619,7 +619,10 @@ local M = {
             nvim_lsp = "[lsp]",
             nvim_lua = "[lua]",
             ultisnips = "[snip]",
-          })[entry.source.name] or string.format("[%s]", entry.source.name)
+          })[entry.source.name] or string.format(
+            "[%s]",
+            entry.source.name
+          )
         end
 
         return item
