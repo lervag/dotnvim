@@ -24,7 +24,7 @@ function! s:resize_windows() " {{{1
   let l:width = s:get_target_width()
   if l:width == &columns | return | endif
 
-  if has('gui') || empty($TMUX . $STY)
+  if (has('gui') || empty($TMUX . $STY)) && empty($KITTY_PID)
     let &columns = l:width
     call system('xdotool key "super+c"')
   else
@@ -32,7 +32,7 @@ function! s:resize_windows() " {{{1
     call system(printf('xdotool windowsize --usehints %s %d %d',
           \ l:winid, l:width, &lines+1))
     call system(printf('xdotool key --window %s "super+c"', l:winid))
-    sleep 20m
+    sleep 100m
   endif
 
   wincmd =
