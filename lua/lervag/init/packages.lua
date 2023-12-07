@@ -544,18 +544,29 @@ local M = {
 
       require("chatgpt").setup {
         openai_params = {
-          model = "gpt-3.5-turbo-0613",
+          model = "gpt-3.5-turbo-1106",
+          max_tokens = 1000,
         },
-        settings_window = window_opts,
+        settings_window = vim.tbl_extend("force", window_opts, {
+          setting_sign = " ",
+        }),
         popup_window = window_opts,
         popup_input = window_opts,
         chat = {
-          sessions_window = window_opts,
+          sessions_window = vim.tbl_extend("force", window_opts, {
+            active_sign = " ◉ ",
+            inactive_sign = " ● ",
+          }),
+          answer_sign = "🤖",
+          border_left_sign = "▐",
+          border_right_sign = "▌",
           keymaps = {
+            close = { "<c-q>", "<c-c>" },
             yank_last = "<nop>",
             yank_last_code = "<nop>",
             scroll_up = "<nop>",
             scroll_down = "<nop>",
+            select_session = "<cr>",
           },
         },
       }
