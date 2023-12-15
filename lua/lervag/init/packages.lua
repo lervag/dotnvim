@@ -1381,15 +1381,13 @@ local M = {
   },
   {
     "tpope/vim-repeat",
-    -- config = function()
-    --   vim.cmd.source "autoload/repeat.vim"
-    -- end
   },
 
   {
     "junegunn/vim-easy-align",
     keys = {
       {
+        -- See plugin/align.vim
         "ga",
         "<plug>(align)",
         mode = { "n", "v" },
