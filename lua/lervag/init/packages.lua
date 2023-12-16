@@ -560,6 +560,7 @@ local M = {
           answer_sign = "🤖",
           border_left_sign = "▐",
           border_right_sign = "▌",
+          max_line_length = 60,
           keymaps = {
             close = { "<c-q>", "<c-c>" },
             yank_last = "<nop>",
