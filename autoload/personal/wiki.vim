@@ -1,7 +1,7 @@
 function! personal#wiki#file_handler(resolved, ...) abort " {{{1
   if a:resolved.path =~# '\.pdf$'
     call jobstart(
-          \ ['sioyek', a:resolved.path],
+          \ ['zathura', a:resolved.path],
           \ { 'detach': 1 })
     return
   endif

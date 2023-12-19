@@ -13,7 +13,7 @@ local M = {
         simple = 1,
         menu_fmt = "@year, @author_short, @title",
       }
-      vim.g.vimtex_context_pdf_viewer = "sioyek"
+      vim.g.vimtex_context_pdf_viewer = "zathura"
       vim.g.vimtex_doc_handlers = { "vimtex#doc#handlers#texdoc" }
       vim.g.vimtex_fold_enabled = 1
       vim.g.vimtex_fold_types = {
@@ -50,7 +50,7 @@ local M = {
       }
       vim.g.vimtex_view_automatic = 0
       vim.g.vimtex_view_forward_search_on_start = 0
-      vim.g.vimtex_view_method = "sioyek"
+      vim.g.vimtex_view_method = "zathura"
 
       vim.g.vimtex_grammar_vlty = {
         lt_command = "languagetool",
@@ -73,7 +73,7 @@ local M = {
       vim.g.wiki_root = "~/.local/wiki"
       vim.g.wiki_filetypes = { "wiki", "md" }
       vim.g.wiki_toc_title = "Innhald"
-      vim.g.wiki_viewer = { pdf = "sioyek" }
+      vim.g.wiki_viewer = { pdf = "zathura" }
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_mappings_local = {
         ["<plug>(wiki-link-transform-operator)"] = "gL",
