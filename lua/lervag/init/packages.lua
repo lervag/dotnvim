@@ -588,7 +588,6 @@ local M = {
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lua",
       "quangnguyen30192/cmp-nvim-ultisnips",
-      { "micangl/cmp-vimtex" },
     },
     config = function()
       local kind_icons = {
@@ -776,6 +775,14 @@ local M = {
         },
       })
     end,
+  },
+
+  {
+    "micangl/cmp-vimtex",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    ft = "tex",
   },
 
   {
