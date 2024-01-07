@@ -1,11 +1,33 @@
-snippet template-vimtex "Template: Minimal vimrc for VimTeX" b
+snippet template-vimtex "Template: Minimal init.lua for VimTeX" b
 vim.opt.runtimepath:prepend "~/.local/plugged/vimtex"
 vim.opt.runtimepath:append "~/.local/plugged/vimtex/after"
 vim.cmd[[filetype plugin indent on]]
 
 vim.g.vimtex_view_method = "zathura"
+vim.g.vimtex_cache_root = "."
+vim.g.vimtex_cache_persistent = false
 
 vim.keymap.set("n", "q", "<cmd>qall!<cr>")
 
 vim.cmd.edit "test.tex"
+endsnippet
+
+snippet template-lazy "Template: Minimal init.lua for lazy.nvim" b
+local root = vim.fn.fnamemodify("./.lazy", ":p")
+
+for _, name in ipairs({ "config", "data", "state", "cache" }) do
+	vim.env[("XDG_%s_HOME"):format(name:upper())] = root .. "/" .. name
+end
+
+local lazypath = root .. "/plugins/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", lazypath, })
+end
+vim.opt.runtimepath:prepend(lazypath)
+
+require("lazy").setup({
+	"foo/bar",
+}, {
+	root = root .. "/plugins",
+})
 endsnippet
