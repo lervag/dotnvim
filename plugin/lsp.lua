@@ -380,28 +380,38 @@ autocmd("FileType", {
         },
       },
       on_init = function(client)
-        local path = client.workspace_folders[1].name
+        local path = ""
+        if client.workspace_folders then
+          path = client.workspace_folders[1].name
+        end
+
         if
           not vim.uv.fs_stat(path .. "/.luarc.json")
           and not vim.uv.fs_stat(path .. "/.luarc.jsonc")
         then
-          local cfg = vim.tbl_deep_extend("force", client.config.settings, {
-            Lua = {
-              runtime = {
-                version = "LuaJIT",
-              },
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  vim.env.VIMRUNTIME,
-                  "${3rd}/busted/library",
-                  "${3rd}/luv/library",
+          client.config.settings =
+            vim.tbl_deep_extend("force", client.config.settings, {
+              Lua = {
+                runtime = {
+                  version = "LuaJIT",
+                },
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME,
+                    "${3rd}/busted/library",
+                    "${3rd}/luv/library",
+                  },
                 },
               },
-            },
-          })
-          client.notify("workspace/didChangeConfiguration", { settings = cfg })
+            })
+          client.notify(
+            "workspace/didChangeConfiguration",
+            { settings = client.config.settings }
+          )
         end
+
+        return true
       end,
     }
   end,
