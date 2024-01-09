@@ -266,8 +266,8 @@ local theme = {
   -- ["@text.warning"] = {},
   -- ["@text.danger"] = {},
 
-  -- ["@text.diff.add"] = {},
-  -- ["@text.diff.delete"] = {},
+  ["@text.diff.add"] = { link = "DiffAdd" },
+  ["@text.diff.delete"] = { link = "DiffDelete" },
 
   -- {{{2 Tags
 
@@ -567,6 +567,7 @@ local theme = {
   RenameNormal = { fg = color13, bg = color07d },
   TitleString = { fg = color09, bg = color07d, bold = true },
   ActionPreviewTitle = { link = "TitleString" },
+  CodeActionNumber = { fg = color08 },
 
   -- {{{1 Filetype Vimscript
 

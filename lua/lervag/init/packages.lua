@@ -353,19 +353,6 @@ local M = {
         border = require("lervag.const").border,
       },
       select = {
-        format_item_override = {
-          codeaction = function(action_tuple)
-            local client = vim.lsp.get_client_by_id(action_tuple[1])
-            if client then
-              local title = action_tuple[2].title:gsub("\r\n", "\\r\\n")
-              return string.format(
-                "%s\t[%s]",
-                title:gsub("\n", "\\n"),
-                client.name
-              )
-            end
-          end,
-        },
         telescope = {
           layout_config = {
             width = 0.9,

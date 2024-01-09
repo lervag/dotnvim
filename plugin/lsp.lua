@@ -87,7 +87,7 @@ autocmd("LspAttach", {
       { desc = "Rename all references" }
     )
     map(
-      "n",
+      { "n", "v" },
       "<leader>la",
       "<cmd>Lspsaga code_action<cr>",
       { desc = "Select code action" }
