@@ -1580,6 +1580,20 @@ local M = {
     cmd = { "AsciiTree" },
   },
 
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "BufEnter",
+    opts = {
+      wiki = {
+        template = "![$CURSOR]($FILE_PATH)",
+        dir_path = "aux",
+      },
+    },
+    keys = {
+      { "<leader>ep", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
+    },
+  },
+
   -- {{{1 VCS
 
   {
