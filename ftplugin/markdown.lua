@@ -8,9 +8,15 @@ vim.keymap.set(
   "<cmd>call personal#markdown#create_notes()<cr>",
   { buffer = true }
 )
+vim.keymap.set("n", "<leader>ai", function()
+  require("img-clip").pasteImage {
+    dir_path = "/home/lervag/documents/anki/lervag/collection.media",
+    template = "![$FILE_NAME_NO_EXT]($FILE_NAME)",
+  }
+end, { buffer = true })
 vim.keymap.set(
   "n",
-  "<leader>ai",
+  "<leader>a<c-i>",
   "<cmd>call personal#markdown#prepare_image()<cr>",
   { buffer = true }
 )
