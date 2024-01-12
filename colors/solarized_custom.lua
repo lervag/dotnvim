@@ -14,11 +14,9 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
       -- vim.cmd "highlight clear"
       vim.cmd "silent update"
       vim.cmd "colorscheme solarized_custom"
-      vim.cmd [[echom "Updated colorscheme (msg)"]]
       vim.notify(
         "Updated colorscheme (notification)",
-        vim.log.levels.INFO,
-        { title = "solarized_custom" }
+        vim.log.levels.INFO
       )
     end
   end,
