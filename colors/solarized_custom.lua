@@ -32,6 +32,7 @@ local base00 = "#657b83"
 local base0 = "#839496"
 local base1 = "#93a1a1"
 local base1light = "#b8c1c1"
+local base2v95 = "#f3edda"
 local base2 = "#eee8d5"
 local base2v91 = "#e8e2ce"
 local base3 = "#fdf6e3"
@@ -92,6 +93,7 @@ local color02l = greenv80
 local color03d = yellowv30
 local color04d = bluev50
 local color06l = cyanlight
+local color07l = base2v95
 local color07d = base2v91
 local color09l = orange
 local color14l = base1light
@@ -535,6 +537,10 @@ local theme = {
   TitleString = { fg = color09, bg = color07d, bold = true },
   ActionPreviewTitle = { link = "TitleString" },
   CodeActionNumber = { fg = color08 },
+
+  MiniNotifyBorder = { fg = color12, bg = color07l },
+  MiniNotifyNormal = { fg = color04, bg = color07l },
+  MiniNotifyTitle = { fg = color03, bg = color07l, bold = true },
 
   -- {{{1 Filetype Vimscript
 
