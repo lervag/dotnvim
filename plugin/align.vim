@@ -35,19 +35,11 @@ function! s:align(type, ...)
     if get(g:, 'easy_align_need_repeat')
       execute range . g:easy_align_last_command
     else
-      Noice dismiss
-      Noice disable
-      set cmdheight=1
-      redraw!
       execute range . "call easy_align#align(0, 1, vmode, '')"
     end
     silent! call repeat#set("\<plug>(align-repeat)")
   finally
     let &selection = sel_save
-    if !get(g:, 'easy_align_need_repeat')
-      Noice enable
-      set cmdheight=0
-    endif
   endtry
 endfunction
 
