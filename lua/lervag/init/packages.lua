@@ -249,7 +249,17 @@ local M = {
       mininotify.setup {
         content = {
           format = function(notif)
-            return notif.msg
+            return " " .. notif.msg
+          end,
+          sort = function(notif_arr)
+            local res, present_msg = {}, {}
+            for _, notif in ipairs(notif_arr) do
+              if not present_msg[notif.msg] then
+                table.insert(res, notif)
+                present_msg[notif.msg] = true
+              end
+            end
+            return mininotify.default_sort(res)
           end,
         },
 
@@ -269,8 +279,14 @@ local M = {
               width = math.max(width, l_w)
             end
 
+            local height = 0
+            for _, l_w in ipairs(line_widths) do
+              height = height + math.floor(math.max(l_w - 1, 0) / width) + 1
+            end
+
             return {
               width = math.min(width + 1, math.floor(0.9 * vim.o.columns)),
+              height = height,
               border = { "┏", " ", " ", " ", " ", " ", "┗", "┃" },
               title = "NOTIFICATIONS",
               title_pos = "right",
