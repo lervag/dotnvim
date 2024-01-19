@@ -314,7 +314,24 @@ local M = {
   },
 
   {
+    "Robitx/gp.nvim",
+    keys = {
+      { "<f1>", "<cmd>GpChatToggle<cr>", desc = "GpChat" },
+    },
+    cmd = {
+      "GpChatNew",
+      "GpChatPaste",
+      "GpChatToggle",
+      "GpChatFinder",
+    },
+    opts = {
+      openai_api_key = { "pass", "openai-api-key" },
+    },
+  },
+
+  {
     "jackmort/chatgpt.nvim",
+    enabled = false,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
