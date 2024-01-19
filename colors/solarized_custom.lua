@@ -14,10 +14,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
       -- vim.cmd "highlight clear"
       vim.cmd "silent update"
       vim.cmd "colorscheme solarized_custom"
-      vim.notify(
-        "Updated colorscheme (notification)",
-        vim.log.levels.INFO
-      )
+      vim.notify("Updated colorscheme (notification)", vim.log.levels.INFO)
     end
   end,
 })
@@ -243,138 +240,97 @@ local theme = {
   -- Highlight groups used by Tree-sitter
   -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 
-  -- {{{2 Text
+  -- ["@markup"] = {},
+  ["@markup.emphasis"] = { italic = true },
+  -- ["@markup.environment"] = {},
+  -- ["@markup.environment.name"] = {},
+  -- ["@markup.heading"] = {},
+  -- ["@markup.link"] = {},
+  -- ["@markup.link.label"] = {},       -- other special strings (e.g. dates)
+  -- ["@markup.link.url"] = {},
+  ["@markup.list"] = { link = "Identifier" },
+  -- ["@markup.literal.block"] = {},
+  -- ["@markup.math"] = {},
+  -- ["@markup.quote"] = {},
+  ["@markup.raw"] = { link = "PreProc" },
+  ["@markup.strike"] = { strikethrough = true },
+  ["@markup.strong"] = { bold = true },
+  ["@markup.underline"] = { underline = true },
 
-  -- ["@text"] = {},
-  ["@text.strong"] = { bold = true },
-  ["@text.emphasis"] = { italic = true },
-  ["@text.underline"] = { underline = true },
-  ["@text.strike"] = { strikethrough = true },
-  -- ["@text.title"] = {},
-  -- ["@text.quote"] = {},
-  -- ["@text.uri"] = {},
-  -- ["@text.math"] = {},
-  -- ["@text.environment"] = {},
-  -- ["@text.environment.name"] = {},
-  -- ["@text.reference"] = {},
+  -- ["@comment"] = {},
+  -- ["@comment.documentation"] = {},
+  -- ["@comment.error"] = {},
+  -- ["@comment.hint"] = {},
+  -- ["@comment.info"] = {},
+  -- ["@comment.todo"] = {},
+  -- ["@comment.warning"] = {},
 
-  ["@text.literal"] = { link = "PreProc" },
-  -- ["@text.literal.block"] = {},
-
-  -- ["@text.todo"] = {},
-  -- ["@text.note"] = {},
-  -- ["@text.warning"] = {},
-  -- ["@text.danger"] = {},
-
-  ["@text.diff.add"] = { link = "DiffAdd" },
-  ["@text.diff.delete"] = { link = "DiffDelete" },
-
-  -- {{{2 Tags
-
-  -- For XML and HTML and similar
+  ["@diff.delta"] = { link = "DiffChange" },
+  ["@diff.minus"] = { link = "DiffDelete" },
+  ["@diff.plus"] = { link = "DiffAdd" },
 
   -- ["@tag"] = {},
   -- ["@tag.attribute"] = {},
   -- ["@tag.delimiter"] = {},
 
-  -- {{{2 Types
-
-  -- type or class definitions and annotations
   -- ["@type"] = {},
-
   -- ["@type.builtin"] = {},
-
-  -- type definitions (e.g. `typedef` in C)
   -- ["@type.definition"] = {},
-
-  -- type qualifiers (e.g. `const`)
   -- ["@type.qualifier"] = {},
-
-  -- modifiers that affect storage in memory or life-time
-  -- ["@storageclass"] = {},
-
-  -- attribute annotations (e.g. Python decorators)
   -- ["@attribute"] = {},
-
-  -- object and struct fields
-  -- ["@field"] = {},
-
-  -- similar to `@field`
   -- ["@property"] = {},
 
-  -- {{{2 Functions
-
-  -- ["@function"] = {},         -- function definitions
+  -- ["@function"] = {},
   ["@function.builtin"] = { fg = magenta1d },
-  -- ["@function.call"] = {},    -- function calls
-  -- ["@function.macro"] = {},   -- preprocessor macros
-
-  -- ["@method"] = {},           -- method definitions
-  -- ["@method.call"] = {},      -- method calls
-
-  ["@constructor"] = { link = "PreProc" },
-  ["@parameter"] = { link = "PreProc" },
-
-  -- {{{2 Keywords
-
-  -- ["@keyword"] = {},
-  -- ["@keyword.coroutine"] = {},
-  -- ["@keyword.function"] = {},
-  -- ["@keyword.operator"] = {},
-  -- ["@keyword.return"] = {},
-
-  -- ["@conditional"] = {},
-  -- ["@conditional.ternary"] = {},
-
-  -- ["@repeat"] = {},
-  -- ["@debug"] = {},
-  -- ["@label"] = {},
-  -- ["@include"] = {},
-  -- ["@exception"] = {},
-
-  -- {{{2 Literals
-
-  -- ["@string"] = {},
-  -- ["@string.documentation"] = {},
-  -- ["@string.regex"] = {},
-  -- ["@string.escape"] = {},
-  -- ["@string.special"] = {},       -- other special strings (e.g. dates)
-
-  -- ["@character"] = {},
-  -- ["@character.special"] = {},
-
-  -- ["@boolean"] = {},
-  -- ["@number"] = {},
-  -- ["@float"] = {},
-
-  -- {{{2 Identifiers
+  -- ["@function.call"] = {},
+  -- ["@function.macro"] = {},
+  -- ["@function.method"] = {},
+  -- ["@function.method.call"] = {},
 
   ["@variable"] = { fg = color10 },
   -- ["@variable.builtin"] = {},
+  -- ["@variable.member"] = {},
+  ["@variable.parameter"] = { link = "PreProc" },
+
+  -- ["@keyword"] = {},
+  -- ["@keyword.conditional"] = {},
+  -- ["@keyword.conditional.ternary"] = {},
+  -- ["@keyword.coroutine"] = {},
+  -- ["@keyword.debug"] = {},
+  -- ["@keyword.directive"] = {},
+  -- ["@keyword.directive.define"] = {},
+  -- ["@keyword.exception"] = {},
+  -- ["@keyword.function"] = {},
+  -- ["@keyword.include"] = {},
+  -- ["@keyword.operator"] = {},
+  -- ["@keyword.repeat"] = {},
+  -- ["@keyword.return"] = {},
+  -- ["@keyword.storage"] = {},
+
+  -- ["@string"] = {},
+  -- ["@string.documentation"] = {},
+  -- ["@string.escape"] = {},
+  -- ["@string.regexp"] = {},
+  -- ["@string.special.url"] = {},
+  -- ["@string.special.symbol"] = {},
+
+  ["@constructor"] = { link = "PreProc" },
+  -- ["@label"] = {},
+  -- ["@module"] = {},
+  -- ["@none"] = {},
+  -- ["@operator"] = {},
+  -- ["@character"] = {},
+  -- ["@character.special"] = {},
+  -- ["@boolean"] = {},
+  -- ["@number"] = {},
+  -- ["@number.float"] = {},
 
   -- ["@constant"] = {},
   -- ["@constant.builtin"] = {},
   -- ["@constant.macro"] = {},
 
-  -- ["@namespace"] = {},
-  -- ["@symbol"] = {},
-
-  -- {{{2 Miscellaneous
-
-  -- ["@comment"] = {},
-  -- ["@comment.documentation"] = {},
-  -- ["@error"] = {},                 -- syntax/parser errors
-  -- ["@none"] = {},                  -- completely disable the highlight
-  -- ["@preproc"] = {},               -- various preprocessor directives & shebangs
-  -- ["@define"] = {},                -- preprocessor definition directives
-  -- ["@operator"] = {},              -- symbolic operators (e.g. `+` / `*`)
-
-  -- {{{2 Punctuation
-
   -- ["@punctuation.delimiter"] -- delimiters (e.g. `--` / `.` / `,`)
   -- ["@punctuation.bracket"]   -- brackets (e.g. `()` / `{}` / `[]`)
-  -- special symbols (e.g. `{}` in string interpolation)
-  ["@punctuation.special"] = { link = "Identifier" },
 
   -- {{{1 LSP semantic highlighting
 
@@ -390,7 +346,7 @@ local theme = {
   ["@lsp.type.function"] = { link = "@function" },
   ["@lsp.type.macro"] = { link = "@macro" },
   ["@lsp.type.method"] = { link = "@method" },
-  ["@lsp.type.namespace"] = { link = "@namespace" },
+  ["@lsp.type.namespace"] = { link = "@module" },
   ["@lsp.type.parameter"] = { link = "@parameter" },
   ["@lsp.type.property"] = { link = "@property" },
   ["@lsp.type.struct"] = { link = "@structure" },
