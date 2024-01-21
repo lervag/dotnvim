@@ -1,10 +1,7 @@
-local builtin = require "telescope.builtin"
-local actions = require "telescope.actions"
-local action_state = require "telescope.actions.state"
-
 local M = {}
 
 function M.files()
+  local builtin = require "telescope.builtin"
   local dir = vim.fn.FindRootDirectory()
   if dir == "" then
     dir = vim.fn.getcwd()
@@ -16,6 +13,7 @@ function M.files()
 end
 
 function M.files_nvim()
+  local builtin = require "telescope.builtin"
   builtin.git_files {
     prompt_title = "Find Files: ~/.config/nvim",
     cwd = "~/.config/nvim",
@@ -23,6 +21,7 @@ function M.files_nvim()
 end
 
 function M.files_dotfiles()
+  local builtin = require "telescope.builtin"
   builtin.git_files {
     prompt_title = "Find Files: ~/.dotfiles",
     cwd = "~/.dotfiles",
@@ -30,6 +29,7 @@ function M.files_dotfiles()
 end
 
 function M.files_plugged()
+  local builtin = require "telescope.builtin"
   builtin.find_files {
     prompt_title = "Find Files: ~/.local/plugged",
     cwd = "~/.local/plugged",
@@ -38,6 +38,10 @@ end
 
 -- local sorters = require("telescope.sorters")
 function M.files_wiki()
+  local builtin = require "telescope.builtin"
+  local actions = require "telescope.actions"
+  local action_state = require "telescope.actions.state"
+
   builtin.find_files {
     prompt_title = "Wiki files",
     cwd = "~/.local/wiki",
@@ -71,6 +75,10 @@ function M.files_wiki()
 end
 
 function M.files_zotero()
+  local builtin = require "telescope.builtin"
+  local actions = require "telescope.actions"
+  local action_state = require "telescope.actions.state"
+
   local path = "~/.local/zotero/storage"
   builtin.find_files {
     prompt_title = "Zotero",

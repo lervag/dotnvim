@@ -880,7 +880,8 @@ local M = {
       end
 
       local actions = require "telescope.actions"
-      require("telescope").setup {
+      local telescope = require("telescope")
+      telescope.setup {
         defaults = {
           sorting_strategy = "ascending",
           results_title = false,
@@ -950,7 +951,7 @@ local M = {
         },
       }
 
-      require("telescope").load_extension "fzf"
+      telescope.load_extension "fzf"
     end,
   },
 
