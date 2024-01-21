@@ -883,22 +883,16 @@ local M = {
       local telescope = require("telescope")
       telescope.setup {
         defaults = {
+          create_layout = require("lervag.util.ts_layout").layout,
           sorting_strategy = "ascending",
-          results_title = false,
           preview = {
             hide_on_startup = true,
-          },
-          layout_strategy = "center",
-          layout_config = {
-            width = 0.95,
-            height = 0.99,
           },
           file_ignore_patterns = {
             "%.git/",
             "/tags$",
           },
           history = false,
-          borderchars = { "═", " ", " ", " ", " ", " ", " ", " " },
           mappings = {
             n = {
               ["q"] = "close",
