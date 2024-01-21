@@ -1419,6 +1419,21 @@ local M = {
     },
   },
 
+  {
+    "2kabhishek/nerdy.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Nerdy",
+    keys = {
+      {
+        "<leader>eu",
+        "<cmd>Nerdy<cr>",
+        desc = "Nerdy",
+      },
+    },
+  },
+
   -- {{{1 VCS
 
   {
