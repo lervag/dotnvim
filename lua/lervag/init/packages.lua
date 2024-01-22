@@ -880,7 +880,7 @@ local M = {
       end
 
       local actions = require "telescope.actions"
-      local telescope = require("telescope")
+      local telescope = require "telescope"
       telescope.setup {
         defaults = {
           create_layout = require("lervag.util.ts_layout").layout,
@@ -1407,11 +1407,20 @@ local M = {
 
   {
     "HakonHarnes/img-clip.nvim",
+    branch = "feat/flexible-config-structure",
     event = "BufEnter",
     opts = {
-      wiki = {
-        template = "![$CURSOR]($FILE_PATH)",
-        dir_path = "aux",
+      filetypes = {
+        wiki = {
+          template = "![$CURSOR]($FILE_PATH)",
+          dir_path = "aux",
+        },
+      },
+      files = {
+        ["/home/lervag/notes.md"] = {
+          dir_path = "/home/lervag/documents/anki/lervag/collection.media/",
+          template = "![$FILE_NAME_NO_EXT]($FILE_NAME)",
+        },
       },
     },
     keys = {
