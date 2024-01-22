@@ -5,7 +5,7 @@ function M.layout(picker)
   local function create_window(enter, width, height, row, col, title)
     local config = {
       style = "minimal",
-      relative = "editor",
+      relative = "win",
       width = width,
       height = height,
       row = row,
@@ -41,10 +41,10 @@ function M.layout(picker)
   return Layout {
     picker = picker,
     mount = function(self)
-      local width = vim.fn.winwidth(0)
+      local width = vim.fn.winwidth(0) - 2
       local height = vim.fn.winheight(0) - 10
       self.prompt = create_window(true, width, 1, 0, 0, picker.prompt_title)
-      self.results = create_window(false, width, height, 3, 0)
+      self.results = create_window(false, width, height, 2, 0)
     end,
     unmount = function(self)
       destory_window(self.results)
