@@ -260,8 +260,7 @@ local theme = {
   -- ["@comment"] = {},
   -- ["@comment.documentation"] = {},
   -- ["@comment.error"] = {},
-  -- ["@comment.hint"] = {},
-  -- ["@comment.info"] = {},
+  -- ["@comment.note"] = {},
   -- ["@comment.todo"] = {},
   -- ["@comment.warning"] = {},
 
