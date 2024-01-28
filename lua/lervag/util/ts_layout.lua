@@ -42,7 +42,7 @@ function M.layout(picker)
     picker = picker,
     mount = function(self)
       local width = vim.fn.winwidth(0) - 2
-      local height = vim.fn.winheight(0) - 10
+      local height = vim.fn.winheight(0) - 4
       self.prompt = create_window(true, width, 1, 0, 0, picker.prompt_title)
       self.results = create_window(false, width, height, 2, 0)
     end,

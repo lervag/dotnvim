@@ -1407,7 +1407,6 @@ local M = {
 
   {
     "HakonHarnes/img-clip.nvim",
-    branch = "feat/flexible-config-structure",
     event = "BufEnter",
     opts = {
       filetypes = {
