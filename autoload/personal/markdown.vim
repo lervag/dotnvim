@@ -2,7 +2,6 @@ function! personal#markdown#init() abort " {{{1
   setlocal conceallevel=2
   setlocal foldmethod=expr
   setlocal foldexpr=personal#markdown#foldlevel(v:lnum)
-  setlocal foldtext=personal#markdown#foldtext()
 
   call personal#markdown#color_code_blocks()
 
@@ -101,15 +100,8 @@ function! personal#markdown#foldlevel(lnum) abort " {{{1
 endfunction
 
 " }}}1
-function! personal#markdown#foldtext() abort " {{{1
-  let l:line = getline(v:foldstart)
-  let l:text = substitute(l:line, '^\s*', repeat(' ',indent(v:foldstart)), '')
-  return l:text
-endfunction
 
-" }}}1
-
-function personal#markdown#indentexpr(lnum) abort " {{{1
+function! personal#markdown#indentexpr(lnum) abort " {{{1
   " Unordered lists
   let cline = getline(a:lnum)
   if cline =~ '^\s*\*'

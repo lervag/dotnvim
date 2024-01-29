@@ -42,5 +42,12 @@ vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
     vim.wo.cursorline = false
   end,
 })
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Ensure &foldtext is kept empty regardless of filetype",
+  group = group,
+  callback = function()
+    vim.wo.foldtext = ""
+  end,
+})
 
 -- See also: after/plugin/init_autocmds.vim

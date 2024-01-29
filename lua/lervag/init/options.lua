@@ -89,7 +89,7 @@ vim.opt.showmode = false
 -- {{{1 Folding
 
 vim.opt.foldcolumn = "0"
-vim.opt.foldtext = "personal#fold#foldtext()"
+vim.opt.foldtext = ""
 vim.opt.signcolumn = "yes"
 
 -- {{{1 Indentation
