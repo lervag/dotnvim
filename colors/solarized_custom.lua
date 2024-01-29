@@ -49,24 +49,6 @@ local cyanlight = "#6dbfb8"
 local green = "#859900"
 local greenv80 = "#b1cc00"
 
-local black = "#000000"
-local blue1 = "#0087ff"
-local blue2 = "#00afff"
-local blue3 = "#9fc6d3"
-local gold1 = "#ffe055"
-local gold2 = "#ffeea2"
-local gold3 = "#c6b079"
-local gray1 = "#d2e1e0"
-local green1 = "#719e07"
-local green2 = "#d7ffaf"
-local magenta1 = "#ff00ff"
-local magenta1d = "#8b008b"
-local orange1 = "#ff5f00"
-local pink1 = "#f7cfbf"
-local purple1 = "#8787d7"
-local red1 = "#af0000"
-local yellow1 = "#ffff5f"
-
 local color00 = base02
 local color01 = red
 local color02 = green
@@ -96,6 +78,24 @@ local color09l = orange
 local color14l = base1light
 local color15d = base3v88
 local color15w = base3v100s7
+
+local black = "#000000"
+local blue1 = "#0087ff"
+local blue2 = "#00afff"
+local blue3 = "#9fc6d3"
+local gold1 = "#ffe055"
+local gold2 = "#ffeea2"
+local gold3 = "#c6b079"
+local gray1 = "#d2e1e0"
+local green1 = "#719e07"
+local green2 = "#d7ffaf"
+local magenta1 = "#ff00ff"
+local magenta1d = "#8b008b"
+local orange1 = "#ff5f00"
+local pink1 = "#f7cfbf"
+local purple1 = "#8787d7"
+local red1 = "#af0000"
+local yellow1 = "#ffff5f"
 
 vim.g.terminal_color_0 = color00
 vim.g.terminal_color_1 = color01
@@ -132,7 +132,7 @@ local theme = {
   DiffText = { bg = gray1, sp = color04 },
   Directory = { fg = color04 },
   ErrorMsg = { fg = color01, bold = true },
-  FoldColumn = { fg = color11, bg = color07 },
+  FoldColumn = { fg = gold3, bg = color07 },
   Folded = { fg = color12, bg = color07 },
   IncSearch = { fg = color09, standout = true },
   LineNr = { fg = color14, bg = color07 },

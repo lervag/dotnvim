@@ -76,7 +76,13 @@ vim.opt.listchars = {
   extends = "…",
   precedes = "…",
 }
-vim.opt.fillchars = { fold = " ", diff = "╱" }
+vim.opt.fillchars = {
+  fold = " ",
+  diff = "╱",
+  foldopen = "",
+  foldclose = "",
+  foldsep = "|",
+}
 vim.opt.matchtime = 2
 vim.opt.matchpairs:append "<:>"
 vim.opt.cursorline = true
