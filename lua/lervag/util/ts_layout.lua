@@ -15,7 +15,7 @@ function M.layout(picker)
 
     if title then
       config.title = " " .. title .. " "
-      config.title_pos = "center"
+      config.title_pos = "left"
     end
 
     local bufnr = vim.api.nvim_create_buf(false, true)
