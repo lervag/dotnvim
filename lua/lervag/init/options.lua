@@ -79,9 +79,10 @@ vim.opt.listchars = {
 vim.opt.fillchars = {
   fold = " ",
   diff = "╱",
-  foldopen = "",
-  foldclose = "",
-  foldsep = "|",
+  foldclose = "╶",
+  foldopen = "┌",
+  foldsep = "┊",
+  vert = "┃",
 }
 vim.opt.matchtime = 2
 vim.opt.matchpairs:append "<:>"
@@ -94,7 +95,7 @@ vim.opt.showmode = false
 
 -- {{{1 Folding
 
-vim.opt.foldcolumn = "0"
+vim.opt.foldcolumn = "auto:2"
 vim.opt.foldtext = ""
 vim.opt.signcolumn = "yes"
 

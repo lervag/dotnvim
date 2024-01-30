@@ -164,7 +164,7 @@ local theme = {
   SpellRare = { fg = yellow1, sp = color01, bold = true },
   TermCursor = { bold = true },
   Title = { fg = color09, bold = true },
-  VertSplit = { fg = color12, bg = color12 },
+  WinSeparator = { fg = color10, bg = color07 },
   Visual = { fg = color15, bg = color14 },
   VisualNOS = { bg = color07, reverse = true },
   WarningMsg = { fg = color03 },
