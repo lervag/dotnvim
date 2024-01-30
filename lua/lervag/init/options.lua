@@ -95,7 +95,7 @@ vim.opt.showmode = false
 
 -- {{{1 Folding
 
-vim.opt.foldcolumn = "auto:2"
+vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""
 vim.opt.signcolumn = "yes"
 

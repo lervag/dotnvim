@@ -111,7 +111,7 @@ function! s:get_target_width() " {{{1
   let l:total_height /= 2
 
   let l:count = float2nr(ceil(l:total_height/(1.0*&lines)))
-  return l:count*84 + l:count - 1
+  return l:count*82 + l:count - 1
 endfunction
 
 " }}}1
