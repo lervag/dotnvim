@@ -1355,18 +1355,6 @@ local M = {
   },
 
   {
-    "brianrodri/vim-sort-folds",
-    keys = {
-      {
-        "<leader>s",
-        "<cmd>call sortfolds#SortFolds()<cr>",
-        mode = "x",
-        desc = "SortFolds",
-      },
-    },
-  },
-
-  {
     "AndrewRadev/inline_edit.vim",
     keys = {
       { "<leader>ee", "<cmd>InlineEdit<cr>", desc = "inline_edit" },
