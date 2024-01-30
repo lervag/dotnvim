@@ -257,6 +257,20 @@ local theme = {
   ["@markup.strong"] = { bold = true },
   ["@markup.underline"] = { underline = true },
 
+  ["@markup.heading.1"] = { bold = true, fg = "#aa5858" },
+  ["@markup.heading.2"] = { bold = true, fg = "#507030" },
+  ["@markup.heading.3"] = { bold = true, fg = "#1030a0" },
+  ["@markup.heading.4"] = { bold = true, fg = "#103040" },
+  ["@markup.heading.5"] = { bold = true, fg = "#505050" },
+  ["@markup.heading.6"] = { bold = true, fg = "#636363" },
+
+  -- ["wikiHeader1"] = { link = "@markup.heading.1" },
+  -- ["wikiHeader2"] = { link = "@markup.heading.2" },
+  -- ["wikiHeader3"] = { link = "@markup.heading.3" },
+  -- ["wikiHeader4"] = { link = "@markup.heading.4" },
+  -- ["wikiHeader5"] = { link = "@markup.heading.5" },
+  -- ["wikiHeader6"] = { link = "@markup.heading.6" },
+
   -- ["@comment"] = {},
   -- ["@comment.documentation"] = {},
   -- ["@comment.error"] = {},
