@@ -21,6 +21,10 @@ function M.layout(picker)
     local bufnr = vim.api.nvim_create_buf(false, true)
     local winid = vim.api.nvim_open_win(bufnr, enter, config)
 
+    -- Avoid having the result window folded (don't know why this is
+    -- necessary)
+    vim.api.nvim_set_option_value("foldenable", false, { win = winid })
+
     return Layout.Window {
       bufnr = bufnr,
       winid = winid,
