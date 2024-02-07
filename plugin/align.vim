@@ -90,3 +90,7 @@ function! s:repeat_visual()
     endif
   endtry
 endfunction
+
+function! s:abs(v)
+  return a:v >= 0 ? a:v : - a:v
+endfunction
