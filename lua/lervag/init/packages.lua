@@ -482,6 +482,7 @@ local M = {
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "path", option = { trailing_slash = true } },
+          { name = "emoji" },
           { name = "calc" },
         },
         mapping = {
@@ -1416,17 +1417,15 @@ local M = {
   },
 
   {
-    "2kabhishek/nerdy.nvim",
+    "Allaman/emoji.nvim",
+    event = "VeryLazy",
     dependencies = {
+      "hrsh7th/nvim-cmp",
       "nvim-telescope/telescope.nvim",
     },
-    cmd = "Nerdy",
-    keys = {
-      {
-        "<leader>eu",
-        "<cmd>Nerdy<cr>",
-        desc = "Nerdy",
-      },
+    opts = {
+      enable_cmp_integration = true,
+      plugin_path = vim.fn.expand "$HOME/.local/plugged/",
     },
   },
 
