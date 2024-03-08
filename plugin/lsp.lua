@@ -410,8 +410,6 @@ autocmd("FileType", {
             { settings = client.config.settings }
           )
         end
-
-        return true
       end,
     }
   end,
