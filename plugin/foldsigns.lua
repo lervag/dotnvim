@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd({
   "WinEnter",
   "BufWinEnter",
   "ModeChanged",
+  "CursorMoved",
 }, {
   desc = "Update fold signs",
   group = vim.api.nvim_create_augroup("fold_signs", {}),
