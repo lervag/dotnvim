@@ -1025,7 +1025,11 @@ local M = {
     "mfussenegger/nvim-dap",
     event = "BufReadPost",
     dependencies = {
-      "rcarriga/nvim-dap-ui",
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
+        config = true,
+      },
       {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = { "nvim-treesitter/nvim-treesitter" },

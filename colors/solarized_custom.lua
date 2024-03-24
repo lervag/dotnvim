@@ -289,7 +289,6 @@ local theme = {
   -- ["@type"] = {},
   -- ["@type.builtin"] = {},
   -- ["@type.definition"] = {},
-  -- ["@type.qualifier"] = {},
   -- ["@attribute"] = {},
   -- ["@property"] = {},
 
@@ -318,7 +317,6 @@ local theme = {
   -- ["@keyword.operator"] = {},
   -- ["@keyword.repeat"] = {},
   -- ["@keyword.return"] = {},
-  -- ["@keyword.storage"] = {},
 
   -- ["@string"] = {},
   -- ["@string.documentation"] = {},
