@@ -11,7 +11,6 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(
 )
 
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", { clear = true })
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local find_root = function(markers, file)
   return vim.fs.dirname(
     vim.fs.find(
@@ -20,6 +19,65 @@ local find_root = function(markers, file)
     )[1]
   )
 end
+
+-- {{{1 Capabilities
+
+-- Fixes issue with jsonls: "Unhandled method textDocument/diagnostic"
+-- * It appears that cmp_nvim_lsp is overwriting the capabilities.textDocument
+--   wrongly.
+-- * I found good help here:
+--   https://github.com/dkarter/dotfiles/blob/master/config/nvim/lua/plugins/lsp.lua
+
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion = {
+  dynamicRegistration = false,
+  completionItem = {
+    snippetSupport = true,
+    commitCharactersSupport = true,
+    deprecatedSupport = true,
+    preselectSupport = true,
+    tagSupport = {
+      valueSet = {
+        1,
+      },
+    },
+    insertReplaceSupport = true,
+    resolveSupport = {
+      properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+        'sortText',
+        'filterText',
+        'insertText',
+        'textEdit',
+        'insertTextFormat',
+        'insertTextMode',
+      },
+    },
+    insertTextModeSupport = {
+      valueSet = {
+        1,
+        2,
+      },
+    },
+    labelDetailsSupport = true,
+  },
+  contextSupport = true,
+  insertTextMode = 1,
+  completionList = {
+    itemDefaults = {
+      'commitCharacters',
+      'editRange',
+      'insertTextFormat',
+      'insertTextMode',
+      'data',
+    },
+  },
+}
+
+-- }}}1
 
 -- {{{1 Mappings and autocmds
 autocmd("LspAttach", {
