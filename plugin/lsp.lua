@@ -99,7 +99,6 @@ autocmd("LspAttach", {
       lsp.codelens.run,
       { desc = "Run codelens in current line" }
     )
-    map("n", "<leader>lf", lsp.buf.format, { desc = "Format buffer" })
     map("n", "<leader>lw", function()
       print(vim.inspect(lsp.buf.list_workspace_folders()))
     end, { desc = "List workspace folders" })

@@ -8,12 +8,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       return
     end
 
-    vim.lsp.buf.format {
-      filter = function(client)
-        return client.name == "null-ls"
-      end,
-      bufnr = arg.buf,
-    }
+    require("conform").format { bufnr = arg.buf }
   end,
 })
 

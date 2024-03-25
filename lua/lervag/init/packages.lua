@@ -692,30 +692,30 @@ local M = {
   },
 
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPost",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>lf",
+        function()
+          require("conform").format {
+            async = true,
+            lsp_fallback = true
+          }
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
     },
     config = function()
-      local null_ls = require "null-ls"
-      null_ls.setup {
-        sources = {
-          -- https://github.com/JohnnyMorganz/StyLua
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.formatting.prettierd.with {
-            filetypes = {
-              "css",
-              "json",
-              "jsonc",
-              "javascript",
-              "typescript",
-              "javascript.glimmer",
-              "typescript.glimmer",
-              "handlebars",
-            },
-          },
+      require("conform").setup {
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "black" },
+          graphql = { { "prettierd", "prettier" } },
+          -- scala = { "scalafmt" },
+          javascript = { { "prettierd", "prettier" } },
         },
       }
     end,
