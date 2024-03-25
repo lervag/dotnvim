@@ -701,7 +701,7 @@ local M = {
         function()
           require("conform").format {
             async = true,
-            lsp_fallback = true
+            lsp_fallback = true,
           }
         end,
         mode = "",
@@ -713,9 +713,10 @@ local M = {
         formatters_by_ft = {
           lua = { "stylua" },
           python = { "black" },
-          graphql = { { "prettierd", "prettier" } },
+          markdown = { "prettierd" },
+          graphql = { "prettierd" },
+          javascript = { "prettierd" },
           -- scala = { "scalafmt" },
-          javascript = { { "prettierd", "prettier" } },
         },
       }
     end,
