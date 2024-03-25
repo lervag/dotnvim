@@ -45,15 +45,15 @@ capabilities.textDocument.completion = {
     insertReplaceSupport = true,
     resolveSupport = {
       properties = {
-        'documentation',
-        'detail',
-        'additionalTextEdits',
-        'sortText',
-        'filterText',
-        'insertText',
-        'textEdit',
-        'insertTextFormat',
-        'insertTextMode',
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+        "sortText",
+        "filterText",
+        "insertText",
+        "textEdit",
+        "insertTextFormat",
+        "insertTextMode",
       },
     },
     insertTextModeSupport = {
@@ -68,11 +68,11 @@ capabilities.textDocument.completion = {
   insertTextMode = 1,
   completionList = {
     itemDefaults = {
-      'commitCharacters',
-      'editRange',
-      'insertTextFormat',
-      'insertTextMode',
-      'data',
+      "commitCharacters",
+      "editRange",
+      "insertTextFormat",
+      "insertTextMode",
+      "data",
     },
   },
 }
@@ -296,6 +296,28 @@ autocmd("FileType", {
       init_options = {
         provideFormatter = true,
       },
+      capabilities = capabilities,
+    }
+  end,
+})
+
+-- }}}1
+-- {{{1 graphql
+
+-- https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-cli
+
+autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact", "graphql" },
+  group = lspgroup,
+  callback = function(args)
+    lsp.start {
+      name = "graphql-lsp",
+      cmd = { "graphql-lsp", "server", "-m", "stream" },
+      root_dir = find_root(
+        { ".graphqlrc.yml", ".git" },
+        args.file
+      ),
+      settings = {},
       capabilities = capabilities,
     }
   end,
