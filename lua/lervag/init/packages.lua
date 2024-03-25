@@ -1373,6 +1373,10 @@ local M = {
           main_filetype = "wiki",
           callback = "inline_edit#MarkdownFencedCode",
         },
+        {
+          main_filetype = "hurl",
+          callback = "inline_edit#MarkdownFencedCode",
+        },
       }
     end,
   },
