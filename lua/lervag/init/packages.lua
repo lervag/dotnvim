@@ -1507,6 +1507,25 @@ local M = {
   },
 
   {
+    "echasnovski/mini.diff",
+    lazy = false,
+    keys = {
+      {
+        "yod",
+        function()
+          require("mini.diff").toggle_overlay()
+        end,
+        desc = "Toggle diff overlay",
+      },
+    },
+    opts = {
+      view = {
+        signs = { add = "▕▏", change = "▕▏", delete = "▁▁" },
+      },
+    },
+  },
+
+  {
     "rbong/vim-flog",
     dependencies = { "tpope/vim-fugitive" },
     cmd = { "Flog" },

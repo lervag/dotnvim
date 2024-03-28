@@ -511,6 +511,14 @@ local theme = {
   MiniNotifyNormal = { fg = color04, bg = color07l },
   MiniNotifyTitle = { fg = color03, bg = color07l, bold = true },
 
+  MiniDiffSignAdd = { fg = color02l, bg = color07 },
+  MiniDiffSignChange = { fg = blue3, bg = color07 },
+  MiniDiffSignDelete = { fg = red, bg = color07 },
+  MiniDiffOverAdd = { bg = green2 },
+  MiniDiffOverChange = { fg = color02l, bold = true },
+  MiniDiffOverDelete = { bg = pink1 },
+  MiniDiffOverContext = { fg = color14, bg = color15, italic = true },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },
