@@ -326,6 +326,7 @@ local M = {
     },
     opts = {
       openai_api_key = { "pass", "openai-api-key" },
+      toggle_target = "split",
     },
   },
 

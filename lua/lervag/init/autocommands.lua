@@ -1,6 +1,6 @@
 local group = vim.api.nvim_create_augroup("init", {})
 
-vim.api.nvim_create_autocmd({ "VimEnter", "BufReadPost" }, {
+vim.api.nvim_create_autocmd({ "VimEnter", "FileType" }, {
   desc = "Go to last known position on buffer open",
   group = group,
   callback = function()
@@ -18,6 +18,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "BufReadPost" }, {
     vim.cmd [[normal! zvzz]]
   end,
 })
+
 vim.api.nvim_create_autocmd("CmdWinEnter", {
   desc = "Set CmdLineWin mappings/options",
   group = group,
@@ -26,6 +27,7 @@ vim.api.nvim_create_autocmd("CmdWinEnter", {
     vim.keymap.set("n", "<c-f>", "<c-c>", { buffer = true })
   end,
 })
+
 vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
   desc = "Toggle cursorline on enter",
   group = group,
@@ -35,6 +37,7 @@ vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
     end
   end,
 })
+
 vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
   desc = "Toggle cursorline on leave",
   group = group,
@@ -42,6 +45,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
     vim.wo.cursorline = false
   end,
 })
+
 vim.api.nvim_create_autocmd("FileType", {
   desc = "Ensure &foldtext is kept empty regardless of filetype",
   group = group,
