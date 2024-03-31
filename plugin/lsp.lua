@@ -195,31 +195,43 @@ autocmd("LspAttach", {
 
 -- }}}1
 
+---Setup FileType autocommand for an LSP server
+---@param filetypes string | string[] FileType patterns
+---@param option_cb function
+local function create_autocommand(filetypes, option_cb)
+  autocmd("FileType", {
+    pattern = filetypes,
+    group = lspgroup,
+    callback = function(args)
+      if args.file:sub(1, 12) == "fugitive:///" then
+        return
+      end
+      lsp.start(option_cb(args))
+    end,
+  })
+end
+
 -- {{{1 bashls
 
 -- https://github.com/mads-hartmann/bash-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/bashls.lua
 
-autocmd("FileType", {
-  pattern = "sh",
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "bashls",
-      cmd = { "bash-language-server", "start" },
-      root_dir = find_root({ ".git" }, args.file),
-      single_file_support = true,
-      settings = {
-        bashIde = {
-          -- Prevent recursive scanning which will cause issues when opening a file
-          -- directly in the home directory (e.g. ~/foo.sh).
-          globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
-        },
+create_autocommand("sh", function(args)
+  return {
+    name = "bashls",
+    cmd = { "bash-language-server", "start" },
+    root_dir = find_root({ ".git" }, args.file),
+    single_file_support = true,
+    settings = {
+      bashIde = {
+        -- Prevent recursive scanning which will cause issues when opening a file
+        -- directly in the home directory (e.g. ~/foo.sh).
+        globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
       },
-      capabilities = capabilities,
-    }
-  end,
-})
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 cssls
@@ -227,24 +239,20 @@ autocmd("FileType", {
 -- https://github.com/hrsh7th/vscode-langservers-extracted
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/cssls.lua
 
-autocmd("FileType", {
-  pattern = { "css", "scss", "less" },
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "cssls",
-      cmd = { "vscode-css-language-server", "--stdio" },
-      root_dir = find_root({ "package.json", ".git" }, args.file),
-      single_file_support = true,
-      settings = {
-        css = { validate = true },
-        scss = { validate = true },
-        less = { validate = true },
-      },
-      capabilities = capabilities,
-    }
-  end,
-})
+create_autocommand({ "css", "scss", "less" }, function(args)
+  return {
+    name = "cssls",
+    cmd = { "vscode-css-language-server", "--stdio" },
+    root_dir = find_root({ "package.json", ".git" }, args.file),
+    single_file_support = true,
+    settings = {
+      css = { validate = true },
+      scss = { validate = true },
+      less = { validate = true },
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 html
@@ -252,25 +260,21 @@ autocmd("FileType", {
 -- https://github.com/hrsh7th/vscode-langservers-extracted
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/html.lua
 
-autocmd("FileType", {
-  pattern = "html",
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "html-ls",
-      cmd = { "vscode-html-language-server", "--stdio" },
-      root_dir = find_root({ "package.json", ".git" }, args.file),
-      single_file_support = true,
-      settings = {},
-      init_options = {
-        provideFormatter = true,
-        embeddedLanguages = { css = true, javascript = true },
-        configurationSection = { "html", "css", "javascript" },
-      },
-      capabilities = capabilities,
-    }
-  end,
-})
+create_autocommand("html", function(args)
+  return {
+    name = "html-ls",
+    cmd = { "vscode-html-language-server", "--stdio" },
+    root_dir = find_root({ "package.json", ".git" }, args.file),
+    single_file_support = true,
+    settings = {},
+    init_options = {
+      provideFormatter = true,
+      embeddedLanguages = { css = true, javascript = true },
+      configurationSection = { "html", "css", "javascript" },
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 jdtls
@@ -283,45 +287,37 @@ autocmd("FileType", {
 -- https://github.com/hrsh7th/vscode-langservers-extracted
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jsonls.lua
 
-autocmd("FileType", {
-  pattern = { "json", "jsonc" },
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "jsonls",
-      cmd = { "vscode-json-language-server", "--stdio" },
-      root_dir = find_root({ ".git" }, args.file),
-      single_file_support = true,
-      settings = {},
-      init_options = {
-        provideFormatter = true,
-      },
-      capabilities = capabilities,
-    }
-  end,
-})
+create_autocommand({ "json", "jsonc" }, function(args)
+  return {
+    name = "jsonls",
+    cmd = { "vscode-json-language-server", "--stdio" },
+    root_dir = find_root({ ".git" }, args.file),
+    single_file_support = true,
+    settings = {},
+    init_options = {
+      provideFormatter = true,
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 graphql
 
 -- https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-cli
 
-autocmd("FileType", {
-  pattern = { "typescript", "typescriptreact", "graphql" },
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
+create_autocommand(
+  { "typescript", "typescriptreact", "graphql" },
+  function(args)
+    return {
       name = "graphql-lsp",
       cmd = { "graphql-lsp", "server", "-m", "stream" },
-      root_dir = find_root(
-        { ".graphqlrc.yml", ".git" },
-        args.file
-      ),
+      root_dir = find_root({ ".graphqlrc.yml", ".git" }, args.file),
       settings = {},
       capabilities = capabilities,
     }
-  end,
-})
+  end
+)
 
 -- }}}1
 -- {{{1 Kotlin Language Server
@@ -329,31 +325,27 @@ autocmd("FileType", {
 -- https://github.com/fwcd/kotlin-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/kotlin_language_server.lua
 
-autocmd("FileType", {
-  pattern = "kotlin",
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "kotlin-ls",
-      cmd = { "kotlin-language-server" },
-      root_dir = find_root({
-        "settings.gradle",
-        "settings.gradle.kts",
-        "build.xml",
-        "pom.xml",
-        ".git",
-      }, args.file),
-      single_file_support = true,
-      settings = {},
-      init_options = {
-        provideFormatter = true,
-        embeddedLanguages = { css = true, javascript = true },
-        configurationSection = { "html", "css", "javascript" },
-      },
-      capabilities = capabilities,
-    }
-  end,
-})
+create_autocommand("kotlin", function(args)
+  return {
+    name = "kotlin-ls",
+    cmd = { "kotlin-language-server" },
+    root_dir = find_root({
+      "settings.gradle",
+      "settings.gradle.kts",
+      "build.xml",
+      "pom.xml",
+      ".git",
+    }, args.file),
+    single_file_support = true,
+    settings = {},
+    init_options = {
+      provideFormatter = true,
+      embeddedLanguages = { css = true, javascript = true },
+      configurationSection = { "html", "css", "javascript" },
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 ltex (DISABLED)
@@ -431,68 +423,61 @@ autocmd("FileType", {
 -- https://github.com/LuaLS/lua-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
 
-autocmd("FileType", {
-  pattern = "lua",
-  group = lspgroup,
-  callback = function(args)
-    if args.file:sub(1, 12) == "fugitive:///" then
-      return
-    end
-    lsp.start {
-      name = "lua-language-server",
-      cmd = { "lua-language-server" },
-      single_file_support = true,
-      log_level = vim.lsp.protocol.MessageType.Warning,
-      capabilities = capabilities,
-      root_dir = find_root({
-        ".luarc.json",
-        ".stylua.toml",
-        "stylua.toml",
-      }, args.file),
-      settings = {
-        Lua = {
-          hint = {
-            enable = true,
-            paramName = "Literal",
-            setType = true,
-          },
+create_autocommand("lua", function(args)
+  return {
+    name = "lua-language-server",
+    cmd = { "lua-language-server" },
+    single_file_support = true,
+    log_level = vim.lsp.protocol.MessageType.Warning,
+    capabilities = capabilities,
+    root_dir = find_root({
+      ".luarc.json",
+      ".stylua.toml",
+      "stylua.toml",
+    }, args.file),
+    settings = {
+      Lua = {
+        hint = {
+          enable = true,
+          paramName = "Literal",
+          setType = true,
         },
       },
-      on_init = function(client)
-        local path = ""
-        if client.workspace_folders then
-          path = client.workspace_folders[1].name
-        end
+    },
+    on_init = function(client)
+      local path = ""
+      if client.workspace_folders then
+        path = client.workspace_folders[1].name
+      end
 
-        if
-          not vim.uv.fs_stat(path .. "/.luarc.json")
-          and not vim.uv.fs_stat(path .. "/.luarc.jsonc")
-        then
-          client.config.settings =
-            vim.tbl_deep_extend("force", client.config.settings, {
-              Lua = {
-                runtime = {
-                  version = "LuaJIT",
-                },
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME,
-                    "${3rd}/busted/library",
-                    "${3rd}/luv/library",
-                  },
+      if
+        not vim.uv.fs_stat(path .. "/.luarc.json")
+        and not vim.uv.fs_stat(path .. "/.luarc.jsonc")
+      then
+        client.config.settings =
+          vim.tbl_deep_extend("force", client.config.settings, {
+            Lua = {
+              runtime = {
+                version = "LuaJIT",
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  "${3rd}/busted/library",
+                  "${3rd}/luv/library",
                 },
               },
-            })
-          client.notify(
-            "workspace/didChangeConfiguration",
-            { settings = client.config.settings }
-          )
-        end
-      end,
-    }
-  end,
-})
+            },
+          })
+        client.notify(
+          "workspace/didChangeConfiguration",
+          { settings = client.config.settings }
+        )
+      end
+    end,
+  }
+end)
 
 -- }}}1
 -- {{{1 Metals
@@ -500,7 +485,11 @@ autocmd("FileType", {
 autocmd("FileType", {
   pattern = { "scala", "sbt" },
   group = lspgroup,
-  callback = function()
+  callback = function(args)
+    if args.file:sub(1, 12) == "fugitive:///" then
+      return
+    end
+
     local metals = require "metals"
 
     local metals_config = metals.bare_config()
@@ -592,31 +581,27 @@ autocmd("FileType", {
 -- https://github.com/microsoft/pyright
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/pyright.lua
 
-autocmd("FileType", {
-  pattern = "python",
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "pyright",
-      cmd = { "pyright-langserver", "--stdio" },
-      root_dir = find_root({
-        "pyproject.toml",
-        "setup.py",
-        "setup.cfg",
-      }, args.file),
-      settings = {
-        python = {
-          analysis = {
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = true,
-            diagnosticMode = "openFilesOnly",
-          },
+create_autocommand("python", function(args)
+  return {
+    name = "pyright",
+    cmd = { "pyright-langserver", "--stdio" },
+    root_dir = find_root({
+      "pyproject.toml",
+      "setup.py",
+      "setup.cfg",
+    }, args.file),
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+          diagnosticMode = "openFilesOnly",
         },
       },
-      capabilities = capabilities,
-    }
-  end,
-})
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 rust_analyzer
@@ -624,25 +609,21 @@ autocmd("FileType", {
 -- https://github.com/rust-analyzer/rust-analyzer
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/rust_analyzer.lua
 
-autocmd("FileType", {
-  pattern = "rust",
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "rust-analyzer",
-      cmd = { "rust-analyzer" },
-      root_dir = find_root({ "Cargo.toml" }, args.file),
-      single_file_support = true,
-      settings = {
-        ["rust-analyzer"] = {
-          cargo = { allFeatures = true },
-          checkOnSave = { allFeatures = true, command = "clippy" },
-        },
+create_autocommand("rust", function(args)
+  return {
+    name = "rust-analyzer",
+    cmd = { "rust-analyzer" },
+    root_dir = find_root({ "Cargo.toml" }, args.file),
+    single_file_support = true,
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = { allFeatures = true },
+        checkOnSave = { allFeatures = true, command = "clippy" },
       },
-      capabilities = capabilities,
-    }
-  end,
-})
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 texlab (DISABLED)
@@ -736,31 +717,27 @@ autocmd("FileType", {
 -- https://github.com/typescript-language-server/typescript-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/tsserver.lua
 
-autocmd("FileType", {
-  pattern = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-  },
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "tsserver",
-      cmd = { "typescript-language-server", "--stdio" },
-      root_dir = find_root(
-        { "tsconfig.json", "package.json", ".git" },
-        args.file
-      ),
-      single_file_support = true,
-      settings = {},
-      init_options = { hostInfo = "neovim" },
-      capabilities = capabilities,
-    }
-  end,
-})
+create_autocommand({
+  "javascript",
+  "javascriptreact",
+  "javascript.jsx",
+  "typescript",
+  "typescriptreact",
+  "typescript.tsx",
+}, function(args)
+  return {
+    name = "tsserver",
+    cmd = { "typescript-language-server", "--stdio" },
+    root_dir = find_root(
+      { "tsconfig.json", "package.json", ".git" },
+      args.file
+    ),
+    single_file_support = true,
+    settings = {},
+    init_options = { hostInfo = "neovim" },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 vimls
@@ -768,39 +745,35 @@ autocmd("FileType", {
 -- https://github.com/iamcco/vim-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/vimls.lua
 
-autocmd("FileType", {
-  pattern = "vim",
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "vimls",
-      cmd = { "vim-language-server", "--stdio" },
-      root_dir = find_root({ ".git" }, args.file),
-      single_file_support = true,
-      init_options = {
-        isNeovim = true,
-        iskeyword = "@,48-57,_,192-255,-#",
-        vimruntime = "",
-        runtimepath = "",
-        diagnostic = { enable = true },
-        indexes = {
-          runtimepath = true,
-          gap = 100,
-          count = 3,
-          projectRootPatterns = {
-            "runtime",
-            "nvim",
-            ".git",
-            "autoload",
-            "plugin",
-          },
+create_autocommand("vim", function(args)
+  return {
+    name = "vimls",
+    cmd = { "vim-language-server", "--stdio" },
+    root_dir = find_root({ ".git" }, args.file),
+    single_file_support = true,
+    init_options = {
+      isNeovim = true,
+      iskeyword = "@,48-57,_,192-255,-#",
+      vimruntime = "",
+      runtimepath = "",
+      diagnostic = { enable = true },
+      indexes = {
+        runtimepath = true,
+        gap = 100,
+        count = 3,
+        projectRootPatterns = {
+          "runtime",
+          "nvim",
+          ".git",
+          "autoload",
+          "plugin",
         },
-        suggest = { fromVimruntime = true, fromRuntimepath = true },
       },
-      capabilities = capabilities,
-    }
-  end,
-})
+      suggest = { fromVimruntime = true, fromRuntimepath = true },
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 -- {{{1 yamlls
@@ -812,36 +785,32 @@ autocmd("FileType", {
 -- * https://github.com/someone-stole-my-name/yaml-companion.nvim
 -- * https://www.reddit.com/r/neovim/comments/ur6u3g/yamlcompanionnvim_get_set_and_autodetect_yaml/
 
-autocmd("FileType", {
-  pattern = { "yaml", "yaml.docker-compose" },
-  group = lspgroup,
-  callback = function(args)
-    lsp.start {
-      name = "yamlls",
-      cmd = { "yaml-language-server", "--stdio" },
-      root_dir = find_root({ ".git" }, args.file),
-      single_file_support = true,
-      settings = {
-        redhat = { telemetry = { enabled = false } },
-        yaml = {
-          validate = true,
-          format = { enable = true },
-          hover = true,
-          schemaStore = {
-            enable = true,
-            url = "https://www.schemastore.org/api/json/catalog.json",
-          },
-          schemaDownload = { enable = true },
-          schemas = {
-            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-          },
-          trace = { server = "debug" },
+create_autocommand({ "yaml", "yaml.docker-compose" }, function(args)
+  return {
+    name = "yamlls",
+    cmd = { "yaml-language-server", "--stdio" },
+    root_dir = find_root({ ".git" }, args.file),
+    single_file_support = true,
+    settings = {
+      redhat = { telemetry = { enabled = false } },
+      yaml = {
+        validate = true,
+        format = { enable = true },
+        hover = true,
+        schemaStore = {
+          enable = true,
+          url = "https://www.schemastore.org/api/json/catalog.json",
         },
+        schemaDownload = { enable = true },
+        schemas = {
+          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+        },
+        trace = { server = "debug" },
       },
-      capabilities = capabilities,
-    }
-  end,
-})
+    },
+    capabilities = capabilities,
+  }
+end)
 
 -- }}}1
 
