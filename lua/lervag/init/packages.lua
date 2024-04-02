@@ -160,6 +160,78 @@ local M = {
   -- {{{1 UI
 
   {
+    "folke/trouble.nvim",
+    -- enabled = false,
+    branch = "dev",
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics_local_or_error toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xq",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>ls",
+        "<cmd>Trouble symbols toggle<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>ll",
+        "<cmd>Trouble lsp toggle<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+    },
+    opts = {
+      auto_preview = false,
+      preview = {
+        type = "main",
+        wo = {
+          foldenable = false,
+        },
+      },
+      modes = {
+        diagnostics_local_or_error = {
+          mode = "diagnostics",
+          filter = {
+            any = {
+              buf = 0,
+              {
+                severity = vim.diagnostic.severity.ERROR,
+                function(item)
+                  return item.filename:find(vim.loop.cwd(), 1, true)
+                end,
+              },
+            },
+          },
+        },
+        symbols = {
+          focus = true,
+          win = {
+            size = 70,
+          },
+        },
+        lsp = {
+          focus = true,
+          win = {
+            position = "right",
+            size = 70,
+          },
+        },
+      },
+    },
+  },
+
+  {
     "andymass/vim-matchup",
     event = "BufReadPost",
     config = function()
