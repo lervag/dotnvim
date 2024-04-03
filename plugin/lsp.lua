@@ -513,7 +513,7 @@ autocmd("FileType", {
         "akka.actor.typed.javadsl",
         "com.github.swagger.akka.javadsl",
       },
-      -- enableSemanticHighlighting = false,
+      enableSemanticHighlighting = false,
     }
 
     metals_config.on_attach = function(_, bufnr)

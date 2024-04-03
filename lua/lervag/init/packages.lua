@@ -774,7 +774,7 @@ local M = {
         function()
           require("conform").format {
             async = true,
-            lsp_fallback = true,
+            lsp_fallback = "always",
           }
         end,
         mode = "",
@@ -789,7 +789,8 @@ local M = {
           markdown = { "prettierd" },
           graphql = { "prettierd" },
           javascript = { "prettierd" },
-          -- scala = { "scalafmt" },
+          sql = { "pg_format" },
+          -- scala = { "injected" },
         },
       }
     end,
