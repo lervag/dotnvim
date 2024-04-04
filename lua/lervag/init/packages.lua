@@ -1368,39 +1368,51 @@ local M = {
   },
 
   {
-    "ggandor/leap.nvim",
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
     keys = {
-      { "s", "<plug>(leap-forward)", desc = "leap.nvim" },
-      { "S", "<plug>(leap-backward)", desc = "leap.nvim" },
-      { "z", "<plug>(leap-forward)", mode = { "x", "o" }, desc = "leap.nvim" },
-      { "Z", "<plug>(leap-backward)", mode = { "x", "o" }, desc = "leap.nvim" },
-    },
-    config = function()
-      local opts = require("leap").opts
-      opts.case_sensitive = true
-      opts.labels = {
+      {
         "s",
-        "f",
-        "n",
-        "j",
-        "k",
-        "l",
-        "o",
-        "d",
-        "w",
-        "e",
-        "h",
-        "m",
-        "v",
-        "g",
-        "u",
-        "t",
-        "c",
-        ".",
+        mode = "n",
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
         "z",
-      }
-      opts.safe_labels = {}
-    end,
+        mode = { "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Flash Treesitter search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Flash Toggle search",
+      },
+    },
   },
 
   {
