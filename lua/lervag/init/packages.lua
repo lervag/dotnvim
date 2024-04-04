@@ -161,24 +161,13 @@ local M = {
 
   {
     "folke/trouble.nvim",
-    -- enabled = false,
     branch = "dev",
     cmd = "Trouble",
     keys = {
       {
-        "<leader>xx",
+        "<leader>qq",
         "<cmd>Trouble diagnostics_local_or_error toggle<cr>",
         desc = "Diagnostics (Trouble)",
-      },
-      {
-        "<leader>xq",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
-      },
-      {
-        "<leader>xQ",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
       },
       {
         "<leader>ls",
@@ -211,6 +200,12 @@ local M = {
                   return item.filename:find(vim.loop.cwd(), 1, true)
                 end,
               },
+            },
+          },
+          win = {
+            size = 0.4,
+            wo = {
+              winhighlight = "",
             },
           },
         },

@@ -31,17 +31,17 @@ local diagnostics_active = true
 local function toggle_diagnostics()
   diagnostics_active = not diagnostics_active
   if diagnostics_active then
-    vim.diagnostic.enable(0)
+    vim.diagnostic.enable()
     vim.diagnostic.show()
     vim.notify("Diagnostics enabled.", vim.log.levels.INFO)
   else
     vim.diagnostic.hide()
-    vim.diagnostic.disable(0)
+    vim.diagnostic.disable()
     vim.notify("Diagnostics disabled!", vim.log.levels.INFO)
   end
 end
 
-vim.keymap.set("n", "<leader>qq", toggle_diagnostics)
+vim.keymap.set("n", "<leader>qQ", toggle_diagnostics)
 vim.keymap.set("n", "<leader>qp", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>qn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)

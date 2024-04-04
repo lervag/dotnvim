@@ -519,6 +519,9 @@ local theme = {
   MiniDiffOverDelete = { bg = pink1 },
   MiniDiffOverContext = { fg = color14, bg = color15, italic = true },
 
+  TroubleIndent = { fg = "fg" },
+  TroubleLspPos = { fg = color14, italic = true },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },
