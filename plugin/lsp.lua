@@ -206,7 +206,10 @@ local function create_autocommand(filetypes, option_cb)
       if args.file:sub(1, 12) == "fugitive:///" then
         return
       end
-      lsp.start(option_cb(args))
+      local options = option_cb(args)
+      if not vim.tbl_isempty(options) then
+        lsp.start(options)
+      end
     end,
   })
 end
@@ -296,6 +299,34 @@ create_autocommand({ "json", "jsonc" }, function(args)
     settings = {},
     init_options = {
       provideFormatter = true,
+    },
+    capabilities = capabilities,
+  }
+end)
+
+-- }}}1
+-- {{{1 GitLab CICD LS
+
+-- https://github.com/alesbrelih/gitlab-ci-ls
+-- To install locally:
+--   cargo install gitlab-ci-ls
+--   Add to path: ~/.cargo/bin
+
+create_autocommand("yaml", function(args)
+  if not args.file:match "gitlab%-ci" then
+    return {}
+  else
+    return {}
+  end
+
+  local cache_dir = "/home/lervag/.cache/gitlab-ci-ls/"
+  return {
+    name = "gitlab-ci-ls",
+    cmd = { "gitlab-ci-ls" },
+    root_dir = find_root({ ".gitlab*", ".git" }, args.file),
+    init_options = {
+      cache_path = cache_dir,
+      log_path = cache_dir .. "/log/gitlab-ci-ls.log",
     },
     capabilities = capabilities,
   }
@@ -449,7 +480,10 @@ create_autocommand("lua", function(args)
       if client.workspace_folders then
         path = client.workspace_folders[1].name
       end
-      if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+      if
+        vim.uv.fs_stat(path .. "/.luarc.json")
+        or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+      then
         return
       end
 
