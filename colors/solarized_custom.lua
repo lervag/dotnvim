@@ -522,7 +522,8 @@ local theme = {
   TroubleIndent = { fg = "fg" },
   TroubleLspPos = { fg = color14, italic = true },
 
-  FlashLabel = { fg = blue1, underline = true, italic = true, bold = true },
+  FlashLabel = { fg = blue1, underline = true, bold = true },
+  FlashPromptIcon = { fg = yellow, bold = true },
 
   -- {{{1 Filetype Vimscript
 

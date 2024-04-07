@@ -1272,8 +1272,8 @@ local M = {
 
   {
     "echasnovski/mini.comment",
-    keys = { { "gc", mode = { "n", "v", "o" }, desc = "mini.comment" }, },
-    opts = true
+    keys = { { "gc", mode = { "n", "v", "o" }, desc = "mini.comment" } },
+    opts = true,
   },
 
   {
@@ -1370,7 +1370,6 @@ local M = {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    opts = {},
     keys = {
       {
         "s",
@@ -1411,6 +1410,16 @@ local M = {
           require("flash").toggle()
         end,
         desc = "Flash Toggle search",
+      },
+    },
+    opts = {
+      modes = {
+        search = {
+          labels = "12345890",
+        },
+        char = {
+          autohide = true,
+        },
       },
     },
   },
