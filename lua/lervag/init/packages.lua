@@ -1271,11 +1271,11 @@ local M = {
   -- {{{1 Editing
 
   {
-    "tpope/vim-commentary",
-    keys = {
-      { "gc", mode = { "n", "v", "o" }, desc = "vim-commentary" },
-    },
+    "echasnovski/mini.comment",
+    keys = { { "gc", mode = { "n", "v", "o" }, desc = "mini.comment" }, },
+    opts = true
   },
+
   {
     "tpope/vim-repeat",
   },
