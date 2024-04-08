@@ -4,7 +4,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local const = require "lervag.const"
 
 lsp.handlers["textDocument/hover"] =
-  lsp.with(lsp.handlers.hover, { border = const.border, title = " hover " })
+    lsp.with(lsp.handlers.hover, { border = const.border, title = " hover " })
 lsp.handlers["textDocument/signatureHelp"] = lsp.with(
   lsp.handlers.signature_help,
   { border = const.border, title = "signature" }
@@ -481,26 +481,26 @@ create_autocommand("lua", function(args)
         path = client.workspace_folders[1].name
       end
       if
-        vim.uv.fs_stat(path .. "/.luarc.json")
-        or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+          vim.uv.fs_stat(path .. "/.luarc.json")
+          or vim.uv.fs_stat(path .. "/.luarc.jsonc")
       then
         return
       end
 
       client.config.settings.Lua =
-        vim.tbl_deep_extend("force", client.config.settings.Lua, {
-          runtime = {
-            version = "LuaJIT",
-          },
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-              "${3rd}/busted/library",
-              "${3rd}/luv/library",
+          vim.tbl_deep_extend("force", client.config.settings.Lua, {
+            runtime = {
+              version = "LuaJIT",
             },
-          },
-        })
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                "${3rd}/busted/library",
+                "${3rd}/luv/library",
+              },
+            },
+          })
     end,
   }
 end)
@@ -517,6 +517,7 @@ autocmd("FileType", {
     end
 
     local metals = require "metals"
+    local tvp = require "metals.tvp"
 
     local metals_config = metals.bare_config()
     metals_config.tvp = {
@@ -553,10 +554,18 @@ autocmd("FileType", {
     metals_config.on_attach = function(_, bufnr)
       metals.setup_dap()
 
+      vim.notify("Metals started for buffer " .. bufnr)
+
+      vim.keymap.set(
+        "n",
+        "<leader>lo",
+        ":MetalsOrganizeImports<cr>",
+        { buffer = bufnr, desc = "Metals: Organize imports" }
+      )
       vim.keymap.set(
         "v",
         "K",
-        require("metals").type_of_range,
+        metals.type_of_range,
         { buffer = bufnr, desc = "Metals: Type of range" }
       )
       vim.keymap.set(
@@ -574,18 +583,15 @@ autocmd("FileType", {
       vim.keymap.set(
         "n",
         "<leader>mt",
-        require("metals.tvp").toggle_tree_view,
+        tvp.toggle_tree_view,
         { buffer = bufnr, desc = "Metals: Toggle tree view" }
       )
       vim.keymap.set(
         "n",
         "<leader>mr",
-        require("metals.tvp").reveal_in_tree,
+        tvp.reveal_in_tree,
         { buffer = bufnr, desc = "Metals: Reveal in tree" }
       )
-      vim.keymap.set("n", "<leader>msi", function()
-        metals.toggle_setting "showImplicitArguments"
-      end, { buffer = bufnr, desc = "Metals: Show implicit args" })
       vim.keymap.set(
         "n",
         "<leader>mss",
