@@ -43,7 +43,7 @@ for _, lhs in ipairs {
 } do
   if vim.fn.maparg(lhs, "n") == "" then
     vim.keymap.set("n", lhs, function()
-      vim.cmd("normal! " .. lhs)
+      vim.cmd("silent! normal! " .. lhs)
       add_fold_signs()
     end, { unique = true })
   end

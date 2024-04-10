@@ -633,6 +633,7 @@ local M = {
           { name = "ultisnips" },
           { name = "omni", trigger_characters = { "[" } },
           { name = "path", option = { trailing_slash = true } },
+          { name = "emoji" },
           { name = "calc" },
         },
       })
@@ -649,6 +650,8 @@ local M = {
       cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
         sources = {
           { name = "ultisnips" },
+          { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
           { name = "vim-dadbod-completion" },
           { name = "path", option = { trailing_slash = true } },
           { name = "calc" },
@@ -760,6 +763,11 @@ local M = {
   },
 
   {
+    "nanotee/sqls.nvim",
+    lazy = true,
+  },
+
+  {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
@@ -785,6 +793,7 @@ local M = {
           graphql = { "prettierd" },
           javascript = { "prettierd" },
           sql = { "pg_format" },
+          -- sql = { "sqlfmt" },
           -- scala = { "injected" },
         },
       }
@@ -1838,7 +1847,10 @@ local M = {
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
+      {
+        "tpope/vim-dadbod",
+        lazy = true,
+      },
       {
         "kristijanhusak/vim-dadbod-completion",
         ft = { "sql", "mysql", "plsql" },

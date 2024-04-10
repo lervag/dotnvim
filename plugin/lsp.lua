@@ -658,6 +658,25 @@ create_autocommand("rust", function(args)
 end)
 
 -- }}}1
+-- {{{1 sqls
+
+---Wiki: sqls
+
+create_autocommand({ "sql", "mysql" }, function(args)
+  return {
+    name = "sqls",
+    cmd = { "sqls" },
+    root_dir = find_root({ ".git" }, args.file),
+    single_file_support = true,
+    settings = {},
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      require('sqls').on_attach(client, bufnr)
+    end,
+  }
+end)
+
+-- }}}1
 -- {{{1 texlab (DISABLED)
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/texlab.lua
