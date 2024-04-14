@@ -788,8 +788,6 @@ local M = {
           graphql = { "prettierd" },
           javascript = { "prettierd" },
           sql = { "pg_format" },
-          -- sql = { "sqlfmt" },
-          -- scala = { "injected" },
         },
       }
     end,
@@ -1472,6 +1470,13 @@ local M = {
           main_filetype = "hurl",
           callback = "inline_edit#MarkdownFencedCode",
         },
+        {
+          main_filetype = "scala",
+          sub_filetype = "sql",
+          indent_adjustment = 1,
+          start = [[\(sql\|SQL\)"""]],
+          ["end"] = [["""]],
+        },
       }
     end,
   },
@@ -1863,6 +1868,9 @@ local M = {
 
   {
     "kndndrj/nvim-dbee",
+    cmd = {
+      "Dbee",
+    },
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
