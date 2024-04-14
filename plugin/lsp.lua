@@ -4,7 +4,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local const = require "lervag.const"
 
 lsp.handlers["textDocument/hover"] =
-    lsp.with(lsp.handlers.hover, { border = const.border, title = " hover " })
+  lsp.with(lsp.handlers.hover, { border = const.border, title = " hover " })
 lsp.handlers["textDocument/signatureHelp"] = lsp.with(
   lsp.handlers.signature_help,
   { border = const.border, title = "signature" }
@@ -482,26 +482,26 @@ create_autocommand("lua", function(args)
         path = client.workspace_folders[1].name
       end
       if
-          vim.uv.fs_stat(path .. "/.luarc.json")
-          or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+        vim.uv.fs_stat(path .. "/.luarc.json")
+        or vim.uv.fs_stat(path .. "/.luarc.jsonc")
       then
         return
       end
 
       client.config.settings.Lua =
-          vim.tbl_deep_extend("force", client.config.settings.Lua, {
-            runtime = {
-              version = "LuaJIT",
+        vim.tbl_deep_extend("force", client.config.settings.Lua, {
+          runtime = {
+            version = "LuaJIT",
+          },
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME,
+              "${3rd}/busted/library",
+              "${3rd}/luv/library",
             },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                "${3rd}/busted/library",
-                "${3rd}/luv/library",
-              },
-            },
-          })
+          },
+        })
     end,
   }
 end)
