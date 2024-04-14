@@ -101,6 +101,7 @@ autocmd("LspAttach", {
     end
 
     map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
+    map("n", "<leader>lF", lsp.buf.format, { desc = "Format buffer" })
     map("n", "<leader>lD", function()
       local params = lsp.util.make_position_params()
       return lsp.buf_request(

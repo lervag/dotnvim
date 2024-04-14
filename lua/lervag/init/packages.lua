@@ -772,7 +772,7 @@ local M = {
         function()
           require("conform").format {
             async = true,
-            lsp_fallback = "always",
+            lsp_fallback = true,
           }
         end,
         mode = "",
