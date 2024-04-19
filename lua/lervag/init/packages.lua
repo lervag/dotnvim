@@ -764,8 +764,7 @@ local M = {
 
   {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
+    event = "BufReadPost",
     keys = {
       {
         "<leader>lf",
@@ -790,6 +789,26 @@ local M = {
           sql = { "pg_format" },
         },
       }
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = "BufReadPost",
+    config = function()
+      local lint = require("lint")
+      lint.linters_by_ft = {
+        typescript = { 'eslint_d' },
+        javascript = { 'eslint_d' },
+        javascriptreact = { 'eslint_d' },
+        graphql = { 'eslint_d' },
+      }
+
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        callback = function()
+          lint.try_lint()
+        end,
+      })
     end,
   },
 
