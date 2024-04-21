@@ -91,7 +91,9 @@ autocmd("LspAttach", {
         autocmd({ "CursorHold", "InsertLeave" }, {
           desc = "Refresh codelenses",
           buffer = args.buf,
-          callback = vim.lsp.codelens.refresh,
+          callback = function()
+            vim.lsp.codelens.refresh({bufnr = 0})
+          end
         })
       end
 
@@ -745,10 +747,9 @@ end)
 -- })
 
 -- }}}1
--- {{{1 tsserver
+-- {{{1 typescript-language-server
 
--- https://github.com/typescript-language-server/typescript-language-server
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/tsserver.lua
+-- wiki: typescript-language-server
 
 create_autocommand({
   "javascript",
@@ -759,7 +760,7 @@ create_autocommand({
   "typescript.tsx",
 }, function(args)
   return {
-    name = "tsserver",
+    name = "typescript-language-server",
     cmd = { "typescript-language-server", "--stdio" },
     root_dir = find_root(
       { "tsconfig.json", "package.json", ".git" },
