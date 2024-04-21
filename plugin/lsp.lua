@@ -546,6 +546,7 @@ autocmd("FileType", {
       showImplicitArguments = true,
       showImplicitConversionsAndClasses = true,
       showInferredType = true,
+      defaultBspToBuildTool = true,
       decorationColor = "DiagnosticVirtualTextHint",
       excludedPackages = {
         "akka.actor.typed.javadsl",
