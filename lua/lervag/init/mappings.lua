@@ -100,3 +100,42 @@ end, { expr = true })
 vim.keymap.set("x", "#", function()
   return vim.fn["personal#search#wrap_visual"] "?"
 end, { expr = true })
+
+-- Execute lines as vimscript of lua
+local function execute(callback)
+  local ft = vim.b.__xx_ft or vim.bo.filetype
+  if ft ~= "vim" and ft ~= "lua" then
+    vim.ui.select({ "vim", "lua" }, {
+      prompt = "Select language:",
+    }, callback)
+  else
+    callback(ft)
+  end
+end
+
+vim.keymap.set("x", "<leader>xx", function()
+  local callback = function(filetype)
+    vim.b.__xx_ft = filetype
+    if filetype == "vim" then
+      vim.cmd [[:'<,'>yank v]]
+      vim.cmd [[:@v]]
+    elseif filetype == "lua" then
+      vim.cmd [[:'<,'>lua]]
+    end
+  end
+
+  execute(callback)
+end)
+vim.keymap.set("n", "<leader>xx", function()
+  local callback = function(filetype)
+    vim.b.__xx_ft = filetype
+    if filetype == "vim" then
+      vim.cmd [[:.yank v]]
+      vim.cmd [[:@v]]
+    elseif filetype == "lua" then
+      vim.cmd [[:.lua]]
+    end
+  end
+
+  execute(callback)
+end)
