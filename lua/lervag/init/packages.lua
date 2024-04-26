@@ -92,6 +92,14 @@ local M = {
         file = {
           handler = vim.fn["personal#wiki#file_handler"],
         },
+        hn = {
+          resolver = function(url)
+            return {
+              scheme = "https",
+              url = "https://news.ycombinator.com/item?id=" .. url.stripped,
+            }
+          end,
+        },
       }
 
       vim.g.wiki_template_month_names = {
