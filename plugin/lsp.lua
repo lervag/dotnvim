@@ -208,10 +208,7 @@ local function create_autocommand(filetypes, option_cb)
   })
 end
 
--- {{{1 bashls
-
--- https://github.com/mads-hartmann/bash-language-server
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/bashls.lua
+-- {{{1 wiki:bashls
 
 create_autocommand("sh", function(args)
   return {
@@ -231,10 +228,7 @@ create_autocommand("sh", function(args)
 end)
 
 -- }}}1
--- {{{1 cssls
-
--- https://github.com/hrsh7th/vscode-langservers-extracted
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/cssls.lua
+-- {{{1 wiki:cssls
 
 create_autocommand({ "css", "scss", "less" }, function(args)
   return {
@@ -741,7 +735,7 @@ end)
 -- }}}1
 -- {{{1 typescript-language-server
 
--- wiki: typescript-language-server
+-- wiki:typescript-language-server
 
 create_autocommand({
   "javascript",

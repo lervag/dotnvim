@@ -1,16 +1,30 @@
-local function VimHelp()
-  vim.cmd [[execute 'help ' . expand('<cword>')]]
-end
+vim.keymap.set("n", "K", function()
+  local line_number = vim.fn.line "."
+  for _, pattern in ipairs {
+    [[wiki:\zs[^ ]\+]],
+    [[<wiki:\zs[^>]\+>]],
+    [=[\[wiki:\zs[^]]\+\]]=],
+  } do
+    local matches = vim.fn.matchbufline(
+      "%",
+      [[\%<.c]] .. pattern .. [[\%>.c]],
+      line_number,
+      line_number
+    )
+    if not vim.tbl_isempty(matches) then
+      vim.cmd.WikiOpen(matches[1].text)
+      return
+    end
+  end
 
-function MyHover()
+  local cword = vim.fn.expand "<cword>"
   if vim.tbl_contains({ "vim", "help" }, vim.bo.filetype) then
-    VimHelp()
+    vim.cmd.help(cword)
     return
   end
 
   if vim.bo.filetype == "neomuttrc" then
-    local cword = vim.fn.expand "<cword>"
-    vim.cmd [[Man neomuttrc]]
+    vim.cmd.Man "neomuttrc"
     vim.fn.search(cword)
     return
   end
@@ -18,6 +32,4 @@ function MyHover()
   if not vim.tbl_isempty(vim.lsp.get_clients()) then
     vim.lsp.buf.hover()
   end
-end
-
-vim.keymap.set("n", "K", MyHover)
+end)
