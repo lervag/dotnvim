@@ -1,6 +1,5 @@
 local lsp = vim.lsp
 local map = vim.keymap.set
-local autocmd = vim.api.nvim_create_autocmd
 local const = require "lervag.const"
 
 lsp.handlers["textDocument/hover"] =
@@ -11,14 +10,6 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(
 )
 
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", { clear = true })
-local find_root = function(markers, file)
-  return vim.fs.dirname(
-    vim.fs.find(
-      markers,
-      { upward = true, path = vim.fn.fnamemodify(file, ":p:h") }
-    )[1]
-  )
-end
 
 -- {{{1 Capabilities
 
@@ -80,7 +71,7 @@ capabilities.textDocument.completion = {
 -- }}}1
 
 -- {{{1 Mappings and autocmds
-autocmd("LspAttach", {
+vim.api.nvim_create_autocmd("LspAttach", {
   group = lspgroup,
   desc = "Configure LSP: Mappings and similar",
   callback = function(args)
@@ -88,12 +79,12 @@ autocmd("LspAttach", {
 
     if client then
       if client.server_capabilities.codeLensProvider then
-        autocmd({ "CursorHold", "InsertLeave" }, {
+        vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
           desc = "Refresh codelenses",
           buffer = args.buf,
           callback = function()
-            vim.lsp.codelens.refresh({bufnr = 0})
-          end
+            vim.lsp.codelens.refresh { bufnr = 0 }
+          end,
         })
       end
 
@@ -202,7 +193,7 @@ autocmd("LspAttach", {
 ---@param filetypes string | string[] FileType patterns
 ---@param option_cb function
 local function create_autocommand(filetypes, option_cb)
-  autocmd("FileType", {
+  vim.api.nvim_create_autocmd("FileType", {
     pattern = filetypes,
     group = lspgroup,
     callback = function(args)
@@ -226,7 +217,7 @@ create_autocommand("sh", function(args)
   return {
     name = "bashls",
     cmd = { "bash-language-server", "start" },
-    root_dir = find_root({ ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { ".git" }),
     single_file_support = true,
     settings = {
       bashIde = {
@@ -249,7 +240,7 @@ create_autocommand({ "css", "scss", "less" }, function(args)
   return {
     name = "cssls",
     cmd = { "vscode-css-language-server", "--stdio" },
-    root_dir = find_root({ "package.json", ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { "package.json", ".git" }),
     single_file_support = true,
     settings = {
       css = { validate = true },
@@ -270,7 +261,7 @@ create_autocommand("html", function(args)
   return {
     name = "html-ls",
     cmd = { "vscode-html-language-server", "--stdio" },
-    root_dir = find_root({ "package.json", ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { "package.json", ".git" }),
     single_file_support = true,
     settings = {},
     init_options = {
@@ -297,7 +288,7 @@ create_autocommand({ "json", "jsonc" }, function(args)
   return {
     name = "jsonls",
     cmd = { "vscode-json-language-server", "--stdio" },
-    root_dir = find_root({ ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { ".git" }),
     single_file_support = true,
     settings = {},
     init_options = {
@@ -326,7 +317,7 @@ create_autocommand("yaml", function(args)
   return {
     name = "gitlab-ci-ls",
     cmd = { "gitlab-ci-ls" },
-    root_dir = find_root({ ".gitlab*", ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { ".gitlab*", ".git" }),
     init_options = {
       cache_path = cache_dir,
       log_path = cache_dir .. "/log/gitlab-ci-ls.log",
@@ -346,7 +337,7 @@ create_autocommand(
     return {
       name = "graphql-lsp",
       cmd = { "graphql-lsp", "server", "-m", "stream" },
-      root_dir = find_root({ ".graphqlrc.yml", ".git" }, args.file),
+      root_dir = vim.fs.root(args.buf, { ".graphqlrc.yml", ".git" }),
       settings = {},
       capabilities = capabilities,
     }
@@ -363,13 +354,13 @@ create_autocommand("kotlin", function(args)
   return {
     name = "kotlin-ls",
     cmd = { "kotlin-language-server" },
-    root_dir = find_root({
+    root_dir = vim.fs.root(args.buf, {
       "settings.gradle",
       "settings.gradle.kts",
       "build.xml",
       "pom.xml",
       ".git",
-    }, args.file),
+    }),
     single_file_support = true,
     settings = {},
     init_options = {
@@ -391,7 +382,7 @@ end)
 -- https://valentjn.github.io/ltex/
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/ltex.lua
 
--- autocmd('FileType', {
+-- vim.api.nvim_create_autocmd('FileType', {
 --   pattern = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc' },
 --   group = lspgroup,
 --   callback = function(args)
@@ -399,7 +390,7 @@ end)
 --       name = 'ltex',
 --       cmd = { 'ltex-ls' },
 --       autostart = false,
---       root_dir = find_root({ '.git' }, args.file),
+--       root_dir = vim.fs.root(args.buf, { '.git' }),
 --       single_file_support = true,
 --       get_language_id = function(_, filetype)
 --         local language_id_mapping = {
@@ -464,11 +455,11 @@ create_autocommand("lua", function(args)
     single_file_support = true,
     log_level = vim.lsp.protocol.MessageType.Warning,
     capabilities = capabilities,
-    root_dir = find_root({
+    root_dir = vim.fs.root(args.buf, {
       ".luarc.json",
       ".stylua.toml",
       "stylua.toml",
-    }, args.file),
+    }),
     settings = {
       Lua = {
         hint = {
@@ -511,7 +502,7 @@ end)
 -- }}}1
 -- {{{1 Metals
 
-autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt" },
   group = lspgroup,
   callback = function(args)
@@ -621,11 +612,11 @@ create_autocommand("python", function(args)
   return {
     name = "pyright",
     cmd = { "pyright-langserver", "--stdio" },
-    root_dir = find_root({
+    root_dir = vim.fs.root(args.buf, {
       "pyproject.toml",
       "setup.py",
       "setup.cfg",
-    }, args.file),
+    }),
     settings = {
       python = {
         analysis = {
@@ -649,7 +640,7 @@ create_autocommand("rust", function(args)
   return {
     name = "rust-analyzer",
     cmd = { "rust-analyzer" },
-    root_dir = find_root({ "Cargo.toml" }, args.file),
+    root_dir = vim.fs.root(args.buf, { "Cargo.toml" }),
     single_file_support = true,
     settings = {
       ["rust-analyzer"] = {
@@ -668,14 +659,14 @@ end)
 -- Settings from clason
 -- * https://gist.github.com/clason/3701040203c6625c24eb099cd3ef6d5c
 
--- autocmd('FileType', {
+-- vim.api.nvim_create_autocmd('FileType', {
 --   pattern = { 'tex', 'bib' },
 --   group = lspgroup,
 --   callback = function(args)
 --     lsp.start {
 --       name = 'texlab',
 --       cmd = { vim.fn.stdpath 'data' .. '/lsp/texlab' },
---       root_dir = find_root({ '.latexmkrc' }, args.file),
+--       root_dir = vim.fs.root(args.buf, { '.latexmkrc' }),
 --       settings = {
 --         texlab = {
 --           latexFormatter = 'none',
@@ -763,9 +754,9 @@ create_autocommand({
   return {
     name = "typescript-language-server",
     cmd = { "typescript-language-server", "--stdio" },
-    root_dir = find_root(
-      { "tsconfig.json", "package.json", ".git" },
-      args.file
+    root_dir = vim.fs.root(
+      args.buf,
+      { "tsconfig.json", "package.json", ".git" }
     ),
     single_file_support = true,
     settings = {},
@@ -784,7 +775,7 @@ create_autocommand("vim", function(args)
   return {
     name = "vimls",
     cmd = { "vim-language-server", "--stdio" },
-    root_dir = find_root({ ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { ".git" }),
     single_file_support = true,
     init_options = {
       isNeovim = true,
@@ -824,7 +815,7 @@ create_autocommand({ "yaml", "yaml.docker-compose" }, function(args)
   return {
     name = "yamlls",
     cmd = { "yaml-language-server", "--stdio" },
-    root_dir = find_root({ ".git" }, args.file),
+    root_dir = vim.fs.root(args.buf, { ".git" }),
     single_file_support = true,
     settings = {
       redhat = { telemetry = { enabled = false } },
