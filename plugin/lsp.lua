@@ -1,15 +1,14 @@
-local lsp = vim.lsp
-local map = vim.keymap.set
 local const = require "lervag.const"
+local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
-lsp.handlers["textDocument/hover"] =
-  lsp.with(lsp.handlers.hover, { border = const.border, title = " hover " })
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(
-  lsp.handlers.signature_help,
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = const.border, title = " hover " }
+)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
   { border = const.border, title = "signature" }
 )
-
-local lspgroup = vim.api.nvim_create_augroup("init_lsp", { clear = true })
 
 -- {{{1 Capabilities
 
@@ -93,11 +92,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end
     end
 
-    map("n", "<leader>ld", lsp.buf.definition, { desc = "Jump to definition" })
-    map("n", "<leader>lF", lsp.buf.format, { desc = "Format buffer" })
-    map("n", "<leader>lD", function()
-      local params = lsp.util.make_position_params()
-      return lsp.buf_request(
+    vim.keymap.set(
+      "n",
+      "<leader>ld",
+      vim.lsp.buf.definition,
+      { desc = "Jump to definition" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>lF",
+      vim.lsp.buf.format,
+      { desc = "Format buffer" }
+    )
+    vim.keymap.set("n", "<leader>lD", function()
+      local params = vim.lsp.util.make_position_params()
+      return vim.lsp.buf_request(
         0,
         "textDocument/definition",
         params,
@@ -105,83 +114,93 @@ vim.api.nvim_create_autocmd("LspAttach", {
           if result == nil or vim.tbl_isempty(result) then
             return
           end
-          lsp.util.preview_location(result[1], {
+          vim.lsp.util.preview_location(result[1], {
             border = const.border,
             title = " Definition ",
           })
         end
       )
     end, { desc = "Show definition" })
-    map(
+    vim.keymap.set(
       "n",
       "<leader>lt",
-      lsp.buf.type_definition,
+      vim.lsp.buf.type_definition,
       { desc = "Jump to type definition" }
     )
-    map("n", "<leader>lr", lsp.buf.references, { desc = "List all references" })
-    map(
+    vim.keymap.set(
+      "n",
+      "<leader>lr",
+      vim.lsp.buf.references,
+      { desc = "List all references" }
+    )
+    vim.keymap.set(
       "n",
       "<leader>li",
-      lsp.buf.implementation,
+      vim.lsp.buf.implementation,
       { desc = "List all implementations" }
     )
-    map(
+    vim.keymap.set(
       "n",
       "<leader>lK",
-      lsp.buf.signature_help,
+      vim.lsp.buf.signature_help,
       { desc = "Show signature information" }
     )
-    map("n", "<f6>", lsp.buf.rename, { desc = "Rename all references" })
-    map(
+    vim.keymap.set(
+      "n",
+      "<f6>",
+      vim.lsp.buf.rename,
+      { desc = "Rename all references" }
+    )
+    vim.keymap.set(
       "n",
       "<leader>lR",
       "<cmd>Lspsaga rename<cr>",
       { desc = "Rename all references" }
     )
-    map(
+    vim.keymap.set(
       { "n", "v" },
       "<leader>la",
       "<cmd>Lspsaga code_action<cr>",
       { desc = "Select code action" }
     )
 
-    map(
+    vim.keymap.set(
       "n",
       "<leader>lc",
-      lsp.codelens.run,
+      vim.lsp.codelens.run,
       { desc = "Run codelens in current line" }
     )
-    map("n", "<leader>lw", function()
-      print(vim.inspect(lsp.buf.list_workspace_folders()))
+    vim.keymap.set("n", "<leader>lw", function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, { desc = "List workspace folders" })
-    map(
+    vim.keymap.set(
       "n",
       "<leader>lk",
-      lsp.buf.hover,
+      vim.lsp.buf.hover,
       { desc = "Display hover information" }
     )
-    map("n", "<leader>lI", function()
+    vim.keymap.set("n", "<leader>lI", function()
       local is_enabled = vim.lsp.inlay_hint.is_enabled(0)
       vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
     end, { desc = "Toggle inlay hints" })
 
     -- Unsure if I want/need these
-    map("n", "<leader>l1", function()
+    vim.keymap.set("n", "<leader>l1", function()
       require("telescope.builtin").lsp_document_symbols()
     end, { desc = "List LSP document symbols" })
-    map("n", "<leader>l2", function()
+    vim.keymap.set("n", "<leader>l2", function()
       require("telescope.builtin").lsp_dynamic_workspace_symbols()
     end, { desc = "Dynamically list LSP for workspace symbols" })
-    map(
+    vim.keymap.set(
       "n",
       "<leader>l3",
-      lsp.buf.document_highlight,
+      vim.lsp.buf.document_highlight,
       { desc = "Resolve document highlights for current position" }
     )
-    map(
+    vim.keymap.set(
       "n",
       "<leader>l4",
-      lsp.buf.clear_references,
+      vim.lsp.buf.clear_references,
       { desc = "Remove document highlights" }
     )
   end,
@@ -202,7 +221,7 @@ local function create_autocommand(filetypes, option_cb)
       end
       local options = option_cb(args)
       if not vim.tbl_isempty(options) then
-        lsp.start(options)
+        vim.lsp.start(options)
       end
     end,
   })
