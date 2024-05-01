@@ -150,7 +150,7 @@ local M = {
     url = "git@github.com:lervag/lists.vim",
     dev = true,
     init = function()
-      vim.g.lists_filetypes = { "markdown", "wiki", "help", "text" }
+      vim.g.lists_filetypes = { "md", "wiki", "txt" }
     end,
   },
 

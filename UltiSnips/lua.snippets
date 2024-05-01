@@ -1,15 +1,30 @@
 snippet template-vimtex "Template: Minimal init.lua for VimTeX" b
 vim.opt.runtimepath:prepend "~/.local/plugged/vimtex"
 vim.opt.runtimepath:append "~/.local/plugged/vimtex/after"
-vim.cmd[[filetype plugin indent on]]
+vim.cmd [[filetype plugin indent on]]
+
+vim.keymap.set("n", "q", "<cmd>qall!<cr>")
 
 vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_cache_root = "."
 vim.g.vimtex_cache_persistent = false
 
+vim.cmd.edit "test.tex"
+endsnippet
+
+snippet template-wiki "Template: Minimal vimrc for wiki.vim" b
+vim.opt.runtimepath:prepend "~/.local/plugged/wiki.vim"
+vim.cmd [[filetype plugin indent on]]
+vim.cmd [[syntax enable]]
+
 vim.keymap.set("n", "q", "<cmd>qall!<cr>")
 
-vim.cmd.edit "test.tex"
+vim.g.wiki_root = vim.fn.fnamemodify("wiki", ':p')
+vim.g.wiki_cache_root = "."
+vim.g.wiki_cache_persistent = false
+
+vim.cmd [[runtime plugin/wiki.vim]]
+vim.cmd [[WikiIndex]]
 endsnippet
 
 snippet template-lazy "Template: Minimal init.lua for lazy.nvim" b
