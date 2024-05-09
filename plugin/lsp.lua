@@ -98,12 +98,35 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.buf.definition,
       { desc = "Jump to definition" }
     )
-    vim.keymap.set(
-      "n",
-      "<leader>lF",
-      vim.lsp.buf.format,
-      { desc = "Format buffer" }
-    )
+    vim.keymap.set("n", "<leader>lF", function()
+      local clients = vim.lsp.get_clients { bufnr = args.buf }
+      local formatters = {}
+
+      for _, c in pairs(clients) do
+        if c.server_capabilities.documentFormattingProvider then
+          table.insert(formatters, c.name)
+        end
+      end
+
+      if #formatters > 1 then
+        vim.ui.select(
+          formatters,
+          { prompt = "Select a formatter" },
+          function(_, choice)
+            if not choice then
+              vim.notify "No formatter selected"
+              return
+            end
+
+            vim.notify("Formatted with: " .. formatters[choice])
+            vim.lsp.buf.format { async = true, name = formatters[choice] }
+          end
+        )
+      elseif #formatters == 1 then
+        vim.notify("Formatted with: " .. formatters[1])
+        vim.lsp.buf.format { async = true, name = formatters[1] }
+      end
+    end, { desc = "Format buffer" })
     vim.keymap.set("n", "<leader>lD", function()
       local params = vim.lsp.util.make_position_params()
       return vim.lsp.buf_request(
@@ -180,7 +203,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       { desc = "Display hover information" }
     )
     vim.keymap.set("n", "<leader>lI", function()
-      local is_enabled = vim.lsp.inlay_hint.is_enabled(0)
+      local is_enabled = vim.lsp.inlay_hint.is_enabled { bufnr = 0 }
       vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
     end, { desc = "Toggle inlay hints" })
 
