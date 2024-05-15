@@ -401,70 +401,25 @@ local M = {
     },
     opts = {
       openai_api_key = { "pass", "openai-api-key" },
-      toggle_target = "split",
-    },
-  },
-
-  {
-    "jackmort/chatgpt.nvim",
-    enabled = false,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    keys = {
-      { "<f1>", "<cmd>ChatGPT<cr>", desc = "ChatGPT" },
-    },
-    cmd = {
-      "ChatGPT",
-      "ChatGPTActAs",
-      "ChatGPTCompleteCode",
-      "ChatGPTEditWithInstructions",
-      "ChatGPTRun",
-      "ChatGPTRunCustomCodeAction",
-    },
-    config = function()
-      local window_opts = {
-        win_options = {
-          winhighlight = "Normal:NormalFloat",
+      toggle_target = "tabnew",
+      agents = {
+        {
+          name = "ChatGPT4o",
+          chat = true,
+          command = false,
+          model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+          system_prompt = "You are a general AI assistant.\n\n"
+            .. "The user provided the additional info about how they would like you to respond:\n\n"
+            .. "- Be concise.\n"
+            .. "- If you're unsure don't guess and say you don't know instead.\n"
+            .. "- Ask question if you need clarification to provide better answer.\n"
+            .. "- Think deeply and carefully from first principles step by step.\n"
+            .. "- Zoom out first to see the big picture and then zoom in to details.\n"
+            .. "- Use Socratic method to improve your thinking and coding skills.\n"
+            .. "- Don't elide any code from your output if the answer requires coding.\n"
         },
-        border = {
-          style = require("lervag.const").border,
-          highlight = "FloatBorder",
-        },
-      }
-
-      require("chatgpt").setup {
-        openai_params = {
-          model = "gpt-3.5-turbo-1106",
-          max_tokens = 1000,
-        },
-        settings_window = vim.tbl_extend("force", window_opts, {
-          setting_sign = " ",
-        }),
-        popup_window = window_opts,
-        popup_input = window_opts,
-        chat = {
-          sessions_window = vim.tbl_extend("force", window_opts, {
-            active_sign = " ◉ ",
-            inactive_sign = " ● ",
-          }),
-          answer_sign = "🤖",
-          border_left_sign = "▐",
-          border_right_sign = "▌",
-          max_line_length = 60,
-          keymaps = {
-            -- close = { "<c-q>", "<c-c>" },
-            yank_last = "<nop>",
-            yank_last_code = "<nop>",
-            scroll_up = "<nop>",
-            scroll_down = "<nop>",
-            select_session = "<cr>",
-          },
-        },
-      }
-    end,
+      },
+    },
   },
 
   -- }}}1
