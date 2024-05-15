@@ -759,12 +759,12 @@ local M = {
     "mfussenegger/nvim-lint",
     event = "BufReadPost",
     config = function()
-      local lint = require("lint")
+      local lint = require "lint"
       lint.linters_by_ft = {
-        typescript = { 'eslint_d' },
-        javascript = { 'eslint_d' },
-        javascriptreact = { 'eslint_d' },
-        graphql = { 'eslint_d' },
+        typescript = { "eslint_d" },
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        graphql = { "eslint_d" },
       }
 
       vim.api.nvim_create_autocmd("BufWritePost", {
@@ -1456,6 +1456,7 @@ local M = {
           main_filetype = "scala",
           sub_filetype = "sql",
           indent_adjustment = 1,
+          include_margins = 1,
           start = [[\(sql\|SQL\)"""]],
           ["end"] = [["""]],
         },
@@ -1862,7 +1863,7 @@ local M = {
     config = function()
       local shared_winopts = {
         signcolumn = "no",
-        fillchars = "eob: "
+        fillchars = "eob: ",
       }
 
       require("dbee").setup {
@@ -1878,7 +1879,7 @@ local M = {
         },
         call_log = {
           window_options = shared_winopts,
-        }
+        },
       }
     end,
   },
