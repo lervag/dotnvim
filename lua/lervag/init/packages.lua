@@ -416,7 +416,7 @@ local M = {
             .. "- Think deeply and carefully from first principles step by step.\n"
             .. "- Zoom out first to see the big picture and then zoom in to details.\n"
             .. "- Use Socratic method to improve your thinking and coding skills.\n"
-            .. "- Don't elide any code from your output if the answer requires coding.\n"
+            .. "- Don't elide any code from your output if the answer requires coding.\n",
         },
       },
     },
@@ -541,14 +541,20 @@ local M = {
             end
             fallback()
           end,
+          ["<C-l>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              return cmp.complete_common_string()
+            end
+            fallback()
+          end, { "i", "c" }),
           ["<tab>"] = cmp.mapping {
-            i = function(_)
+            i = function(fallback)
               if cmp.visible() then
                 cmp.select_next_item()
               elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
                 feedkeys "<plug>(ultisnips_jump_forward)"
               else
-                feedkeys("<tab>", "n")
+                fallback()
               end
             end,
             s = function(fallback)
@@ -572,6 +578,24 @@ local M = {
             s = function(fallback)
               if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
                 feedkeys "<plug>(ultisnips_jump_backward)"
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<c-n>"] = cmp.mapping {
+            i = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+              else
+                fallback()
+              end
+            end,
+          },
+          ["<c-p>"] = cmp.mapping {
+            i = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
               else
                 fallback()
               end
