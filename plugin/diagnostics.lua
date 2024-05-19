@@ -9,6 +9,7 @@ vim.diagnostic.config {
   float = {
     focusable = false,
     style = "minimal",
+    ---@diagnostic disable-next-line: assign-type-mismatch
     border = require("lervag.const").border,
     source = "if_many",
     header = "",
@@ -36,14 +37,14 @@ local function toggle_diagnostics()
     vim.notify("Diagnostics enabled.", vim.log.levels.INFO)
   else
     vim.diagnostic.hide()
-    vim.diagnostic.disable()
+    vim.diagnostic.enable(false)
     vim.notify("Diagnostics disabled!", vim.log.levels.INFO)
   end
 end
 
 vim.keymap.set("n", "<leader>qQ", toggle_diagnostics)
-vim.keymap.set("n", "<leader>qp", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "<leader>qn", vim.diagnostic.goto_next)
+-- vim.keymap.set("n", "<leader>qp", vim.diagnostic.goto_prev)
+-- vim.keymap.set("n", "<leader>qn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
 vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
 vim.keymap.set("n", "<leader>qe", vim.diagnostic.open_float)
