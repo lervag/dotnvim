@@ -1279,12 +1279,6 @@ local M = {
   -- {{{1 Editing
 
   {
-    "echasnovski/mini.comment",
-    keys = { { "gc", mode = { "n", "v", "o" }, desc = "mini.comment" } },
-    opts = true,
-  },
-
-  {
     "tpope/vim-repeat",
   },
 
@@ -1423,6 +1417,7 @@ local M = {
     opts = {
       modes = {
         search = {
+          enabled = true,
           labels = "12345890",
         },
         char = {
