@@ -21,8 +21,10 @@ vim.opt.diffopt = {
   "vertical",
   "foldcolumn:0",
   "context:4",
-  "indent-heuristic,algorithm:patience",
-  "hiddenoff,closeoff",
+  "indent-heuristic",
+  "algorithm:patience",
+  "hiddenoff",
+  "closeoff",
   "linematch:60",
 }
 

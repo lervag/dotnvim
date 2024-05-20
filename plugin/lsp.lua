@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
     if client then
-      if client.server_capabilities.codeLensProvider then
+      if client.supports_method("codeLensProvider") then
         vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
           desc = "Refresh codelenses",
           buffer = args.buf,
@@ -87,7 +87,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         })
       end
 
-      if client.server_capabilities.inlayHintProvider then
+      if client.supports_method("inlayHintProvider") then
         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
       end
     end
@@ -103,7 +103,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local formatters = {}
 
       for _, c in pairs(clients) do
-        if c.server_capabilities.documentFormattingProvider then
+        if c.supports_method("documentFormattingProvider") then
           table.insert(formatters, c.name)
         end
       end

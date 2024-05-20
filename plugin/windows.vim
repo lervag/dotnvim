@@ -143,8 +143,3 @@ function! s:new(bang) " {{{1
 endfunction
 
 " }}}1
-function! s:has_sign_cols() " {{{1
-  return len(split(execute('sign place'), "\n")) > 1
-endfunction
-
-" }}}1

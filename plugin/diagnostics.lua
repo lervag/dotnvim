@@ -15,17 +15,21 @@ vim.diagnostic.config {
     header = "",
     prefix = "",
   },
-}
-
-vim.fn.sign_define {
-  {
-    text = "",
-    name = "DiagnosticSignError",
-    texthl = "DiagnosticSignError",
+  signs = {
+    priority = 300,
+    text = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN] = "",
+      [vim.diagnostic.severity.INFO] = "",
+      [vim.diagnostic.severity.HINT] = "",
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+      [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+    },
   },
-  { text = "", name = "DiagnosticSignWarn", texthl = "DiagnosticSignWarn" },
-  { text = "", name = "DiagnosticSignInfo", texthl = "DiagnosticSignInfo" },
-  { text = "", name = "DiagnosticSignHint", texthl = "DiagnosticSignHint" },
 }
 
 local diagnostics_active = true
@@ -43,11 +47,8 @@ local function toggle_diagnostics()
 end
 
 vim.keymap.set("n", "<leader>qQ", toggle_diagnostics)
--- vim.keymap.set("n", "<leader>qp", vim.diagnostic.goto_prev)
--- vim.keymap.set("n", "<leader>qn", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
 vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
-vim.keymap.set("n", "<leader>qe", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>qc", "<cmd>cclose<cr>")
 vim.keymap.set("n", "<leader>qC", "<cmd>lclose<cr>")
 
