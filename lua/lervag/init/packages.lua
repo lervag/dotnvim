@@ -1416,10 +1416,6 @@ local M = {
     },
     opts = {
       modes = {
-        search = {
-          enabled = true,
-          labels = "12345890",
-        },
         char = {
           autohide = true,
         },
