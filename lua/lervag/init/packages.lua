@@ -376,11 +376,28 @@ local M = {
   },
 
   {
-    "justinmk/vim-dirvish",
-    config = function()
-      vim.g.dirvish_mode = [[:sort ,^.*[\/],]]
-      vim.keymap.set("n", "-", "<Plug>(dirvish_up)")
-    end,
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "-", "<cmd>Oil<cr>", desc = "Open parent directory"},
+    },
+    opts = {
+      view_options = {
+        natural_order = false,
+        show_hidden = true,
+      },
+      keymaps = {
+        q = "actions.close",
+        ["<c-h>"] = false,
+        ["<c-l>"] = false,
+      },
+      float = {
+        border = require("lervag.const").border,
+      },
+      preview = {
+        border = require("lervag.const").border,
+      },
+    },
   },
 
   {
