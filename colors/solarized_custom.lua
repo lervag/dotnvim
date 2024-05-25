@@ -33,6 +33,7 @@ local base2v95 = "#f3edda"
 local base2 = "#eee8d5"
 local base2v91 = "#e8e2ce"
 local base3 = "#fdf6e3"
+local base3v95 = "#f7f1dd"
 local base3v88 = "#e0dac9"
 local base3v100s7 = "#fffaed"
 local yellow = "#b58900"
@@ -76,7 +77,8 @@ local color07l = base2v95
 local color07d = base2v91
 local color09l = orange
 local color14l = base1light
-local color15d = base3v88
+local color15d = base3v95
+local color15dd = base3v88
 local color15w = base3v100s7
 
 local black = "#000000"
@@ -144,9 +146,9 @@ local theme = {
   MoreMsg = { fg = color04 },
   NonText = { fg = color12 },
   NvimInternalError = { fg = color09, bg = color01 },
-  Pmenu = { fg = color11, bg = color15d },
+  Pmenu = { fg = color11, bg = color15dd },
   PmenuSel = { fg = color14, bg = color00 },
-  PmenuSbar = { bg = color15d },
+  PmenuSbar = { bg = color15dd },
   PmenuThumb = { bg = color11 },
   Question = { fg = color06 },
   QuickFixLine = { bg = gold2 },
@@ -389,6 +391,7 @@ local theme = {
   LspReferenceText = { bg = color07, bold = true },
   LspCodeLens = { bg = color07, fg = color00, bold = true },
   LspCodeLensSeparator = { bg = color07, fg = color04, bold = true },
+  LspInlayHint = { fg = color12, bg = color15d },
 
   -- See :help diagnostic-highlights
   DiagnosticError = { fg = color01, bold = true },
@@ -755,7 +758,7 @@ local theme = {
   htmlTag = { fg = color14 },
   htmlTagN = { fg = color10 },
   htmlTagName = { fg = color04 },
-  htmlStrike = { fg = color15d },
+  htmlStrike = { fg = color15dd },
 
   javaScript = { fg = color03 },
 
