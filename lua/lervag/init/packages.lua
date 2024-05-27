@@ -379,7 +379,7 @@ local M = {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "-", "<cmd>Oil<cr>", desc = "Open parent directory"},
+      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
     },
     opts = {
       view_options = {
@@ -934,9 +934,6 @@ local M = {
       vim.keymap.set("n", "<leader><leader>", function()
         require("telescope.builtin").oldfiles()
       end)
-      vim.keymap.set("n", "<leader>ot", function()
-        require("telescope.builtin").tags()
-      end)
       vim.keymap.set("n", "<leader>ob", function()
         require("telescope.builtin").buffers()
       end)
@@ -1042,6 +1039,31 @@ local M = {
       }
 
       telescope.load_extension "fzf"
+    end,
+  },
+
+  {
+    "rgroli/other.nvim",
+    command = "Other",
+    keys = {
+      { "<leader>ot", "<cmd>Other<cr>", desc = "Other" },
+      { "<leader>ov", "<cmd>OtherVSplit<cr>", desc = "OtherVSplit" },
+    },
+    config = function()
+      require("other-nvim").setup {
+        mappings = {
+          {
+            pattern = "(.*)src/main/(.*).scala$",
+            target = "%1src/test/%2Spec.scala",
+            context = "Scala test",
+          },
+          {
+            pattern = "(.*)src/test/(.*)Spec.scala$",
+            target = "%1src/main/%2.scala",
+            context = "Scala implementation",
+          },
+        },
+      }
     end,
   },
 
