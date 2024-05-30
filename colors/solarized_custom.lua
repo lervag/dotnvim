@@ -525,6 +525,7 @@ local theme = {
 
   TroubleIndent = { fg = "fg" },
   TroubleLspPos = { fg = color14, italic = true },
+  TroublePreview = { fg = magenta1 },
 
   FlashLabel = { fg = blue1, underline = true, bold = true },
   FlashPromptIcon = { fg = yellow, bold = true },

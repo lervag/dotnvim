@@ -193,6 +193,7 @@ local M = {
       preview = {
         type = "main",
         wo = {
+          number = true,
           foldenable = false,
         },
       },
