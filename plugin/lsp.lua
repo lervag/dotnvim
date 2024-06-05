@@ -653,6 +653,7 @@ create_autocommand("python", function(args)
       "pyproject.toml",
       "setup.py",
       "setup.cfg",
+      ".git",
     }),
     settings = {
       python = {
