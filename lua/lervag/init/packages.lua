@@ -1947,10 +1947,10 @@ local M = {
       require("pqf").setup {
         show_multiple_lines = true,
         signs = {
-          error = "",
-          warning = "",
-          info = "",
-          hint = "",
+          error = { text = "", hl = "DiagnosticSignError" },
+          warning = { text = "", hl = "DiagnosticSignWarn" },
+          info = { text = "", hl = "DiagnosticSignInfo" },
+          hint = { text = "", hl = "DiagnosticSignHint" },
         },
       }
     end,
