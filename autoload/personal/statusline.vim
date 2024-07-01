@@ -5,6 +5,9 @@
 " - https://github.com/blaenk/dots/blob/master/vim/.vimrc
 " - http://www.blaenkdenum.com/posts/a-simpler-vim-statusline/
 "
+" If I want to rewrite in Lua, see e.g.:
+" - https://seniormars.com/posts/neovim-workflow/#status-line
+"
 
 function! personal#statusline#main() abort " {{{1
   let l:context = {}
