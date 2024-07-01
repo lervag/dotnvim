@@ -1707,6 +1707,10 @@ local M = {
   {
     "sindrets/diffview.nvim",
     event = "VeryLazy",
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewFileHistory",
+    },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -1728,6 +1732,11 @@ local M = {
 
       require("diffview").setup {
         enhanced_diff_hl = true,
+        view = {
+          merge_tool = {
+            layout = "diff3_mixed",
+          },
+        },
         win_config = function()
           local c = { type = "float" }
           local editor_width = vim.o.columns
