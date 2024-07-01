@@ -779,7 +779,7 @@ local M = {
         function()
           require("conform").format {
             async = true,
-            lsp_fallback = true,
+            lsp_format = "fallback",
           }
         end,
         mode = "",
@@ -1784,35 +1784,6 @@ local M = {
   },
 
   {
-    "jellydn/hurl.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    ft = "hurl",
-    config = function()
-      require("hurl").setup {
-        mode = "split",
-        split_size = "50%",
-      }
-
-      vim.keymap.set("n", "<leader>ha", "<cmd>HurlRunner<cr>", {
-        desc = "Run Hurl request",
-        buffer = true,
-      })
-      vim.keymap.set("n", "<leader>hh", "<cmd>HurlToggleMode<cr>", {
-        desc = "Toggle Hurl",
-        buffer = true,
-      })
-
-      -- { "<cmd>HurlRunnerAt<CR>", desc = "Run Api request" },
-      -- { "<cmd>HurlRunnerToEntry<CR>", desc = "Run Api request to entry" },
-      -- { "<cmd>HurlToggleMode<CR>", desc = "Hurl Toggle Mode" },
-      -- { "<cmd>HurlVerbose<CR>", desc = "Run Api in verbose mode" },
-    end,
-  },
-
-  {
     "tweekmonster/helpful.vim",
     cmd = { "HelpfulVersion" },
   },
@@ -1909,9 +1880,6 @@ local M = {
 
   {
     "kndndrj/nvim-dbee",
-    cmd = {
-      "Dbee",
-    },
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
