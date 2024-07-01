@@ -1683,7 +1683,6 @@ local M = {
           end
           vim.cmd("Flog -- HEAD " .. branch .. branch_origin)
         end,
-        mode = { "n" },
         desc = "Flog",
       },
     },
@@ -1706,56 +1705,54 @@ local M = {
 
   {
     "sindrets/diffview.nvim",
-    event = "VeryLazy",
     cmd = {
       "DiffviewOpen",
       "DiffviewFileHistory",
+    },
+    keys = {
+      {
+        "<leader>gL",
+        "<cmd>DiffviewFileHistory %<cr>",
+        silent = true,
+        desc = "diffview.nvim",
+      },
+      {
+        "<leader>gL",
+        ":DiffviewFileHistory<cr>",
+        mode = { "x" },
+        silent = true,
+        desc = "diffview.nvim",
+      },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      vim.keymap.set(
-        "n",
-        "<leader>gL",
-        "<cmd>DiffviewFileHistory %<cr>",
-        { desc = "diffview.nvim", silent = true }
-      )
-
-      vim.keymap.set(
-        "x",
-        "<leader>gL",
-        ":DiffviewFileHistory<cr>",
-        { desc = "diffview.nvim", silent = true }
-      )
-
       require("diffview").setup {
         enhanced_diff_hl = true,
         view = {
           merge_tool = {
             layout = "diff3_mixed",
           },
+          file_history = {
+            disable_diagnostics = true,
+          },
         },
-        win_config = function()
-          local c = { type = "float" }
-          local editor_width = vim.o.columns
-          local editor_height = vim.o.lines
-          c.width = math.min(100, editor_width)
-          c.height = math.min(24, editor_height)
-          c.col = math.floor(editor_width * 0.5 - c.width * 0.5)
-          c.row = math.floor(editor_height * 0.5 - c.height * 0.5)
-          return c
-        end,
-        hooks = {
-          view_opened = function()
-            vim.keymap.set(
-              "n",
-              "<leader>eq",
-              ":DiffviewClose<cr>",
-              { desc = "diffview.nvim", buffer = true, silent = true }
-            )
-          end,
+        keymaps = {
+          file_panel = {
+            ["<leader>eq"] = ":DiffviewClose<cr>",
+            ["<c-q>"] = ":quitall<cr>",
+          },
+          file_history_panel = {
+            ["<leader>eq"] = ":DiffviewClose<cr>",
+            ["<c-q>"] = ":quitall<cr>",
+          },
+          view = {
+            ["<leader>e"] = false,
+            ["<leader>eq"] = ":DiffviewClose<cr>",
+            ["<c-q>"] = ":quitall<cr>",
+          },
         },
       }
     end,
