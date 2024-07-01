@@ -1685,8 +1685,6 @@ local M = {
         mode = { "n" },
         desc = "Flog",
       },
-      { "<leader>gl", ":Flog<cr>", mode = { "x" }, desc = "flog" },
-      { "<leader>gL", "<cmd>Flog -path=%<cr>", desc = "flog" },
     },
     config = function()
       -- See also ftplugin/floggraph.vim
@@ -1712,6 +1710,45 @@ local M = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
     },
+    config = function()
+      vim.keymap.set(
+        "n",
+        "<leader>gL",
+        "<cmd>DiffviewFileHistory %<cr>",
+        { desc = "diffview.nvim", silent = true }
+      )
+
+      vim.keymap.set(
+        "x",
+        "<leader>gL",
+        ":DiffviewFileHistory<cr>",
+        { desc = "diffview.nvim", silent = true }
+      )
+
+      require("diffview").setup {
+        enhanced_diff_hl = true,
+        win_config = function()
+          local c = { type = "float" }
+          local editor_width = vim.o.columns
+          local editor_height = vim.o.lines
+          c.width = math.min(100, editor_width)
+          c.height = math.min(24, editor_height)
+          c.col = math.floor(editor_width * 0.5 - c.width * 0.5)
+          c.row = math.floor(editor_height * 0.5 - c.height * 0.5)
+          return c
+        end,
+        hooks = {
+          view_opened = function()
+            vim.keymap.set(
+              "n",
+              "<leader>eq",
+              ":DiffviewClose<cr>",
+              { desc = "diffview.nvim", buffer = true, silent = true }
+            )
+          end,
+        },
+      }
+    end,
   },
 
   -- {{{1 Tmux (incl. filetype)
