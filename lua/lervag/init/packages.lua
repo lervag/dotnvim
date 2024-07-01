@@ -458,6 +458,7 @@ local M = {
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lua",
       "quangnguyen30192/cmp-nvim-ultisnips",
+      "Allaman/emoji.nvim",
     },
     config = function()
       local kind_icons = {
@@ -933,6 +934,7 @@ local M = {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
+      "Allaman/emoji.nvim",
     },
     init = function()
       -- vim.keymap.set('n', '<leader><leader>', function() telescope.extensions.frecency.frecency() end)
@@ -1568,11 +1570,7 @@ local M = {
 
   {
     "Allaman/emoji.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-      "nvim-telescope/telescope.nvim",
-    },
+    lazy = true,
     opts = {
       enable_cmp_integration = true,
       plugin_path = vim.fn.expand "$HOME/.local/plugged/",
