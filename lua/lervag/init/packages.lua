@@ -254,6 +254,10 @@ local M = {
           enable = true,
           disable = { "make", "latex" },
         },
+        indent = {
+          enable = true,
+          disable = { "latex" },
+        },
         matchup = {
           enable = true,
         },
