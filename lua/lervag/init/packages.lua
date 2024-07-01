@@ -1755,6 +1755,17 @@ local M = {
           },
         },
       }
+
+      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+        pattern = "diffview:///panels/*",
+        callback = function()
+          if vim.api.nvim_win_get_config(0).zindex then
+            vim.api.nvim_win_set_config(0, {
+              border = require("lervag.const").border,
+            })
+          end
+        end,
+      })
     end,
   },
 
