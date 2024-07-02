@@ -252,7 +252,7 @@ local M = {
         ensure_installed = "all",
         highlight = {
           enable = true,
-          disable = { "make", "latex" },
+          disable = { "latex" },
         },
         indent = {
           enable = true,
@@ -937,7 +937,6 @@ local M = {
       "Allaman/emoji.nvim",
     },
     init = function()
-      -- vim.keymap.set('n', '<leader><leader>', function() telescope.extensions.frecency.frecency() end)
       vim.keymap.set("n", "<leader><leader>", function()
         require("telescope.builtin").oldfiles()
       end)
@@ -1031,16 +1030,6 @@ local M = {
             fuzzy = false,
             override_file_sorter = true,
             override_generic_sorter = true,
-          },
-          frecency = {
-            show_scores = true,
-            ignore_patterns = {
-              "*.git/*",
-              "*/tmp/*",
-              "*.cache/*",
-              "*.local/wiki/*",
-              "/usr/*",
-            },
           },
         },
       }

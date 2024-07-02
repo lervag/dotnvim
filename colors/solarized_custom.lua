@@ -462,7 +462,6 @@ local theme = {
   CmpItemKindMethod = { link = "CmpItemKindFunction" },
 
   TelescopeBorder = { fg = black, bg = color07d, bold = true },
-  TelescopeFrecencyScores = { fg = base2 },
   TelescopeMatching = { fg = blue, bold = true },
   TelescopeMultiIcon = { link = "TelescopeMultiSelection" },
   TelescopeMultiSelection = { fg = green, bold = true },
