@@ -1038,6 +1038,7 @@ local M = {
     end,
   },
 
+  -- wiki:other.nvim
   {
     "rgroli/other.nvim",
     command = "Other",
@@ -1050,11 +1051,21 @@ local M = {
         mappings = {
           {
             pattern = "(.*)src/main/(.*).scala$",
+            target = "%1src/test/%2Test.scala",
+            context = "Scala test",
+          },
+          {
+            pattern = "(.*)src/main/(.*).scala$",
             target = "%1src/test/%2Spec.scala",
             context = "Scala test",
           },
           {
             pattern = "(.*)src/test/(.*)Spec.scala$",
+            target = "%1src/main/%2.scala",
+            context = "Scala implementation",
+          },
+          {
+            pattern = "(.*)src/test/(.*)Test.scala$",
             target = "%1src/main/%2.scala",
             context = "Scala implementation",
           },
