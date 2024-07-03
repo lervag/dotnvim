@@ -69,3 +69,16 @@ function! personal#wiki#get_origin_link(origin) abort " {{{1
 endfunction
 
 " }}}1
+function! personal#wiki#link_from_clipboard() abort " {{{1
+  let l:url = getreg('+')
+
+  if !executable('pup')
+    echo "Consider installing pup!"
+    return printf('[](%s)', l:url)
+  endif
+
+  let l:text = trim(system(printf("curl -s %s | pup 'h1 text{}'", l:url)))
+  return printf("[%s](%s)\n", l:text, l:url)
+endfunction
+
+" }}}1
