@@ -1596,6 +1596,10 @@ local M = {
           vim.g.fugitive_gitlab_domains = { "https://gitlab.sikt.no" }
         end,
       },
+      -- oil.nvim disables netrw. But I want the Browse function, so I need to
+      -- manually load it. This ensures hat oil.nvim is loaded before fugitive,
+      -- so that I can reenable the autoload functionality.
+      { "stevearc/oil.nvim" },
     },
     cmd = { "Git", "Gedit", "Gdiff" },
     keys = {
@@ -1642,6 +1646,10 @@ local M = {
           vim.bo.bufhidden = "delete"
         end,
       })
+
+      -- oil.nvim disables netrw. But I want the Browse function, so I need to
+      -- manually load it. This allows the autoload script to load.
+      vim.g.loaded_netrw = nil
     end,
   },
 
