@@ -495,7 +495,7 @@ local M = {
           return item
         end
 
-        item.kind = kind_icons[item.kind] .. " "
+        item.kind = (kind_icons[item.kind] or "") .. " "
         if not item.menu then
           item.menu = ({
             nvim_lsp = "[lsp]",
