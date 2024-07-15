@@ -2037,10 +2037,6 @@ local M = {
   },
 
   {
-    "gregsexton/MatchTag",
-  },
-
-  {
     "tpope/vim-apathy",
   },
 
