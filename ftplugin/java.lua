@@ -1,79 +1,93 @@
-local dap = require "dap"
+-- Det som kommer under er konfigurering av nvim-jdtls; eg følger beskrivelsen
+-- til README relativt slavisk. Det ser litt "stygt" ut, men det fungerer og er
+-- ganske robust!
+-- https://github.com/mfussenegger/nvim-jdtls
 
-dap.adapters.java = function(callback)
-  callback {
-    type = "server",
-    host = "127.0.0.1",
-    port = 5005,
+local root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" })
+if root_dir == nil then
+  vim.notify("Advarsel: Finner ikke rot-mappe, jdtls ikke startet", vim.log.levels.WARN)
+  return
+end
+
+local jarfile = vim.fn.glob "/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
+local project_dir = vim.fn.stdpath("cache") .. "/jdtls/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local configdir = project_dir .. "/config"
+local datadir = project_dir .. "/workspace"
+
+-- Sørg for at jdtls config er definert - kopier default config
+if vim.fn.filereadable(configdir .. "/config.ini") == 0 then
+  vim.fn.mkdir(configdir, "p")
+  vim.fn.system {
+    "cp",
+    "/usr/share/java/jdtls/config_linux/config.ini",
+    configdir .. "/config.ini"
   }
 end
 
-dap.configurations.java = {
-  {
-    type = "java",
-    request = "attach",
-    name = "Debug (Attach) - Remote",
-    hostName = "127.0.0.1",
-    port = 5005,
-  },
-}
-
--- Merk at java-versjon er installert med rtx
--- * rtx install java@temurin-17.0.5+8
--- * rtx x java@temurin-17.0.5+8 -- which java
 local jdtls = require "jdtls"
-local root_dir = require("jdtls.setup").find_root { "mvnw", ".git" }
-
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
+local init_bundles = {}
+local java_debug_jars = vim.fn.glob(
+  "~/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/*/com.microsoft.java.debug.plugin-*.jar",
+  true,
+  true
+)
+if #java_debug_jars > 0 then
+  table.insert(init_bundles, java_debug_jars[1])
+else
+  vim.notify([[Advarsel: Finner ikke java-debug!
+    git clone https://github.com/microsoft/java-debug ~/workdir/java-debug
+    cd ~/workdir/java-debug
+    mise shell java@temurin-22.0.1+8
+    ./mvnw clean install
+  ]], vim.log.levels.WARN)
+end
+
+local vscode_java_test = vim.fn.glob(
+  "~/.local/share/vscode-java-test/server/*.jar",
+  true,
+  true
+)
+if #vscode_java_test > 0 then
+  vim.list_extend(init_bundles, vscode_java_test)
+else
+  vim.notify([[Advarsel: Finner ikke vscode-java-test! Installer slik:
+    git clone https://github.com/microsoft/vscode-java-test ~/.local/share/vscode-java-test
+    cd ~/.local/share/vscode-java-test
+    mise shell java@temurin-22.0.1+8
+    npm install
+    npm run bulid-plugin
+  ]], vim.log.levels.WARN)
+end
+
+
 local config = {
   cmd = {
-    "/home/lervag/.local/share/rtx/installs/java/temurin-17.0.5+8/bin/java",
+    "/home/lervag/.local/share/mise/installs/java/temurin-22.0.1+8/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
-    "-Xmx4g",
+    "-Xmx1g",
     "--add-modules=ALL-SYSTEM",
-    "--add-opens",
-    "java.base/java.util=ALL-UNNAMED",
-    "--add-opens",
-    "java.base/java.lang=ALL-UNNAMED",
-    "-jar",
-    vim.fn.glob "/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*.jar",
-    "-configuration",
-    "/home/lervag/.local/share/eclipse/config",
-    "-data",
-    "/home/lervag/.local/share/eclipse/"
-      .. vim.fn.fnamemodify(root_dir, ":p:h:t"),
+    "--add-opens", "java.base/java.util=ALL-UNNAMED",
+    "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+    "-jar", jarfile,
+    "-configuration", configdir,
+    "-data", datadir
   },
   root_dir = root_dir,
+
+  -- Configure jdtls specific settings
+  -- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
   settings = {
     java = {
-      signatureHelp = { enabled = true },
-      contentProvider = { preferred = "fernflower" },
-      completion = {
-        favoriteStaticMembers = {
-          "org.assertj.core.api.Assertions.assertThat",
-          "org.assertj.core.api.Assertions.assertThatThrownBy",
-          "org.assertj.core.api.Assertions.assertThatExceptionOfType",
-          "org.assertj.core.api.Assertions.catchThrowable",
-          "org.hamcrest.MatcherAssert.assertThat",
-          "org.hamcrest.Matchers.*",
-          "org.hamcrest.CoreMatchers.*",
-          "org.junit.jupiter.api.Assertions.*",
-          "java.util.Objects.requireNonNull",
-          "java.util.Objects.requireNonNullElse",
-          "org.mockito.Mockito.*",
-        },
-        filteredTypes = {
-          "com.sun.*",
-          "io.micrometer.shaded.*",
-          "java.awt.*",
-          "jdk.*",
-          "sun.*",
+      inlayHints = {
+        parameterNames = {
+          enabled = "all",
         },
       },
       sources = {
@@ -82,50 +96,39 @@ local config = {
           staticStarThreshold = 9999,
         },
       },
-      codeGeneration = {
-        toString = {
-          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-        },
-        hashCodeEquals = {
-          useJava7Objects = true,
-        },
-        useBlocks = true,
-      },
     },
   },
-  on_attach = function(client, bufnr)
-    jdtls.setup_dap { hotcodereplace = "auto" }
-    jdtls.setup.add_commands()
-    -- local opts = { silent = true, buffer = bufnr }
-    -- vim.keymap.set('n', "<A-o>", jdtls.organize_imports, opts)
-    -- vim.keymap.set('n', "<leader>df", function()
-    --   if vim.bo.modified then
-    --     vim.cmd('w')
-    --   end
-    --   jdtls.test_class()
-    -- end, opts)
-    -- vim.keymap.set('n', "<leader>dn", function()
-    --   if vim.bo.modified then
-    --     vim.cmd('w')
-    --   end
-    --   jdtls.test_nearest_method()
-    -- end, opts)
 
-    -- vim.keymap.set('n', "crv", jdtls.extract_variable, opts)
-    -- vim.keymap.set('v', "crv", [[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]], opts)
-    -- vim.keymap.set('v', 'crm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
-    -- vim.keymap.set('n', "crc", jdtls.extract_constant, opts)
-    -- local create_command = vim.api.nvim_buf_create_user_command
-    -- create_command(bufnr, 'W', require('me.lsp').remove_unused_imports, {
-    --   nargs = 0,
-    -- })
+  on_attach = function(client, bufnr)
+    local opts = { silent = true, buffer = bufnr }
+    vim.keymap.set("n", "<leader>lo", jdtls.organize_imports, opts)
+
+    vim.keymap.set("n", "<leader>lev", jdtls.extract_variable, opts)
+    vim.keymap.set("v", "<leader>lev", [[<esc><cmd>lua require("jdtls").extract_variable(true)<cr>]], opts)
+    vim.keymap.set("v", "<leader>lem", [[<esc><cmd>lua require('jdtls').extract_method(true)<cr>]], opts)
+    vim.keymap.set("n", "<leader>lec", jdtls.extract_constant, opts)
+
+    vim.keymap.set("n", "<leader>df", jdtls.test_class, opts)
+    vim.keymap.set("n", "<leader>dn", jdtls.test_nearest_method, opts)
+    vim.keymap.set("n", "<leader>dp", jdtls.pick_test, opts)
   end,
+
   init_options = {
-    bundles = {},
+    bundles = init_bundles,
     extendedClientCapabilities = extendedClientCapabilities,
   },
-  -- mute; having progress reports is enough
-  -- handlers['language/status'] = function() end
 }
+
+if not vim.fn.executable(config.cmd[1]) then
+  vim.notify(
+    [[Java-installasjonen mangler! Kan ikke starte jdtls!
+    Installer slik:
+    * mise install java@temurin-22.0.1+8
+    * mise x java@temurin-22.0.1+8 -- which java
+  ]],
+    vim.log.levels.ERROR
+  )
+  return
+end
 
 jdtls.start_or_attach(config)
