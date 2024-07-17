@@ -58,7 +58,7 @@ else
     cd ~/.local/share/vscode-java-test
     mise shell java@temurin-22.0.1+8
     npm install
-    npm run bulid-plugin
+    npm run build-plugin
   ]], vim.log.levels.WARN)
 end
 
@@ -119,7 +119,7 @@ local config = {
   },
 }
 
-if not vim.fn.executable(config.cmd[1]) then
+if vim.fn.executable(config.cmd[1]) == 0 then
   vim.notify(
     [[Java-installasjonen mangler! Kan ikke starte jdtls!
     Installer slik:

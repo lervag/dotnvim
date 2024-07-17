@@ -325,6 +325,9 @@ local M = {
     "echasnovski/mini.notify",
     config = function()
       local mininotify = require "mini.notify"
+
+      vim.keymap.set("n", "<leader>n", mininotify.show_history)
+
       mininotify.setup {
         content = {
           format = function(notif)
