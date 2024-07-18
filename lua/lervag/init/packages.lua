@@ -1750,6 +1750,8 @@ local M = {
             disable_diagnostics = true,
           },
         },
+        -- See defaults here:
+        -- ~/.local/plugged/diffview.nvim/lua/diffview/config.lua:120
         keymaps = {
           file_panel = {
             ["<leader>eq"] = ":DiffviewClose<cr>",
@@ -1761,6 +1763,10 @@ local M = {
           },
           view = {
             ["<leader>e"] = false,
+            ["<leader>eq"] = ":DiffviewClose<cr>",
+            ["<c-q>"] = ":quitall<cr>",
+          },
+          diff3 = {
             ["<leader>eq"] = ":DiffviewClose<cr>",
             ["<c-q>"] = ":quitall<cr>",
           },
