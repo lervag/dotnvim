@@ -1565,6 +1565,16 @@ local M = {
           template = "![$FILE_NAME_NO_EXT]($FILE_NAME)",
         },
       },
+      custom = {
+        {
+          -- For apy edit notes
+          trigger = function() -- returns true to enable
+            return vim.fn.bufname():match "^edit_node_.+%.md"
+          end,
+          dir_path = "/home/lervag/documents/anki/lervag/collection.media/",
+          template = "![$FILE_NAME_NO_EXT]($FILE_NAME)",
+        },
+      }
     },
     keys = {
       { "<leader>ep", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
