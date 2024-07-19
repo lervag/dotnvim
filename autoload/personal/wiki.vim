@@ -78,7 +78,8 @@ function! personal#wiki#link_from_clipboard() abort " {{{1
   endif
 
   let l:text = trim(system(printf("curl -s %s | pup 'h1 text{}'", l:url)))
-  return printf("[%s](%s)\n", l:text, l:url)
+  let l:text = substitute(l:text, '\n', '', 'g')
+  return printf("[%s](%s)", l:text, l:url)
 endfunction
 
 " }}}1

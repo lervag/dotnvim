@@ -1,3 +1,5 @@
+extends markdown
+
 snippet journal "Journal entries" w
 journal:`!v strftime("%Y-%m-%d")`
 endsnippet
@@ -38,8 +40,4 @@ endsnippet
 
 snippet LLL "Create local link" wA
 [[#$1]]$0
-endsnippet
-
-snippet LLM "Create Markdown link from clipboard" wA
-`!v personal#wiki#link_from_clipboard()`
 endsnippet
