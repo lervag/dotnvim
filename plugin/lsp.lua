@@ -1,14 +1,9 @@
-local const = require "lervag.const"
+local u = require "lervag.util.lsp"
+
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = const.border, title = " hover " }
-)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = const.border, title = "signature" }
-)
+vim.lsp.handlers["textDocument/hover"] = u.hover
+vim.lsp.handlers["textDocument/signatureHelp"] = u.signatureHelp
 
 -- {{{1 Capabilities
 
@@ -74,10 +69,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = lspgroup,
   desc = "Configure LSP: Mappings and similar",
   callback = function(args)
+    local const = require "lervag.const"
     local attachedClient = vim.lsp.get_client_by_id(args.data.client_id)
 
     if attachedClient then
-      if attachedClient.supports_method("textDocument/codeLens") then
+      if attachedClient.supports_method "textDocument/codeLens" then
         vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
           group = lspgroup,
           desc = "Refresh codelenses",
@@ -88,7 +84,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         })
       end
 
-      if attachedClient.supports_method("textDocument/inlayHint") then
+      if attachedClient.supports_method "textDocument/inlayHint" then
         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
       end
     end
@@ -104,7 +100,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local formatters = {}
 
       for _, client in pairs(clients) do
-        if client.supports_method("textDocument/formatting") then
+        if client.supports_method "textDocument/formatting" then
           table.insert(formatters, client.name)
         end
       end
@@ -316,10 +312,7 @@ end)
 -- see ftplugin/java.lua
 
 -- }}}1
--- {{{1 jsonls
-
--- https://github.com/hrsh7th/vscode-langservers-extracted
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jsonls.lua
+-- {{{1 wiki:jsonls
 
 create_autocommand({ "json", "jsonc" }, function(args)
   return {
@@ -840,14 +833,7 @@ create_autocommand("vim", function(args)
 end)
 
 -- }}}1
--- {{{1 yamlls
-
--- https://github.com/redhat-developer/yaml-language-server
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/yamlls.lua
-
--- This may be useful:
--- * https://github.com/someone-stole-my-name/yaml-companion.nvim
--- * https://www.reddit.com/r/neovim/comments/ur6u3g/yamlcompanionnvim_get_set_and_autodetect_yaml/
+-- {{{1 wiki:yamlls
 
 create_autocommand({ "yaml", "yaml.docker-compose" }, function(args)
   return {
@@ -867,7 +853,8 @@ create_autocommand({ "yaml", "yaml.docker-compose" }, function(args)
         },
         schemaDownload = { enable = true },
         schemas = {
-          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          kubernetes = { "/deployment.yml", "/deployments/*.yml" },
+          ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/gitlab-ci.yml",
         },
         trace = { server = "debug" },
       },
