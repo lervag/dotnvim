@@ -320,7 +320,18 @@ create_autocommand({ "json", "jsonc" }, function(args)
     cmd = { "vscode-json-language-server", "--stdio" },
     root_dir = vim.fs.root(args.buf, { ".git" }),
     single_file_support = true,
-    settings = {},
+    settings = {
+      json = {
+        schemas = {
+          {
+            fileMatch = { "*.hujson" },
+            schema = {
+              allowTrailingCommas = true
+            }
+          }
+        }
+      }
+    },
     init_options = {
       provideFormatter = true,
     },

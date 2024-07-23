@@ -152,6 +152,7 @@ vim.filetype.add {
   extension = {
     pf = "fortran",
     wiki = "wiki",
+    hujson = "jsonc",
   },
   filename = {
     ["dagbok.txt"] = "dagbok",
