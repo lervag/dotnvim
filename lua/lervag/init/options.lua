@@ -149,7 +149,10 @@ vim.g.python3_host_prog = "~/.local/venvs/nvim/bin/python"
 
 -- Detect som additional filetypes
 vim.filetype.add {
-  extension = { pf = "fortran" },
+  extension = {
+    pf = "fortran",
+    wiki = "wiki",
+  },
   filename = {
     ["dagbok.txt"] = "dagbok",
   },
