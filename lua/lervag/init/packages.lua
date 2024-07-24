@@ -77,6 +77,7 @@ local M = {
       vim.g.wiki_export = { output = "printed" }
       vim.g.wiki_mappings_local = {
         ["<plug>(wiki-link-transform-operator)"] = "gL",
+        ["<plug>(wiki-link-remove)"] = "dsl",
       }
       vim.g.wiki_toc_depth = 2
       vim.g.wiki_link_schemes = {
