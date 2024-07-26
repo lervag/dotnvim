@@ -1154,11 +1154,6 @@ local M = {
     event = "BufReadPost",
     dependencies = {
       {
-        "rcarriga/nvim-dap-ui",
-        dependencies = { "nvim-neotest/nvim-nio" },
-        config = true,
-      },
-      {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = true,
@@ -1168,19 +1163,6 @@ local M = {
         config = true,
       },
       "jbyuki/one-small-step-for-vimkind",
-      {
-        "HiPhish/debugpy.nvim",
-        config = function()
-          local default_config = {
-            justMyCode = false,
-          }
-
-          ---@diagnostic disable-next-line: duplicate-set-field
-          require("debugpy").run = function(config)
-            require("dap").run(vim.tbl_extend("keep", config, default_config))
-          end
-        end,
-      },
     },
     config = function()
       -- NOTE: This script defines the global dap configuration. Adapters and
@@ -1188,8 +1170,8 @@ local M = {
       --       update the following list, these are the relevant files:
       --
       --       Python
-      --         ~/.config/nvim/init/plugins/debugpy.lua
       --         ~/.config/nvim/ftplugin/python.lua
+      --         Plugin: "HiPhish/debugpy.nvim" (see below)
       --
       --       Java:
       --         ~/.config/nvim/ftplugin/java.lua
@@ -1201,21 +1183,24 @@ local M = {
       --         ~/.config/nvim/ftplugin/lua.lua
 
       local dap = require "dap"
-      local dapui = require "dapui"
       local widgets = require "dap.ui.widgets"
 
       dap.set_log_level "INFO"
 
-      local ui_open = function()
-        dapui.open()
+      dap.listeners.before.attach.dapui_config = function()
+        require("dapui").open()
       end
-      local ui_close = function()
-        dapui.open()
+      dap.listeners.before.launch.dapui_config = function()
+        require("dapui").open()
       end
-      dap.listeners.before.attach.dapui_config = ui_open
-      dap.listeners.before.launch.dapui_config = ui_open
-      dap.listeners.before.event_terminated.dapui_config = ui_close
-      dap.listeners.before.event_exited.dapui_config = ui_close
+      dap.listeners.before.event_exited.dapui_config = function(_, status)
+        require("dapui").close()
+        vim.notify("Process finished (exit code = " .. status.exitCode .. ")")
+      end
+      dap.listeners.before.disconnect.dapui_config = function()
+        require("dapui").close()
+        dap.repl.close()
+      end
 
       -- Define sign symbols
       vim.fn.sign_define {
@@ -1235,10 +1220,7 @@ local M = {
         ["<leader>dd"] = dap.continue,
         ["<leader>dD"] = dap.run_last,
         ["<leader>dc"] = dap.run_to_cursor,
-        ["<leader>dx"] = function()
-          dapui.close()
-          dap.terminate()
-        end,
+        ["<leader>dx"] = dap.terminate,
         ["<leader>dp"] = dap.step_back,
         ["<leader>dn"] = dap.step_over,
         ["<leader>dj"] = dap.step_into,
@@ -1274,7 +1256,9 @@ local M = {
             title = " hover ",
           })
         end,
-        ["<leader>de"] = dapui.eval,
+        ["<leader>de"] = function()
+          require("dapui").eval()
+        end,
         ["<leader>dE"] = function()
           vim.ui.input({
             prompt = " evaluate ",
@@ -1292,15 +1276,24 @@ local M = {
         vim.keymap.set("n", lhs, rhs)
       end
 
-      vim.keymap.set("v", "<leader>de", dapui.eval)
+      vim.keymap.set("v", "<leader>de", function()
+        require("dapui").eval()
+      end)
     end,
   },
 
   {
     "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
     lazy = true,
     opts = {
       controls = { enabled = false },
+      icons = {
+        current_frame = "🡆",
+      },
       layouts = {
         {
           elements = {
@@ -1309,21 +1302,31 @@ local M = {
             { id = "breakpoints", size = 0.25 },
             { id = "watches", size = 0.25 },
           },
-          position = "left",
           size = 45,
+          position = "left",
         },
         {
           elements = {
-            { id = "repl", size = 0.5 },
+            { id = "repl", size = 1.0 },
           },
-          position = "right",
-          size = 82,
+          size = 20,
+          position = "bottom",
         },
       },
-      icons = {
-        current_frame = "🡆",
-      },
     },
+  },
+
+  {
+    "HiPhish/debugpy.nvim",
+    dependencies = { "mfussenegger/nvim-dap" },
+    command = "Debugpy",
+    config = function()
+      require("debugpy").run = function(cfg)
+        require("dap").run(vim.tbl_extend("keep", cfg, {
+          justMyCode = false,
+        }))
+      end
+    end,
   },
 
   -- {{{1 Editing
@@ -1575,7 +1578,7 @@ local M = {
           dir_path = "/home/lervag/documents/anki/lervag/collection.media/",
           template = "![$FILE_NAME_NO_EXT]($FILE_NAME)",
         },
-      }
+      },
     },
     keys = {
       { "<leader>ep", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
@@ -1660,7 +1663,6 @@ local M = {
       -- oil.nvim disables netrw and thus the :Browse command, which is needed
       -- by fugitive for :GBrowse.
       vim.api.nvim_create_user_command("Browse", function(args)
-        print("test")
         vim.ui.open(args.args)
       end, {
         desc = "Enables using GBrowse without netrw",
