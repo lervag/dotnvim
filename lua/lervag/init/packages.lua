@@ -1771,6 +1771,7 @@ local M = {
             ["<c-q>"] = ":quitall<cr>",
           },
           file_history_panel = {
+            ["<leader>e"] = nil,
             ["<leader>eq"] = ":DiffviewClose<cr>",
             ["<c-q>"] = ":quitall<cr>",
           },
