@@ -279,6 +279,14 @@ function! s:status_common(context) abort " {{{1
     endfor
   endif
 
+  try
+    if UltiSnips#CanJumpForwards()
+      let l:trigger = pyeval("UltiSnips_Manager._active_snippets[0].snippet.trigger")
+      let l:stat .= s:_info(a:context, '  ' . l:trigger)
+    endif
+  catch
+  endtry
+
   return empty(l:stat) ? '' : l:stat
 endfunction
 
