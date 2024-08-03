@@ -1,3 +1,113 @@
+local ctx = {}
+
+local u = {
+  info = function(text)
+    return ctx.is_active
+      and "%#SLInfo#" .. text .. "%*"
+      or text
+  end,
+  alert = function(text)
+    return ctx.is_active
+      and "%#SLAlert#" .. text .. "%*"
+      or text
+  end,
+  success = function(text)
+    return ctx.is_active
+      and "%#SLSuccess#" .. text .. "%*"
+      or text
+  end,
+  highlight = function(text)
+    return ctx.is_active
+      and "%#SLHighlight#" .. text .. "%*"
+      or text
+  end
+}
+
+local parts = {
+  filename = function()
+    return u.highlight(" %<%f")
+  end,
+  common = function()
+    return " common"
+  end,
+  metals = function()
+    --   let l:metals_status = trim(get(g:, 'metals_status', ''))
+    --   if !empty(l:metals_status) && a:context.active
+    --     let l:stat .= '%#SLInfo# ' . l:metals_status . '%*'
+    --   endif
+    return " metals"
+  end,
+  textwidth = function()
+    local width = vim.fn.virtcol('$') - 1
+    if vim.o.textwidth > 0 and width > vim.o.textwidth then
+      ---@diagnostic disable-next-line: redundant-parameter
+      return u.alert(vim.fn.printf(' [%s > %s &tw]', width, vim.o.textwidth))
+    end
+
+    return ""
+  end,
+  dap = function()
+    local ok, dap = pcall(require, "dap")
+
+    if ok then
+      local status = dap.status()
+      if #status > 0 then
+        return u.highlight("  " .. status)
+      end
+    end
+
+    return ""
+  end,
+  git = function()
+    local ok, head = pcall(vim.fn.FugitiveHead, 7, ctx.active_bufnr)
+    if ok and #head > 0 then
+      return " ⑂" .. head
+    end
+
+    return ""
+  end,
+}
+
+local function preview(ctx)
+  return table.concat {
+    parts.filename(),
+    ctx.is_active and parts.common() or "",
+    "%=",
+    parts.metals(),
+    u.alert(' [preview] ')
+  }
+end
+
+local function fallback(ctx)
+  return table.concat {
+    parts.filename(),
+    ctx.is_active and parts.common() or "",
+    "%=",
+    parts.metals(),
+    parts.textwidth(),
+    parts.dap(),
+    parts.git(),
+    " "
+  }
+end
+
+local buftypes = {
+  nofile = function(ctx)
+    return " %f%= %l av %L "
+  end,
+  help = function(ctx)
+    return " vimdoc"
+  end
+}
+
+local schemes = {
+  foo = function(ctx)
+    return ""
+  end
+}
+
+local filetypes = {}
+
 local M = {}
 
 ---This is the entry point for the statusline function.
@@ -6,130 +116,35 @@ local M = {}
 function M.main()
 
   ---@type integer
-  M.active_winid = vim.g.statusline_winid
-  M.active_bufnr = vim.api.nvim_win_get_buf(M.active_winid)
-  M.is_active = M.active_winid == vim.api.nvim_get_current_win()
+  ctx.active_winid = vim.g.statusline_winid
+  ctx.active_bufnr = vim.api.nvim_win_get_buf(ctx.active_winid)
+  ctx.is_active = ctx.active_winid == vim.api.nvim_get_current_win()
 
   -- Match on buftypes
-  -- local ok, buftype = pcall(vim.api.nvim_get_option_value, "buftype", { buf = M.active_bufnr })
-  -- if ok and false then
-  --   -- return buftype statusline
-  -- end
+  local ok, bt = pcall(vim.api.nvim_get_option_value, "buftype", { buf = ctx.active_bufnr })
+  if ok and buftypes[bt] then
+    return buftypes[bt](ctx)
+  end
 
   -- Match on schemes
-  local bufname = vim.api.nvim_buf_get_name(M.active_bufnr)
+  local bufname = vim.api.nvim_buf_get_name(ctx.active_bufnr)
   local match = bufname:match "^%w+://"
-  if match and #match > 0 then
-    return " -- " .. bufname
+  if match and schemes[match] then
+    return schemes[match](ctx)
   end
 
   -- Match on filetypes
-  -- local ok, filetype = pcall(vim.api.nvim_get_option_value, "filetype", { buf = M.active_bufnr })
-  -- if ok and false then
-  --   -- return filetype statusline
-  -- end
+  local ok, ft = pcall(vim.api.nvim_get_option_value, "filetype", { buf = ctx.active_bufnr })
+  if ok and filetypes[ft] then
+    return filetypes[ft](ctx)
+  end
 
-  local ok, previewwindow = pcall(vim.api.nvim_get_option_value, "previewwindow", { win = M.active_winid })
+  local ok, previewwindow = pcall(vim.api.nvim_get_option_value, "previewwindow", { win = ctx.active_winid })
   if ok and previewwindow then
-    return M.preview()
+    return preview(ctx)
   end
 
-  return M.fallback()
-end
-
-function M.info(text)
-  return M.is_active
-    and "%#SLInfo#" .. text .. "%*"
-    or text
-end
-
-function M.alert(text)
-  return M.is_active
-    and "%#SLAlert#" .. text .. "%*"
-    or text
-end
-
-function M.success(text)
-  return M.is_active
-    and "%#SLSuccess#" .. text .. "%*"
-    or text
-end
-
-function M.highlight(text)
-  return M.is_active
-    and "%#SLHighlight#" .. text .. "%*"
-    or text
-end
-
-function M.preview()
-  return table.concat {
-    M.filename(),
-    M.is_active and M.common() or "",
-    "%=",
-    M.metals(),
-    M.alert(' [preview] ')
-  }
-end
-
-function M.fallback()
-  return table.concat {
-    M.filename(),
-    M.is_active and M.common() or "",
-    "%=",
-    M.metals(),
-    M.textwidth(),
-    M.dap(),
-    M.git(),
-    " "
-  }
-end
-
-function M.filename()
-  return M.highlight(" %<%f")
-end
-
-function M.common()
-  return " common"
-end
-
-function M.metals()
-  --   let l:metals_status = trim(get(g:, 'metals_status', ''))
-  --   if !empty(l:metals_status) && a:context.active
-  --     let l:stat .= '%#SLInfo# ' . l:metals_status . '%*'
-  --   endif
-  return " metals"
-end
-
-function M.textwidth()
-  local width = vim.fn.virtcol('$') - 1
-  if vim.o.textwidth > 0 and width > vim.o.textwidth then
-    ---@diagnostic disable-next-line: redundant-parameter
-    return M.alert(vim.fn.printf(' [%s > %s &tw]', width, vim.o.textwidth))
-  end
-
-  return ""
-end
-
-function M.dap()
-  local ok, dap = pcall(require, "dap")
-
-  if ok then
-    local status = dap.status()
-    if #status > 0 then
-      return M.highlight("  " .. status)
-    end
-  end
-
-  return ""
-end
-
-function M.git()
-  local ok, head = pcall(vim.fn.FugitiveHead, 7, M.active_bufnr)
-  if ok and #head > 0 then
-    return " ⑂" .. head
-  end
-
-  return ""
+  return fallback(ctx)
 end
 
 return M
