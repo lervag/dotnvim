@@ -138,10 +138,22 @@ function parts.git()
   return ""
 end
 
+---Output git file/path reference
+---@param ref string
+---@param path string
+---@return string
+function parts.gitfile(ref, path)
+  return table.concat {
+    u.alert(" " .. ref),
+    u.info " ⑂ ",
+    u.highlight(path),
+    parts.common(),
+  }
+end
+
 local buftypes = {
   help = function()
-    local bufname = vim.api.nvim_buf_get_name(ctx.active_bufnr)
-    local name = vim.fn.fnamemodify(bufname, ":t:r")
+    local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
     return u.info " vimdoc: " .. u.highlight(name)
   end,
   nofile = function()
@@ -187,64 +199,47 @@ local schemes = {}
 
 ---@return string
 function schemes.fugitive()
-  return ""
-  -- let l:bufname = bufname(a:context.bufnr)
-  --
-  -- let l:fname = matchstr(l:bufname, '\.git\/\/\x*\/\zs.*')
-  -- if empty(l:fname)
-  --   let l:fname = matchstr(l:bufname, '\.git\/\/\zs\x*')
-  -- endif
-  --
-  -- if empty(l:fname)
-  --   return s:_info(a:context, ' fugitive: ')
-  --         \ . s:_highlight(a:context, 'Git status')
-  -- endif
-  --
-  -- let l:stat = s:_info(a:context, ' fugitive: %<')
-  -- let l:stat .= s:_highlight(a:context, l:fname)
-  -- let l:stat .= s:status_common(a:context)
-  --
-  -- let l:commit = matchstr(l:bufname, '\.git\/\/\zs\x\{7}')
-  -- let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
-  --
-  -- return l:stat
+  ---@type string | nil
+  local commit = ctx.active_name:match "/%.git//(%x+)"
+  if not commit then
+    return u.info " fugitive: " .. u.highlight "Git status"
+  end
+
+  ---@type string | nil
+  local path = ctx.active_name:match "/%.git//%x+/(.*)"
+  if not path then
+    return table.concat {
+      u.info " fugitive: %<",
+      u.highlight(commit),
+      parts.common(),
+    }
+  end
+
+  return parts.gitfile(#commit > 1 and commit or "HEAD", path)
 end
 
 ---@return string
 function schemes.diffview()
-  return ""
-  -- let l:bufname = bufname(a:context.bufnr)
-  --
-  -- let l:fname = matchstr(l:bufname, '\.git\/[0-9a-z:]*\/\zs.*')
-  -- if empty(l:fname)
-  --   let l:fname = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]*')
-  -- endif
-  --
-  -- if empty(l:fname)
-  --   let l:name = matchstr(l:bufname, 'panels\/\d\+\/\zs.*')
-  --   return s:_info(a:context, ' diffview: ') . s:_highlight(a:context, l:name)
-  -- endif
-  --
-  -- let l:stat = s:_info(a:context, ' diffview: %<')
-  -- let l:stat .= s:_highlight(a:context, l:fname)
-  -- let l:stat .= s:status_common(a:context)
-  --
-  -- let l:commit = matchstr(l:bufname, '\.git\/\zs[0-9a-z:]\{7}')
-  -- let l:stat .= '%= ⑂' . (empty(l:commit) ? 'HEAD' : l:commit) . ' '
-  --
-  -- return l:stat
+  ---@type string | nil
+  local commit = ctx.active_name:match "/%.git/([%x:]+)"
+  if not commit then
+    local name = ctx.active_name:match "panels/%d+/(.*)" or "???"
+    return " " .. u.highlight(name)
+  end
+  commit = commit:sub(1, 8)
+
+  ---@type string
+  local path = ctx.active_name:match "/%.git/[%x:]+/(.*)"
+
+  return parts.gitfile(commit, path)
 end
 
 ---Statusline for schemes
 ---@return string | nil
 local function stl_from_scheme()
-  local buffer_name = vim.api.nvim_buf_get_name(ctx.active_bufnr)
-  local matched = buffer_name:match "^%w+://"
-  if matched then
-    local scheme = matched:match "^%w+"
-    if schemes[scheme] then
-      return schemes[scheme]()
-    end
+  local matched = ctx.active_name:match "^(%w+)://"
+  if matched and schemes[matched] then
+    return schemes[matched]()
   end
 end
 
@@ -297,6 +292,37 @@ function filetypes.scala()
 end
 filetypes.sbt = filetypes.scala
 
+function filetypes.wiki()
+  local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
+
+  -- if get(get(b:, 'wiki', {}), 'in_journal', 0)
+  --   let l:stat .= s:_info(a:context, '  ')
+  -- endif
+  --
+  -- let l:stat .= s:status_common(a:context)
+  --
+  -- let l:file = fnamemodify(bufname(a:context.bufnr), ':p')
+  -- if filereadable(l:file)
+  --   let l:graph = wiki#graph#builder#get()
+  --   let l:broken_links = l:graph.get_broken_links_from(l:file)
+  --   if len(l:broken_links) > 0
+  --     let l:stat .= s:_alert(a:context, printf(' (🔗%d)',len(l:broken_links)))
+  --   endif
+  -- endif
+  --
+  -- return l:stat
+
+  return table.concat {
+    u.info " wiki: ",
+    u.highlight(name),
+    parts.common(),
+    "%=",
+    parts.textwidth(),
+    " ",
+  }
+
+end
+
 ---Statusline for filetype
 ---@return string | nil
 local function stl_from_filetype()
@@ -348,16 +374,17 @@ function M.main()
   ---@type integer
   ctx.active_winid = vim.g.statusline_winid
   ctx.active_bufnr = vim.api.nvim_win_get_buf(ctx.active_winid)
+  ctx.active_name = vim.api.nvim_buf_get_name(ctx.active_bufnr)
   ctx.is_active = ctx.active_winid == vim.api.nvim_get_current_win()
-
-  local stl_bt = stl_from_buftype()
-  if stl_bt then
-    return stl_bt
-  end
 
   local stl_scheme = stl_from_scheme()
   if stl_scheme then
     return stl_scheme
+  end
+
+  local stl_bt = stl_from_buftype()
+  if stl_bt then
+    return stl_bt
   end
 
   local stl_ft = stl_from_filetype()
