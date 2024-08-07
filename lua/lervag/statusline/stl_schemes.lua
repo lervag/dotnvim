@@ -1,0 +1,55 @@
+local parts = require "lervag.statusline.parts"
+local ctx = require "lervag.statusline.context"
+local ui = require "lervag.statusline.ui"
+
+local schemes = {}
+
+---@return string
+function schemes.fugitive()
+  ---@type string | nil
+  local commit = ctx.active_name:match "/%.git//(%x+)"
+  if not commit then
+    return ui.info " fugitive: " .. ui.highlight "Git status"
+  end
+
+  ---@type string | nil
+  local path = ctx.active_name:match "/%.git//%x+/(.*)"
+  if not path then
+    return table.concat {
+      ui.info " fugitive: %<",
+      ui.highlight(commit),
+      parts.common(),
+    }
+  end
+
+  return parts.gitfile(#commit > 1 and commit or "HEAD", path)
+end
+
+---@return string
+function schemes.diffview()
+  ---@type string | nil
+  local commit = ctx.active_name:match "/%.git/([%x:]+)"
+  if not commit then
+    local name = ctx.active_name:match "panels/%d+/(.*)" or "???"
+    return " " .. ui.highlight(name)
+  end
+  commit = commit:sub(1, 8)
+
+  ---@type string
+  local path = ctx.active_name:match "/%.git/[%x:]+/(.*)"
+
+  return parts.gitfile(commit, path)
+end
+
+
+local M = {}
+
+---@return string | nil
+function M.parse()
+  local matched = ctx.active_name:match "^(%w+)://"
+  if matched and schemes[matched] then
+    return schemes[matched]()
+  end
+end
+
+return M
