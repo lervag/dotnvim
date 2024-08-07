@@ -151,6 +151,21 @@ function parts.gitfile(ref, path)
   }
 end
 
+---Output broken links in wiki
+---@return string
+function parts.wiki_broken_links()
+  local path = vim.fn.fnamemodify(ctx.active_name, ":p")
+  if vim.fn.filereadable(path) then
+    local broken_links =
+      #vim.api.nvim_call_function("wiki#graph#get_broken_links", { path })
+    if broken_links > 0 then
+      return u.alert(" (🔗" .. broken_links .. ")")
+    end
+  end
+
+  return ""
+end
+
 local buftypes = {
   help = function()
     local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
@@ -295,32 +310,23 @@ filetypes.sbt = filetypes.scala
 function filetypes.wiki()
   local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
 
-  -- if get(get(b:, 'wiki', {}), 'in_journal', 0)
-  --   let l:stat .= s:_info(a:context, '  ')
-  -- endif
-  --
-  -- let l:stat .= s:status_common(a:context)
-  --
-  -- let l:file = fnamemodify(bufname(a:context.bufnr), ':p')
-  -- if filereadable(l:file)
-  --   let l:graph = wiki#graph#builder#get()
-  --   let l:broken_links = l:graph.get_broken_links_from(l:file)
-  --   if len(l:broken_links) > 0
-  --     let l:stat .= s:_alert(a:context, printf(' (🔗%d)',len(l:broken_links)))
-  --   endif
-  -- endif
-  --
-  -- return l:stat
+  ---@type string
+  local journal_marker = vim.b.wiki
+      and vim.b.wiki.in_journal
+      and vim.b.wiki.in_journal == 1
+      and u.info "  "
+    or ""
 
   return table.concat {
     u.info " wiki: ",
     u.highlight(name),
+    journal_marker,
     parts.common(),
     "%=",
+    parts.wiki_broken_links(),
     parts.textwidth(),
     " ",
   }
-
 end
 
 ---Statusline for filetype
