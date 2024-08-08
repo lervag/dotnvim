@@ -1934,15 +1934,6 @@ local M = {
   },
 
   {
-    "Konfekt/FastFold",
-    enabled = false,
-    config = function()
-      vim.g.fastfold_fold_command_suffixes = { "x", "X", "M", "R" }
-      vim.g.fastfold_fold_movement_commands = {}
-    end,
-  },
-
-  {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
       {
