@@ -126,8 +126,8 @@ vim.opt.virtualedit = "block"
 
 vim.opt.winwidth = 70
 vim.opt.termguicolors = true
-vim.opt.tabline = "%!personal#tabline#get_tabline()"
-vim.opt.statusline = "%!luaeval('require(\"lervag.statusline\").main()')"
+vim.opt.tabline = "%!luaeval('require(\"lervag.statusline\").tabline()')"
+vim.opt.statusline = "%!luaeval('require(\"lervag.statusline\").statusline()')"
 vim.opt.guicursor = {
   "a:block",
   "n:Cursor",

@@ -3,13 +3,14 @@ local stl_schemes = require "lervag.statusline.stl_schemes"
 local stl_buftypes = require "lervag.statusline.stl_buftypes"
 local stl_filetypes = require "lervag.statusline.stl_filetypes"
 local stl_core = require "lervag.statusline.stl_core"
+local tal_core = require "lervag.statusline.tal_core"
 
 local M = {}
 
 ---This is the entry point for the statusline function.
 ---It returns a string that adheres to the docs in :help 'statusline'.
 ---@return string
-function M.main()
+function M.statusline()
   context.refresh()
 
   local stl_scheme = stl_schemes.parse()
@@ -33,6 +34,11 @@ function M.main()
   end
 
   return stl_core.normal()
+end
+
+---@return string
+function M.tabline()
+  return tal_core.main()
 end
 
 return M
