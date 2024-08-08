@@ -134,8 +134,9 @@ end
 function M.wiki_broken_links()
   local path = vim.fn.fnamemodify(ctx.active_name, ":p")
   if vim.fn.filereadable(path) then
+    ---@type integer
     local broken_links =
-      #vim.api.nvim_call_function("wiki#graph#get_broken_links", { path })
+      vim.api.nvim_call_function("wiki#graph#get_number_of_broken_links", { path })
     if broken_links > 0 then
       return ui.alert(" (🔗" .. broken_links .. ")")
     end
