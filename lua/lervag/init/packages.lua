@@ -1319,7 +1319,7 @@ local M = {
   {
     "HiPhish/debugpy.nvim",
     dependencies = { "mfussenegger/nvim-dap" },
-    command = "Debugpy",
+    cmd = "Debugpy",
     config = function()
       require("debugpy").run = function(cfg)
         require("dap").run(vim.tbl_extend("keep", cfg, {
@@ -1960,6 +1960,7 @@ local M = {
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
+    cmd = "Dbee",
     build = function()
       require("dbee").install()
     end,
