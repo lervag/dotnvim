@@ -9,11 +9,11 @@ function buftypes.help()
 end
 
 function buftypes.nofile()
-  return ui.info " %f" .. "%= %l av %L "
+  return ui.info " %f" .. "%= %l/%L "
 end
 
 function buftypes.prompt()
-  return ui.info " %f" .. "%= %l av %L "
+  return ui.info " %f" .. "%= %l/%L "
 end
 
 function buftypes.quickfix()
