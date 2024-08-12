@@ -24,7 +24,12 @@ function! s:resize_windows() " {{{1
   let l:width = s:get_target_width()
   if l:width == &columns | return | endif
 
-  if (has('gui') || empty($TMUX . $STY)) && empty($KITTY_PID)
+  if !empty($KITTY_PID)
+    let l:winid = systemlist('xdotool getactivewindow')[0]
+    call system(printf('kitten @ resize-os-window --self --width %d', l:width))
+    call system(printf('xdotool key --window %s "super+c"', l:winid))
+    sleep 100m
+  elseif has('gui') || empty($TMUX . $STY)
     let &columns = l:width
     call system('xdotool key "super+c"')
   else
