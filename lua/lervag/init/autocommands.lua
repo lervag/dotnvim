@@ -54,4 +54,18 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Sett bakgrunn i terminalen for å unngå irriterende svarte kanter
+-- Ref: https://www.reddit.com/r/neovim/comments/1b66s2c/sync_terminal_background_with_neovim_background/
+vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
+  callback = function()
+    io.stdout:write "\027]111;;\027\\"
+  end,
+})
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimResume" }, {
+  callback = function()
+    local hl_info = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+    io.stdout:write(("\027]11;#%06x\027\\"):format(hl_info.bg))
+  end,
+})
+
 -- See also: after/plugin/init_autocmds.vim
