@@ -115,12 +115,16 @@ end
 
 vim.keymap.set("x", "<leader>xx", function()
   local callback = function(filetype)
+    local ic = vim.fn.getpos(".")[2]
+    local iv = vim.fn.getpos("v")[2]
+    local cmd_range = ":" .. math.min(ic, iv) .. "," .. math.max(ic, iv)
+
     vim.b.__xx_ft = filetype
     if filetype == "vim" then
-      vim.cmd [[:'<,'>yank v]]
-      vim.cmd [[:@v]]
+      vim.cmd(cmd_range .. "yank v")
+      vim.cmd ":@v"
     elseif filetype == "lua" then
-      vim.cmd [[:'<,'>lua]]
+      vim.cmd(cmd_range .. "lua")
     end
   end
 
