@@ -46,3 +46,10 @@ require("lazy").setup({
 	root = root .. "/plugins",
 })
 endsnippet
+
+snippet template-debug "Template for debugging Lua scripts" b
+if vim.env.DEBUG then
+	vim.opt.runtimepath:prepend "~/.local/plugged/one-small-step-for-vimkind"
+	require "osv".launch { port = 8086, blocking = true }
+end
+endsnippet
