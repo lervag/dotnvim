@@ -368,7 +368,8 @@ local M = {
             end
 
             return {
-              width = math.min(width + 1, math.floor(0.9 * vim.o.columns)),
+              row = 1,
+              width = math.min(width + 1, math.floor(0.8 * vim.o.columns)),
               height = height,
               border = { "┏", " ", " ", " ", " ", " ", "┗", "┃" },
               title = "NOTIFICATIONS",
@@ -445,6 +446,49 @@ local M = {
             .. "- Don't elide any code from your output if the answer requires coding.\n",
         },
       },
+    },
+  },
+
+  {
+    "b0o/incline.nvim",
+    event = "VeryLazy",
+    opts = {
+      render = function(props)
+        local diagnostics = {}
+        for _, cfg in ipairs {
+          {
+            severity = vim.diagnostic.severity.ERROR,
+            group = "DiagnosticSignError",
+            symbol = " ",
+          },
+          {
+            severity = vim.diagnostic.severity.WARN,
+            group = "DiagnosticSignWarn",
+            symbol = " ",
+          },
+          {
+            severity = vim.diagnostic.severity.INFO,
+            group = "DiagnosticSignInfo",
+            symbol = " ",
+          },
+          {
+            severity = vim.diagnostic.severity.HINT,
+            group = "DiagnosticSignHint",
+            symbol = " ",
+          },
+        } do
+          local n = #vim.diagnostic.get(props.buf, { severity = cfg.severity })
+          if n > 0 then
+            local label = (#diagnostics > 0 and " " or "")
+              .. cfg.symbol .. n
+            table.insert(diagnostics, { label, group = cfg.group })
+          end
+        end
+
+        return {
+          diagnostics,
+        }
+      end,
     },
   },
 

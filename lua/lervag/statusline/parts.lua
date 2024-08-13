@@ -23,32 +23,6 @@ function M.common()
     modified = ui.info " "
   end
 
-  local diagnostics = {}
-  if #locked == 0 then
-    for _, cfg in ipairs {
-      {
-        severity = vim.diagnostic.severity.ERROR,
-        method = "alert",
-        symbol = "",
-      },
-      {
-        severity = vim.diagnostic.severity.WARN,
-        method = "highlight",
-        symbol = "",
-      },
-      {
-        severity = vim.diagnostic.severity.INFO,
-        method = "info",
-        symbol = "",
-      },
-    } do
-      local n = #vim.diagnostic.get(ctx.bufnr, { severity = cfg.severity })
-      if n > 0 then
-        table.insert(diagnostics, ui[cfg.method](" " .. cfg.symbol .. " " .. n))
-      end
-    end
-  end
-
   local snippet = ""
   local us_ok, us_canjump = pcall(vim.fn["UltiSnips#CanJumpForwards"])
   if us_ok and us_canjump > 0 then
@@ -60,7 +34,6 @@ function M.common()
   local stl = table.concat {
     locked,
     modified,
-    table.concat(diagnostics),
     snippet,
   }
 
