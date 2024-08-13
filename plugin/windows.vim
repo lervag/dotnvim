@@ -29,7 +29,7 @@ function! s:resize_windows() " {{{1
     call system(printf('kitten @ resize-os-window --self --width %d', l:width))
     call system(printf('xdotool key --window %s "super+c"', l:winid))
     sleep 100m
-  elseif has('gui') || empty($TMUX . $STY)
+  elseif (has('gui') || empty($TMUX . $STY)) && empty($WEZTERM_UNIX_SOCKET)
     let &columns = l:width
     call system('xdotool key "super+c"')
   else

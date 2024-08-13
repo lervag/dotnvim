@@ -58,7 +58,11 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Ref: https://www.reddit.com/r/neovim/comments/1b66s2c/sync_terminal_background_with_neovim_background/
 vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
   callback = function()
-    io.stdout:write "\027]111;;\027\\"
+    if vim.env.TMUX then
+      io.stdout:write "\027]11;#002b36\027\\"
+    else
+      io.stdout:write "\027]111;;\027\\"
+    end
   end,
 })
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimResume" }, {
