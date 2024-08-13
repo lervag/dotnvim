@@ -1221,6 +1221,9 @@ local M = {
         ["<leader>dD"] = dap.run_last,
         ["<leader>dc"] = dap.run_to_cursor,
         ["<leader>dx"] = dap.terminate,
+        ["<leader>dX"] = function()
+          require("dapui").close()
+        end,
         ["<leader>dp"] = dap.step_back,
         ["<leader>dn"] = dap.step_over,
         ["<leader>dj"] = dap.step_into,
