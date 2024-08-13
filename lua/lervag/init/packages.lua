@@ -826,6 +826,31 @@ local M = {
     end,
   },
 
+  {
+    "chrisgrieser/nvim-rulebook",
+    keys = {
+      {
+        "<leader>qri",
+        function()
+          require("rulebook").ignoreRule()
+        end,
+      },
+      {
+        "<leader>qrl",
+        function()
+          require("rulebook").lookupRule()
+        end,
+      },
+      {
+        "<leader>lF",
+        function()
+          require("rulebook").suppressFormatter()
+        end,
+        mode = { "n", "x" },
+      },
+    },
+  },
+
   -- }}}1
   -- {{{1 Text objects and similar
 
