@@ -1273,16 +1273,13 @@ local M = {
 
       -- Define sign symbols
       vim.fn.sign_define {
-        {
-          text = "🡆",
-          texthl = "DapSign",
-          name = "DapStopped",
-          linehl = "CursorLine",
-        },
+        -- stylua: ignore start
+        { text = "🡆", texthl = "DapSign", name = "DapStopped", linehl = "CursorLine" },
         { text = "●", texthl = "DapSign", name = "DapBreakpoint" },
         { text = "", texthl = "DapSign", name = "DapBreakpointCondition" },
         { text = "▪", texthl = "DapSign", name = "DapBreakpointRejected" },
         { text = "◉", texthl = "DapSign", name = "DapLogPoint" },
+        -- stylua: ignore end
       }
 
       local mappings = {
@@ -1758,6 +1755,7 @@ local M = {
     opts = {
       view = {
         signs = { add = "▕▏", change = "▕▏", delete = "▁▁" },
+        priority = 20,
       },
     },
   },
