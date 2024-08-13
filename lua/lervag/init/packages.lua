@@ -1220,7 +1220,7 @@ local M = {
 
   {
     "mfussenegger/nvim-dap",
-    event = "BufReadPost",
+    lazy = true,
     dependencies = {
       {
         "theHamsta/nvim-dap-virtual-text",
@@ -1231,7 +1231,6 @@ local M = {
         "LiadOz/nvim-dap-repl-highlights",
         config = true,
       },
-      "jbyuki/one-small-step-for-vimkind",
     },
     config = function()
       -- NOTE: This script defines the global dap configuration. Adapters and
@@ -1353,11 +1352,11 @@ local M = {
 
   {
     "rcarriga/nvim-dap-ui",
+    lazy = true,
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
     },
-    lazy = true,
     opts = {
       controls = { enabled = false },
       icons = {
@@ -1396,6 +1395,11 @@ local M = {
         }))
       end
     end,
+  },
+
+  {
+    "jbyuki/one-small-step-for-vimkind",
+    lazy = true,
   },
 
   -- {{{1 Editing
