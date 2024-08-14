@@ -479,8 +479,7 @@ local M = {
         } do
           local n = #vim.diagnostic.get(props.buf, { severity = cfg.severity })
           if n > 0 then
-            local label = (#diagnostics > 0 and " " or "")
-              .. cfg.symbol .. n
+            local label = (#diagnostics > 0 and " " or "") .. cfg.symbol .. n
             table.insert(diagnostics, { label, group = cfg.group })
           end
         end
@@ -1400,6 +1399,13 @@ local M = {
   {
     "jbyuki/one-small-step-for-vimkind",
     lazy = true,
+    keys = {
+      {
+        "<leader>dl",
+        [[:lua require "osv".launch {port = 8086}<cr>]],
+        desc = "Launch OSV server",
+      },
+    },
   },
 
   -- {{{1 Editing
