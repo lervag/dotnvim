@@ -28,6 +28,7 @@ function M.normal()
     parts.common(),
     "%=",
     parts.dap(),
+    parts.lsp(),
     parts.git(),
     " ",
   }

@@ -54,6 +54,11 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "DapProgressUpdate",
+  command = "redrawstatus",
+})
+
 -- Sett bakgrunn i terminalen for å unngå irriterende svarte kanter
 -- Ref: https://www.reddit.com/r/neovim/comments/1b66s2c/sync_terminal_background_with_neovim_background/
 vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {

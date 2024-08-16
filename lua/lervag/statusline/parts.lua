@@ -28,7 +28,7 @@ function M.common()
   if us_ok and us_canjump > 0 then
     local trigger =
       vim.fn.pyeval "UltiSnips_Manager._active_snippets[0].snippet.trigger"
-    snippet = ui.color_active("  " .. trigger, "SLCyan")
+    snippet = ui.cyan("  " .. trigger)
   end
 
   local stl = table.concat {
@@ -57,13 +57,26 @@ function M.metals()
 end
 
 ---@return string
+function M.lsp()
+  local clients = vim.lsp.get_clients {
+    bufnr = ctx.active_bufnr
+  }
+
+  if #clients > 0 then
+    return ui.cyan "   " .. clients[1].name
+  end
+
+  return ""
+end
+
+---@return string
 function M.dap()
   local ok, dap = pcall(require, "dap")
 
   if ok then
     local status = dap.status()
     if #status > 0 then
-      return ui.highlight("  " .. status)
+      return ui.cyan "   " .. "debugging"
     end
   end
 
@@ -74,7 +87,7 @@ end
 function M.git()
   local ok, head = pcall(vim.fn.FugitiveHead, 7, ctx.active_bufnr)
   if ok and #head > 0 then
-    return " ⑂" .. head
+    return ui.cyan "  ⑂ " .. head
   end
 
   return ""

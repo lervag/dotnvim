@@ -18,6 +18,10 @@ function M.highlight(text)
   return M.color_active(text, "SLHighlight")
 end
 
+function M.cyan(text)
+  return M.color_active(text, "SLCyan")
+end
+
 ---@param text string
 ---@param group string
 ---@return string

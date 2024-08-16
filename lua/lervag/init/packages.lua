@@ -487,7 +487,7 @@ local M = {
         local width_warning = {}
         if props.focused and vim.o.modifiable and not vim.o.readonly then
           local textwidth = vim.o.textwidth
-          local width = vim.fn.col "$" - 1
+          local width = vim.fn.charcol "$" - 1
           if textwidth > 0 and width > textwidth then
             width_warning = {
               ("  %s > %s"):format(width, textwidth),
