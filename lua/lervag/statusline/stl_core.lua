@@ -27,7 +27,6 @@ function M.normal()
     parts.filename(),
     parts.common(),
     "%=",
-    parts.textwidth(),
     parts.dap(),
     parts.git(),
     " ",

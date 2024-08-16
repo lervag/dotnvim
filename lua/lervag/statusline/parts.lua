@@ -57,17 +57,6 @@ function M.metals()
 end
 
 ---@return string
-function M.textwidth()
-  local width = vim.fn.virtcol "$" - 1
-  if vim.o.textwidth > 0 and width > vim.o.textwidth then
-    ---@diagnostic disable-next-line: redundant-parameter
-    return ui.alert(vim.fn.printf(" [%s > %s &tw]", width, vim.o.textwidth))
-  end
-
-  return ""
-end
-
----@return string
 function M.dap()
   local ok, dap = pcall(require, "dap")
 

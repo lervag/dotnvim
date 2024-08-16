@@ -27,7 +27,6 @@ function filetypes.tex()
     parts.filename(),
     parts.common(),
     "%=",
-    parts.textwidth(),
     parts.git(),
     " ",
   }
@@ -41,7 +40,6 @@ function filetypes.scala()
     "%=",
     parts.metals(),
     "%=",
-    parts.textwidth(),
     parts.dap(),
     parts.git(),
     " ",
@@ -66,7 +64,6 @@ function filetypes.wiki()
     parts.common(),
     "%=",
     parts.wiki_broken_links(),
-    parts.textwidth(),
     " ",
   }
 end

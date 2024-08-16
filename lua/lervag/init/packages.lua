@@ -458,22 +458,22 @@ local M = {
         for _, cfg in ipairs {
           {
             severity = vim.diagnostic.severity.ERROR,
-            group = "DiagnosticSignError",
+            group = "DiagnosticVirtualTextError",
             symbol = " ",
           },
           {
             severity = vim.diagnostic.severity.WARN,
-            group = "DiagnosticSignWarn",
+            group = "DiagnosticVirtualTextWarn",
             symbol = " ",
           },
           {
             severity = vim.diagnostic.severity.INFO,
-            group = "DiagnosticSignInfo",
+            group = "DiagnosticVirtualTextInfo",
             symbol = " ",
           },
           {
             severity = vim.diagnostic.severity.HINT,
-            group = "DiagnosticSignHint",
+            group = "DiagnosticVirtualTextHint",
             symbol = " ",
           },
         } do
@@ -484,8 +484,22 @@ local M = {
           end
         end
 
+        local width_warning = {}
+        if props.focused and vim.o.modifiable and not vim.o.readonly then
+          local textwidth = vim.o.textwidth
+          local width = vim.fn.col "$" - 1
+          if textwidth > 0 and width > textwidth then
+            width_warning = {
+              ("  %s > %s"):format(width, textwidth),
+              group = "DiagnosticVirtualTextError",
+            }
+          end
+        end
+
         return {
           diagnostics,
+          #diagnostics > 0 and #width_warning > 0 and "│" or "",
+          width_warning,
         }
       end,
     },
