@@ -3,19 +3,30 @@ local ctx = require "lervag.statusline.context"
 local M = {}
 
 function M.info(text)
-  return ctx.is_active and "%#SLInfo#" .. text .. "%*" or text
+  return M.color_active(text, "SLInfo")
 end
 
 function M.alert(text)
-  return ctx.is_active and "%#SLAlert#" .. text .. "%*" or text
+  return M.color_active(text, "SLAlert")
 end
 
 function M.success(text)
-  return ctx.is_active and "%#SLSuccess#" .. text .. "%*" or text
+  return M.color_active(text, "SLSuccess")
 end
 
 function M.highlight(text)
-  return ctx.is_active and "%#SLHighlight#" .. text .. "%*" or text
+  return M.color_active(text, "SLHighlight")
+end
+
+---@param text string
+---@param group string
+---@return string
+function M.color_active(text, group)
+  if ctx.is_active then
+    return "%#" .. group .. "#" .. text .. "%*"
+  end
+
+  return text
 end
 
 ---@param text string

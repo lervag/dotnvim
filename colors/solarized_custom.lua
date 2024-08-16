@@ -181,6 +181,7 @@ local theme = {
   SLInfo = { fg = green2, bg = color10 },
   SLAlert = { fg = orange1, bg = color10 },
   SLSuccess = { fg = color02l, bg = color10 },
+  SLCyan = { fg = color06l, bg = color10 },
   TabLine = { fg = color08, bg = color10 },
   TabLineFill = { fg = color08, bg = color10 },
   TabLineSel = { fg = base2, bg = color00, bold = true },

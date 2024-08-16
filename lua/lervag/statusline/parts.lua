@@ -28,7 +28,7 @@ function M.common()
   if us_ok and us_canjump > 0 then
     local trigger =
       vim.fn.pyeval "UltiSnips_Manager._active_snippets[0].snippet.trigger"
-    snippet = ui.info("  " .. trigger)
+    snippet = ui.color_active("  " .. trigger, "SLCyan")
   end
 
   local stl = table.concat {
