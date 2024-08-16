@@ -1765,7 +1765,6 @@ local M = {
     opts = {
       view = {
         signs = { add = "▕▏", change = "▕▏", delete = "▁▁" },
-        priority = 20,
       },
     },
   },

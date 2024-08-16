@@ -16,7 +16,7 @@ vim.diagnostic.config {
     prefix = "",
   },
   signs = {
-    priority = 300,
+    priority = 190,
     text = {
       [vim.diagnostic.severity.ERROR] = "",
       [vim.diagnostic.severity.WARN] = "",

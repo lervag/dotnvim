@@ -99,7 +99,7 @@ vim.opt.showmode = false
 
 vim.opt.foldcolumn = "0"
 vim.opt.foldtext = ""
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "auto:1-4"
 
 -- {{{1 Indentation
 
