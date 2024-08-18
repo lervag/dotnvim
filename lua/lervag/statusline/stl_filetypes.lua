@@ -9,11 +9,11 @@ function filetypes.tex()
   local vimtex = vim.api.nvim_buf_get_var(ctx.active_bufnr, "vimtex")
 
   local statuses = {
-    { symbol = " [⏻]" },
-    { symbol = " [⏻]" },
-    { symbol = " [⟳]" },
-    { symbol = " [✔︎]", color = "success" },
-    { symbol = " [✖]", color = "alert" },
+    { symbol = " ⏻"  },
+    { symbol = " ⏻"  },
+    { symbol = " ", color = "cyan"  },
+    { symbol = " ", color = "success" },
+    { symbol = " ", color = "alert" },
   }
 
   local status = ""
