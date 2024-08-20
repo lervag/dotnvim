@@ -9,9 +9,9 @@ function filetypes.tex()
   local vimtex = vim.api.nvim_buf_get_var(ctx.active_bufnr, "vimtex")
 
   local statuses = {
-    { symbol = " ⏻"  },
-    { symbol = " ⏻"  },
-    { symbol = " ", color = "cyan"  },
+    { symbol = " ⏻" },
+    { symbol = " ⏻" },
+    { symbol = " ", color = "cyan" },
     { symbol = " ", color = "success" },
     { symbol = " ", color = "alert" },
   }
@@ -49,25 +49,15 @@ filetypes.sbt = filetypes.scala
 
 function filetypes.wiki()
   local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
-
-  ---@type string
-  local journal_marker = vim.b.wiki
-      and vim.b.wiki.in_journal
-      and vim.b.wiki.in_journal == 1
-      and ui.info "  "
-    or ""
+  local _, wiki = pcall(vim.api.nvim_buf_get_var, ctx.active_bufnr, "wiki")
 
   return table.concat {
-    ui.info " wiki: ",
+    ui.cyan(wiki and wiki.in_journal == 1 and "   " or "   "),
     ui.highlight(name),
-    journal_marker,
-    parts.common(),
-    "%=",
     parts.wiki_broken_links(),
-    " ",
+    parts.common(),
   }
 end
-
 
 local M = {}
 

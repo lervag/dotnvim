@@ -41,4 +41,14 @@ function M.tabline()
   return tal_core.main()
 end
 
+vim.api.nvim_create_user_command("ReloadStatusline", function()
+  for name,_ in pairs(package.loaded) do
+    if name:match('^lervag.statusline') then
+      package.loaded[name] = nil
+    end
+  end
+
+  dofile(debug.getinfo(1, 'S').source:sub(2))
+end, {})
+
 return M
