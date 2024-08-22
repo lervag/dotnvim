@@ -318,8 +318,18 @@ local M = {
   },
 
   {
-    "nvim-tree/nvim-web-devicons",
+    "echasnovski/mini.icons",
+    opts = {},
     lazy = true,
+    specs = {
+      { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+    },
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
   },
 
   {
@@ -387,7 +397,6 @@ local M = {
   {
     "stevearc/oil.nvim",
     lazy = false,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
     },
@@ -793,7 +802,6 @@ local M = {
   {
     "glepnir/lspsaga.nvim",
     dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
       { "nvim-treesitter/nvim-treesitter" },
     },
     event = "LspAttach",
@@ -1843,7 +1851,6 @@ local M = {
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       require("diffview").setup {
