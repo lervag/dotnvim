@@ -319,10 +319,12 @@ local M = {
 
   {
     "echasnovski/mini.icons",
-    opts = {},
-    lazy = true,
-    specs = {
-      { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+    opts = {
+      lsp = {
+        snippet = {
+          glyph = "",
+        },
+      },
     },
     init = function()
       package.preload["nvim-web-devicons"] = function()

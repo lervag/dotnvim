@@ -9,17 +9,16 @@ function filetypes.tex()
   local vimtex = vim.api.nvim_buf_get_var(ctx.active_bufnr, "vimtex")
 
   local statuses = {
-    { symbol = " ⏻" },
-    { symbol = " ⏻" },
-    { symbol = " ", color = "cyan" },
-    { symbol = " ", color = "success" },
-    { symbol = " ", color = "alert" },
+    "tex_off",
+    "tex_off",
+    "tex_compiling",
+    "tex_ok",
+    "tex_failed",
   }
 
   local status = ""
   if vimtex.compiler.status and statuses[vimtex.compiler.status + 2] then
-    local x = statuses[vimtex.compiler.status + 2]
-    status = x.color and ui[x.color](x.symbol) or x.symbol
+    status = ui.icon(statuses[vimtex.compiler.status + 2])
   end
 
   return table.concat {
@@ -37,8 +36,8 @@ function filetypes.wiki()
   local _, wiki = pcall(vim.api.nvim_buf_get_var, ctx.active_bufnr, "wiki")
 
   return table.concat {
-    ui.cyan(wiki and wiki.in_journal == 1 and "   " or "   "),
-    ui.highlight(name),
+    ui.icon(wiki and wiki.in_journal == 1 and "journal" or "wiki"),
+    ui.gold(name),
     parts.wiki_broken_links(),
     parts.common(),
   }

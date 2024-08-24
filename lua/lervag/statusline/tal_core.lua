@@ -12,7 +12,8 @@ local function get_tablabel(n)
     return " " .. vim.fn.fnamemodify(name, ":t") .. " "
   end
 
-  local ok, type = pcall(vim.api.nvim_get_option_value, "buftype", { buf = bufnr })
+  local ok, type =
+    pcall(vim.api.nvim_get_option_value, "buftype", { buf = bufnr })
   if ok and #type > 0 then
     return " [" .. type .. "] "
   end
@@ -20,17 +21,16 @@ local function get_tablabel(n)
   return " [No Name] "
 end
 
-
 local M = {}
 
 function M.main()
   local active_tabnr = vim.fn.tabpagenr()
-  local tabs = vim.fn.tabpagenr("$")
+  local tabs = vim.fn.tabpagenr "$"
 
   local tl = ""
 
   for i = 1, tabs do
-    tl = tl .. ui.color_if(get_tablabel(i), "TabLineSel", i == active_tabnr)
+    tl = tl .. ui.colorize_if(get_tablabel(i), "TabLineSel", i == active_tabnr)
   end
 
   return tl

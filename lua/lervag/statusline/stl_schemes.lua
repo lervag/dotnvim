@@ -9,15 +9,15 @@ function schemes.fugitive()
   ---@type string | nil
   local commit = ctx.active_name:match "/%.git//(%x+)"
   if not commit then
-    return ui.info " fugitive: " .. ui.highlight "Git status"
+    return ui.green_light " fugitive: " .. ui.gold "Git status"
   end
 
   ---@type string | nil
   local path = ctx.active_name:match "/%.git//%x+/(.*)"
   if not path then
     return table.concat {
-      ui.info " fugitive: %<",
-      ui.highlight(commit),
+      ui.green_light " fugitive: %<",
+      ui.gold(commit),
       parts.common(),
     }
   end
@@ -31,7 +31,7 @@ function schemes.diffview()
   local commit = ctx.active_name:match "/%.git/([%x:]+)"
   if not commit then
     local name = ctx.active_name:match "panels/%d+/(.*)" or "???"
-    return " " .. ui.highlight(name)
+    return " " .. ui.gold(name)
   end
   commit = commit:sub(1, 8)
 

@@ -82,6 +82,7 @@ local color15dd = base3v88
 local color15w = base3v100s7
 
 local black = "#000000"
+local azure = "#0080ff"
 local blue1 = "#0087ff"
 local blue2 = "#00afff"
 local blue3 = "#9fc6d3"
@@ -177,14 +178,18 @@ local theme = {
 
   Statusline = { fg = color15, bg = color10 },
   StatuslineNC = { fg = color08, bg = color10 },
-  SLHighlight = { fg = gold1, bg = color10 },
-  SLInfo = { fg = green2, bg = color10 },
-  SLAlert = { fg = orange1, bg = color10 },
-  SLSuccess = { fg = color02l, bg = color10 },
-  SLCyan = { fg = color06l, bg = color10 },
   TabLine = { fg = color08, bg = color10 },
   TabLineFill = { fg = color08, bg = color10 },
   TabLineSel = { fg = base2, bg = color00, bold = true },
+
+  SLBlue = { fg = blue, bg = color10 },
+  SLCyan = { fg = color06l, bg = color10 },
+  SLGold = { fg = gold1, bg = color10 },
+  SLGreen = { fg = color02l, bg = color10 },
+  SLGreenLight = { fg = green2, bg = color10 },
+  SLPurple = { fg = purple1, bg = color10 },
+  SLRed = { fg = orange1, bg = color10 },
+  SLYellow = { fg = yellow, bg = color10 },
 
   -- {{{1 Cursor colors
 
@@ -529,6 +534,16 @@ local theme = {
 
   FlashLabel = { fg = blue1, underline = true, bold = true },
   FlashPromptIcon = { fg = yellow, bold = true },
+
+  MiniIconsAzure = { fg = azure },
+  MiniIconsBlue = { fg = blue2 },
+  MiniIconsCyan = { fg = cyan },
+  MiniIconsGreen = { fg = green1 },
+  MiniIconsGrey = {},
+  MiniIconsOrange = { fg = orange1 },
+  MiniIconsPurple = { fg = purple1 },
+  MiniIconsRed = { fg = red },
+  MiniIconsYellow = { fg = yellow },
 
   -- {{{1 Filetype Vimscript
 

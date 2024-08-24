@@ -5,7 +5,7 @@ local M = {}
 
 ---@return string
 function M.filename()
-  return ui.highlight " %<%f"
+  return ui.gold " %<%f"
 end
 
 ---@return string
@@ -15,12 +15,12 @@ function M.common()
     not vim.api.nvim_get_option_value("modifiable", { buf = ctx.active_bufnr })
     or vim.api.nvim_get_option_value("readonly", { buf = ctx.active_bufnr })
   then
-    locked = ui.alert " "
+    locked = ui.icon "locked"
   end
 
   local modified = ""
   if vim.api.nvim_get_option_value("modified", { buf = ctx.active_bufnr }) then
-    modified = ui.info " "
+    modified = ui.icon "modified"
   end
 
   local snippet = ""
@@ -28,7 +28,7 @@ function M.common()
   if us_ok and us_canjump > 0 then
     local trigger =
       vim.fn.pyeval "UltiSnips_Manager._active_snippets[0].snippet.trigger"
-    snippet = ui.cyan("  " .. trigger)
+    snippet = ui.icon "snippet" .. ui.cyan(trigger)
   end
 
   local stl = table.concat {
@@ -38,7 +38,7 @@ function M.common()
   }
 
   if #stl > 0 then
-    return " " .. stl
+    return stl
   end
 
   return ""
@@ -47,11 +47,11 @@ end
 ---@return string
 function M.lsp()
   local clients = vim.lsp.get_clients {
-    bufnr = ctx.active_bufnr
+    bufnr = ctx.active_bufnr,
   }
 
   if #clients > 0 then
-    return ui.cyan "   " .. clients[1].name
+    return ui.icon "lsp" .. clients[1].name
   end
 
   return ""
@@ -64,7 +64,7 @@ function M.dap()
   if ok then
     local status = dap.status()
     if #status > 0 then
-      return ui.cyan "   " .. "debugging"
+      return ui.icon "dap" .. "debugging"
     end
   end
 
@@ -75,7 +75,7 @@ end
 function M.git()
   local ok, head = pcall(vim.fn.FugitiveHead, 7, ctx.active_bufnr)
   if ok and #head > 0 then
-    return ui.cyan "  ⑂ " .. head
+    return ui.icon "git" .. head
   end
 
   return ""
@@ -86,9 +86,9 @@ end
 ---@return string
 function M.gitfile(ref, path)
   return table.concat {
-    ui.alert(" " .. ref),
-    ui.info " ⑂ ",
-    ui.highlight(path),
+    ui.red(" " .. ref),
+    ui.icon "git",
+    ui.gold(path),
     M.common(),
   }
 end
@@ -98,10 +98,12 @@ function M.wiki_broken_links()
   local path = vim.fn.fnamemodify(ctx.active_name, ":p")
   if vim.fn.filereadable(path) then
     ---@type integer
-    local broken_links =
-      vim.api.nvim_call_function("wiki#graph#get_number_of_broken_links", { path })
+    local broken_links = vim.api.nvim_call_function(
+      "wiki#graph#get_number_of_broken_links",
+      { path }
+    )
     if broken_links > 0 then
-      return ui.alert("  " .. broken_links)
+      return ui.icon "link" .. ui.red(broken_links)
     end
   end
 
