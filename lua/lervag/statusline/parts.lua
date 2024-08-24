@@ -1,6 +1,9 @@
 local ctx = require "lervag.statusline.context"
 local ui = require "lervag.statusline.ui"
 
+---Shorten path
+---@param path string
+---@return string
 local function shorten(path)
   local max_length = vim.fn.winwidth(0) - 40
   local length = #path
@@ -27,16 +30,17 @@ local M = {}
 
 ---@return string
 function M.filename()
-  local filename = vim.fn.expand "%:~:."
-  if #filename == 0 then
+  if #ctx.active_name == 0 then
     return " [No file]"
   end
 
-  if vim.fn.filereadable(filename) == 0 then
-    return " " .. ui.italic(shorten(filename)) .. ui.icon "newfile"
+  local filename = shorten(vim.fn.fnamemodify(ctx.active_name, ":~:."))
+
+  if vim.fn.filereadable(ctx.active_name) == 0 then
+    return ui.icon "newfile" .. " " .. ui.italic(filename)
   end
 
-  return " " .. ui.gold(shorten(filename))
+  return " " .. ui.gold(filename)
 end
 
 ---@return string
