@@ -36,69 +36,69 @@ local base3 = "#fdf6e3"
 local base3v95 = "#f7f1dd"
 local base3v88 = "#e0dac9"
 local base3v100s7 = "#fffaed"
-local yellow = "#b58900"
-local yellowv30 = "#4d3800"
-local orange = "#cb4b16"
-local red = "#dc322f"
-local redv50 = "#801c1b"
-local magenta = "#d33682"
-local violet = "#6c71c4"
-local blue = "#268bd2"
-local bluev50 = "#175480"
-local cyan = "#2aa198"
-local cyanlight = "#6dbfb8"
-local green = "#859900"
-local greenv80 = "#b1cc00"
 
-local color00 = base02
-local color01 = red
-local color02 = green
-local color03 = yellow
-local color04 = blue
-local color05 = magenta
-local color06 = cyan
-local color07 = base2
-local color08 = base03
-local color09 = orange
-local color10 = base01
-local color11 = base00
-local color12 = base0
-local color13 = violet
-local color14 = base1
-local color15 = base3
-
-local color00l = base02v45
-local color01d = redv50
-local color02l = greenv80
-local color03d = yellowv30
-local color04d = bluev50
-local color06l = cyanlight
-local color07l = base2v95
-local color07d = base2v91
-local color09l = orange
-local color14l = base1light
-local color15d = base3v95
-local color15dd = base3v88
-local color15w = base3v100s7
-
+local azure1 = "#0080ff"
+local azure2 = "#0087ff"
 local black = "#000000"
-local azure = "#0080ff"
-local blue1 = "#0087ff"
-local blue2 = "#00afff"
-local blue3 = "#9fc6d3"
+local blue0 = "#268bd2"
+local blue0_v50 = "#175480"
+local blue1 = "#00afff"
+local blue2 = "#9fc6d3"
+local cyan0 = "#2aa198"
+local cyan1 = "#6dbfb8"
 local gold1 = "#ffe055"
 local gold2 = "#ffeea2"
 local gold3 = "#c6b079"
 local gray1 = "#d2e1e0"
+local green0 = "#859900"
+local green0_v80 = "#b1cc00"
 local green1 = "#719e07"
 local green2 = "#d7ffaf"
+local magenta0 = "#d33682"
 local magenta1 = "#ff00ff"
 local magenta1d = "#8b008b"
+local orange0 = "#cb4b16"
 local orange1 = "#ff5f00"
 local pink1 = "#f7cfbf"
 local purple1 = "#8787d7"
+local red0 = "#dc322f"
+local red0_v50 = "#801c1b"
 local red1 = "#af0000"
+local violet0 = "#6c71c4"
+local yellow0 = "#b58900"
+local yellow0_v30 = "#4d3800"
 local yellow1 = "#ffff5f"
+
+local color00 = base02
+local color01 = red0
+local color02 = green0
+local color03 = yellow0
+local color04 = blue0
+local color05 = magenta0
+local color06 = cyan0
+local color07 = base2
+local color08 = base03
+local color09 = orange0
+local color10 = base01
+local color11 = base00
+local color12 = base0
+local color13 = violet0
+local color14 = base1
+local color15 = base3
+
+local color00l = base02v45
+local color01d = red0_v50
+local color02l = green0_v80
+local color03d = yellow0_v30
+local color04d = blue0_v50
+local color06l = cyan1
+local color07l = base2v95
+local color07d = base2v91
+local color09l = orange0
+local color14l = base1light
+local color15d = base3v95
+local color15dd = base3v88
+local color15w = base3v100s7
 
 vim.g.terminal_color_0 = color00
 vim.g.terminal_color_1 = color01
@@ -158,11 +158,11 @@ local theme = {
   RedrawDebugNormal = { reverse = true },
   RedrawDebugRecompose = { bg = color09 },
   Search = { fg = magenta1, bold = true, underline = true },
-  CurSearch = { fg = blue1, bold = true, underline = true },
+  CurSearch = { fg = azure2, bold = true, underline = true },
   SignColumn = { fg = color11, bg = color07 },
   SpecialKey = { fg = color12, bg = color07 },
   SpellBad = { fg = red1, bold = true },
-  SpellCap = { fg = blue1, bold = true },
+  SpellCap = { fg = azure2, bold = true },
   SpellLocal = { fg = purple1, bold = true },
   SpellRare = { fg = yellow1, bold = true },
   TermCursor = { bold = true },
@@ -182,14 +182,14 @@ local theme = {
   TabLineFill = { fg = color08, bg = color10 },
   TabLineSel = { fg = base2, bg = color00, bold = true },
 
-  SLBlue = { fg = blue, bg = color10 },
+  SLBlue = { fg = blue0, bg = color10 },
   SLCyan = { fg = color06l, bg = color10 },
   SLGold = { fg = gold1, bg = color10 },
   SLGreen = { fg = color02l, bg = color10 },
   SLGreenLight = { fg = green2, bg = color10 },
   SLPurple = { fg = purple1, bg = color10 },
   SLRed = { fg = orange1, bg = color10 },
-  SLYellow = { fg = yellow, bg = color10 },
+  SLYellow = { fg = yellow0, bg = color10 },
 
   -- {{{1 Cursor colors
 
@@ -407,7 +407,7 @@ local theme = {
   DiagnosticOk = { fg = green1 },
   DiagnosticVirtualTextError = { fg = color01, bold = true },
   DiagnosticVirtualTextWarn = { fg = color03, bold = true },
-  DiagnosticVirtualTextInfo = { fg = blue3, italic = true },
+  DiagnosticVirtualTextInfo = { fg = blue2, italic = true },
   DiagnosticVirtualTextHint = { fg = color06l, italic = true },
   DiagnosticVirtualTextOk = { fg = green1 },
   DiagnosticSignError = { fg = color01, bg = color07, bold = true },
@@ -420,7 +420,7 @@ local theme = {
 
   SignFold = { fg = color08, bg = color07 },
 
-  ctrlsfSelectedLine = { fg = blue2, bold = true },
+  ctrlsfSelectedLine = { fg = blue1, bold = true },
   OperatorSandwichBuns = { fg = color05, bold = true },
   OperatorSandwichChange = { link = "OperatorSandwichBuns" },
 
@@ -459,7 +459,7 @@ local theme = {
 
   CmpGhostText = { fg = color14l, italic = true },
 
-  CmpItemAbbrMatch = { fg = blue1 },
+  CmpItemAbbrMatch = { fg = azure2 },
   CmpItemAbbrMatchFuzzy = { link = "CmpItemAbbrMatch" },
   CmpItemKind = { fg = color00l },
   CmpItemMenu = { fg = black },
@@ -468,12 +468,12 @@ local theme = {
   CmpItemKindMethod = { link = "CmpItemKindFunction" },
 
   TelescopeBorder = { fg = black, bg = color07d, bold = true },
-  TelescopeMatching = { fg = blue, bold = true },
+  TelescopeMatching = { fg = blue0, bold = true },
   TelescopeMultiIcon = { link = "TelescopeMultiSelection" },
-  TelescopeMultiSelection = { fg = green, bold = true },
+  TelescopeMultiSelection = { fg = green0, bold = true },
   TelescopeNormal = { bg = color07d },
-  TelescopePromptCounter = { fg = green, bold = true },
-  TelescopePromptNormal = { fg = blue, bg = color07d },
+  TelescopePromptCounter = { fg = green0, bold = true },
+  TelescopePromptNormal = { fg = blue0, bg = color07d },
   TelescopePromptPrefix = { fg = black },
   TelescopeTitle = { fg = color03, bold = true },
 
@@ -481,28 +481,28 @@ local theme = {
 
   NotifyTRACEBody = { bg = color07d },
   NotifyTRACEBorder = { link = "FloatBorder" },
-  NotifyTRACEIcon = { fg = violet },
-  NotifyTRACETitle = { fg = violet, bold = true },
+  NotifyTRACEIcon = { fg = violet0 },
+  NotifyTRACETitle = { fg = violet0, bold = true },
   NotifyDEBUGBody = { link = "NotifyTRACEBody" },
   NotifyDEBUGBorder = { link = "FloatBorder" },
-  NotifyDEBUGIcon = { fg = cyan },
-  NotifyDEBUGTitle = { fg = cyan, bold = true },
+  NotifyDEBUGIcon = { fg = cyan0 },
+  NotifyDEBUGTitle = { fg = cyan0, bold = true },
   NotifyINFOBody = { link = "NotifyTRACEBody" },
   NotifyINFOBorder = { link = "FloatBorder" },
-  NotifyINFOIcon = { fg = green },
-  NotifyINFOTitle = { fg = green, bold = true },
+  NotifyINFOIcon = { fg = green0 },
+  NotifyINFOTitle = { fg = green0, bold = true },
   NotifyWARNBody = { link = "NotifyTRACEBody" },
   NotifyWARNBorder = { link = "FloatBorder" },
-  NotifyWARNIcon = { fg = yellow },
-  NotifyWARNTitle = { fg = yellow, bold = true },
+  NotifyWARNIcon = { fg = yellow0 },
+  NotifyWARNTitle = { fg = yellow0, bold = true },
   NotifyERRORBody = { link = "NotifyTRACEBody" },
   NotifyERRORBorder = { link = "FloatBorder" },
-  NotifyERRORIcon = { fg = red },
-  NotifyERRORTitle = { fg = red, bold = true },
+  NotifyERRORIcon = { fg = red0 },
+  NotifyERRORTitle = { fg = red0, bold = true },
 
   -- ChatGPTBorder = { link = FloatBorder },
   -- ChatGPTCompletion = { link = FloatBorder },
-  ChatGPTQuestion = { fg = cyan, italic = true, bold = true },
+  ChatGPTQuestion = { fg = cyan0, italic = true, bold = true },
   -- ChatGPTTotalTokens = { link = FloatBorder },
   -- ChatGPTTotalTokensBorder = { link = FloatBorder },
   -- ChatGPTWelcome = { fg = pink, italic = true },
@@ -521,8 +521,8 @@ local theme = {
   MiniNotifyTitle = { fg = color03, bg = color07l, bold = true },
 
   MiniDiffSignAdd = { fg = color02l, bg = color07 },
-  MiniDiffSignChange = { fg = blue3, bg = color07 },
-  MiniDiffSignDelete = { fg = red, bg = color07 },
+  MiniDiffSignChange = { fg = blue2, bg = color07 },
+  MiniDiffSignDelete = { fg = red0, bg = color07 },
   MiniDiffOverAdd = { bg = green2 },
   MiniDiffOverChange = { fg = color02l, bold = true },
   MiniDiffOverDelete = { bg = pink1 },
@@ -532,18 +532,18 @@ local theme = {
   TroubleLspPos = { fg = color14, italic = true },
   TroublePreview = { fg = magenta1 },
 
-  FlashLabel = { fg = blue1, underline = true, bold = true },
-  FlashPromptIcon = { fg = yellow, bold = true },
+  FlashLabel = { fg = azure2, underline = true, bold = true },
+  FlashPromptIcon = { fg = yellow0, bold = true },
 
-  MiniIconsAzure = { fg = azure },
-  MiniIconsBlue = { fg = blue2 },
-  MiniIconsCyan = { fg = cyan },
+  MiniIconsAzure = { fg = azure1 },
+  MiniIconsBlue = { fg = blue1 },
+  MiniIconsCyan = { fg = cyan0 },
   MiniIconsGreen = { fg = green1 },
   MiniIconsGrey = {},
   MiniIconsOrange = { fg = orange1 },
   MiniIconsPurple = { fg = purple1 },
-  MiniIconsRed = { fg = red },
-  MiniIconsYellow = { fg = yellow },
+  MiniIconsRed = { fg = red0 },
+  MiniIconsYellow = { fg = yellow0 },
 
   -- {{{1 Filetype Vimscript
 
