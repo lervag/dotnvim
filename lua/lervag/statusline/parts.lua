@@ -45,18 +45,6 @@ function M.common()
 end
 
 ---@return string
-function M.metals()
-  ---@type string?
-  local status = vim.g.metals_status
-  if status then
-    status = vim.fn.trim(status)
-    return ui.info("  " .. status)
-  end
-
-  return ""
-end
-
----@return string
 function M.lsp()
   local clients = vim.lsp.get_clients {
     bufnr = ctx.active_bufnr

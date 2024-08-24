@@ -32,21 +32,6 @@ function filetypes.tex()
   }
 end
 
----@return string
-function filetypes.scala()
-  return table.concat {
-    parts.filename(),
-    parts.common(),
-    "%=",
-    parts.metals(),
-    "%=",
-    parts.dap(),
-    parts.git(),
-    " ",
-  }
-end
-filetypes.sbt = filetypes.scala
-
 function filetypes.wiki()
   local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
   local _, wiki = pcall(vim.api.nvim_buf_get_var, ctx.active_bufnr, "wiki")
