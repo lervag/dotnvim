@@ -1049,7 +1049,6 @@ local M = {
 
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
@@ -1058,6 +1057,7 @@ local M = {
       },
       "Allaman/emoji.nvim",
     },
+    cmd = "Telescope",
     init = function()
       vim.keymap.set("n", "<leader><leader>", function()
         require("telescope.builtin").oldfiles()
