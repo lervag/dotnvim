@@ -190,6 +190,7 @@ local theme = {
   SLPurple = { fg = purple1, bg = color10 },
   SLRed = { fg = orange1, bg = color10 },
   SLYellow = { fg = yellow0, bg = color10 },
+  SLItalic = {  fg = color15, italic = true, bg = color10 },
 
   -- {{{1 Cursor colors
 

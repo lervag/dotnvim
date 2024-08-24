@@ -1,6 +1,10 @@
 local ctx = require "lervag.statusline.context"
 
 local icons = {
+  newfile = {
+    glyph = "  ",
+    color = "white",
+  },
   locked = {
     glyph = "  ",
     color = "red",

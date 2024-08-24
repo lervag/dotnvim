@@ -1,11 +1,42 @@
 local ctx = require "lervag.statusline.context"
 local ui = require "lervag.statusline.ui"
 
+local function shorten(path)
+  local max_length = vim.fn.winwidth(0) - 40
+  local length = #path
+  if length <= max_length then
+    return path
+  end
+
+  local segments = vim.split(path, "/")
+  for idx = 1, #segments - 1 do
+    if length <= max_length then
+      break
+    end
+
+    local segment = segments[idx]
+    local shortened = segment:sub(1, vim.startswith(segment, ".") and 2 or 1)
+    segments[idx] = shortened
+    length = length - (#segment - #shortened)
+  end
+
+  return table.concat(segments, "/")
+end
+
 local M = {}
 
 ---@return string
 function M.filename()
-  return ui.gold " %<%f"
+  local filename = vim.fn.expand "%:~:."
+  if #filename == 0 then
+    return " [No file]"
+  end
+
+  if vim.fn.filereadable(filename) == 0 then
+    return " " .. ui.italic(shorten(filename)) .. ui.icon "newfile"
+  end
+
+  return " " .. ui.gold(shorten(filename))
 end
 
 ---@return string
