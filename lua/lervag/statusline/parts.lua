@@ -58,18 +58,9 @@ function M.common()
     modified = ui.icon "modified"
   end
 
-  local snippet = ""
-  local us_ok, us_canjump = pcall(vim.fn["UltiSnips#CanJumpForwards"])
-  if us_ok and us_canjump > 0 then
-    local trigger =
-      vim.fn.pyeval "UltiSnips_Manager._active_snippets[0].snippet.trigger"
-    snippet = ui.icon "snippet" .. ui.cyan(trigger)
-  end
-
   local stl = table.concat {
     locked,
     modified,
-    snippet,
   }
 
   if #stl > 0 then

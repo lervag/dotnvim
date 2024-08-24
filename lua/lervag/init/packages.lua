@@ -465,6 +465,20 @@ local M = {
     event = "VeryLazy",
     opts = {
       render = function(props)
+        local snippet = {}
+        local us_ok, us_canjump = pcall(vim.fn["UltiSnips#CanJumpForwards"])
+        if us_ok and us_canjump > 0 then
+          local trigger =
+            vim.fn.pyeval "UltiSnips_Manager._active_snippets[0].snippet.trigger"
+          if #trigger == 0 then
+            trigger = "lsp"
+          end
+          snippet = {
+            (" %s"):format(trigger),
+            group = "Underlined"
+          }
+        end
+
         local diagnostics = {}
         for _, cfg in ipairs {
           {
@@ -507,9 +521,21 @@ local M = {
           end
         end
 
+        ---@param left integer
+        ---@param right integer
+        ---@return string | table
+        local function separator(left, right)
+          if left > 0 and right > 0 then
+            return { " │ ", group = "MatchWord" }
+          end
+          return ""
+        end
+
         return {
+          snippet,
+          separator(#snippet, #diagnostics + #width_warning),
           diagnostics,
-          #diagnostics > 0 and #width_warning > 0 and "│" or "",
+          separator(#snippet + #diagnostics, #width_warning),
           width_warning,
         }
       end,

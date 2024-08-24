@@ -29,10 +29,6 @@ local icons = {
     glyph = "  ",
     color = "red",
   },
-  snippet = {
-    glyph = "  ",
-    color = "purple",
-  },
   wiki = {
     glyph = "  ",
     color = "cyan",
