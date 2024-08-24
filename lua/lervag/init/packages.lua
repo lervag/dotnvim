@@ -2024,6 +2024,11 @@ local M = {
   },
 
   {
+    "chrisbra/Colorizer",
+    cmd = { "ColorHighlight" },
+  },
+
+  {
     "dstein64/vim-startuptime",
     cmd = { "StartupTime" },
   },
