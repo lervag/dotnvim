@@ -34,8 +34,8 @@ local icons = {
     color = "cyan",
   },
   journal = {
-    glyph = "  ",
-    color = "cyan",
+    glyph = " 󰃵 ",
+    color = "green",
   },
   tex_off = {
     glyph = " ⏻",
