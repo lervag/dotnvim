@@ -148,9 +148,15 @@ local theme = {
   NonText = { fg = color12 },
   NvimInternalError = { fg = color09, bg = color01 },
   Pmenu = { fg = color11, bg = color15dd },
-  PmenuSel = { fg = color14, bg = color00 },
+  PmenuSel = { fg = color00, bg = color14, reverse = true },
+  PmenuKind = { fg = black, bg = color15dd },
+  PmenuKindSel = { fg = color00, bg = color14, reverse = true },
+  PmenuExtra = { fg = color03, bg = color15dd },
+  PmenuExtraSel = { fg = color00, bg = color03, reverse = true },
   PmenuSbar = { bg = color15dd },
   PmenuThumb = { bg = color11 },
+  PmenuMatch = { fg = azure2, bg = color15dd },
+  PmenuMatchSel = { fg = color00, bg = azure2, reverse = true },
   Question = { fg = color06 },
   QuickFixLine = { bg = gold2 },
   RedrawDebugClear = { bg = color11 },
@@ -459,12 +465,10 @@ local theme = {
   DapUIEndofBuffer = { fg = color07d },
 
   CmpGhostText = { fg = color14l, italic = true },
-
   CmpItemAbbrMatch = { fg = azure2 },
   CmpItemAbbrMatchFuzzy = { link = "CmpItemAbbrMatch" },
   CmpItemKind = { fg = color00l },
   CmpItemMenu = { fg = black },
-
   CmpItemKindFunction = { fg = color05 },
   CmpItemKindMethod = { link = "CmpItemKindFunction" },
 
