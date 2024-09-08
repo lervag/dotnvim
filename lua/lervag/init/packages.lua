@@ -1841,8 +1841,10 @@ local M = {
     },
     config = function()
       -- See also ftplugin/floggraph.vim
+      vim.g.flog_enable_dynamic_commit_hl = true
+      vim.g.flog_enable_extended_chars = true
       vim.g.flog_default_opts = {
-        format = "[%h] %s%d",
+        format = "%h %s%d",
         date = "format:%Y-%m-%d %H:%M",
       }
     end,

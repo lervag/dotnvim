@@ -1,7 +1,12 @@
+local flog = require "flog"
+
 local function open_commit()
   vim.fn["flog#floggraph#mark#Set"]("m", ".")
   local cmd = vim.fn["flog#Format"] "vertical botright Gsplit %h:%p"
-  vim.fn["flog#ExecTmp"](cmd, 0, 0)
+  flog.exec_tmp(cmd, {
+    blur = true,
+    static = false
+  })
 end
 
 local function open_current()
@@ -15,7 +20,10 @@ local function open_current()
   end
 
   local cmd = vim.fn["flog#Format"] "vertical botright Gsplit %p"
-  vim.fn["flog#ExecTmp"](cmd, 0, 0)
+  flog.exec_tmp(cmd, {
+    blur = true,
+    static = false
+  })
 end
 
 local function diff_marked()
@@ -25,7 +33,10 @@ local function diff_marked()
   local cmd = "vertical botright Gsplit %h:%p | Gdiffsplit "
   cmd = vim.fn["flog#Format"](cmd .. (has_commit_mark and "%(h'm)" or "%p"))
 
-  vim.fn["flog#ExecTmp"](cmd, 0, 0)
+  flog.exec_tmp(cmd, {
+    blur = true,
+    static = false
+  })
 end
 
 vim.opt_local.list = false
