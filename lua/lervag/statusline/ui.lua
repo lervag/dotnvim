@@ -67,11 +67,18 @@ end
 
 ---@param text string
 ---@param group string
+---@return string
+function M.colorize(text, group)
+  return "%#" .. group .. "#" .. text .. "%*"
+end
+
+---@param text string
+---@param group string
 ---@param condition boolean
 ---@return string
 function M.colorize_if(text, group, condition)
   if condition then
-    return "%#SL" .. group .. "#" .. text .. "%*"
+    return M.colorize(text, group)
   end
 
   return text
@@ -80,7 +87,7 @@ end
 setmetatable(M, {
   ---@param key string
   __index = function(_, key)
-    local color = key:sub(1, 1):upper()
+    local color = "SL" .. key:sub(1, 1):upper()
       .. key:sub(2):gsub("_([a-z])", function(l)
         return l:upper()
       end)

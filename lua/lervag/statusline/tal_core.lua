@@ -7,9 +7,9 @@ local function get_tablabel(n)
   local winnr = vim.fn.tabpagewinnr(n)
   local bufnr = buflist[winnr]
 
-  local name = vim.api.nvim_buf_get_name(bufnr)
+  local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
   if #name > 0 then
-    return " " .. vim.fn.fnamemodify(name, ":t") .. " "
+    return " " .. name .. " "
   end
 
   local ok, type =
@@ -30,10 +30,18 @@ function M.main()
   local tl = ""
 
   for i = 1, tabs do
-    tl = tl .. ui.colorize_if(get_tablabel(i), "TabLineSel", i == active_tabnr)
+    local label = get_tablabel(i)
+
+    if i == active_tabnr then
+      tl = tl .. ui.colorize("", "TabLineSelSep")
+      .. ui.colorize(label, "TabLineSel")
+      .. ui.colorize("", "TabLineSelSep")
+    else
+      tl = tl .. " " .. label .. " "
+    end
   end
 
-  return tl
+  return "    " .. tl
 end
 
 return M

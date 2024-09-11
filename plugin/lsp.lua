@@ -541,7 +541,7 @@ create_autocommand("lua", function(args)
 end)
 
 -- }}}1
--- {{{1 Metals
+-- {{{1 wiki:Metals
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "scala", "sbt" },

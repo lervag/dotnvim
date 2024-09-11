@@ -186,7 +186,8 @@ local theme = {
   StatuslineNC = { fg = color08, bg = color10 },
   TabLine = { fg = color08, bg = color10 },
   TabLineFill = { fg = color08, bg = color10 },
-  TabLineSel = { fg = base2, bg = color00, bold = true },
+  TabLineSel = { fg = color10, bg = color15 },
+  TabLineSelSep = { fg = color15, bg = color10 },
 
   SLBlue = { fg = blue0, bg = color10 },
   SLCyan = { fg = color06l, bg = color10 },
