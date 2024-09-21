@@ -559,55 +559,6 @@ local M = {
       "Allaman/emoji.nvim",
     },
     config = function()
-      local kind_icons = {
-        Class = "󰠱",
-        Color = "󰏘",
-        Constant = "󰏿",
-        Constructor = "",
-        Enum = "",
-        EnumMember = "",
-        Event = "",
-        Field = "󰜢",
-        File = "󰈙",
-        Folder = "󰉋",
-        Function = "󰊕",
-        Interface = "",
-        Keyword = "󰌋",
-        Method = "󰆧",
-        Module = "",
-        Operator = "󰆕",
-        Property = "󰜢",
-        Reference = "",
-        Snippet = "",
-        Struct = "",
-        Text = "",
-        TypeParameter = "",
-        Unit = "",
-        Value = "󰎠",
-        Variable = "",
-      }
-
-      local function formatter(entry, item)
-        if entry.source.name == "omni" then
-          item.kind = ""
-          return item
-        end
-
-        item.kind = (kind_icons[item.kind] or "") .. " "
-        if not item.menu then
-          item.menu = ({
-            nvim_lsp = "[lsp]",
-            nvim_lua = "[lua]",
-            ultisnips = "[snip]",
-          })[entry.source.name] or string.format(
-            "[%s]",
-            entry.source.name
-          )
-        end
-
-        return item
-      end
-
       local function feedkeys(str, mode)
         local keys = vim.api.nvim_replace_termcodes(str, true, true, true)
         vim.api.nvim_feedkeys(keys, mode or "m", true)
@@ -621,7 +572,34 @@ local M = {
             vim.fn["UltiSnips#Anon"](args.body)
           end,
         },
-        formatting = { format = formatter },
+        formatting = {
+          format = function(entry, item)
+            if entry.source.name == "omni" then
+              local icon, hl = MiniIcons.get("filetype", "vim")
+              item.kind = icon .. " "
+              item.kind_hl_group = hl
+              item.menu = item.menu:gsub("[%[%]]", "")
+              return item
+            end
+
+            local icon, hl = MiniIcons.get("lsp", item.kind)
+            item.kind = icon .. " " .. item.kind:lower():sub(1, 3)
+            item.kind_hl_group = hl
+
+            if not item.menu then
+              item.menu = ({
+                nvim_lsp = "lsp",
+                nvim_lua = "luals",
+                ultisnips = "snip",
+              })[entry.source.name] or string.format(
+                "%s",
+                entry.source.name
+              )
+            end
+
+            return item
+          end,
+        },
         completion = {
           keyword_length = 2,
         },
