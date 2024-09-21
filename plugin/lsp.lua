@@ -575,9 +575,14 @@ vim.api.nvim_create_autocmd("FileType", {
     metals_config.init_options.statusBarProvider = "on"
     metals_config.capabilities = capabilities
     metals_config.settings = {
-      showImplicitArguments = true,
-      showImplicitConversionsAndClasses = true,
-      showInferredType = true,
+      verboseCompilation = true,
+      inlayHints = {
+        hintsInPatternMatch = { enable = true },
+        implicitArguments = { enable = true },
+        implicitConversions = { enable = true },
+        inferredTypes = { enable = true },
+        typeParameters = { enable = true },
+      },
       defaultBspToBuildTool = true,
       decorationColor = "DiagnosticVirtualTextHint",
       excludedPackages = {
