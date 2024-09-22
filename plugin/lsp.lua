@@ -340,24 +340,17 @@ create_autocommand({ "json", "jsonc" }, function(args)
 end)
 
 -- }}}1
--- {{{1 GitLab CICD LS
+-- {{{1 wiki:gitlab-ci-ls
 
--- https://github.com/alesbrelih/gitlab-ci-ls
--- To install locally:
---   cargo install gitlab-ci-ls
---   Add to path: ~/.cargo/bin
-
-create_autocommand("yaml", function(args)
-  if not args.file:match "gitlab%-ci" then
-    return {}
-  else
+create_autocommand("yaml-disabled", function(args)
+  if not args.file:match "gitlab%-ci%." then
     return {}
   end
 
   local cache_dir = "/home/lervag/.cache/gitlab-ci-ls/"
   return {
     name = "gitlab-ci-ls",
-    cmd = { "gitlab-ci-ls" },
+    cmd = { "/home/lervag/.local/share/nvim/mason/bin/gitlab-ci-ls" },
     root_dir = vim.fs.root(args.buf, { ".gitlab*", ".git" }),
     init_options = {
       cache_path = cache_dir,
