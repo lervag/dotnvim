@@ -925,7 +925,10 @@ local M = {
 
   {
     "williamboman/mason.nvim",
-    cmd = "Mason",
+    cmd = {
+      "Mason",
+      "MasonInstall",
+    },
     keys = { { "<leader>pm", "<cmd>Mason<cr>", desc = "Mason" } },
     build = ":MasonUpdate",
     opts = {
