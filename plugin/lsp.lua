@@ -342,7 +342,7 @@ end)
 -- }}}1
 -- {{{1 wiki:gitlab-ci-ls
 
-create_autocommand("yaml-disabled", function(args)
+create_autocommand("yaml", function(args)
   if not args.file:match "gitlab%-ci%." then
     return {}
   end

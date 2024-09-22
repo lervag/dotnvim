@@ -432,6 +432,7 @@ local M = {
       { "<f1>", "<cmd>GpChatToggle<cr>", desc = "GpChat" },
     },
     cmd = {
+      "GpImage",
       "GpChatNew",
       "GpChatPaste",
       "GpChatToggle",
