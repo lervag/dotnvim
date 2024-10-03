@@ -77,7 +77,9 @@ function M.lsp()
   }
 
   if #clients > 0 then
-    return ui.icon "lsp" .. clients[1].name
+    return ui.icon "lsp" .. table.concat(
+      vim.tbl_map(function(c) return c.name end, clients),
+      ", ")
   end
 
   return ""
