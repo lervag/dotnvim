@@ -1,6 +1,7 @@
 vim.fn["personal#markdown#init"]()
 
 vim.bo.indentexpr = "personal#markdown#indentexpr(v:lnum)"
+vim.wo.conceallevel = 0
 
 vim.keymap.set(
   "n",

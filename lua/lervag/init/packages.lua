@@ -584,7 +584,7 @@ local M = {
             end
 
             local icon, hl = MiniIcons.get("lsp", item.kind)
-            item.kind = icon .. " " .. item.kind:lower():sub(1, 3)
+            item.kind = icon .. " " .. item.kind:lower()
             item.kind_hl_group = hl
 
             if not item.menu then
@@ -2175,6 +2175,7 @@ local M = {
       vim.g.vim_markdown_toml_frontmatter = 1
       vim.g.vim_markdown_new_list_item_indent = 2
       vim.g.vim_markdown_no_extensions_in_markdown = 1
+      vim.g.vim_markdown_no_default_key_mappings = 1
       vim.g.vim_markdown_conceal = 2
       vim.g.vim_markdown_conceal_code_blocks = 0
       vim.g.vim_markdown_math = 1
