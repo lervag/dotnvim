@@ -1,5 +1,8 @@
 local dap = require "dap"
 
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+
 dap.configurations.scala = {
   {
     type = "scala",

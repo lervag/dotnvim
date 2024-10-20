@@ -2,7 +2,7 @@ vim.bo.define = [[^\s*\(def\|class\)]]
 vim.bo.includeexpr = "personal#python#includexpr()"
 
 vim.wo.colorcolumn = "+1"
-vim.wo.foldexpr = "personal#python#foldexpr(v:lnum)"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 vim.wo.foldmethod = "expr"
 
 vim.fn["personal#python#set_path"]()
