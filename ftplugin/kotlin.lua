@@ -7,7 +7,7 @@ vim.bo.commentstring = "// %s"
 
 -- Rely on Treesitter for folding
 vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Configure indentation
 vim.opt_local.cinoptions:append { "j1", ")100" }
