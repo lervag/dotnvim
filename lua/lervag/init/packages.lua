@@ -850,7 +850,9 @@ local M = {
 
   {
     "stevearc/conform.nvim",
-    event = "BufReadPost",
+    dependencies = {
+      { "williamboman/mason.nvim" },
+    },
     keys = {
       {
         "<leader>lf",
@@ -869,7 +871,11 @@ local M = {
         formatters_by_ft = {
           lua = { "stylua" },
           python = { "black" },
-          markdown = { "prettierd" },
+          markdown = {
+            "prettierd",
+            "markdownlint",
+            "markdown-toc",
+          },
           graphql = { "prettierd" },
           javascript = { "prettierd" },
           sql = { "pg_format" },
@@ -934,18 +940,21 @@ local M = {
     opts = {
       ensure_installed = {
         "gitlab-ci-ls",
+        "black",
+        "markdown-toc",
+        "markdownlint",
       },
     },
     config = function(_, opts)
       require("mason").setup(opts)
 
-      local mr = require("mason-registry")
+      local mr = require "mason-registry"
       mr:on("package:install:success", function()
         vim.defer_fn(function()
-          require("lazy.core.handler.event").trigger({
+          require("lazy.core.handler.event").trigger {
             event = "FileType",
             buf = vim.api.nvim_get_current_buf(),
-          })
+          }
         end, 100)
       end)
 
