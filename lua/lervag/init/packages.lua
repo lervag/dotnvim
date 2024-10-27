@@ -1,5 +1,4 @@
----@diagnostic disable: missing-fields
-
+---@type LazySpec
 local M = {
   -- {{{1 Dev
 

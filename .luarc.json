@@ -6,7 +6,9 @@
   "workspace": {
     "library": [
       "$VIMRUNTIME",
-      "${3rd}/luv/library"
+      "${3rd}/luv/library",
+      "$HOME/.local/plugged/mini.icons",
+      "$HOME/.local/plugged/lazy.nvim"
     ],
     "checkThirdParty": false
   }
