@@ -1474,6 +1474,21 @@ local M = {
     },
   },
 
+  {
+    "andrewferrier/debugprint.nvim",
+    opts = {
+      filetypes = {
+        scala = {
+          left = 'println("',
+          left_var = 'println(s"',
+          mid_var = "${",
+          right = '")',
+          right_var = '})"',
+        },
+      },
+    },
+  },
+
   -- {{{1 Editing
 
   {
