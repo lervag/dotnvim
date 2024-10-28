@@ -30,11 +30,11 @@ local icons = {
     color = "red",
   },
   wiki = {
-    glyph = "  ",
+    glyph = "  ",
     color = "cyan",
   },
   journal = {
-    glyph = " 󰃵 ",
+    glyph = "  ",
     color = "green",
   },
   tex_off = {

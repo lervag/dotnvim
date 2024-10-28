@@ -876,6 +876,7 @@ local M = {
             "markdown-toc",
           },
           graphql = { "prettierd" },
+          groovy = { "npm-groovy-lint" },
           javascript = { "prettierd" },
           sql = { "pg_format" },
         },
