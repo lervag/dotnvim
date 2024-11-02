@@ -1223,6 +1223,7 @@ local M = {
 
   {
     "ludovicchabant/vim-gutentags",
+    enabled = false,
     event = "VeryLazy",
     init = function()
       vim.g.gutentags_define_advanced_commands = 1
