@@ -432,6 +432,14 @@ local theme = {
   OperatorSandwichBuns = { fg = color05, bold = true },
   OperatorSandwichChange = { link = "OperatorSandwichBuns" },
 
+  -- ~/.local/plugged/grug-far.nvim/lua/grug-far/highlights.lua
+  GrugFarHelpHeader = { link = 'Title' },
+  GrugFarHelpWinActionPrefix = { link = 'PreProc' },
+  GrugFarHelpWinActionText = { fg = color09 },
+  GrugFarInputLabel = { fg = color04, bg = color07 },
+  GrugFarResultsHeader = { fg = color14, bg = color07, italic = true },
+  GrugFarResultsStats = { link = 'GrugFarResultsHeader' },
+
   ALEErrorLine = { link = "ErrorMsg" },
   ALEWarningLine = { link = "WarningMsg" },
   ALEInfoLine = { link = "ModeMsg" },

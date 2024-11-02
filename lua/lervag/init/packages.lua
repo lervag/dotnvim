@@ -1241,10 +1241,32 @@ local M = {
   },
 
   {
+    "MagicDuck/grug-far.nvim",
+    keys = {
+      { "<leader>ff", "<cmd>GrugFar<cr>", desc = "GrugFar" },
+      { "<leader>ff", "<cmd>GrugFar<cr>", mode = "x", desc = "GrugFar Visual" },
+    },
+    -- ~/.local/plugged/grug-far.nvim/lua/grug-far/opts.lua
+    opts = {
+      helpLine = {
+        enabled = false,
+      },
+      engines = {
+        astgrep = {
+          path = "ast-grep",
+        },
+      },
+      resultLocation = {
+        showNumberLabel = false,
+      },
+    },
+  },
+
+  {
     "dyng/ctrlsf.vim",
     cmd = "CtrlSF",
     keys = {
-      { "<leader>ff", ":CtrlSF ", desc = "CtrlSF" },
+      { "<leader>fs", ":CtrlSF ", desc = "CtrlSF" },
       { "<leader>ft", "<cmd>CtrlSFToggle<cr>", desc = "CtrlSFToggle" },
       { "<leader>fu", "<cmd>CtrlSFUpdate<cr>", desc = "CtrlSFUpdate" },
       {
