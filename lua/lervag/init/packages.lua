@@ -1243,12 +1243,47 @@ local M = {
 
   {
     "MagicDuck/grug-far.nvim",
+    command = "GrugFar",
     keys = {
-      { "<leader>ff", "<cmd>GrugFar<cr>", desc = "GrugFar" },
-      { "<leader>ff", "<cmd>GrugFar<cr>", mode = "x", desc = "GrugFar Visual" },
+      {
+        "<leader>fF",
+        function()
+          require("grug-far").open {
+            prefills = {
+              search = vim.fn.expand "<cword>",
+            },
+          }
+        end,
+        desc = "GrugFar",
+      },
+      {
+        "<leader>ff",
+        function()
+          require("grug-far").open {
+            prefills = {
+              search = vim.fn.expand "<cWORD>",
+            },
+          }
+        end,
+        desc = "GrugFar",
+      },
+      {
+        "<leader>ff",
+        function()
+          require("grug-far").open {
+            prefills = {
+              search = require("grug-far").get_current_visual_selection(true)
+                or "",
+            },
+          }
+        end,
+        mode = "x",
+        desc = "GrugFar Visual",
+      },
     },
     -- ~/.local/plugged/grug-far.nvim/lua/grug-far/opts.lua
     opts = {
+      startInInsertMode = false,
       helpLine = {
         enabled = false,
       },
@@ -1259,6 +1294,17 @@ local M = {
       },
       resultLocation = {
         showNumberLabel = false,
+      },
+      helpWindow = {
+        border = require("lervag.const").border,
+        footer = "",
+      },
+      historyWindow = {
+        border = require("lervag.const").border,
+        footer = "",
+      },
+      previewWindow = {
+        border = require("lervag.const").border,
       },
     },
   },
