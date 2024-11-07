@@ -1992,7 +1992,17 @@ local M = {
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      require("diffview").setup {
+      local diffview = require "diffview"
+
+      local quit_diffview = function()
+        if vim.g.mergemode then
+          vim.cmd "quitall!"
+        else
+          diffview.close()
+        end
+      end
+
+      diffview.setup {
         enhanced_diff_hl = true,
         view = {
           merge_tool = {
@@ -2006,22 +2016,19 @@ local M = {
         -- ~/.local/plugged/diffview.nvim/lua/diffview/config.lua:120
         keymaps = {
           file_panel = {
-            ["<leader>eq"] = ":DiffviewClose<cr>",
-            ["<c-q>"] = ":quitall<cr>",
+            ["<leader>e"] = false,
+            ["<leader>eq"] = quit_diffview,
           },
           file_history_panel = {
-            ["<leader>e"] = nil,
-            ["<leader>eq"] = ":DiffviewClose<cr>",
-            ["<c-q>"] = ":quitall<cr>",
+            ["<leader>e"] = false,
+            ["<leader>eq"] = quit_diffview,
           },
           view = {
             ["<leader>e"] = false,
-            ["<leader>eq"] = ":DiffviewClose<cr>",
-            ["<c-q>"] = ":quitall<cr>",
-          },
-          diff3 = {
-            ["<leader>eq"] = ":DiffviewClose<cr>",
-            ["<c-q>"] = ":quitall<cr>",
+            ["<leader>eq"] = quit_diffview,
+            ["<leader>ee"] = function()
+              diffview.emit "toggle_stage_entry"
+            end,
           },
         },
       }
