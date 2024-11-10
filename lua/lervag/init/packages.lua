@@ -2098,6 +2098,25 @@ local M = {
   -- {{{1 Various
 
   {
+    "oclay1st/maven.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    cmd = { "Maven", "MavenInit", "MavenExec" },
+    keys = {
+      {
+        "<Leader>M",
+        function()
+          require("maven").toggle_projects_view()
+        end,
+        desc = "Maven",
+      },
+    },
+    opts = {},
+  },
+
+  {
     "itchyny/calendar.vim",
     keys = {
       {
