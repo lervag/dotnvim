@@ -2241,6 +2241,7 @@ local M = {
     keys = {
       { "<f4>", "<cmd>CccPick<cr>", desc = "ccc.nvim" },
       { "<s-f4>", "<cmd>CccHighlighterToggle<cr>", desc = "ccc.nvim" },
+      { "<f16>", "<cmd>CccHighlighterToggle<cr>", desc = "ccc.nvim" },
     },
     config = function()
       local ccc = require "ccc"
