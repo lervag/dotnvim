@@ -421,11 +421,6 @@ local M = {
   },
 
   {
-    "Eandrju/cellular-automaton.nvim",
-    enabled = false,
-  },
-
-  {
     "Robitx/gp.nvim",
     keys = {
       { "<f1>", "<cmd>GpChatToggle<cr>", desc = "GpChat" },
@@ -1216,26 +1211,6 @@ local M = {
             target = "%1src/main/%2.scala",
             context = "Scala implementation",
           },
-        },
-      }
-    end,
-  },
-
-  {
-    "ludovicchabant/vim-gutentags",
-    enabled = false,
-    event = "VeryLazy",
-    init = function()
-      vim.g.gutentags_define_advanced_commands = 1
-      vim.g.gutentags_cache_dir = vim.fn.stdpath "cache" .. "/ctags"
-      vim.g.gutentags_ctags_extra_args = {
-        "--tag-relative=yes",
-        "--fields=+aimS",
-      }
-      vim.g.gutentags_file_list_command = {
-        markers = {
-          [".git"] = "git ls-files",
-          [".hg"] = "hg files",
         },
       }
     end,
