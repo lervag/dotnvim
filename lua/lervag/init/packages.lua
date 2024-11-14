@@ -2306,39 +2306,6 @@ local M = {
     end,
   },
 
-  {
-    "kndndrj/nvim-dbee",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    cmd = "Dbee",
-    build = function()
-      require("dbee").install()
-    end,
-    config = function()
-      local shared_winopts = {
-        signcolumn = "no",
-        fillchars = "eob: ",
-      }
-
-      require("dbee").setup {
-        float_options = {
-          title_pos = "right",
-          border = require("lervag.const").border,
-        },
-        drawer = {
-          window_options = shared_winopts,
-        },
-        result = {
-          window_options = shared_winopts,
-        },
-        call_log = {
-          window_options = shared_winopts,
-        },
-      }
-    end,
-  },
-
   -- {{{1 Various filetype plugins
 
   {
