@@ -66,7 +66,6 @@ vim.keymap.set("n", "dg#", "g*``dgN")
 vim.keymap.set("n", "<bs>", "ciw")
 
 -- Improved search related mappings
-vim.keymap.set("n", "gl", "<cmd>set nohlsearch<cr>")
 vim.keymap.set({ "n", "o" }, "n", function()
   return vim.fn["personal#search#wrap"] "n"
 end, { expr = true })
