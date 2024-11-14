@@ -1249,6 +1249,7 @@ local M = {
         "<leader>fF",
         function()
           require("grug-far").open {
+            startInInsertMode = false,
             prefills = {
               search = vim.fn.expand "<cword>",
             },
@@ -1259,11 +1260,7 @@ local M = {
       {
         "<leader>ff",
         function()
-          require("grug-far").open {
-            prefills = {
-              search = vim.fn.expand "<cWORD>",
-            },
-          }
+          require("grug-far").open()
         end,
         desc = "GrugFar",
       },
@@ -1271,6 +1268,7 @@ local M = {
         "<leader>ff",
         function()
           require("grug-far").open {
+            startInInsertMode = false,
             prefills = {
               search = require("grug-far").get_current_visual_selection(true)
                 or "",
@@ -1283,11 +1281,14 @@ local M = {
     },
     -- ~/.local/plugged/grug-far.nvim/lua/grug-far/opts.lua
     opts = {
-      startInInsertMode = false,
+      transient = true,
       helpLine = {
         enabled = false,
       },
       engines = {
+        ripgrep = {
+          extraArgs = "--hidden",
+        },
         astgrep = {
           path = "ast-grep",
         },
@@ -1330,9 +1331,9 @@ local M = {
       vim.g.ctrlsf_context = "-B 2"
       vim.g.ctrlsf_default_root = "project+fw"
       vim.g.ctrlsf_populate_qflist = 1
-      if vim.fn.executable "rg" then
-        vim.g.ctrlsf_ackprg = "rg"
-      end
+      vim.g.ctrlsf_extra_backend_args = {
+        rg = "--hidden",
+      }
     end,
   },
 
