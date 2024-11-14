@@ -1832,6 +1832,24 @@ local M = {
     },
   },
 
+  {
+    "Wansmer/treesj",
+    keys = {
+      {
+        "gS",
+        function()
+          require("treesj").toggle()
+        end,
+        desc = "TreeSJ Toggle",
+      },
+    },
+    config = function()
+      require("treesj").setup {
+        use_default_keymaps = false,
+      }
+    end,
+  },
+
   -- {{{1 VCS
 
   {
