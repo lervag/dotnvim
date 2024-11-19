@@ -1,3 +1,5 @@
+local my_border = require("lervag.const").border
+
 ---@type LazySpec
 local M = {
   -- {{{1 Dev
@@ -303,7 +305,7 @@ local M = {
         prefer_width = 80,
         max_width = nil,
         min_width = nil,
-        border = require("lervag.const").border,
+        border = my_border,
       },
       select = {
         telescope = {
@@ -412,10 +414,10 @@ local M = {
         ["<c-l>"] = false,
       },
       float = {
-        border = require("lervag.const").border,
+        border = my_border,
       },
       preview = {
-        border = require("lervag.const").border,
+        border = my_border,
       },
     },
   },
@@ -821,7 +823,7 @@ local M = {
         ui = {
           code_action = " ",
           title = false,
-          border = require("lervag.const").border,
+          border = my_border,
         },
       }
     end,
@@ -1272,15 +1274,15 @@ local M = {
         showNumberLabel = false,
       },
       helpWindow = {
-        border = require("lervag.const").border,
+        border = my_border,
         footer = "",
       },
       historyWindow = {
-        border = require("lervag.const").border,
+        border = my_border,
         footer = "",
       },
       previewWindow = {
-        border = require("lervag.const").border,
+        border = my_border,
       },
     },
   },
@@ -1439,7 +1441,7 @@ local M = {
         end,
         ["<leader>dh"] = function()
           widgets.hover("<cexpr>", {
-            border = require("lervag.const").border,
+            border = my_border,
             title = " hover ",
           })
         end,
@@ -1449,10 +1451,10 @@ local M = {
         ["<leader>dE"] = function()
           vim.ui.input({
             prompt = " evaluate ",
-            border = require("lervag.const").border,
+            border = my_border,
           }, function(expr)
             widgets.hover(expr, {
-              border = require("lervag.const").border,
+              border = my_border,
               title = " evaluated: " .. expr .. " ",
             })
           end)
@@ -2032,7 +2034,7 @@ local M = {
         callback = function()
           if vim.api.nvim_win_get_config(0).zindex then
             vim.api.nvim_win_set_config(0, {
-              border = require("lervag.const").border,
+              border = my_border,
             })
           end
         end,
@@ -2107,7 +2109,52 @@ local M = {
         desc = "Maven",
       },
     },
-    opts = {},
+    opts = {
+      dependencies_view = {
+        resolved_dependencies_win = {
+          border = { style = my_border },
+        },
+        dependency_usages_win = {
+          border = { style = my_border },
+        },
+        filter_win = {
+          border = { style = my_border },
+        },
+      },
+      initializer_view = {
+        name_win = {
+          border = { style = my_border },
+        },
+        package_win = {
+          border = { style = my_border },
+        },
+        archetypes_win = {
+          input_win = {
+            border = { style = my_border },
+          },
+          options_win = {
+            border = { style = my_border },
+          },
+        },
+        archetype_version_win = {
+          border = { style = my_border },
+        },
+        workspaces_win = {
+          border = { style = my_border },
+        },
+      },
+      execute_view = {
+        input_win = {
+          border = { style = my_border },
+        },
+        options_win = {
+          border = { style = my_border },
+        },
+      },
+      help_view = {
+        border = { style = my_border },
+      },
+    },
   },
 
   {
@@ -2149,6 +2196,7 @@ local M = {
           enable = "[o",
           disable = "]o",
           toggle = "yo",
+          show_message = true,
         })
         :option({ key = "h", option = "hlsearch" })
         :option({ key = "l", option = "list" })
@@ -2255,7 +2303,7 @@ local M = {
           ccc.input.cmyk,
         },
         win_opts = {
-          border = require("lervag.const").border,
+          border = my_border,
         },
       }
     end,
