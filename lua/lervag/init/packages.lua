@@ -1183,82 +1183,14 @@ local M = {
     end,
   },
   {
-    "MagicDuck/grug-far.nvim",
-    command = "GrugFar",
-    keys = {
-      {
-        "<leader>fF",
-        function()
-          require("grug-far").open {
-            startInInsertMode = false,
-            prefills = {
-              search = vim.fn.expand "<cword>",
-            },
-          }
-        end,
-        desc = "GrugFar",
-      },
-      {
-        "<leader>ff",
-        function()
-          require("grug-far").open()
-        end,
-        desc = "GrugFar",
-      },
-      {
-        "<leader>ff",
-        function()
-          require("grug-far").open {
-            startInInsertMode = false,
-            prefills = {
-              search = require("grug-far").get_current_visual_selection(true)
-                or "",
-            },
-          }
-        end,
-        mode = "x",
-        desc = "GrugFar Visual",
-      },
-    },
-    -- ~/.local/plugged/grug-far.nvim/lua/grug-far/opts.lua
-    opts = {
-      transient = true,
-      helpLine = {
-        enabled = false,
-      },
-      engines = {
-        ripgrep = {
-          extraArgs = "--hidden",
-        },
-        astgrep = {
-          path = "ast-grep",
-        },
-      },
-      resultLocation = {
-        showNumberLabel = false,
-      },
-      helpWindow = {
-        border = my_border,
-        footer = "",
-      },
-      historyWindow = {
-        border = my_border,
-        footer = "",
-      },
-      previewWindow = {
-        border = my_border,
-      },
-    },
-  },
-  {
     "dyng/ctrlsf.vim",
     cmd = "CtrlSF",
     keys = {
-      { "<leader>fs", ":CtrlSF ", desc = "CtrlSF" },
+      { "<leader>ff", ":CtrlSF ", desc = "CtrlSF" },
       { "<leader>ft", "<cmd>CtrlSFToggle<cr>", desc = "CtrlSFToggle" },
       { "<leader>fu", "<cmd>CtrlSFUpdate<cr>", desc = "CtrlSFUpdate" },
       {
-        "<leader>f",
+        "<leader>ff",
         "<plug>CtrlSFVwordExec",
         mode = "x",
         desc = "CtrlSF",
