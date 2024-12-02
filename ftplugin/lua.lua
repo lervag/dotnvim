@@ -21,3 +21,10 @@ dap.configurations.lua = {
     port = 8086,
   },
 }
+
+
+
+if vim.fn.expand("%:p"):match "init/packages%.lua$" then
+  vim.wo.foldlevel = 1
+  vim.wo.foldtext = 'v:lua.require("lervag.init.ftlua").foldtext_packages()'
+end

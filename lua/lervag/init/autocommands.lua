@@ -50,7 +50,9 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Ensure &foldtext is kept empty regardless of filetype",
   group = group,
   callback = function()
-    vim.wo.foldtext = ""
+    if not vim.wo.foldtext:match("lervag%.init") then
+      vim.wo.foldtext = ""
+    end
   end,
 })
 

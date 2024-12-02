@@ -2,8 +2,7 @@ local my_border = require("lervag.const").border
 
 ---@type LazySpec
 local M = {
-  -- {{{1 Dev
-
+  -- Personal
   {
     url = "git@github.com:lervag/vimtex",
     dev = true,
@@ -66,7 +65,6 @@ local M = {
       })
     end,
   },
-
   {
     url = "git@github.com:lervag/wiki.vim",
     dev = true,
@@ -147,7 +145,6 @@ local M = {
       })
     end,
   },
-
   {
     url = "git@github.com:lervag/lists.vim",
     dev = true,
@@ -155,20 +152,16 @@ local M = {
       vim.g.lists_filetypes = { "md", "wiki", "txt" }
     end,
   },
-
   {
     url = "git@github.com:lervag/file-line",
     dev = true,
   },
-
   {
     url = "git@github.com:lervag/wiki-ft.vim",
     dev = true,
   },
 
-  -- }}}1
-  -- {{{1 UI
-
+  -- UI
   {
     "folke/trouble.nvim",
     cmd = "Trouble",
@@ -235,7 +228,6 @@ local M = {
       },
     },
   },
-
   {
     "andymass/vim-matchup",
     event = "BufReadPost",
@@ -245,7 +237,6 @@ local M = {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -266,7 +257,6 @@ local M = {
       }
     end,
   },
-
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
@@ -294,7 +284,6 @@ local M = {
       end,
     },
   },
-
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
@@ -317,7 +306,6 @@ local M = {
       },
     },
   },
-
   {
     "echasnovski/mini.icons",
     opts = {
@@ -334,7 +322,6 @@ local M = {
       end
     end,
   },
-
   {
     "echasnovski/mini.notify",
     config = function()
@@ -396,7 +383,6 @@ local M = {
       vim.notify = mininotify.make_notify()
     end,
   },
-
   {
     "stevearc/oil.nvim",
     lazy = false,
@@ -421,7 +407,6 @@ local M = {
       },
     },
   },
-
   {
     "Robitx/gp.nvim",
     keys = {
@@ -456,7 +441,6 @@ local M = {
       },
     },
   },
-
   {
     "b0o/incline.nvim",
     event = "VeryLazy",
@@ -539,9 +523,7 @@ local M = {
     },
   },
 
-  -- }}}1
-  -- {{{1 Completion, LSP and snippets
-
+  -- Completion, LSP and snippets
   {
     "hrsh7th/nvim-cmp",
     event = "VeryLazy",
@@ -748,7 +730,6 @@ local M = {
       })
     end,
   },
-
   {
     "micangl/cmp-vimtex",
     dependencies = {
@@ -756,7 +737,6 @@ local M = {
     },
     ft = "tex",
   },
-
   {
     "quangnguyen30192/cmp-nvim-ultisnips",
     lazy = true,
@@ -777,7 +757,6 @@ local M = {
       end,
     },
   },
-
   {
     "SirVer/ultisnips",
     event = "VeryLazy",
@@ -791,7 +770,6 @@ local M = {
       vim.keymap.set("n", "<leader>es", "<cmd>UltiSnipsEdit!<cr>")
     end,
   },
-
   {
     "neovim/nvim-lspconfig",
     cmd = {
@@ -801,7 +779,6 @@ local M = {
       "hrsh7th/cmp-nvim-lsp",
     },
   },
-
   {
     "glepnir/lspsaga.nvim",
     dependencies = {
@@ -828,22 +805,18 @@ local M = {
       }
     end,
   },
-
   {
     "nvim-lua/lsp-status.nvim",
     lazy = true,
   },
-
   {
     "barreiroleo/ltex-extra.nvim",
     lazy = true,
   },
-
   {
     "mfussenegger/nvim-jdtls",
     lazy = true,
   },
-
   {
     "stevearc/conform.nvim",
     dependencies = {
@@ -880,7 +853,6 @@ local M = {
       }
     end,
   },
-
   {
     "mfussenegger/nvim-lint",
     event = "BufReadPost",
@@ -900,7 +872,6 @@ local M = {
       })
     end,
   },
-
   {
     "chrisgrieser/nvim-rulebook",
     keys = {
@@ -925,7 +896,6 @@ local M = {
       },
     },
   },
-
   {
     "williamboman/mason.nvim",
     cmd = {
@@ -966,9 +936,7 @@ local M = {
     end,
   },
 
-  -- }}}1
-  -- {{{1 Text objects and similar
-
+  -- Text objects and similar
   {
     "wellle/targets.vim",
     event = "VeryLazy",
@@ -980,7 +948,6 @@ local M = {
         "cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr ll rb al rB Al bb aa bB Aa BB AA"
     end,
   },
-
   {
     "machakann/vim-sandwich",
     event = "VeryLazy",
@@ -1067,8 +1034,7 @@ local M = {
     end,
   },
 
-  -- {{{1 Finder, motions, and tags
-
+  -- Finder, motions, and tags
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -1181,10 +1147,9 @@ local M = {
       telescope.load_extension "fzf"
     end,
   },
-
-  -- wiki:other.nvim
   {
     "rgroli/other.nvim",
+    -- See wiki:other.nvim
     command = "Other",
     keys = {
       { "<leader>ot", "<cmd>Other<cr>", desc = "Other" },
@@ -1217,7 +1182,6 @@ local M = {
       }
     end,
   },
-
   {
     "MagicDuck/grug-far.nvim",
     command = "GrugFar",
@@ -1286,7 +1250,6 @@ local M = {
       },
     },
   },
-
   {
     "dyng/ctrlsf.vim",
     cmd = "CtrlSF",
@@ -1313,7 +1276,6 @@ local M = {
       }
     end,
   },
-
   {
     "machakann/vim-columnmove",
     event = "VeryLazy",
@@ -1337,8 +1299,7 @@ local M = {
     end,
   },
 
-  -- {{{1 Debugging, and code runners
-
+  -- Debugging, and code runners
   {
     "mfussenegger/nvim-dap",
     lazy = true,
@@ -1470,7 +1431,6 @@ local M = {
       end)
     end,
   },
-
   {
     "rcarriga/nvim-dap-ui",
     lazy = true,
@@ -1504,7 +1464,6 @@ local M = {
       },
     },
   },
-
   {
     "HiPhish/debugpy.nvim",
     dependencies = { "mfussenegger/nvim-dap" },
@@ -1517,7 +1476,6 @@ local M = {
       end
     end,
   },
-
   {
     "jbyuki/one-small-step-for-vimkind",
     lazy = true,
@@ -1529,7 +1487,6 @@ local M = {
       },
     },
   },
-
   {
     "andrewferrier/debugprint.nvim",
     opts = {
@@ -1545,12 +1502,10 @@ local M = {
     },
   },
 
-  -- {{{1 Editing
-
+  -- Editing
   {
     "tpope/vim-repeat",
   },
-
   {
     "junegunn/vim-easy-align",
     keys = {
@@ -1566,7 +1521,6 @@ local M = {
       vim.g.easy_align_bypass_fold = 1
     end,
   },
-
   {
     "dhruvasagar/vim-table-mode",
     event = "BufReadPost",
@@ -1575,7 +1529,6 @@ local M = {
       vim.g.table_mode_corner = "|"
     end,
   },
-
   {
     "monaqa/dial.nvim",
     lazy = true,
@@ -1637,7 +1590,6 @@ local M = {
       }
     end,
   },
-
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -1691,7 +1643,6 @@ local M = {
       },
     },
   },
-
   {
     "booperlv/nvim-gomove",
     keys = {
@@ -1717,7 +1668,6 @@ local M = {
       move_past_end_col = true,
     },
   },
-
   {
     "AndrewRadev/inline_edit.vim",
     keys = {
@@ -1747,7 +1697,6 @@ local M = {
       }
     end,
   },
-
   {
     "AndrewRadev/linediff.vim",
     keys = {
@@ -1763,12 +1712,10 @@ local M = {
       })
     end,
   },
-
   {
     "xorid/asciitree.nvim",
     cmd = { "AsciiTree" },
   },
-
   {
     "HakonHarnes/img-clip.nvim",
     event = "BufEnter",
@@ -1800,7 +1747,6 @@ local M = {
       { "<leader>ep", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
     },
   },
-
   {
     "Allaman/emoji.nvim",
     lazy = true,
@@ -1809,7 +1755,6 @@ local M = {
       plugin_path = vim.fn.expand "$HOME/.local/plugged/",
     },
   },
-
   {
     "Wansmer/treesj",
     keys = {
@@ -1828,8 +1773,7 @@ local M = {
     end,
   },
 
-  -- {{{1 VCS
-
+  -- VCS
   {
     "tpope/vim-fugitive",
     lazy = false,
@@ -1904,7 +1848,6 @@ local M = {
       })
     end,
   },
-
   {
     "echasnovski/mini.diff",
     lazy = false,
@@ -1923,7 +1866,6 @@ local M = {
       },
     },
   },
-
   {
     "rbong/vim-flog",
     dependencies = { "tpope/vim-fugitive" },
@@ -1954,7 +1896,6 @@ local M = {
       }
     end,
   },
-
   {
     "airblade/vim-rooter",
     config = function()
@@ -1962,7 +1903,6 @@ local M = {
       vim.g.rooter_silent_chdir = 1
     end,
   },
-
   {
     "sindrets/diffview.nvim",
     cmd = {
@@ -2042,8 +1982,7 @@ local M = {
     end,
   },
 
-  -- {{{1 Tmux (incl. filetype)
-
+  -- Tmux (incl. filetype)
   {
     "christoomey/vim-tmux-navigator",
     keys = {
@@ -2057,7 +1996,6 @@ local M = {
       vim.g.tmux_navigator_disable_when_zoomed = 1
     end,
   },
-
   {
     "benmills/vimux",
     cmd = { "VimuxOpenRunner" },
@@ -2091,8 +2029,7 @@ local M = {
     end,
   },
 
-  -- {{{1 Various
-
+  -- Various
   {
     "oclay1st/maven.nvim",
     dependencies = {
@@ -2156,7 +2093,6 @@ local M = {
       },
     },
   },
-
   {
     "itchyny/calendar.vim",
     keys = {
@@ -2174,17 +2110,14 @@ local M = {
       vim.g.calendar_week_number = 1
     end,
   },
-
   {
     "tweekmonster/helpful.vim",
     cmd = { "HelpfulVersion" },
   },
-
   {
     "tyru/capture.vim",
     cmd = { "Capture" },
   },
-
   {
     "idanarye/nvim-impairative",
     event = "VeryLazy",
@@ -2276,7 +2209,6 @@ local M = {
         }
     end,
   },
-
   {
     "uga-rosa/ccc.nvim",
     cmd = {
@@ -2316,22 +2248,18 @@ local M = {
       })
     end,
   },
-
   {
     "chrisbra/Colorizer",
     cmd = { "ColorHighlight" },
   },
-
   {
     "dstein64/vim-startuptime",
     cmd = { "StartupTime" },
   },
-
   {
     "echuraev/translate-shell.vim",
     cmd = { "Trans" },
   },
-
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
@@ -2354,8 +2282,7 @@ local M = {
     end,
   },
 
-  -- {{{1 Various filetype plugins
-
+  -- Various filetype plugins
   {
     "yorickpeterse/nvim-pqf",
     event = "VeryLazy",
@@ -2371,16 +2298,15 @@ local M = {
       }
     end,
   },
-
-  { "Vimjas/vim-python-pep8-indent" },
-
+  {
+    "Vimjas/vim-python-pep8-indent"
+  },
   {
     "scalameta/nvim-metals",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
   },
-
   {
     "preservim/vim-markdown",
     config = function()
@@ -2397,7 +2323,6 @@ local M = {
       vim.g.vim_markdown_strikethrough = 1
     end,
   },
-
   {
     "gpanders/vim-medieval",
     config = function()
@@ -2409,30 +2334,21 @@ local M = {
       }
     end,
   },
-
   {
     "tpope/vim-scriptease",
   },
-
   {
     "darvelo/vim-systemd",
   },
-
   {
     "tpope/vim-apathy",
   },
-
   {
     "chunkhang/vim-mbsync",
   },
-
   {
     "tridactyl/vim-tridactyl",
   },
-
-  -- }}}1
 }
 
 return M
-
--- vim: fdm=marker
