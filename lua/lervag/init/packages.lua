@@ -1,5 +1,6 @@
 local my_border = require("lervag.const").border
 
+---@diagnostic disable: missing-fields
 ---@type LazySpec
 local M = {
   -- Personal
@@ -781,7 +782,7 @@ local M = {
   {
     "glepnir/lspsaga.nvim",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter" },
+      "nvim-treesitter/nvim-treesitter",
     },
     event = "LspAttach",
     config = function()
@@ -819,7 +820,7 @@ local M = {
   {
     "stevearc/conform.nvim",
     dependencies = {
-      { "williamboman/mason.nvim" },
+      "williamboman/mason.nvim",
     },
     keys = {
       {

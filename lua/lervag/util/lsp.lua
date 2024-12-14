@@ -35,9 +35,4 @@ function M.hover(_, result, ctx)
   return vim.lsp.util.open_floating_preview(contents, format, config)
 end
 
-M.signatureHelp = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = const.border, title = "signature" }
-)
-
 return M

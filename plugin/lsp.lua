@@ -3,7 +3,6 @@ local u = require "lervag.util.lsp"
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
 vim.lsp.handlers["textDocument/hover"] = u.hover
-vim.lsp.handlers["textDocument/signatureHelp"] = u.signatureHelp
 
 -- {{{1 Capabilities
 
@@ -73,7 +72,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local attachedClient = vim.lsp.get_client_by_id(args.data.client_id)
 
     if attachedClient then
-      if attachedClient.supports_method "textDocument/codeLens" then
+      if attachedClient:supports_method "textDocument/codeLens" then
         vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
           group = lspgroup,
           desc = "Refresh codelenses",
@@ -84,7 +83,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         })
       end
 
-      if attachedClient.supports_method "textDocument/inlayHint" then
+      if attachedClient:supports_method "textDocument/inlayHint" then
         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
       end
     end
@@ -100,7 +99,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local formatters = {}
 
       for _, client in pairs(clients) do
-        if client.supports_method "textDocument/formatting" then
+        if client:supports_method "textDocument/formatting" then
           table.insert(formatters, client.name)
         end
       end
@@ -125,7 +124,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end
     end, { desc = "Format buffer" })
     vim.keymap.set("n", "<leader>lD", function()
-      local params = vim.lsp.util.make_position_params()
+      local params = vim.lsp.util.make_position_params(0, "utf-8")
       return vim.lsp.buf_request(
         0,
         "textDocument/definition",
@@ -326,11 +325,11 @@ create_autocommand({ "json", "jsonc" }, function(args)
           {
             fileMatch = { "*.hujson" },
             schema = {
-              allowTrailingCommas = true
-            }
-          }
-        }
-      }
+              allowTrailingCommas = true,
+            },
+          },
+        },
+      },
     },
     init_options = {
       provideFormatter = true,
