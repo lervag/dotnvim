@@ -1,8 +1,8 @@
-local u = require "lervag.util.lsp"
+-- local u = require "lervag.util.lsp"
+
+-- vim.lsp.handlers["textDocument/hover"] = u.hover
 
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
-
-vim.lsp.handlers["textDocument/hover"] = u.hover
 
 -- {{{1 Capabilities
 
