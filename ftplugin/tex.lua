@@ -1,6 +1,9 @@
 vim.opt_local.textwidth = 0
 vim.opt_local.wrap = true
 
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "vimtex#fold#level(v:lnum)"
+
 vim.keymap.set("n", "<cr>", "<plug>(vimtex-context-menu)", { buffer = true })
 vim.keymap.set("n", "K", "<plug>(vimtex-doc-package)", { buffer = true })
 

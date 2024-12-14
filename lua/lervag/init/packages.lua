@@ -7,7 +7,7 @@ local M = {
     url = "git@github.com:lervag/vimtex",
     dev = true,
     init = function()
-      -- See also ~/.config/nvim/ftplugin/tex.vim
+      -- See also ~/.config/nvim/ftplugin/tex.lua
       vim.g.vimtex_compiler_silent = 1
       vim.g.vimtex_complete_bib = {
         simple = 1,
@@ -15,7 +15,6 @@ local M = {
       }
       vim.g.vimtex_context_pdf_viewer = "zathura"
       vim.g.vimtex_doc_handlers = { "vimtex#doc#handlers#texdoc" }
-      vim.g.vimtex_fold_enabled = 1
       vim.g.vimtex_fold_types = {
         markers = { enabled = 0 },
         sections = { parse_levels = 1 },
@@ -2240,7 +2239,7 @@ local M = {
     end,
   },
   {
-    "Vimjas/vim-python-pep8-indent"
+    "Vimjas/vim-python-pep8-indent",
   },
   {
     "scalameta/nvim-metals",
