@@ -772,19 +772,17 @@ local M = {
   },
   {
     "neovim/nvim-lspconfig",
-    cmd = {
-      "LspInfo",
-    },
+    cmd = "LspInfo",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
     },
   },
   {
     "glepnir/lspsaga.nvim",
+    cmd = "Lspsaga",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    event = "LspAttach",
     config = function()
       require("lspsaga").setup {
         symbol_in_winbar = {
