@@ -3,24 +3,29 @@ local dap = require "dap"
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
+-- For more info, see
+-- :help metals-nvim-dap
 dap.configurations.scala = {
   {
     type = "scala",
     request = "launch",
-    name = "Run or test",
+    name = "Run the main method",
     metals = {
-      runType = "runOrTestFile",
-      -- Andre mulige opsjoner:
-      -- args = { "foo", "bar" },
-      -- jvmOptions = { "-Dpropert=123" },
-      -- env = { "RETRY" = "TRUE" },
-      -- envFile = ".env"
+      runType = "run",
     },
   },
   {
     type = "scala",
     request = "launch",
-    name = "Test Target",
+    name = "Run or test current file",
+    metals = {
+      runType = "runOrTestFile",
+    },
+  },
+  {
+    type = "scala",
+    request = "launch",
+    name = "Test current target",
     metals = {
       runType = "testTarget",
     },
@@ -28,7 +33,7 @@ dap.configurations.scala = {
   {
     type = "scala",
     request = "launch",
-    name = "Run or test with input",
+    name = "Run or test current file with input",
     metals = {
       runType = "runOrTestFile",
       args = function()
