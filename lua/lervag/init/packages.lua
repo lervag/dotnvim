@@ -1,6 +1,5 @@
 local my_border = require("lervag.const").border
 
----@diagnostic disable: missing-fields
 ---@type LazySpec
 local M = {
   -- Personal
@@ -936,15 +935,8 @@ local M = {
 
   -- Text objects and similar
   {
-    "wellle/targets.vim",
-    event = "VeryLazy",
-    config = function()
-      vim.g.targets_argOpening = "[({[]"
-      vim.g.targets_argClosing = "[]})]"
-      vim.g.targets_separators = ", . ; : + - = ~ _ * # / | \\ &"
-      vim.g.targets_seekRanges =
-        "cc cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB rr ll rb al rB Al bb aa bB Aa BB AA"
-    end,
+    "echasnovski/mini.ai",
+    opts = {},
   },
   {
     "machakann/vim-sandwich",
@@ -1293,6 +1285,7 @@ local M = {
         -- stylua: ignore end
       }
 
+      ---@diagnostic disable: missing-fields
       local mappings = {
         ["<leader>dd"] = dap.continue,
         ["<leader>dD"] = dap.run_last,
