@@ -1568,6 +1568,7 @@ local M = {
   },
   {
     "booperlv/nvim-gomove",
+    enabled = false,
     keys = {
       { "<left>", "<plug>GoNSMLeft", desc = "nvim-gomove" },
       { "<down>", "<plug>GoNSMDown", desc = "nvim-gomove" },
@@ -1694,6 +1695,18 @@ local M = {
         use_default_keymaps = false,
       }
     end,
+  },
+  {
+    "aaronik/treewalker.nvim",
+    keys = {
+      { "<up>", "<cmd>Treewalker Up<cr>", mode = { "n", "v" } },
+      { "<down>", "<cmd>Treewalker Down<cr>", mode = { "n", "v" } },
+      { "<left>", "<cmd>Treewalker Left<cr>", mode = { "n", "v" } },
+      { "<right>", "<cmd>Treewalker Right<cr>", mode = { "n", "v" } },
+      { "<s-up>", "<cmd>Treewalker SwapUp<cr>", mode = { "n", "v" } },
+      { "<s-down>", "<cmd>Treewalker SwapDown<cr>", mode = { "n", "v" } },
+    },
+    config = true,
   },
 
   -- VCS
