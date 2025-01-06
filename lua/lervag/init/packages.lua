@@ -254,6 +254,8 @@ local M = {
           enable = true,
         },
       }
+
+      vim.treesitter.language.register("markdown", "mdx")
     end,
   },
   {
