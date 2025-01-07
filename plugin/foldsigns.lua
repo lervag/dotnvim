@@ -15,15 +15,24 @@ local function add_fold_signs()
   end
 end
 
+local au_group = vim.api.nvim_create_augroup("fold_signs", {})
 vim.api.nvim_create_autocmd({
   "VimEnter",
   "WinEnter",
   "BufWinEnter",
   "ModeChanged",
   "CursorMoved",
+  "BufReadPost",
+  "DiffUpdated",
 }, {
   desc = "Update fold signs",
-  group = vim.api.nvim_create_augroup("fold_signs", {}),
+  group = au_group,
+  callback = add_fold_signs,
+})
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "DiffviewDiffBufRead" },
+  desc = "Update fold signs",
+  group = au_group,
   callback = add_fold_signs,
 })
 
