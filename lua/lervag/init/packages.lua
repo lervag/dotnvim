@@ -968,88 +968,28 @@ local M = {
     opts = {},
   },
   {
-    "machakann/vim-sandwich",
-    event = "VeryLazy",
-    dependencies = { "tpope/vim-repeat" },
-    init = function()
-      vim.g.sandwich_no_default_key_mappings = 1
-      vim.g.operator_sandwich_no_default_key_mappings = 1
-      vim.g.textobj_sandwich_no_default_key_mappings = 1
-    end,
+    "echasnovski/mini.surround",
+    lazy = false,
+    keys = {
+      { "sas", "saiW", remap = true },
+    },
     config = function()
-      -- Support for python like function names
-      vim.g["sandwich#magicchar#f#patterns"] = {
-        {
-          header = [[\<\%(\h\k*\.\)*\h\k*]],
-          bra = "(",
-          ket = ")",
-          footer = "",
-        },
+      local catchall = {
+        { '%b()', '^.().*().$' },
+        { '%b[]', '^.().*().$' },
+        { '%b{}', '^.().*().$' },
+        { "'.-'", '^.().*().$' },
+        { '".-"', '^.().*().$' },
+        { '`.-`', '^.().*().$' },
       }
 
-      -- Change some default options
-      vim.fn["operator#sandwich#set"]("delete", "all", "highlight", 0)
-      vim.fn["operator#sandwich#set"]("all", "all", "cursor", "keep")
-
-      vim.cmd [[
-        " Surround mappings (similar to surround.vim)
-        nmap gs  <plug>(operator-sandwich-add)
-        nmap gss <plug>(operator-sandwich-add)iW
-        nmap ds  <plug>(operator-sandwich-delete)<plug>(textobj-sandwich-query-a)
-        nmap dss <plug>(operator-sandwich-delete)<plug>(textobj-sandwich-auto-a)
-        nmap cs  <plug>(operator-sandwich-replace)<plug>(textobj-sandwich-query-a)
-        nmap css <plug>(operator-sandwich-replace)<plug>(textobj-sandwich-auto-a)
-        xmap sa  <plug>(operator-sandwich-add)
-        xmap sd  <plug>(operator-sandwich-delete)
-        xmap sr  <plug>(operator-sandwich-replace)
-
-        " Text objects
-        xmap is  <plug>(textobj-sandwich-query-i)
-        xmap as  <plug>(textobj-sandwich-query-a)
-        omap is  <plug>(textobj-sandwich-query-i)
-        omap as  <plug>(textobj-sandwich-query-a)
-        xmap iss <plug>(textobj-sandwich-auto-i)
-        xmap ass <plug>(textobj-sandwich-auto-a)
-        omap iss <plug>(textobj-sandwich-auto-i)
-        omap ass <plug>(textobj-sandwich-auto-a)
-
-        " Allow repeats while keeping cursor fixed
-        runtime autoload/repeat.vim
-        nmap . <plug>(operator-sandwich-predot)<plug>(RepeatDot)
-
-        " Default recipes
-        let g:sandwich#recipes  = deepcopy(g:sandwich#default_recipes)
-        let g:sandwich#recipes += [
-              \ {
-              \   'buns' : ['{\s*', '\s*}'],
-              \   'input' : ['}'],
-              \   'kind' : ['delete', 'replace', 'auto', 'query'],
-              \   'regex' : 1,
-              \   'nesting' : 1,
-              \   'match_syntax' : 1,
-              \   'skip_break' : 1,
-              \   'indentkeys-' : '{,},0{,0}'
-              \ },
-              \ {
-              \   'buns' : ['\[\s*', '\s*\]'],
-              \   'input' : [']'],
-              \   'kind' : ['delete', 'replace', 'auto', 'query'],
-              \   'regex' : 1,
-              \   'nesting' : 1,
-              \   'match_syntax' : 1,
-              \   'indentkeys-' : '[,]'
-              \ },
-              \ {
-              \   'buns' : ['(\s*', '\s*)'],
-              \   'input' : [')'],
-              \   'kind' : ['delete', 'replace', 'auto', 'query'],
-              \   'regex' : 1,
-              \   'nesting' : 1,
-              \   'match_syntax' : 1,
-              \   'indentkeys-' : '(,)'
-              \ },
-              \]
-      ]]
+      require("mini.surround").setup {
+        custom_surroundings = {
+          d = { input = catchall },
+          r = { input = catchall },
+        },
+        n_lines = 50,
+      }
     end,
   },
 
@@ -1551,59 +1491,6 @@ local M = {
         },
       }
     end,
-  },
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    keys = {
-      {
-        "s",
-        mode = "n",
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
-      },
-      {
-        "z",
-        mode = { "x", "o" },
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
-      },
-      {
-        "S",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").treesitter()
-        end,
-        desc = "Flash Treesitter",
-      },
-      {
-        "R",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter_search()
-        end,
-        desc = "Flash Treesitter search",
-      },
-      {
-        "<c-s>",
-        mode = { "c" },
-        function()
-          require("flash").toggle()
-        end,
-        desc = "Flash Toggle search",
-      },
-    },
-    opts = {
-      modes = {
-        char = {
-          autohide = true,
-        },
-      },
-    },
   },
   {
     "booperlv/nvim-gomove",

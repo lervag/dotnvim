@@ -429,8 +429,6 @@ local theme = {
   SignFold = { fg = color08, bg = color07 },
 
   ctrlsfSelectedLine = { fg = blue1, bold = true },
-  OperatorSandwichBuns = { fg = color05, bold = true },
-  OperatorSandwichChange = { link = "OperatorSandwichBuns" },
 
   -- ~/.local/plugged/grug-far.nvim/lua/grug-far/highlights.lua
   GrugFarHelpHeader = { link = 'Title' },
