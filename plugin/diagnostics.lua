@@ -1,8 +1,10 @@
 vim.diagnostic.config {
   virtual_text = {
-    severity = { min = vim.diagnostic.severity.WARN },
-    source = true,
-    -- source = "if_many",
+    severity = { min = vim.diagnostic.severity.ERROR },
+    format = function(diagnostic)
+      local msg = diagnostic.message:lower():gsub("%.%s*$", "")
+      return msg
+    end,
   },
   update_in_insert = false,
   severity_sort = true,
