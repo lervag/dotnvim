@@ -22,7 +22,7 @@ vim.opt.diffopt = {
   "foldcolumn:0",
   "context:4",
   "indent-heuristic",
-  "algorithm:patience",
+  "algorithm:histogram",
   "hiddenoff",
   "closeoff",
   "linematch:60",
