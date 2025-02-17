@@ -1717,7 +1717,7 @@ local M = {
       {
         "yod",
         function()
-          require("mini.diff").toggle_overlay()
+          require("mini.diff").toggle_overlay(0)
         end,
         desc = "Toggle diff overlay",
       },
