@@ -458,16 +458,55 @@ local M = {
           model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
           system_prompt = "You are a general AI assistant.\n\n"
             .. "The user provided the additional info about how they would like you to respond:\n\n"
-            .. "- Be concise.\n"
+            .. "- Be brief and consise!\n"
             .. "- If you're unsure don't guess and say you don't know instead.\n"
             .. "- Ask question if you need clarification to provide better answer.\n"
             .. "- Think deeply and carefully from first principles step by step.\n"
             .. "- Zoom out first to see the big picture and then zoom in to details.\n"
             .. "- Use Socratic method to improve your thinking and coding skills.\n"
-            .. "- Don't elide any code from your output if the answer requires coding.\n",
+            .. "- Don't elide any code from your output if the answer requires coding.\n"
+            .. "- Take a deep breath; You've got this!\n"
+        },
+        {
+          name = "o1-mini",
+          chat = true,
+          command = false,
+          model = { model = "o1-mini", temperature = 1.1, top_p = 1 },
+          system_prompt = "You are a general AI assistant.\n\n"
+            .. "The user provided the additional info about how they would like you to respond:\n\n"
+            .. "- Be brief and consise!\n"
+            .. "- If you're unsure don't guess and say you don't know instead.\n"
+            .. "- Ask question if you need clarification to provide better answer.\n"
+            .. "- Think deeply and carefully from first principles step by step.\n"
+            .. "- Zoom out first to see the big picture and then zoom in to details.\n"
+            .. "- Use Socratic method to improve your thinking and coding skills.\n"
+            .. "- Don't elide any code from your output if the answer requires coding.\n"
+            .. "- Take a deep breath; You've got this!\n"
         },
       },
     },
+    config = function(opts)
+      require('gp').setup(opts.opts)
+
+      -- Monkey patch the dispatcher after setup
+      local dispatcher = require 'gp.dispatcher'
+      local original_prepare_payload = dispatcher.prepare_payload
+      dispatcher.prepare_payload = function(messages, model, provider)
+        local output = original_prepare_payload(messages, model, provider)
+        if provider == 'openai' and model.model:sub(1, 2) == 'o3' then
+          for i = #messages, 1, -1 do
+            if messages[i].role == 'system' then
+              table.remove(messages, i)
+            end
+          end
+          output.max_tokens = nil
+          output.temperature = nil
+          output.top_p = nil
+          output.stream = true
+        end
+        return output
+      end
+    end
   },
   {
     "b0o/incline.nvim",
