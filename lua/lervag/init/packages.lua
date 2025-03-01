@@ -902,6 +902,13 @@ local M = {
     },
     config = function()
       require("conform").setup {
+        formatters = {
+          kulala = {
+            command = "kulala-fmt",
+            args = { "format", "$FILENAME" },
+            stdin = false,
+          },
+        },
         formatters_by_ft = {
           lua = { "stylua" },
           python = { "black" },
@@ -912,6 +919,7 @@ local M = {
           },
           graphql = { "prettierd" },
           groovy = { "npm-groovy-lint" },
+          http = { "kulala" },
           javascript = { "prettierd" },
           sql = { "pg_format" },
         },
@@ -975,6 +983,7 @@ local M = {
         "black",
         "markdown-toc",
         "markdownlint",
+        "kulala-fmt",
       },
     },
     config = function(_, opts)
