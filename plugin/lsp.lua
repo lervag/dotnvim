@@ -572,7 +572,6 @@ vim.api.nvim_create_autocmd("FileType", {
         typeParameters = { enable = true },
       },
       defaultBspToBuildTool = true,
-      decorationColor = "DiagnosticVirtualTextHint",
       excludedPackages = {
         "akka.actor.typed.javadsl",
         "com.github.swagger.akka.javadsl",
