@@ -16,6 +16,7 @@ local function diagnose(args)
   if
     not vim.api.nvim_buf_is_valid(args.buf)
     or vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= ""
+    or vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "scala"
   then
     return
   end
