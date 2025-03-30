@@ -124,6 +124,7 @@ vim.opt.virtualedit = "block"
 
 -- {{{1 UI
 
+vim.opt.winborder = "solid"
 vim.opt.winwidth = 70
 vim.opt.termguicolors = true
 vim.opt.tabline = "%!luaeval('require(\"lervag.statusline\").tabline()')"

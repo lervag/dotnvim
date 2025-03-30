@@ -4,7 +4,8 @@ vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- Det som kommer under er konfigurering av nvim-jdtls; eg følger beskrivelsen
 -- til README relativt slavisk. Det ser litt "stygt" ut, men det fungerer og er
 -- ganske robust!
--- https://github.com/mfussenegger/nvim-jdtls
+--
+-- Se også: wiki:nvim-jdtls
 
 local root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" })
 if root_dir == nil then

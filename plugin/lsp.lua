@@ -1,65 +1,39 @@
--- local u = require "lervag.util.lsp"
-
--- vim.lsp.handlers["textDocument/hover"] = u.hover
-
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
--- {{{1 Capabilities
+-- {{{1 Defaults
 
--- Fixes issue with jsonls: "Unhandled method textDocument/diagnostic"
--- * It appears that cmp_nvim_lsp is overwriting the capabilities.textDocument
---   wrongly.
--- * I found good help here:
---   https://github.com/dkarter/dotfiles/blob/master/config/nvim/lua/plugins/lsp.lua
-
--- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion = {
-  dynamicRegistration = false,
-  completionItem = {
-    snippetSupport = true,
-    commitCharactersSupport = true,
-    deprecatedSupport = true,
-    preselectSupport = true,
-    tagSupport = {
-      valueSet = {
-        1,
-      },
-    },
-    insertReplaceSupport = true,
-    resolveSupport = {
-      properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-        "sortText",
-        "filterText",
-        "insertText",
-        "textEdit",
-        "insertTextFormat",
-        "insertTextMode",
-      },
-    },
-    insertTextModeSupport = {
-      valueSet = {
-        1,
-        2,
-      },
-    },
-    labelDetailsSupport = true,
-  },
-  contextSupport = true,
-  insertTextMode = 1,
-  completionList = {
-    itemDefaults = {
-      "commitCharacters",
-      "editRange",
-      "insertTextFormat",
-      "insertTextMode",
-      "data",
-    },
-  },
-}
+-- capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+-- capabilities.textDocument.completion.completionItem.preselectSupport = true
+-- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+-- capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
+--   "documentation",
+--   "detail",
+--   "additionalTextEdits",
+--   "sortText",
+--   "filterText",
+--   "insertText",
+--   "textEdit",
+--   "insertTextFormat",
+--   "insertTextMode",
+-- }
+-- capabilities.textDocument.completion.completionItem.insertTextModeSupport = {
+--   valueSet = { 1, 2 },
+-- }
+-- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+-- capabilities.textDocument.completion.insertTextMode = 1
+-- capabilities.textDocument.completion.completionList.itemDefaults = {
+--   "commitCharacters",
+--   "editRange",
+--   "insertTextFormat",
+--   "insertTextMode",
+--   "data",
+-- }
+
+vim.lsp.config('*', {
+  root_markers = { '.git' },
+  capabilities = capabilities,
+})
 
 -- }}}1
 
@@ -223,310 +197,196 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- }}}1
 
----Setup FileType autocommand for an LSP server
----@param filetypes string | string[] FileType patterns
----@param option_cb function
-local function create_autocommand(filetypes, option_cb)
+---Setup LSP servers
+---
+---With neovim 0.11, I could use the vim.lsp.config and vim.lsp.enable, but
+---these do not allow me to add an additional guard e.g. to avoid starting the
+---lsp for fugitive buffers.
+---
+---Some references:
+---* https://github.com/neovim/neovim/pull/31031
+---* https://github.com/neovim/nvim-lspconfig/issues/3494
+---
+---@param config vim.lsp.Config
+local function lsp_enable(config)
   vim.api.nvim_create_autocmd("FileType", {
-    pattern = filetypes,
+    pattern = config.filetypes,
     group = lspgroup,
     callback = function(args)
       if args.file:sub(1, 12) == "fugitive:///" then
         return
       end
-      local options = option_cb(args)
-      if not vim.tbl_isempty(options) then
-        vim.lsp.start(options)
+      ---@diagnostic disable-next-line: undefined-field
+      if config.disable and config.disable(args) then
+        return
+      end
+      config = vim.tbl_deep_extend(
+        'force',
+        vim.lsp.config['*'] or {},
+        config
+      )
+      if config.root_markers then
+        config.root_dir = vim.fs.root(args.buf, config.root_markers)
+      end
+      if not vim.tbl_isempty(config) then
+        vim.lsp.start(config)
       end
     end,
   })
 end
 
+-- In addition to these configurations:
+-- * ftplugin/java.lua (adds jdtls)
+
 -- {{{1 wiki:bashls
 
-create_autocommand("sh", function(args)
-  return {
-    name = "bashls",
-    cmd = { "bash-language-server", "start" },
-    root_dir = vim.fs.root(args.buf, { ".git" }),
-    single_file_support = true,
-    settings = {
-      bashIde = {
-        -- Prevent recursive scanning which will cause issues when opening a file
-        -- directly in the home directory (e.g. ~/foo.sh).
-        globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
-      },
+lsp_enable {
+  name = "bashls",
+  cmd = { "bash-language-server", "start" },
+  filetypes = { "sh" },
+  settings = {
+    bashIde = {
+      -- Prevent recursive scanning which will cause issues when opening a file
+      -- directly in the home directory (e.g. ~/foo.sh).
+      globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
     },
-    capabilities = capabilities,
-  }
-end)
+  },
+}
 
 -- }}}1
 -- {{{1 wiki:cssls
 
-create_autocommand({ "css", "scss", "less" }, function(args)
-  return {
-    name = "cssls",
-    cmd = { "vscode-css-language-server", "--stdio" },
-    root_dir = vim.fs.root(args.buf, { "package.json", ".git" }),
-    single_file_support = true,
-    settings = {
-      css = { validate = true },
-      scss = { validate = true },
-      less = { validate = true },
-    },
-    capabilities = capabilities,
-  }
-end)
+lsp_enable {
+  name = "cssls",
+  cmd = { "vscode-css-language-server", "--stdio" },
+  filetypes = { "css", "scss", "less" },
+  root_markers = { "package.json", ".git" },
+  settings = {
+    css = { validate = true },
+    scss = { validate = true },
+    less = { validate = true },
+  },
+}
 
 -- }}}1
--- {{{1 html
+-- {{{1 wiki:html-ls
 
--- https://github.com/hrsh7th/vscode-langservers-extracted
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/html.lua
-
-create_autocommand("html", function(args)
-  return {
-    name = "html-ls",
-    cmd = { "vscode-html-language-server", "--stdio" },
-    root_dir = vim.fs.root(args.buf, { "package.json", ".git" }),
-    single_file_support = true,
-    settings = {},
-    init_options = {
-      provideFormatter = true,
-      embeddedLanguages = { css = true, javascript = true },
-      configurationSection = { "html", "css", "javascript" },
-    },
-    capabilities = capabilities,
-  }
-end)
-
--- }}}1
--- {{{1 jdtls
-
--- see ftplugin/java.lua
+lsp_enable {
+  name = "html-ls",
+  cmd = { "vscode-html-language-server", "--stdio" },
+  filetypes = { "html" },
+  root_markers = { "package.json", ".git" },
+  init_options = {
+    provideFormatter = true,
+    embeddedLanguages = { css = true, javascript = true },
+    configurationSection = { "html", "css", "javascript" },
+  },
+  settings = {},
+}
 
 -- }}}1
 -- {{{1 wiki:jsonls
 
-create_autocommand({ "json", "jsonc" }, function(args)
-  return {
-    name = "jsonls",
-    cmd = { "vscode-json-language-server", "--stdio" },
-    root_dir = vim.fs.root(args.buf, { ".git" }),
-    single_file_support = true,
-    settings = {
-      json = {
-        schemas = {
-          {
-            fileMatch = { "*.hujson" },
-            schema = {
-              allowTrailingCommas = true,
-            },
+lsp_enable {
+  name = "jsonls",
+  cmd = { "vscode-json-language-server", "--stdio" },
+  filetypes = { "json", "jsonc" },
+  init_options = {
+    provideFormatter = true,
+  },
+  settings = {
+    json = {
+      schemas = {
+        {
+          fileMatch = { "*.hujson" },
+          schema = {
+            allowTrailingCommas = true,
           },
         },
       },
     },
-    init_options = {
-      provideFormatter = true,
-    },
-    capabilities = capabilities,
-  }
-end)
+  },
+}
 
 -- }}}1
 -- {{{1 wiki:gitlab-ci-ls
 
-create_autocommand("yaml", function(args)
-  if not args.file:match "gitlab%-ci%." then
-    return {}
-  end
-
-  local cache_dir = "/home/lervag/.cache/gitlab-ci-ls/"
-  return {
-    name = "gitlab-ci-ls",
-    cmd = { "/home/lervag/.local/share/nvim/mason/bin/gitlab-ci-ls" },
-    root_dir = vim.fs.root(args.buf, { ".gitlab*", ".git" }),
-    init_options = {
-      cache_path = cache_dir,
-      log_path = cache_dir .. "/log/gitlab-ci-ls.log",
-    },
-    capabilities = capabilities,
-  }
-end)
+lsp_enable {
+  name = "gitlab-ci-ls",
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/gitlab-ci-ls" },
+  filetypes = { "yaml" },
+  disable = function(args)
+    return not args.file:match "gitlab%-ci%."
+  end,
+  root_markers = { ".gitlab*", ".git" },
+  init_options = {
+    cache_path = "/home/lervag/.cache/gitlab-ci-ls/",
+    log_path = "/home/lervag/.cache/gitlab-ci-ls/log/gitlab-ci-ls.log",
+  },
+}
 
 -- }}}1
--- {{{1 graphql
+-- {{{1 wiki:graphql-lsp
 
--- https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-cli
-
-create_autocommand(
-  { "typescript", "typescriptreact", "graphql" },
-  function(args)
-    return {
-      name = "graphql-lsp",
-      cmd = { "graphql-lsp", "server", "-m", "stream" },
-      root_dir = vim.fs.root(args.buf, { ".graphqlrc.yml", ".git" }),
-      settings = {},
-      capabilities = capabilities,
-    }
-  end
-)
+lsp_enable {
+  name = "graphql-lsp",
+  cmd = { "graphql-lsp", "server", "-m", "stream" },
+  filetypes = { "typescript", "typescriptreact", "graphql" },
+  root_markers = { ".graphqlrc.yml", ".git" },
+  settings = {},
+}
 
 -- }}}1
--- {{{1 Kotlin Language Server
+-- {{{1 wiki:lua-ls
 
--- https://github.com/fwcd/kotlin-language-server
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/kotlin_language_server.lua
-
-create_autocommand("kotlin", function(args)
-  return {
-    name = "kotlin-ls",
-    cmd = { "kotlin-language-server" },
-    root_dir = vim.fs.root(args.buf, {
-      "settings.gradle",
-      "settings.gradle.kts",
-      "build.xml",
-      "pom.xml",
-      ".git",
-    }),
-    single_file_support = true,
-    settings = {},
-    init_options = {
-      provideFormatter = true,
-      embeddedLanguages = { css = true, javascript = true },
-      configurationSection = { "html", "css", "javascript" },
-    },
-    capabilities = capabilities,
-  }
-end)
-
--- }}}1
--- {{{1 ltex (DISABLED)
-
--- TODO: Denne er oppdatert og fungerer annerledes nå!
---       Se README.md for mer info om hvordan man konfigurerer!
---       https://github.com/barreiroleo/ltex_extra.nvim
-
--- https://valentjn.github.io/ltex/
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/ltex.lua
-
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = { 'bib', 'gitcommit', 'markdown', 'org', 'plaintex', 'rst', 'rnoweb', 'tex', 'pandoc' },
---   group = lspgroup,
---   callback = function(args)
---     lsp.start {
---       name = 'ltex',
---       cmd = { 'ltex-ls' },
---       autostart = false,
---       root_dir = vim.fs.root(args.buf, { '.git' }),
---       single_file_support = true,
---       get_language_id = function(_, filetype)
---         local language_id_mapping = {
---           bib = 'bibtex',
---           plaintex = 'tex',
---           rnoweb = 'sweave',
---           rst = 'restructuredtext',
---           tex = 'latex',
---           xhtml = 'xhtml',
---           pandoc = 'markdown',
---         }
---         local language_id = language_id_mapping[filetype]
-
---         if language_id then
---           return language_id
---         else
---           return filetype
---         end
---       end,
---       on_attach = function(_, _)
---         require("ltex_extra").setup {
---           load_langs = { "en-GB" },
---           path = vim.fn.stdpath "config" .. "/spell",
---         }
---       end,
---       settings = {
---         ltex = {
---           checkFrequency = "save",
---           language = "en-GB",
---           -- language = os.getenv 'PROJECT_LANG' or 'en-GB',
---         },
---       },
---       capabilities = capabilities,
---     }
---   end,
--- })
-
--- ---Force a specific language for ltex-ls
--- ---@param lang string
--- M.set_ltex_lang = function(lang)
---   local clients = vim.lsp.buf_get_clients(0)
---   for _, client in ipairs(clients) do
---     if client.name == "ltex" then
---       vim.notify("Set ltex-ls lang to " .. lang, vim.log.levels.INFO, "core.utils.functions")
---       client.config.settings.ltex.language = lang
---       vim.lsp.buf_notify(0, "workspace/didChangeConfiguration", { settings = client.config.settings })
---       return
---     end
---   end
--- end
-
--- }}}1
--- {{{1 lua-ls
-
--- https://github.com/LuaLS/lua-language-server
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
-
-create_autocommand("lua", function(args)
-  return {
-    name = "lua-language-server",
-    cmd = { "lua-language-server" },
-    single_file_support = true,
-    log_level = vim.lsp.protocol.MessageType.Warning,
-    capabilities = capabilities,
-    root_dir = vim.fs.root(args.buf, {
-      ".luarc.json",
-      ".stylua.toml",
-      "stylua.toml",
-    }),
-    settings = {
-      Lua = {
-        hint = {
-          enable = true,
-          paramName = "Literal",
-          setType = true,
-        },
+lsp_enable {
+  name = "lua-language-server",
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  log_level = vim.lsp.protocol.MessageType.Warning,
+  root_markers = {
+    ".luarc.json",
+    ".stylua.toml",
+    "stylua.toml",
+  },
+  settings = {
+    Lua = {
+      hint = {
+        enable = true,
+        paramName = "Literal",
+        setType = true,
       },
     },
-    on_init = function(client)
-      local path = "."
-      if client.workspace_folders then
-        path = client.workspace_folders[1].name
-      end
-      if
-        vim.uv.fs_stat(path .. "/.luarc.json")
-        or vim.uv.fs_stat(path .. "/.luarc.jsonc")
-      then
-        return
-      end
+  },
+  on_init = function(client)
+    local path = "."
+    if client.workspace_folders then
+      path = client.workspace_folders[1].name
+    end
+    if
+      vim.uv.fs_stat(path .. "/.luarc.json")
+      or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+    then
+      return
+    end
 
-      client.config.settings.Lua =
-        vim.tbl_deep_extend("force", client.config.settings.Lua, {
-          runtime = {
-            version = "LuaJIT",
+    client.config.settings.Lua =
+      ---@diagnostic disable-next-line: param-type-mismatch
+      vim.tbl_deep_extend("force", client.config.settings.Lua, {
+        runtime = {
+          version = "LuaJIT",
+        },
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME,
+            "${3rd}/busted/library",
+            "${3rd}/luv/library",
           },
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-              "${3rd}/busted/library",
-              "${3rd}/luv/library",
-            },
-          },
-        })
-    end,
-  }
-end)
+        },
+      })
+  end,
+}
 
 -- }}}1
 -- {{{1 wiki:Metals
@@ -635,236 +495,119 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- }}}1
--- {{{1 pyright
+-- {{{1 wiki:pyright
 
--- https://microsoft.github.io/pyright/#/
--- https://github.com/microsoft/pyright
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/pyright.lua
-
-create_autocommand("python", function(args)
-  return {
-    name = "pyright",
-    cmd = { "pyright-langserver", "--stdio" },
-    root_dir = vim.fs.root(args.buf, {
-      "pyproject.toml",
-      "setup.py",
-      "setup.cfg",
-      ".git",
-    }),
-    settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          diagnosticMode = "openFilesOnly",
-        },
+lsp_enable {
+  name = "pyright",
+  cmd = { "pyright-langserver", "--stdio" },
+  filetypes = { "python" },
+  root_markers = {
+    "pyproject.toml",
+    "setup.py",
+    "setup.cfg",
+    ".git",
+  },
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "openFilesOnly",
       },
     },
-    capabilities = capabilities,
-  }
-end)
+  },
+}
 
 -- }}}1
--- {{{1 rust_analyzer
+-- {{{1 wiki:rust-analyzer
 
--- https://github.com/rust-analyzer/rust-analyzer
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/rust_analyzer.lua
+lsp_enable {
+  name = "rust-analyzer",
+  cmd = { "rust-analyzer" },
+  filetypes = { "rust" },
+  root_markers = { "Cargo.toml" },
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = { allFeatures = true },
+      checkOnSave = { allFeatures = true, command = "clippy" },
+    },
+  },
+}
 
-create_autocommand("rust", function(args)
-  return {
-    name = "rust-analyzer",
-    cmd = { "rust-analyzer" },
-    root_dir = vim.fs.root(args.buf, { "Cargo.toml" }),
-    single_file_support = true,
-    settings = {
-      ["rust-analyzer"] = {
-        cargo = { allFeatures = true },
-        checkOnSave = { allFeatures = true, command = "clippy" },
+-- }}}1
+-- {{{1 wiki:typescript-language-server
+
+lsp_enable {
+  name = "typescript-language-server",
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  root_markers = { "tsconfig.json", "package.json", ".git" },
+  init_options = { hostInfo = "neovim" },
+  settings = {},
+}
+
+-- }}}1
+-- {{{1 wiki:vimls
+
+lsp_enable {
+  name = "vimls",
+  cmd = { "vim-language-server", "--stdio" },
+  filetypes = { "vim" },
+  init_options = {
+    isNeovim = true,
+    iskeyword = "@,48-57,_,192-255,-#",
+    vimruntime = "",
+    runtimepath = "",
+    diagnostic = { enable = true },
+    indexes = {
+      runtimepath = true,
+      gap = 100,
+      count = 3,
+      projectRootPatterns = {
+        "runtime",
+        "nvim",
+        ".git",
+        "autoload",
+        "plugin",
       },
     },
-    capabilities = capabilities,
-  }
-end)
-
--- }}}1
--- {{{1 texlab (DISABLED)
-
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/texlab.lua
--- Settings from clason
--- * https://gist.github.com/clason/3701040203c6625c24eb099cd3ef6d5c
-
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = { 'tex', 'bib' },
---   group = lspgroup,
---   callback = function(args)
---     lsp.start {
---       name = 'texlab',
---       cmd = { vim.fn.stdpath 'data' .. '/lsp/texlab' },
---       root_dir = vim.fs.root(args.buf, { '.latexmkrc' }),
---       settings = {
---         texlab = {
---           latexFormatter = 'none',
---           formatterLineLength = 0,
---           forwardSearch = {
---             executable = '/Applications/Skim.app/Contents/SharedSupport/displayline',
---             args = { '%l', '%p', '%f', '-g' },
---           },
---         },
---       },
---       capabilities = capabilities,
---       on_attach = compl_attach,
---     }
---     lsp.protocol.SymbolKind = {
---       'file',
---       'sec',
---       'fold',
---       '',
---       'class',
---       'float',
---       'lib',
---       'field',
---       'label',
---       'enum',
---       'misc',
---       'cmd',
---       'thm',
---       'equ',
---       'strg',
---       'arg',
---       '',
---       '',
---       'PhD',
---       '',
---       '',
---       'item',
---       'book',
---       'artl',
---       'part',
---       'coll',
---     }
---     lsp.protocol.CompletionItemKind = {
---       'string',
---       '',
---       '',
---       '',
---       'field',
---       '',
---       'class',
---       'misc',
---       '',
---       'library',
---       'thesis',
---       'argument',
---       '',
---       '',
---       'snippet',
---       'color',
---       'file',
---       '',
---       'folder',
---       '',
---       '',
---       'book',
---       'article',
---       'part',
---       'collect',
---     }
---   end,
--- })
-
--- }}}1
--- {{{1 typescript-language-server
-
--- wiki:typescript-language-server
-
-create_autocommand({
-  "javascript",
-  "javascriptreact",
-  "javascript.jsx",
-  "typescript",
-  "typescriptreact",
-  "typescript.tsx",
-}, function(args)
-  return {
-    name = "typescript-language-server",
-    cmd = { "typescript-language-server", "--stdio" },
-    root_dir = vim.fs.root(
-      args.buf,
-      { "tsconfig.json", "package.json", ".git" }
-    ),
-    single_file_support = true,
-    settings = {},
-    init_options = { hostInfo = "neovim" },
-    capabilities = capabilities,
-  }
-end)
-
--- }}}1
--- {{{1 vimls
-
--- https://github.com/iamcco/vim-language-server
--- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/vimls.lua
-
-create_autocommand("vim", function(args)
-  return {
-    name = "vimls",
-    cmd = { "vim-language-server", "--stdio" },
-    root_dir = vim.fs.root(args.buf, { ".git" }),
-    single_file_support = true,
-    init_options = {
-      isNeovim = true,
-      iskeyword = "@,48-57,_,192-255,-#",
-      vimruntime = "",
-      runtimepath = "",
-      diagnostic = { enable = true },
-      indexes = {
-        runtimepath = true,
-        gap = 100,
-        count = 3,
-        projectRootPatterns = {
-          "runtime",
-          "nvim",
-          ".git",
-          "autoload",
-          "plugin",
-        },
-      },
-      suggest = { fromVimruntime = true, fromRuntimepath = true },
-    },
-    capabilities = capabilities,
-  }
-end)
+    suggest = { fromVimruntime = true, fromRuntimepath = true },
+  },
+}
 
 -- }}}1
 -- {{{1 wiki:yamlls
 
-create_autocommand({ "yaml", "yaml.docker-compose" }, function(args)
-  return {
-    name = "yamlls",
-    cmd = { "yaml-language-server", "--stdio" },
-    root_dir = vim.fs.root(args.buf, { ".git" }),
-    single_file_support = true,
-    settings = {
-      redhat = { telemetry = { enabled = false } },
-      yaml = {
-        validate = true,
-        format = { enable = true },
-        hover = true,
-        schemaStore = {
-          enable = true,
-          url = "https://www.schemastore.org/api/json/catalog.json",
-        },
-        schemaDownload = { enable = true },
-        schemas = {
-          kubernetes = { "/deployment.yml", "/deployments/*.yml" },
-          ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/gitlab-ci.yml",
-        },
-        trace = { server = "debug" },
+lsp_enable {
+  name = "yamlls",
+  cmd = { "yaml-language-server", "--stdio" },
+  filetypes = { "yaml", "yaml.docker-compose" },
+  settings = {
+    redhat = { telemetry = { enabled = false } },
+    yaml = {
+      validate = true,
+      format = { enable = true },
+      hover = true,
+      schemaStore = {
+        enable = true,
+        url = "https://www.schemastore.org/api/json/catalog.json",
       },
+      schemaDownload = { enable = true },
+      schemas = {
+        kubernetes = { "/deployment.yml", "/deployments/*.yml" },
+        ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/gitlab-ci.yml",
+      },
+      trace = { server = "debug" },
     },
-    capabilities = capabilities,
-  }
-end)
+  },
+}
 
 -- }}}1
 
