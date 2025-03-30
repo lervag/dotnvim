@@ -30,8 +30,8 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 --   "data",
 -- }
 
-vim.lsp.config('*', {
-  root_markers = { '.git' },
+vim.lsp.config("*", {
+  root_markers = { ".git" },
   capabilities = capabilities,
 })
 
@@ -200,8 +200,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 ---Setup LSP servers
 ---
 ---With neovim 0.11, I could use the vim.lsp.config and vim.lsp.enable, but
----these do not allow me to add an additional guard e.g. to avoid starting the
----lsp for fugitive buffers.
+---these do not allow me to add additionals guard to avoid starting the lsp,
+---e.g. for fugitive buffers.
 ---
 ---Some references:
 ---* https://github.com/neovim/neovim/pull/31031
@@ -220,11 +220,7 @@ local function lsp_enable(config)
       if config.disable and config.disable(args) then
         return
       end
-      config = vim.tbl_deep_extend(
-        'force',
-        vim.lsp.config['*'] or {},
-        config
-      )
+      config = vim.tbl_deep_extend("force", vim.lsp.config["*"] or {}, config)
       if config.root_markers then
         config.root_dir = vim.fs.root(args.buf, config.root_markers)
       end
