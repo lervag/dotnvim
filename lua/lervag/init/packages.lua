@@ -83,21 +83,21 @@ local M = {
           resolver = function(url)
             local parts = vim.split(url.stripped, "/")
 
-            local scheme = "https"
-            local type
-            if parts[3]:sub(1, 1) == "!" then
-              type = "/-/merge_requests/"
-              parts[3] = parts[3]:sub(2)
-            else
-              type = "/-/issues/"
+            local type = ""
+            if #parts == 3 then
+              if parts[3]:sub(1, 1) == "!" then
+                type = "/-/merge_requests/" .. parts[3]:sub(2)
+              else
+                type = "/-/issues/"
+              end
             end
 
+            local scheme = "https"
             local stripped = "gitlab.sikt.no/"
               .. parts[1]
               .. "/"
               .. parts[2]
               .. type
-              .. parts[3]
 
             return {
               scheme = scheme,
