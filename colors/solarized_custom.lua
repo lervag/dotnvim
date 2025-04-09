@@ -133,6 +133,7 @@ local theme = {
   DiffChange = { bg = color15d },
   DiffDelete = { bg = pink1 },
   DiffText = { bg = gray1 },
+  DiffTextAdd = { link = "DiffAdd" },
   Directory = { fg = color04 },
   ErrorMsg = { fg = color01, bold = true },
   FoldColumn = { fg = gold3, bg = color07 },

@@ -26,6 +26,7 @@ vim.opt.diffopt = {
   "hiddenoff",
   "closeoff",
   "linematch:60",
+  "inline:word",
 }
 
 -- {{{1 Backup, swap and undofile
@@ -140,6 +141,8 @@ vim.opt.guicursor = {
 }
 
 vim.cmd.colorscheme "solarized_custom"
+
+vim.g._ts_force_sync_parsing = true
 
 -- {{{1 Filetype plugins
 
