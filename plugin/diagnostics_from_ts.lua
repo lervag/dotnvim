@@ -5,6 +5,8 @@
 local error_query = vim.treesitter.query.parse("query", "[(ERROR)(MISSING)] @a")
 local namespace = vim.api.nvim_create_namespace "treesitter.diagnostics"
 
+local ft_blacklist = { "scala", "rust" }
+
 ---@param args vim.api.keyset.create_autocmd.callback_args
 local function diagnose(args)
   if not vim.diagnostic.is_enabled { bufnr = args.buf } then
@@ -16,7 +18,7 @@ local function diagnose(args)
   if
     not vim.api.nvim_buf_is_valid(args.buf)
     or vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= ""
-    or vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "scala"
+    or vim.tbl_contains(ft_blacklist, vim.api.nvim_get_option_value("filetype", { buf = args.buf }))
   then
     return
   end

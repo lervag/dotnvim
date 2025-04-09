@@ -38,6 +38,14 @@ vim.lsp.config("*", {
 -- }}}1
 
 -- {{{1 Mappings and autocmds
+
+vim.keymap.set(
+  "n",
+  "<leader>lq",
+  "<cmd>checkhealth lsp<cr>",
+  { desc = "Show LSP status/info" }
+)
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = lspgroup,
   desc = "Configure LSP: Mappings and similar",
