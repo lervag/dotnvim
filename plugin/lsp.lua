@@ -68,6 +68,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       if attachedClient:supports_method "textDocument/inlayHint" then
         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
       end
+
+      if attachedClient:supports_method "textDocument/documentColor" then
+        vim.lsp.document_color.enable(true, args.buf)
+      end
     end
 
     vim.keymap.set(
@@ -400,6 +404,12 @@ vim.api.nvim_create_autocmd("FileType", {
   group = lspgroup,
   callback = function(args)
     if args.file:sub(1, 12) == "fugitive:///" then
+      return
+    end
+
+    local root_dir = vim.fs.root(0, { "build.sbt", ".git" })
+    if root_dir == nil then
+      vim.notify "Metals: No root dir found!"
       return
     end
 
