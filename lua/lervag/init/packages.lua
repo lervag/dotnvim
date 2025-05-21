@@ -2203,6 +2203,15 @@ local M = {
 
   -- Various filetype plugins
   {
+    "mistweaverco/kulala.nvim",
+    branch = "develop",
+    ft = { "http", "rest" },
+    opts = {
+      global_keymaps = false,
+      kulala_keymaps_prefix = "",
+    },
+  },
+  {
     "yorickpeterse/nvim-pqf",
     event = "VeryLazy",
     config = function()
