@@ -7,16 +7,6 @@ vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 vim.fn["personal#python#set_path"]()
 
--- Use custom dap command
-vim.keymap.set("n", "<leader>dd", function()
-  local dap = require "dap"
-  if dap.status() == "" then
-    vim.fn.feedkeys(":Debugpy ", "nt")
-  else
-    dap.continue()
-  end
-end)
-
 vim.keymap.set("n", "<leader>lo", function()
   local params = {
     command = "pyright.organizeimports",
@@ -28,6 +18,6 @@ vim.keymap.set("n", "<leader>lo", function()
     name = "pyright",
   }
   for _, client in ipairs(clients) do
-    client.request("workspace/executeCommand", params, nil, 0)
+    client:request("workspace/executeCommand", params, nil, 0)
   end
 end)

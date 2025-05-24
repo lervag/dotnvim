@@ -1258,10 +1258,6 @@ local M = {
       --       configurations are defined elsewhere. Assuming I remember to
       --       update the following list, these are the relevant files:
       --
-      --       Python
-      --         ~/.config/nvim/ftplugin/python.lua
-      --         Plugin: "HiPhish/debugpy.nvim" (see below)
-      --
       --       Java:
       --         ~/.config/nvim/ftplugin/java.lua
       --
@@ -1372,6 +1368,13 @@ local M = {
     end,
   },
   {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    config = function()
+      require("dap-python").setup "/home/lervag/.local/venvs/nvim/bin/python"
+    end,
+  },
+  {
     "rcarriga/nvim-dap-ui",
     lazy = true,
     dependencies = {
@@ -1403,18 +1406,6 @@ local M = {
         },
       },
     },
-  },
-  {
-    "HiPhish/debugpy.nvim",
-    dependencies = { "mfussenegger/nvim-dap" },
-    cmd = "Debugpy",
-    config = function()
-      require("debugpy").run = function(cfg)
-        require("dap").run(vim.tbl_extend("keep", cfg, {
-          justMyCode = false,
-        }))
-      end
-    end,
   },
   {
     "jbyuki/one-small-step-for-vimkind",
