@@ -465,7 +465,7 @@ local M = {
             .. "- Zoom out first to see the big picture and then zoom in to details.\n"
             .. "- Use Socratic method to improve your thinking and coding skills.\n"
             .. "- Don't elide any code from your output if the answer requires coding.\n"
-            .. "- Take a deep breath; You've got this!\n"
+            .. "- Take a deep breath; You've got this!\n",
         },
         {
           name = "o3-mini",
@@ -473,7 +473,7 @@ local M = {
           command = false,
           model = { model = "o3-mini", temperature = 1.1, top_p = 1 },
           system_prompt = "You are a general AI assistant.\n"
-            .. "You will respond consisely and as brief as you can.\n"
+            .. "You will respond consisely and as brief as you can.\n",
         },
         {
           name = "o1-mini",
@@ -481,21 +481,21 @@ local M = {
           command = false,
           model = { model = "o1-mini", temperature = 1.1, top_p = 1 },
           system_prompt = "You are a general AI assistant.\n"
-            .. "You will respond consisely and as brief as you can.\n"
+            .. "You will respond consisely and as brief as you can.\n",
         },
       },
     },
     config = function(opts)
-      require('gp').setup(opts.opts)
+      require("gp").setup(opts.opts)
 
       -- Monkey patch the dispatcher after setup
-      local dispatcher = require 'gp.dispatcher'
+      local dispatcher = require "gp.dispatcher"
       local original_prepare_payload = dispatcher.prepare_payload
       dispatcher.prepare_payload = function(messages, model, provider)
         local output = original_prepare_payload(messages, model, provider)
-        if provider == 'openai' and model.model:sub(1, 2) == 'o3' then
+        if provider == "openai" and model.model:sub(1, 2) == "o3" then
           for i = #messages, 1, -1 do
-            if messages[i].role == 'system' then
+            if messages[i].role == "system" then
               table.remove(messages, i)
             end
           end
@@ -506,7 +506,7 @@ local M = {
         end
         return output
       end
-    end
+    end,
   },
   {
     "b0o/incline.nvim",
