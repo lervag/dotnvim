@@ -1272,21 +1272,6 @@ local M = {
 
       dap.set_log_level "INFO"
 
-      dap.listeners.before.attach.dapui_config = function()
-        require("dapui").open()
-      end
-      dap.listeners.before.launch.dapui_config = function()
-        require("dapui").open()
-      end
-      dap.listeners.before.event_exited.dapui_config = function(_, status)
-        require("dapui").close()
-        vim.notify("Process finished (exit code = " .. status.exitCode .. ")")
-      end
-      dap.listeners.before.disconnect.dapui_config = function()
-        require("dapui").close()
-        dap.repl.close()
-      end
-
       -- Define sign symbols
       vim.fn.sign_define {
         -- stylua: ignore start
@@ -1304,9 +1289,6 @@ local M = {
         ["<leader>dD"] = dap.run_last,
         ["<leader>dc"] = dap.run_to_cursor,
         ["<leader>dx"] = dap.terminate,
-        ["<leader>dX"] = function()
-          require("dapui").close()
-        end,
         ["<leader>dp"] = dap.step_back,
         ["<leader>dn"] = dap.step_over,
         ["<leader>dj"] = dap.step_into,
@@ -1342,9 +1324,6 @@ local M = {
             title = " hover ",
           })
         end,
-        ["<leader>de"] = function()
-          require("dapui").eval()
-        end,
         ["<leader>dE"] = function()
           vim.ui.input({
             prompt = " evaluate ",
@@ -1361,10 +1340,6 @@ local M = {
       for lhs, rhs in pairs(mappings) do
         vim.keymap.set("n", lhs, rhs)
       end
-
-      vim.keymap.set("v", "<leader>de", function()
-        require("dapui").eval()
-      end)
     end,
   },
   {
@@ -1375,37 +1350,24 @@ local M = {
     end,
   },
   {
-    "rcarriga/nvim-dap-ui",
-    lazy = true,
+    "miroshQa/debugmaster.nvim",
     dependencies = {
       "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
     },
-    opts = {
-      controls = { enabled = false },
-      icons = {
-        current_frame = "🡆",
-      },
-      layouts = {
-        {
-          elements = {
-            { id = "stacks", size = 0.25 },
-            { id = "scopes", size = 0.25 },
-            { id = "breakpoints", size = 0.25 },
-            { id = "watches", size = 0.25 },
-          },
-          size = 45,
-          position = "left",
-        },
-        {
-          elements = {
-            { id = "repl", size = 1.0 },
-          },
-          size = 20,
-          position = "bottom",
-        },
-      },
-    },
+    config = function()
+      local dm = require "debugmaster"
+      vim.keymap.set(
+        { "n", "v" },
+        "<leader>da",
+        function ()
+          require "osv"
+          dm.mode.toggle()
+        end,
+        { nowait = true }
+      )
+
+      dm.plugins.osv_integration.enabled = true
+    end,
   },
   {
     "jbyuki/one-small-step-for-vimkind",
