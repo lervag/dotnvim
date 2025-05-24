@@ -1356,15 +1356,10 @@ local M = {
     },
     config = function()
       local dm = require "debugmaster"
-      vim.keymap.set(
-        { "n", "v" },
-        "<leader>da",
-        function ()
-          require "osv"
-          dm.mode.toggle()
-        end,
-        { nowait = true }
-      )
+      vim.keymap.set({ "n", "v" }, "<leader>da", function()
+        require "osv"
+        dm.mode.toggle()
+      end, { nowait = true })
 
       dm.plugins.osv_integration.enabled = true
     end,
@@ -2143,6 +2138,12 @@ local M = {
     init = function()
       vim.g.db_ui_use_nerd_fonts = 1
     end,
+  },
+  {
+    "xemptuous/sqlua.nvim",
+    lazy = true,
+    cmd = "SQLua",
+    config = true,
   },
   {
     "kelvinauta/focushere.nvim",
