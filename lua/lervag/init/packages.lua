@@ -1016,6 +1016,15 @@ local M = {
     opts = {},
   },
   {
+    "echasnovski/mini.operators",
+    opts = {
+      exchange = { prefix = "ge" },
+      multiply = { prefix = "" },
+      replace = { prefix = "" },
+      sort = { prefix = "" },
+    },
+  },
+  {
     "echasnovski/mini.surround",
     lazy = false,
     keys = {
