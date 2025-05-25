@@ -2,37 +2,9 @@ local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
 -- {{{1 Defaults
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
--- capabilities.textDocument.completion.completionItem.preselectSupport = true
--- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
--- capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
---   "documentation",
---   "detail",
---   "additionalTextEdits",
---   "sortText",
---   "filterText",
---   "insertText",
---   "textEdit",
---   "insertTextFormat",
---   "insertTextMode",
--- }
--- capabilities.textDocument.completion.completionItem.insertTextModeSupport = {
---   valueSet = { 1, 2 },
--- }
--- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
--- capabilities.textDocument.completion.insertTextMode = 1
--- capabilities.textDocument.completion.completionList.itemDefaults = {
---   "commitCharacters",
---   "editRange",
---   "insertTextFormat",
---   "insertTextMode",
---   "data",
--- }
-
 vim.lsp.config("*", {
   root_markers = { ".git" },
-  capabilities = capabilities,
+  capabilities = require('blink.cmp').get_lsp_capabilities(),
 })
 
 -- }}}1

@@ -592,257 +592,88 @@ local M = {
 
   -- Completion, LSP and snippets
   {
-    "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
+    "saghen/blink.cmp",
+    version = "1.*",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-calc",
-      "hrsh7th/cmp-omni",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-nvim-lua",
-      "quangnguyen30192/cmp-nvim-ultisnips",
-      "Allaman/emoji.nvim",
+      "saghen/blink.compat",
     },
-    config = function()
-      local function feedkeys(str, mode)
-        local keys = vim.api.nvim_replace_termcodes(str, true, true, true)
-        vim.api.nvim_feedkeys(keys, mode or "m", true)
-      end
-
-      local cmp = require "cmp"
-
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
-          end,
-        },
-        formatting = {
-          format = function(entry, item)
-            if entry.source.name == "omni" then
-              local icon, hl = MiniIcons.get("filetype", "vim")
-              item.kind = icon .. " "
-              item.kind_hl_group = hl
-              item.menu = item.menu:gsub("[%[%]]", "")
-              return item
-            end
-
-            local icon, hl = MiniIcons.get("lsp", item.kind)
-            item.kind = icon .. " " .. item.kind:lower()
-            item.kind_hl_group = hl
-
-            if not item.menu then
-              item.menu = ({
-                nvim_lsp = "lsp",
-                nvim_lua = "luals",
-                ultisnips = "snip",
-              })[entry.source.name] or string.format(
-                "%s",
-                entry.source.name
-              )
-            end
-
-            return item
-          end,
-        },
-        completion = {
-          keyword_length = 2,
-        },
-        preselect = cmp.PreselectMode.None,
-        experimental = {
-          ghost_text = { hl_group = "CmpGhostText" },
-        },
-        sources = {
-          { name = "ultisnips" },
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "path", option = { trailing_slash = true } },
-          { name = "emoji" },
-          { name = "calc" },
-        },
-        mapping = {
-          ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<c-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-          ["<c-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<c-u>"] = cmp.mapping.confirm { select = true },
-          ["<c-j>"] = cmp.mapping(function(fallback)
-            if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-              feedkeys "<plug>(ultisnips_jump_forward)"
-            else
-              fallback()
-            end
-          end),
-          ["<c-k>"] = cmp.mapping(function(fallback)
-            if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-              feedkeys "<plug>(ultisnips_jump_backward)"
-            else
-              fallback()
-            end
-          end),
-          ["<cr>"] = function(fallback)
-            if cmp.visible() then
-              cmp.mapping.abort()
-            end
-            fallback()
-          end,
-          ["<C-l>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              return cmp.complete_common_string()
-            end
-            fallback()
-          end, { "i", "c" }),
-          ["<tab>"] = cmp.mapping {
-            i = function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item()
-              elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                feedkeys "<plug>(ultisnips_jump_forward)"
-              else
-                fallback()
-              end
-            end,
-            s = function(fallback)
-              if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                feedkeys "<plug>(ultisnips_jump_forward)"
-              else
-                fallback()
-              end
-            end,
-          },
-          ["<s-tab>"] = cmp.mapping {
-            i = function(_)
-              if cmp.visible() then
-                cmp.select_prev_item()
-              elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                feedkeys "<plug>(ultisnips_jump_backward)"
-              else
-                feedkeys("<bs>", "n")
-              end
-            end,
-            s = function(fallback)
-              if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                feedkeys "<plug>(ultisnips_jump_backward)"
-              else
-                fallback()
-              end
-            end,
-          },
-          ["<c-n>"] = cmp.mapping {
-            i = function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-              else
-                fallback()
-              end
-            end,
-          },
-          ["<c-p>"] = cmp.mapping {
-            i = function(fallback)
-              if cmp.visible() then
-                cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
-              else
-                fallback()
-              end
-            end,
-          },
-        },
-      }
-
-      cmp.setup.filetype("lua", {
-        sources = {
-          { name = "ultisnips" },
-          { name = "nvim_lua" },
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "path", option = { trailing_slash = true } },
-          { name = "calc" },
-        },
-      })
-
-      cmp.setup.filetype("wiki", {
-        sources = {
-          { name = "ultisnips" },
-          { name = "omni", trigger_characters = { "[" } },
-          { name = "path", option = { trailing_slash = true } },
-          { name = "emoji" },
-          { name = "calc" },
-        },
-      })
-
-      cmp.setup.filetype("tex", {
-        sources = {
-          { name = "ultisnips" },
-          { name = "vimtex" },
-          { name = "path", option = { trailing_slash = true } },
-          { name = "calc" },
-        },
-      })
-
-      cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
-        sources = {
-          { name = "ultisnips" },
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "vim-dadbod-completion" },
-          { name = "path", option = { trailing_slash = true } },
-          { name = "calc" },
-        },
-      })
-
-      cmp.setup.filetype({ "markdown", "help" }, {
-        window = {
-          documentation = cmp.config.disable,
-        },
-      })
-    end,
-  },
-  {
-    "micangl/cmp-vimtex",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-    },
-    ft = "tex",
-  },
-  {
-    "quangnguyen30192/cmp-nvim-ultisnips",
-    lazy = true,
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
-      documentation = function(snippet)
-        local snippet_docs =
-          string.format("```%s\n%s\n```", vim.bo.filetype, snippet.value)
-        local formatted = table.concat(
-          vim.lsp.util.convert_input_to_markdown_lines(snippet_docs),
-          "\n"
-        )
-        if snippet.description == "" then
-          return formatted
-        end
-
-        local description = "*" .. snippet.description:sub(2, -2) .. "*"
-        return string.format("%s\n\n%s", description, formatted)
-      end,
+      keymap = {
+        preset = "default",
+        ["<tab>"] = { "select_next", "fallback_to_mappings" },
+        ["<s-tab>"] = { "select_prev", "fallback_to_mappings" },
+      },
+      completion = {
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = true,
+          },
+        },
+        menu = {
+          border = "none",
+          draw = {
+            columns = {
+              { "kind_icon" },
+              { "label", "label_description", gap = 1 },
+              { "source_name" },
+            },
+          },
+        },
+        trigger = {
+          show_on_x_blocked_trigger_characters = { "'", '"' },
+        },
+        documentation = {
+          auto_show = true,
+          -- auto_show_delay_ms = 500,
+        },
+      },
+      cmdline = {
+        completion = {
+          list = {
+            selection = {
+              preselect = false,
+              auto_insert = true,
+            },
+          },
+        },
+      },
+      sources = {
+        default = { "lsp", "path", "omni", "snippets", "buffer", "emoji" },
+        per_filetype = {
+          sql = { "dadbod" },
+          -- optionally inherit from the `default` sources
+          -- lua = { inherit_defaults = true, 'lazydev' }
+        },
+        providers = {
+          dadbod = { module = "vim_dadbod_completion.blink" },
+          emoji = {
+            name = "emoji",
+            module = "blink.compat.source",
+            -- overwrite kind of suggestion
+            transform_items = function(_, items)
+              local kind = require("blink.cmp.types").CompletionItemKind.Text
+              for i = 1, #items do
+                items[i].kind = kind
+              end
+              return items
+            end,
+          },
+        },
+      },
+      signature = {
+        enabled = true,
+        window = {
+          border = "none",
+        },
+      },
     },
-  },
-  {
-    "SirVer/ultisnips",
-    event = "VeryLazy",
-    config = function()
-      vim.g.UltiSnipsJumpForwardTrigger = "<plug>(ultisnips_jump_forward)"
-      vim.g.UltiSnipsJumpBackwardTrigger = "<plug>(ultisnips_jump_backward)"
-      vim.g.UltiSnipsRemoveSelectModeMappings = 0
-      vim.g.UltiSnipsSnippetDirectories =
-        { vim.env.HOME .. "/.config/nvim/UltiSnips" }
-
-      vim.keymap.set("n", "<leader>es", "<cmd>UltiSnipsEdit!<cr>")
-    end,
   },
   {
     "neovim/nvim-lspconfig",
     cmd = "LspInfo",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-    },
   },
   {
     "glepnir/lspsaga.nvim",

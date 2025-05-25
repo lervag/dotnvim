@@ -436,14 +436,6 @@ local theme = {
   DapSign = { fg = purple1, bg = color07 },
   DapStatus = { fg = pink1, bg = color10 },
 
-  CmpGhostText = { fg = color14l, italic = true },
-  CmpItemAbbrMatch = { fg = azure2 },
-  CmpItemAbbrMatchFuzzy = { link = "CmpItemAbbrMatch" },
-  CmpItemKind = { fg = color00l },
-  CmpItemMenu = { fg = black },
-  CmpItemKindFunction = { fg = color05 },
-  CmpItemKindMethod = { link = "CmpItemKindFunction" },
-
   TelescopeBorder = { fg = black, bg = color07d, bold = true },
   TelescopeMatching = { fg = blue0, bold = true },
   TelescopeMultiIcon = { link = "TelescopeMultiSelection" },

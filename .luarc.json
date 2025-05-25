@@ -9,7 +9,8 @@
       "${3rd}/luv/library",
       "$HOME/.local/plugged/mini.icons",
       "$HOME/.local/plugged/lazy.nvim",
-      "$HOME/.local/plugged/snacks.nvim"
+      "$HOME/.local/plugged/snacks.nvim",
+      "$HOME/.local/plugged/blink.cmp"
     ],
     "checkThirdParty": false
   }
