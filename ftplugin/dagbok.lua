@@ -41,7 +41,7 @@ for lhs, rhs in pairs {
 } do
   vim.keymap.set("n", lhs, rhs, { buffer = true, silent = true })
 end
-vim.keymap.set("n", ",a", "zRgg/^2006-<cr>?^200<cr>k2yy}Pj$<c-a>gloadd", {
+vim.keymap.set("n", ",a", "zRgg/^2006-<cr>{{2yy}Pj$<c-a>yohoadd", {
   buffer = true,
   remap = true,
 })

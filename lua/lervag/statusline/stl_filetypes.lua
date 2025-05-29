@@ -6,7 +6,10 @@ local filetypes = {}
 
 ---@return string
 function filetypes.tex()
-  local vimtex = vim.api.nvim_buf_get_var(ctx.active_bufnr, "vimtex")
+  local ok, vimtex = pcall(vim.api.nvim_buf_get_var, ctx.active_bufnr, "vimtex")
+  if not ok then
+    return ""
+  end
 
   local statuses = {
     "tex_off",
