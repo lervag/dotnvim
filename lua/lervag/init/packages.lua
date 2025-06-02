@@ -2170,8 +2170,7 @@ local M = {
     branch = "develop",
     ft = { "http", "rest" },
     opts = {
-      global_keymaps = false,
-      kulala_keymaps_prefix = "",
+      global_keymaps = true,
     },
   },
   {
