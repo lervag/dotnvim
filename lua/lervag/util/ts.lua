@@ -1,15 +1,33 @@
 local M = {}
 
-function M.files()
+function M.files(opts)
   local builtin = require "telescope.builtin"
+  local actions = require "telescope.actions"
+  local action_state = require "telescope.actions.state"
+
   local dir = vim.fn.FindRootDirectory()
   if dir == "" then
     dir = vim.fn.getcwd()
   end
-  builtin.find_files {
-    prompt_title = "Find Files: " .. dir,
-    cwd = dir,
-  }
+
+  opts = opts
+    or {
+      prompt_title = "Find Files: " .. dir,
+      cwd = dir,
+      no_ignore = false,
+    }
+
+  opts.attach_mappings = function(_, map)
+    map({ "n", "i" }, "<C-i>", function(prompt_bufnr)
+      opts.default_text = action_state.get_current_line()
+      opts.no_ignore = not opts.no_ignore
+      actions.close(prompt_bufnr)
+      M.files(opts)
+    end)
+    return true
+  end
+
+  builtin.find_files(opts)
 end
 
 function M.files_nvim()
