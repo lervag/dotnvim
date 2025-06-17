@@ -549,6 +549,39 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 wiki:deno-ls
+
+lsp_enable {
+  name = "deno ls",
+  cmd = { "deno", "lsp" },
+  cmd_env = { NO_COLOR = true },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  disable = function(args)
+    return not vim.fs.root(args.buf, { "deno.json", "deno.jsonc" })
+  end,
+  root_markers = { "deno.json", "deno.jsonc", ".git" },
+  settings = {
+    deno = {
+      enable = true,
+      suggest = {
+        imports = {
+          hosts = {
+            ["https://deno.land"] = true,
+          },
+        },
+      },
+    },
+  },
+}
+
+-- }}}1
 -- {{{1 wiki:typescript-language-server
 
 lsp_enable {
@@ -562,6 +595,9 @@ lsp_enable {
     "typescriptreact",
     "typescript.tsx",
   },
+  disable = function(args)
+    return not vim.fs.root(args.buf, { "tsconfig.json", "package.json" })
+  end,
   root_markers = { "tsconfig.json", "package.json", ".git" },
   init_options = { hostInfo = "neovim" },
   settings = {},
