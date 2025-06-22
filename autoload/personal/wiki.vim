@@ -16,7 +16,7 @@ function! personal#wiki#file_handler(resolved, ...) abort " {{{1
     return
   endif
 
-  if a:resolved.path =~# '\v\.(doc|xls|ppt)x?$'
+  if a:resolved.path =~# '\v\.(doc|xls|ppt|ods)x?$'
     silent execute '!libreoffice' fnameescape(a:resolved.path) '&'
     return
   endif
