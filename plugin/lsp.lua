@@ -509,24 +509,28 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- }}}1
--- {{{1 wiki:pyright
+-- {{{1 wiki:basedpyright
 
 lsp_enable {
-  name = "pyright",
-  cmd = { "pyright-langserver", "--stdio" },
+  name = "basedpyright",
+  cmd = { "basedpyright-langserver", "--stdio" },
   filetypes = { "python" },
   root_markers = {
     "pyproject.toml",
     "setup.py",
     "setup.cfg",
+    "requirements.txt",
+    "Pipfile",
+    "pyrightconfig.json",
     ".git",
   },
   settings = {
-    python = {
+    basedpyright = {
       analysis = {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
         diagnosticMode = "openFilesOnly",
+        disableOrganizeImports = true,
       },
     },
   },
