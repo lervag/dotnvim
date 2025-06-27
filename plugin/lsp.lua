@@ -530,9 +530,26 @@ lsp_enable {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
         diagnosticMode = "openFilesOnly",
-        disableOrganizeImports = true,
       },
     },
+  },
+}
+
+-- }}}1
+-- {{{1 wiki:ruff-lsp
+
+lsp_enable {
+  name = "ruff",
+  cmd = { "ruff", "server" },
+  filetypes = { "python" },
+  root_markers = {
+    "pyproject.toml",
+    "ruff.toml",
+    ".ruff.toml",
+    ".git",
+  },
+  settings = {
+    configurationPreference = "filesystemFirst",
   },
 }
 

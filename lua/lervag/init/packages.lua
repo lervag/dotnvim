@@ -911,10 +911,6 @@ local M = {
         },
         formatters_by_ft = {
           lua = { "stylua" },
-          python = {
-            "ruff_format",
-            "ruff_organize_imports",
-          },
           markdown = {
             "prettierd",
             "markdownlint",
@@ -939,7 +935,7 @@ local M = {
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
         graphql = { "eslint_d" },
-        python = { "ruff", "mypy" },
+        python = {  "mypy" },
       }
 
       vim.api.nvim_create_autocmd("BufWritePost", {
