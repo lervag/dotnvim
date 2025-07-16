@@ -1659,7 +1659,7 @@ local M = {
         end,
       },
     },
-    cmd = { "Git", "Gedit", "Gdiff" },
+    cmd = { "Git", "Gedit", "Gdiffsplit" },
     keys = {
       {
         "<leader>gs",
@@ -1668,7 +1668,7 @@ local M = {
         end,
         desc = "fugitive",
       },
-      { "<leader>gd", "<cmd>Gdiff<cr>:WinResize<cr>", desc = "fugitive" },
+      { "<leader>gd", "<cmd>Gdiffsplit<cr>:WinResize<cr>", desc = "fugitive" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" }, desc = "fugitive" },
       {
         "<leader>gB",
