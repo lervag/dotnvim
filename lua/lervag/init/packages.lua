@@ -2193,9 +2193,6 @@ local M = {
   },
   {
     "scalameta/nvim-metals",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
   },
   {
     "preservim/vim-markdown",

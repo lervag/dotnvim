@@ -18,12 +18,13 @@ function M.files(opts)
     }
 
   opts.attach_mappings = function(_, map)
-    map({ "n", "i" }, "<C-i>", function(prompt_bufnr)
+    map({ "n", "i" }, "<c-i>", function(prompt_bufnr)
       opts.default_text = action_state.get_current_line()
       opts.no_ignore = not opts.no_ignore
       actions.close(prompt_bufnr)
       M.files(opts)
     end)
+    map({ "n", "i" }, "<tab>", "move_selection_next")
     return true
   end
 
