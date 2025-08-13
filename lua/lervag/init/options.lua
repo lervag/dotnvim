@@ -55,6 +55,7 @@ vim.opt.mouse = ""
 vim.opt.gdefault = true
 vim.opt.updatetime = 500
 vim.opt.splitkeep = "screen"
+vim.opt.jumpoptions = "stack"
 
 -- {{{1 Completion
 
