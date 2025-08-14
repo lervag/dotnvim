@@ -328,7 +328,7 @@ lsp_enable {
   end,
   root_markers = { ".gitlab*", ".git" },
   init_options = {
-    cache_path = "/home/lervag/.cache/gitlab-ci-ls/",
+    cache = "/home/lervag/.cache/gitlab-ci-ls/",
     log_path = "/home/lervag/.cache/gitlab-ci-ls/log/gitlab-ci-ls.log",
   },
 }
