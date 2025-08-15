@@ -670,6 +670,9 @@ lsp_enable {
         enable = true,
         url = "https://www.schemastore.org/api/json/catalog.json",
       },
+      customTags = {
+        "!reference sequence"
+      },
       schemaDownload = { enable = true },
       schemas = {
         kubernetes = { "/deployment.yml", "/deployments/*.yml" },
