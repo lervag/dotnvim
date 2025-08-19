@@ -2256,6 +2256,10 @@ local M = {
     "terrastruct/d2-vim",
     ft = { "d2" },
   },
+  {
+    "ravsii/tree-sitter-d2",
+    build = "make nvim-install",
+  },
 }
 
 return M
