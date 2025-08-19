@@ -1392,7 +1392,7 @@ local M = {
           left = 'println("',
           left_var = 'println(s"',
           mid_var = "${",
-          right = '")',
+          right = ')"',
           right_var = '})"',
         },
       },
