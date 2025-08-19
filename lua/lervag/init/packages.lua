@@ -935,7 +935,7 @@ local M = {
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
         graphql = { "eslint_d" },
-        python = {  "mypy" },
+        python = { "mypy" },
       }
 
       vim.api.nvim_create_autocmd("BufWritePost", {
@@ -2251,6 +2251,10 @@ local M = {
         display_mode = "border",
       },
     },
+  },
+  {
+    "terrastruct/d2-vim",
+    ft = { "d2" },
   },
 }
 
