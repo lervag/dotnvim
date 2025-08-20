@@ -126,6 +126,7 @@ vim.opt.virtualedit = "block"
 
 -- {{{1 UI
 
+-- vim.opt.winborder = "▗,▄,▖,▌,▘,▀,▝,▐"
 vim.opt.winborder = "solid"
 vim.opt.winwidth = 70
 vim.opt.termguicolors = true
