@@ -1639,6 +1639,10 @@ local M = {
     },
     config = true,
   },
+  {
+    "sQVe/sort.nvim",
+    config = true,
+  },
 
   -- VCS
   {
