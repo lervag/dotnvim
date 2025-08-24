@@ -510,6 +510,7 @@ local M = {
   },
   {
     "b0o/incline.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       render = function(props)
@@ -935,7 +936,6 @@ local M = {
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
         graphql = { "eslint_d" },
-        python = { "mypy" },
       }
 
       vim.api.nvim_create_autocmd("BufWritePost", {
