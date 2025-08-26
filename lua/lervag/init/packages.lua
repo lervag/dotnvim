@@ -510,7 +510,6 @@ local M = {
   },
   {
     "b0o/incline.nvim",
-    enabled = false,
     event = "VeryLazy",
     opts = {
       render = function(props)
@@ -559,7 +558,12 @@ local M = {
         end
 
         local width_warning = {}
-        if props.focused and vim.o.modifiable and not vim.o.readonly then
+        if
+          props.focused
+          and vim.o.modifiable
+          and not vim.o.readonly
+          and vim.fn.line "." > 1
+        then
           local textwidth = vim.o.textwidth
           local width = vim.fn.charcol "$" - 1
           if textwidth > 0 and width > textwidth then

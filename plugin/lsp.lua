@@ -225,7 +225,10 @@ local function lsp_enable(config)
     pattern = config.filetypes,
     group = lspgroup,
     callback = function(args)
-      if args.file:sub(1, 12) == "fugitive:///" then
+      if
+        vim.startswith(args.file, "fugitive://")
+        or vim.startswith(args.file, "diffview://")
+      then
         return
       end
       ---@diagnostic disable-next-line: undefined-field
@@ -671,7 +674,7 @@ lsp_enable {
         url = "https://www.schemastore.org/api/json/catalog.json",
       },
       customTags = {
-        "!reference sequence"
+        "!reference sequence",
       },
       schemaDownload = { enable = true },
       schemas = {
