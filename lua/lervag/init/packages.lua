@@ -476,10 +476,10 @@ local M = {
             .. "You will respond consisely and as brief as you can.\n",
         },
         {
-          name = "o1-mini",
+          name = "o4-mini",
           chat = true,
           command = false,
-          model = { model = "o1-mini", temperature = 1.1, top_p = 1 },
+          model = { model = "o4-mini", temperature = 1.1, top_p = 1 },
           system_prompt = "You are a general AI assistant.\n"
             .. "You will respond consisely and as brief as you can.\n",
         },
