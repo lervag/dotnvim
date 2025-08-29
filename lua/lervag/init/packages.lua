@@ -335,7 +335,7 @@ local M = {
     },
   },
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       lsp = {
         snippet = {
@@ -351,7 +351,7 @@ local M = {
     end,
   },
   {
-    "echasnovski/mini.notify",
+    "nvim-mini/mini.notify",
     config = function()
       local mininotify = require "mini.notify"
 
@@ -1016,11 +1016,11 @@ local M = {
 
   -- Text objects and similar
   {
-    "echasnovski/mini.ai",
+    "nvim-mini/mini.ai",
     opts = {},
   },
   {
-    "echasnovski/mini.operators",
+    "nvim-mini/mini.operators",
     opts = {
       exchange = { prefix = "ge" },
       multiply = { prefix = "" },
@@ -1029,7 +1029,7 @@ local M = {
     },
   },
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     lazy = false,
     keys = {
       { "sas", "saiW", remap = true },
@@ -1724,7 +1724,7 @@ local M = {
     end,
   },
   {
-    "echasnovski/mini.diff",
+    "nvim-mini/mini.diff",
     lazy = false,
     keys = {
       {
