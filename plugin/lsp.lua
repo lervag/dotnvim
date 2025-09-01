@@ -51,27 +51,37 @@ vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Configure LSP: Mappings and similar",
   callback = function(args)
     local const = require "lervag.const"
-    local attachedClient = vim.lsp.get_client_by_id(args.data.client_id)
+    local attached_client =
+      assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-    if attachedClient then
-      if attachedClient:supports_method "textDocument/codeLens" then
-        vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
-          group = lspgroup,
-          desc = "Refresh codelenses",
-          buffer = args.buf,
-          callback = function()
-            vim.lsp.codelens.refresh { bufnr = 0 }
-          end,
-        })
-      end
+    if attached_client:supports_method "textDocument/codeLens" then
+      vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
+        group = lspgroup,
+        desc = "Refresh codelenses",
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.codelens.refresh { bufnr = 0 }
+        end,
+      })
+    end
 
-      if attachedClient:supports_method "textDocument/inlayHint" then
-        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-      end
+    if attached_client:supports_method "textDocument/inlayHint" then
+      vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+    end
 
-      if attachedClient:supports_method "textDocument/documentColor" then
-        vim.lsp.document_color.enable(true, args.buf)
-      end
+    if attached_client:supports_method "textDocument/documentColor" then
+      vim.lsp.document_color.enable(true, args.buf)
+    end
+
+    if
+      attached_client:supports_method "textDocument/onTypeFormatting"
+      and vim.lsp.on_type_formatting
+    then
+      vim.notify("Enabling onTypeFormatting - should test it!", "warn")
+      vim.lsp.on_type_formatting.enable(
+        true,
+        { client_id = args.data.client_id }
+      )
     end
 
     vim.keymap.set(
