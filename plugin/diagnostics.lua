@@ -1,14 +1,6 @@
-local __is_active = true
-local function toggle_show_diagnostics()
-  if __is_active then
-    vim.diagnostic.hide()
-  else
-    vim.diagnostic.show()
-  end
-  __is_active = not __is_active
-end
-
-vim.keymap.set("n", "<leader>qQ", toggle_show_diagnostics)
+vim.keymap.set("n", "<leader>qQ", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
 vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
 vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
 vim.keymap.set("n", "<leader>qc", "<cmd>cclose<cr>")

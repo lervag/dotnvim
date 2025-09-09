@@ -551,7 +551,7 @@ local M = {
           },
         } do
           local n = #vim.diagnostic.get(props.buf, { severity = cfg.severity })
-          if n > 0 then
+          if n > 0 and vim.diagnostic.is_enabled() then
             local label = (#diagnostics > 0 and " " or "") .. cfg.symbol .. n
             table.insert(diagnostics, { label, group = cfg.group })
           end
