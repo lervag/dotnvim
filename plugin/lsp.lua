@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       attached_client:supports_method "textDocument/onTypeFormatting"
       and vim.lsp.on_type_formatting
     then
-      vim.notify("Enabling onTypeFormatting - should test it!", "warn")
+      vim.notify("Enabling onTypeFormatting - should test it!", vim.log.levels.WARN)
       vim.lsp.on_type_formatting.enable(
         true,
         { client_id = args.data.client_id }
