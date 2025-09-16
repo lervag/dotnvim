@@ -80,14 +80,30 @@ function M.common()
   return ""
 end
 
+---LSP cache per buffer
+local _cache_lsp = {}
+
+vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
+  group = vim.api.nvim_create_augroup("statusline_lsp_cache", {}),
+  callback = function(args)
+    vim.notify("Removing: " .. vim.inspect(_cache_lsp[args.buf]))
+    _cache_lsp[args.buf] = nil
+  end,
+})
+
 ---@return string
 function M.lsp()
+  if _cache_lsp[ctx.active_bufnr] ~= nil then
+    return _cache_lsp[ctx.active_bufnr]
+  end
+
   local clients = vim.lsp.get_clients {
     bufnr = ctx.active_bufnr,
   }
 
+  local result = ""
   if #clients > 0 then
-    return ui.icon "lsp"
+    result = ui.icon "lsp"
       .. table.concat(
         vim.tbl_map(function(c)
           return c.name
@@ -96,7 +112,8 @@ function M.lsp()
       )
   end
 
-  return ""
+  _cache_lsp[ctx.active_bufnr] = result
+  return result
 end
 
 ---@return string
