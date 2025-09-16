@@ -87,13 +87,13 @@ end
 
 ---@return string
 function M.dap()
-  local ok, dap = pcall(require, "dap")
+  if not package.loaded.dap then
+    return ""
+  end
 
-  if ok then
-    local status = dap.status()
-    if #status > 0 then
-      return ui.icon "dap" .. "debugging"
-    end
+  local status = require("dap").status()
+  if #status > 0 then
+    return ui.icon "dap" .. "debugging"
   end
 
   return ""
