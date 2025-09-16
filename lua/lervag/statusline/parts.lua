@@ -2,9 +2,11 @@ local ctx = require "lervag.statusline.context"
 local ui = require "lervag.statusline.ui"
 
 ---Shorten path
----@param path string
+---@param name string
 ---@return string
-local function shorten(path)
+local function shorten(name)
+  local path = vim.fn.fnamemodify(name, ":~:.")
+
   local max_length = vim.fn.winwidth(0) - 40
   local length = #path
   if length <= max_length then
@@ -28,19 +30,27 @@ end
 
 local M = {}
 
+---Filename cache
+local _cache_filename = { name = nil, short = nil, cwd = nil }
+
 ---@return string
 function M.filename()
   if #ctx.active_name == 0 then
     return " [No file]"
   end
 
-  local filename = shorten(vim.fn.fnamemodify(ctx.active_name, ":~:."))
-
-  if vim.fn.filereadable(ctx.active_name) == 0 then
-    return ui.icon "newfile" .. " " .. ui.italic(filename)
+  local cwd = vim.fn.getcwd()
+  if _cache_filename.name ~= ctx.active_name or _cache_filename.cwd ~= cwd then
+    _cache_filename.name = ctx.active_name
+    _cache_filename.cwd = cwd
+    _cache_filename.short = shorten(ctx.active_name)
   end
 
-  return " " .. ui.gold(filename)
+  if vim.fn.filereadable(ctx.active_name) == 0 then
+    return ui.icon "newfile" .. " " .. ui.italic(_cache_filename.short)
+  end
+
+  return " " .. ui.gold(_cache_filename.short)
 end
 
 ---@return string
@@ -77,9 +87,13 @@ function M.lsp()
   }
 
   if #clients > 0 then
-    return ui.icon "lsp" .. table.concat(
-      vim.tbl_map(function(c) return c.name end, clients),
-      ", ")
+    return ui.icon "lsp"
+      .. table.concat(
+        vim.tbl_map(function(c)
+          return c.name
+        end, clients),
+        ", "
+      )
   end
 
   return ""
