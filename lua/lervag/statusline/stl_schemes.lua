@@ -35,10 +35,8 @@ function schemes.diffview()
   end
   commit = commit:sub(1, 8)
 
-  ---@type string
   local path = ctx.active_name:match "/%.git/[%x:]+/(.*)"
-
-  return parts.gitfile(commit, path)
+  return path and parts.gitfile(commit, path) or ""
 end
 
 

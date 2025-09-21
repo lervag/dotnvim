@@ -14,6 +14,7 @@ local function encode(data)
       end
       local c = 0
       for i = 1, 6 do
+        ---@diagnostic disable-next-line: assign-type-mismatch
         c = c + (x:sub(i, i) == "1" and 2 ^ (6 - i) or 0)
       end
       return b:sub(c + 1, c + 1)
@@ -29,7 +30,7 @@ local function decode(data)
         if x == "=" then
           return ""
         end
-        local r, f = "", (b:find(x) - 1)
+        local r, f = "", ((b:find(x) or 0) - 1)
         for i = 6, 1, -1 do
           r = r .. (f % 2 ^ i - f % 2 ^ (i - 1) > 0 and "1" or "0")
         end
@@ -41,6 +42,7 @@ local function decode(data)
         end
         local c = 0
         for i = 1, 8 do
+          ---@diagnostic disable-next-line: assign-type-mismatch
           c = c + (x:sub(i, i) == "1" and 2 ^ (8 - i) or 0)
         end
         return string.char(c)
@@ -66,7 +68,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   group = vim.api.nvim_create_augroup("init_b64", {}),
   desc = "Reload script base64.lua on save",
   callback = function()
-    vim.notify("Reloading script: base64.lua", "warn", { title = "init.lua" })
+    vim.notify "Reloading script: base64.lua"
     vim.cmd.runtime "plugin/base64.lua"
   end,
 })

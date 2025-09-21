@@ -13,6 +13,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+---@diagnostic disable-next-line: missing-fields, param-type-not-match
 require("lazy").setup {
   root = root,
   spec = { { import = "lervag.init.packages" } },

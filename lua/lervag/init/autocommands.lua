@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "FileType" }, {
   end,
 })
 
+---@diagnostic disable-next-line: param-type-not-match
 vim.api.nvim_create_autocmd("CmdWinEnter", {
   desc = "Set CmdLineWin mappings/options",
   group = group,

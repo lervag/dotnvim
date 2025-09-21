@@ -1,4 +1,3 @@
-local context = require "lervag.statusline.context"
 local stl_schemes = require "lervag.statusline.stl_schemes"
 local stl_buftypes = require "lervag.statusline.stl_buftypes"
 local stl_filetypes = require "lervag.statusline.stl_filetypes"
@@ -43,7 +42,7 @@ local M = {}
 ---It returns a string that adheres to the docs in :help 'statusline'.
 ---@return string
 function M.statusline()
-  context.refresh()
+  ctx.refresh()
 
   local stl_scheme = stl_schemes.parse()
   if stl_scheme then

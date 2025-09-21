@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
   end,
 })
 
+---@diagnostic disable-next-line: param-type-not-match
 vim.diagnostic.config {
   update_in_insert = false,
   severity_sort = true,

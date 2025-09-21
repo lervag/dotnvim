@@ -4,8 +4,16 @@ local ui = require "lervag.statusline.ui"
 
 local filetypes = {}
 
+---@class VimtexCompiler
+---@field status? int
+
+---@class Vimtex
+---@field compiler VimtexCompiler
+
 ---@return string
 function filetypes.tex()
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  ---@type boolean, Vimtex
   local ok, vimtex = pcall(vim.api.nvim_buf_get_var, ctx.active_bufnr, "vimtex")
   if not ok then
     return ""
@@ -53,7 +61,7 @@ function M.parse()
   local ok, ft =
     pcall(vim.api.nvim_get_option_value, "filetype", { buf = ctx.active_bufnr })
   if ok and filetypes[ft] then
-    return filetypes[ft](ctx)
+    return filetypes[ft]()
   end
 end
 

@@ -14,12 +14,11 @@ local function shorten(name)
   end
 
   local segments = vim.split(path, "/")
-  for idx = 1, #segments - 1 do
-    if length <= max_length then
+  for idx, segment in ipairs(segments) do
+    if idx == #segments or length <= max_length then
       break
     end
 
-    local segment = segments[idx]
     local shortened = segment:sub(1, vim.startswith(segment, ".") and 2 or 1)
     segments[idx] = shortened
     length = length - (#segment - #shortened)
@@ -86,7 +85,6 @@ local _cache_lsp = {}
 vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
   group = vim.api.nvim_create_augroup("statusline_lsp_cache", {}),
   callback = function(args)
-    vim.notify("Removing: " .. vim.inspect(_cache_lsp[args.buf]))
     _cache_lsp[args.buf] = nil
   end,
 })
@@ -155,7 +153,9 @@ end
 ---@return string
 function M.wiki_broken_links()
   local path = vim.fn.fnamemodify(ctx.active_name, ":p")
-  if vim.fn.filereadable(path) then
+
+  local stat = vim.uv.fs_stat(path)
+  if stat and stat.type == "file" then
     ---@type integer
     local broken_links = vim.api.nvim_call_function(
       "wiki#graph#get_number_of_broken_links",
