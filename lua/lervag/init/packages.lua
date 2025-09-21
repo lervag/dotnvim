@@ -1,6 +1,5 @@
 local my_border = require("lervag.const").border
 
----@type LazySpec
 local M = {
   -- Personal
   {
@@ -988,6 +987,7 @@ local M = {
         "markdown-toc",
         "markdownlint",
         "kulala-fmt",
+        "emmylua_ls",
       },
     },
     config = function(_, opts)

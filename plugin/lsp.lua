@@ -1,41 +1,14 @@
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
--- {{{1 Defaults
+-- Defaults
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
--- capabilities.textDocument.completion.completionItem.preselectSupport = true
--- capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
--- capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
---   "documentation",
---   "detail",
---   "additionalTextEdits",
---   "sortText",
---   "filterText",
---   "insertText",
---   "textEdit",
---   "insertTextFormat",
---   "insertTextMode",
--- }
--- capabilities.textDocument.completion.completionItem.insertTextModeSupport = {
---   valueSet = { 1, 2 },
--- }
--- capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
--- capabilities.textDocument.completion.insertTextMode = 1
--- capabilities.textDocument.completion.completionList.itemDefaults = {
---   "commitCharacters",
---   "editRange",
---   "insertTextFormat",
---   "insertTextMode",
---   "data",
--- }
 
+---@diagnostic disable-next-line: param-type-not-match
 vim.lsp.config("*", {
   root_markers = { ".git" },
   capabilities = capabilities,
 })
-
--- }}}1
 
 -- {{{1 Mappings and autocmds
 
@@ -77,7 +50,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       attached_client:supports_method "textDocument/onTypeFormatting"
       and vim.lsp.on_type_formatting
     then
-      vim.notify("Enabling onTypeFormatting - should test it!", vim.log.levels.WARN)
+      vim.notify(
+        "Enabling onTypeFormatting - should test it!",
+        vim.log.levels.WARN
+      )
       vim.lsp.on_type_formatting.enable(
         true,
         { client_id = args.data.client_id }
@@ -363,6 +339,9 @@ lsp_enable {
 lsp_enable {
   name = "lua-language-server",
   cmd = { "lua-language-server" },
+  disable = function()
+    return true
+  end,
   filetypes = { "lua" },
   log_level = vim.lsp.protocol.MessageType.Warning,
   root_markers = {
@@ -407,6 +386,29 @@ lsp_enable {
         },
       })
   end,
+}
+
+-- }}}1
+-- {{{1 wiki:emmylua-analyzer-rust
+
+lsp_enable {
+  name = "emmylua-ls",
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/emmylua_ls" },
+  filetypes = { "lua" },
+  root_markers = {
+    ".emmyrc.json",
+    ".luarc.json",
+    ".stylua.toml",
+    "stylua.toml",
+  },
+  workspace_required = false,
+  settings = {
+    Lua = {
+      semanticTokens = {
+        enable = false,
+      },
+    },
+  },
 }
 
 -- }}}1
