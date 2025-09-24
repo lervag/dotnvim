@@ -24,6 +24,6 @@ if not vim.wo.diff then
   vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
   if vim.fn.expand("%:p"):match "init/packages%.lua$" then
     vim.wo.foldlevel = 1
-    vim.wo.foldtext = 'v:lua.require("lervag.init.ftlua").foldtext_packages()'
+    vim.wo.foldtext = 'v:lua.require("lervag.lua").foldtext_packages()'
   end
 end
