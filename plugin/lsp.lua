@@ -683,6 +683,7 @@ lsp_enable {
       },
       customTags = {
         "!reference sequence",
+        "!reset sequence",
       },
       schemaDownload = { enable = true },
       schemas = {
