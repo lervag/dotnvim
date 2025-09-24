@@ -5,7 +5,7 @@
 local error_query = vim.treesitter.query.parse("query", "[(ERROR)(MISSING)] @a")
 local namespace = vim.api.nvim_create_namespace "treesitter.diagnostics"
 
-local ft_blacklist = { "scala", "rust", "sql" }
+local ft_blacklist = { "scala", "rust", "sql", "lua" }
 
 ---@param args vim.api.keyset.create_autocmd.callback_args
 local function diagnose(args)
