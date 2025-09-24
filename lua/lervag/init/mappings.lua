@@ -163,3 +163,14 @@ vim.keymap.set("n", "<leader>xx", function()
 
   execute(callback)
 end)
+
+-- Window functions
+vim.keymap.set("n", "<c-w><c-o>", function()
+  require("lervag.windows").only()
+end)
+vim.keymap.set("n", "<f2>", function()
+  require("lervag.windows").resize()
+end)
+vim.keymap.set("n", "<c-u>", function()
+  require("lervag.windows").buf_delete()
+end)
