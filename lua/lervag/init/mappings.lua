@@ -30,6 +30,27 @@ vim.keymap.set("n", "<c-w><bar>", "<c-w>v")
 vim.keymap.set("n", "<c-w>§", "<c-w><bar>")
 vim.keymap.set("n", "<f3>", "<cmd>call personal#spell#toggle_language()<cr>")
 vim.keymap.set("n", "y@", "<cmd>call personal#util#copy_path()<cr>")
+vim.keymap.set("n", "y@", function()
+  local file = vim.fn.expand "%:p"
+  if file == "" then
+    return
+  end
+
+  -- Use Rooter to find root path
+  local root = vim.fn.FindRootDirectory()
+  if root ~= "" then
+    file = vim.fn["vimtex#paths#relative"](file, root)
+  end
+
+  if file == "" then
+    return
+  end
+
+  local path = file .. ":" .. vim.fn.line "."
+  vim.fn.setreg("*", path)
+  vim.fn.setreg("+", path)
+  vim.notify("Copied path: " .. path)
+end)
 
 -- Navigation
 vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { silent = true })
