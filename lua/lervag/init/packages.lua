@@ -411,26 +411,27 @@ local M = {
     end,
   },
   {
-    "stevearc/oil.nvim",
+    "A7Lavinraj/fyler.nvim",
     lazy = false,
+    dependencies = { "nvim-mini/mini.icons" },
     keys = {
-      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+      { "-", "<cmd>Fyler<cr>", desc = "Open parent directory" },
     },
     opts = {
-      view_options = {
-        natural_order = false,
-        show_hidden = true,
+      default_explorer = true,
+      indentscope = {
+        enabled = false,
       },
-      keymaps = {
-        q = "actions.close",
-        ["<c-h>"] = false,
-        ["<c-l>"] = false,
+      mappings = {
+        H = "CollapseNode",
+        L = "Select",
       },
-      float = {
-        border = my_border,
-      },
-      preview = {
-        border = my_border,
+      win = {
+        win_opts = {
+          cursorline = true,
+          number = false,
+          relativenumber = false,
+        },
       },
     },
   },
@@ -1711,15 +1712,6 @@ local M = {
         callback = function()
           vim.bo.bufhidden = "delete"
         end,
-      })
-
-      -- oil.nvim disables netrw and thus the :Browse command, which is needed
-      -- by fugitive for :GBrowse.
-      vim.api.nvim_create_user_command("Browse", function(args)
-        vim.ui.open(args.args)
-      end, {
-        desc = "Enables using GBrowse without netrw",
-        nargs = 1,
       })
     end,
   },
