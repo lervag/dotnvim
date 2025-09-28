@@ -1,0 +1,28 @@
+local snippets = {
+  {
+    prefix = "template-tmuxinator",
+    desc = "Template: Standard local tmux config",
+    body = [[
+name: $1
+
+on_project_start:
+  - xdotool windowsize --usehints $(xdotool getactivewindow) 165 100%
+  - xdotool key --window $(xdotool getactivewindow) "super+c"
+
+on_project_exit:
+  - xdotool windowsize --usehints $(xdotool getactivewindow) 82 100%
+
+windows:
+  - dev:
+      layout: even-horizontal
+      panes:
+        - editor:
+          - nvim README.md
+        - shell:
+  - other:
+    - $0
+]],
+  },
+}
+
+return snippets

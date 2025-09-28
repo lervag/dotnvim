@@ -501,6 +501,12 @@ local theme = {
   MiniIconsRed = { fg = red0 },
   MiniIconsYellow = { fg = yellow0 },
 
+  MiniSnippetsCurrent = { fg = azure1 },
+  MiniSnippetsCurrentReplace = { fg = purple1 },
+  MiniSnippetsFinal = { fg = black },
+  MiniSnippetsUnvisited = { fg = orange1 },
+  MiniSnippetsvisited = { fg = green1 },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },

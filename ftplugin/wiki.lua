@@ -5,13 +5,19 @@ vim.b.minidiff_disable = true
 
 vim.opt_local.isfname:remove ","
 
-vim.keymap.set("i", "<c-l>", "LLW", { buffer = true })
-vim.keymap.set(
-  "i",
-  "<c-e>",
-  "<plug>(cmpu-jump-forwards)<cr><c-a>LLW<plug>(cmpu-expand)",
-  { buffer = true, silent = true, remap = true }
-)
+local function create_link()
+  local insert = MiniSnippets.config.expand.insert
+    or MiniSnippets.default_insert
+
+  insert { body = vim.b.wiki.in_journal == 1 and "[[/$1]]$0" or "[[$1]]$0" }
+end
+
+vim.keymap.set("i", "<c-l>", create_link, { buffer = true })
+vim.keymap.set("i", "LLW", create_link, { buffer = true })
+vim.keymap.set("i", "<c-e>", function()
+  MiniSnippets.session.stop()
+  vim.cmd [[ normal "o<cr>"]]
+end, { buffer = true })
 
 vim.keymap.set(
   "n",

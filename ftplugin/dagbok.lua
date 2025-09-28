@@ -37,11 +37,18 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 for lhs, rhs in pairs {
   [",t"] = [[/\C\%18c \?x<cr>]],
-  [",n"] = "Gonew<c-r>=UltiSnips#ExpandSnippet()<cr>",
+  [",n"] = function()
+    vim.cmd.normal "Gonew"
+    MiniSnippets.expand()
+  end,
+  [",a"] = function()
+    vim.cmd.normal "zR"
+    vim.fn.search("^2006-10-23", "w")
+    vim.cmd.normal "{{2yy}Pj$"
+    require("dial.map").manipulate("increment", "normal")
+    vim.cmd.normal "oadd"
+    MiniSnippets.expand()
+  end,
 } do
   vim.keymap.set("n", lhs, rhs, { buffer = true, silent = true })
 end
-vim.keymap.set("n", ",a", "zRgg/^2006-10-23<cr>{{2yy}Pj$<c-a>yohoadd", {
-  buffer = true,
-  remap = true,
-})

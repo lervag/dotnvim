@@ -15,6 +15,7 @@
       "${3rd}/luv/library",
       "$HOME/.local/plugged/mini.icons",
       "$HOME/.local/plugged/mini.notify",
+      "$HOME/.local/plugged/mini.snippets",
       "$HOME/.local/plugged/lazy.nvim",
       "$HOME/.local/plugged/snacks.nvim",
       "$HOME/.local/plugged/telescope.nvim"

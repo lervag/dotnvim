@@ -34,3 +34,29 @@ vim.keymap.set(
   "<cmd>call medieval#eval('', #{ after: { _, _ -> personal#markdown#place_signs() } })",
   { buffer = true }
 )
+
+vim.keymap.set("i", "LLM", function()
+  local link = ""
+  local url = vim.fn.getreg "+"
+
+  if vim.fn.executable "pup" ~= 1 then
+    vim.notify("Consider installing pup!", vim.log.levels.WARN)
+    link = string.format("[$0](%s)", url)
+  else
+    local text = vim
+      .system({
+        "bash",
+        "-c",
+        string.format("curl -s %s | pup 'h1 text{}'", url),
+      })
+      :wait().stdout or ""
+    text = vim.fn.substitute(vim.trim(text), "\n", "", "g")
+
+    link = string.format("[${1:%s}](%s)", text, url)
+  end
+
+  local insert = MiniSnippets.config.expand.insert
+    or MiniSnippets.default_insert
+
+  insert { body = link }
+end, { buffer = true })
