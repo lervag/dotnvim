@@ -13,9 +13,9 @@ function! personal#spell#change_language(lang) abort " {{{1
   echo "spelllang changed to" &l:spelllang
 
   if a:lang =~# '^en'
-    set thesaurus=$HOME/.config/nvim/spell/thesaurus-en.txt
+    let &thesaurus = expand('~/.config/nvim/spell/thesaurus-en.txt')
   else
-    set thesaurus=$HOME/.config/nvim/spell/thesaurus-no.txt
+    let &thesaurus = expand('~/.config/nvim/spell/thesaurus-no.txt')
   endif
 endfunction
 

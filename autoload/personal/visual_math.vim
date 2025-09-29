@@ -37,10 +37,10 @@ function! personal#visual_math#analyse() " {{{1
   let numbers = map(copy(raw_numbers), 'str2float(v:val)')
 
   " Calculate various interesting metrics...
-  let sum = s:tidy(eval(len(numbers) ? join(numbers, ' + ') : '0'))
+  let sum = len(numbers) > 0 ? s:tidy(s:sum(numbers)) : 0
   let avg = s:average(raw_numbers)
-  let min = s:tidy(s:min(numbers))
-  let max = s:tidy(s:max(numbers))
+  let min = s:tidy(min(numbers))
+  let max = s:tidy(max(numbers))
 
   " Convert temporals...
   if temporal
@@ -117,8 +117,8 @@ endfunction
 " }}}1
 function! s:average(numbers) " {{{1
   " Compute average...
-  let summation = eval( len(a:numbers) ? join( a:numbers, ' + ') : '0' )
-  let avg = 1.0 * summation / s:max([len(a:numbers), 1])
+  let summation = len(a:numbers) > 0 ? s:sum(a:numbers) : 0
+  let avg = 1.0 * summation / max([len(a:numbers), 1])
 
   " Determine significant figures...
   let min_decimals = 15
@@ -135,33 +135,12 @@ function! s:average(numbers) " {{{1
 endfunction
 
 " }}}1
-function! s:max(numbers) " {{{1
-  if !len(a:numbers)
-    return 0
-  endif
-  let numbers = copy(a:numbers)
-  let maxnum = numbers[0]
-  for nextnum in numbers[1:]
-    if nextnum > maxnum
-      let maxnum = nextnum
-    endif
+function! s:sum(numbers) " {{{1
+  let total = 0
+  for num in a:numbers
+    let total += num
   endfor
-  return maxnum
-endfunction
-
-" }}}1
-function! s:min(numbers) " {{{1
-  if !len(a:numbers)
-    return 0
-  endif
-  let numbers = copy(a:numbers)
-  let minnum = numbers[0]
-  for nextnum in numbers[1:]
-    if nextnum < minnum
-      let minnum = nextnum
-    endif
-  endfor
-  return minnum
+  return total
 endfunction
 
 " }}}1

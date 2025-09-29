@@ -108,7 +108,7 @@ function! s:history(forward) abort " {{{1
 
   while 1
     if (a:forward && s:is_last()) || (!a:forward && s:is_first()) | break | endif
-    silent execute cmd
+    silent execute l:cmd
     if personal#qf#length() | break | endif
   endwhile
 
