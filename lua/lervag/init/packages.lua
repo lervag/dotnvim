@@ -415,7 +415,18 @@ local M = {
     lazy = false,
     dependencies = { "nvim-mini/mini.icons" },
     keys = {
-      { "-", "<cmd>Fyler<cr>", desc = "Open parent directory" },
+      {
+        "-",
+        function()
+          local root = vim.fn.FindRootDirectory()
+          if root == "" then
+            root = vim.fn.expand "%:p:h"
+          end
+
+          require("fyler").open { dir = root }
+        end,
+        desc = "Open parent directory",
+      },
     },
     opts = {
       default_explorer = true,
