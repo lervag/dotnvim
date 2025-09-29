@@ -2237,6 +2237,7 @@ local M = {
   },
   {
     "ravsii/tree-sitter-d2",
+    ft = { "d2" },
     build = "make nvim-install",
   },
 }
