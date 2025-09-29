@@ -29,7 +29,6 @@ vim.keymap.set("n", "<c-w>-", "<c-w>s")
 vim.keymap.set("n", "<c-w><bar>", "<c-w>v")
 vim.keymap.set("n", "<c-w>§", "<c-w><bar>")
 vim.keymap.set("n", "<f3>", "<cmd>call personal#spell#toggle_language()<cr>")
-vim.keymap.set("n", "y@", "<cmd>call personal#util#copy_path()<cr>")
 vim.keymap.set("n", "y@", function()
   local file = vim.fn.expand "%:p"
   if file == "" then
