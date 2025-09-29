@@ -53,7 +53,7 @@ vim.opt.formatlistpat = [[^\s*[-*]\s\+]]
 vim.opt.winaltkeys = "no"
 vim.opt.mouse = ""
 vim.opt.gdefault = true
-vim.opt.updatetime = 500
+vim.opt.updatetime = 50
 vim.opt.splitkeep = "screen"
 vim.opt.jumpoptions = "stack"
 
