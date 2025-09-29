@@ -524,19 +524,6 @@ local M = {
     event = "VeryLazy",
     opts = {
       render = function(props)
-        local snippet = {}
-        if _G.MiniSnippets ~= nil then
-          local snippet_session = MiniSnippets.session.get()
-          ---@diagnostic disable-next-line: unnecessary-if
-          if snippet_session then
-            local name = snippet_session.insert_args.snippet.prefix or "snp"
-            snippet = {
-              (" %s"):format(name),
-              group = "Underlined",
-            }
-          end
-        end
-
         local diagnostics = {}
         for _, cfg in ipairs {
           {
@@ -595,10 +582,8 @@ local M = {
         end
 
         return {
-          snippet,
-          separator(#snippet, #diagnostics + #width_warning),
           diagnostics,
-          separator(#snippet + #diagnostics, #width_warning),
+          separator(#diagnostics, #width_warning),
           width_warning,
         }
       end,
