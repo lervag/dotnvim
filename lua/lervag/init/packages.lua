@@ -608,21 +608,20 @@ local M = {
       "Allaman/emoji.nvim",
     },
     config = function()
+      local cmp_entry = require "cmp.entry"
+      local cmp = require "cmp"
+
+      cmp_entry.get_documentation = require("lervag.util.cmp").get_documentation
+
       local function feedkeys(str, mode)
         local keys = vim.api.nvim_replace_termcodes(str, true, true, true)
         vim.api.nvim_feedkeys(keys, mode or "m", true)
       end
 
-      local cmp = require "cmp"
-
       cmp.setup {
         snippet = {
           expand = function(args)
-            local insert = MiniSnippets.config.expand.insert
-              or MiniSnippets.default_insert
-            insert { body = args.body }
-            cmp.resubscribe { "TextChangedI", "TextChangedP" }
-            require("cmp.config").set_onetime { sources = {} }
+            vim.snippet.expand(args.body)
           end,
         },
         formatting = {
