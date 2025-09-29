@@ -12,4 +12,4 @@ vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- Configure indentation
 vim.opt_local.cinoptions:append { "j1", ")100" }
 vim.opt_local.indentkeys = { "0}", "0)", "!^F", "o", "O", "e", "<cr>" }
-vim.bo.indentexpr = "personal#kotlin#indentexpr()"
+vim.bo.indentexpr = "v:lua.require('lervag.util.kotlin').indentexpr()"
