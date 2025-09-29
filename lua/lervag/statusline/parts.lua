@@ -150,23 +150,56 @@ function M.gitfile(ref, path)
   }
 end
 
+---Wiki broken links cache
+local _cache_wiki_broken_links = {}
+
+-- Cache invalidation for wiki broken links
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufDelete" }, {
+  group = vim.api.nvim_create_augroup("statusline_wiki_cache", {}),
+  pattern = "*.wiki",
+  callback = function()
+    -- Clear entire cache when any wiki file changes
+    _cache_wiki_broken_links = {}
+  end,
+})
+
 ---@return string
 function M.wiki_broken_links()
   local path = vim.fn.fnamemodify(ctx.active_name, ":p")
 
   local stat = vim.uv.fs_stat(path)
-  if stat and stat.type == "file" then
-    ---@type integer
-    local broken_links = vim.api.nvim_call_function(
-      "wiki#graph#get_number_of_broken_links",
-      { path }
-    )
-    if broken_links > 0 then
-      return ui.icon "link" .. ui.red(broken_links)
-    end
+  if not stat or stat.type ~= "file" then
+    return ""
   end
 
-  return ""
+  local cached = _cache_wiki_broken_links[path]
+
+  -- Check if we have a valid cached result
+  local file_mtime = stat.mtime.sec
+  ---@diagnostic disable-next-line: unnecessary-if
+  if cached and cached.mtime == file_mtime then
+    return cached.result
+  end
+
+  -- Compute expensive result
+  ---@type integer
+  local broken_links = vim.api.nvim_call_function(
+    "wiki#graph#get_number_of_broken_links",
+    { path }
+  )
+
+  local result = ""
+  if broken_links > 0 then
+    result = ui.icon "link" .. ui.red(broken_links)
+  end
+
+  -- Cache the result
+  _cache_wiki_broken_links[path] = {
+    mtime = file_mtime,
+    result = result,
+  }
+
+  return result
 end
 
 return M
