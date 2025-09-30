@@ -5,7 +5,7 @@ local snippets = {
     body = "",
   },
   {
-    prefix = "anki-qq",
+    prefix = "QQ",
     desc = "Anki question and answer",
     body = [[
 Q: $1

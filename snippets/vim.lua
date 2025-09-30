@@ -11,23 +11,27 @@ local function autoload_name()
   end
 end
 
-local snippets = {
-  {
+local function snp_function()
+  return {
     prefix = "fun",
     desc = "Regular function",
     body = {
       "function! " .. autoload_name() .. "($2) abort",
-      "  $3",
+      "  $0",
       "endfunction",
       "",
     },
-  },
+  }
+end
+
+local snippets = {
+  snp_function,
   {
     prefix = "sfun",
     desc = "Private function",
     body = {
-      "function! s:${1:name}(${2}) abort",
-      "  ${3}",
+      "function! s:${1:name}($2) abort",
+      "  $0",
       "endfunction",
       "",
     },

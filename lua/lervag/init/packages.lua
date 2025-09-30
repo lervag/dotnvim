@@ -616,7 +616,11 @@ local M = {
       cmp.setup {
         snippet = {
           expand = function(args)
-            vim.snippet.expand(args.body)
+            local insert = MiniSnippets.config.expand.insert
+              or MiniSnippets.default_insert
+            insert { body = args.body }
+            cmp.resubscribe { "TextChangedI", "TextChangedP" }
+            require("cmp.config").set_onetime { sources = {} }
           end,
         },
         formatting = {

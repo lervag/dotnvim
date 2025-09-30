@@ -13,6 +13,7 @@ local snippets = {
       "  Lengde (Sverre) xx.x cm",
       "  Trening",
       "  Notat           $0",
+      "",
     },
   },
   {
@@ -22,6 +23,7 @@ local snippets = {
       "Sto opp         $1",
       "La meg          $2",
       "Notat           $0",
+      "",
     },
   },
 }
