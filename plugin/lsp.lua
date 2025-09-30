@@ -319,17 +319,6 @@ lsp_enable {
 }
 
 -- }}}1
--- {{{1 wiki:graphql-lsp
-
-lsp_enable {
-  name = "graphql-lsp",
-  cmd = { "graphql-lsp", "server", "-m", "stream" },
-  filetypes = { "typescript", "typescriptreact", "graphql" },
-  root_markers = { ".graphqlrc.yml", ".git" },
-  settings = {},
-}
-
--- }}}1
 -- {{{1 wiki:lua-ls
 
 lsp_enable {
