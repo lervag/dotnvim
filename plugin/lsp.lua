@@ -392,6 +392,11 @@ lsp_enable {
       semanticTokens = {
         enable = false,
       },
+      workspace = {
+        library = {
+          "$VIMRUNTIME",
+        },
+      },
     },
   },
 }
