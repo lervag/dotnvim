@@ -198,7 +198,7 @@ local theme = {
   SLPurple = { fg = purple1, bg = color10 },
   SLRed = { fg = orange1, bg = color10 },
   SLYellow = { fg = yellow0, bg = color10 },
-  SLItalic = {  fg = color15, italic = true, bg = color10 },
+  SLItalic = { fg = color15, italic = true, bg = color10 },
 
   -- {{{1 Cursor colors
 
@@ -506,6 +506,11 @@ local theme = {
   MiniSnippetsFinal = { fg = black },
   MiniSnippetsUnvisited = { fg = orange1 },
   MiniSnippetsvisited = { fg = green1 },
+
+  SnacksInputNormal = { link = "NormalFloat" },
+  SnacksInputBorder = { link = "FloatBorder" },
+  SnacksInputTitle = { link = "FloatTitle" },
+  SnacksInputIcon = { fg = cyan0, bg = color07d },
 
   -- {{{1 Filetype Vimscript
 

@@ -314,14 +314,6 @@ local M = {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
     opts = {
-      input = {
-        prompt_align = "center",
-        relative = "editor",
-        prefer_width = 80,
-        max_width = nil,
-        min_width = nil,
-        border = my_border,
-      },
       select = {
         telescope = {
           layout_config = {
@@ -1376,7 +1368,25 @@ local M = {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      -- input = { enabled = true },
+      input = {
+        expand = false,
+        win = {
+          style = "input",
+          relative = "cursor",
+          row = -3,
+          col = 0,
+          border = my_border,
+          keys = {
+            i_cu = { "<c-u>", "<c-u>", mode = "i", expr = true },
+            i_esc = {
+              "<esc>",
+              { "cmp_close", "stopinsert", "cancel" },
+              mode = "i",
+              expr = true,
+            },
+          },
+        },
+      },
       bigfile = { enabled = true },
       quickfile = { enabled = true },
     },
