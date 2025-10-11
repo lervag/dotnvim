@@ -565,11 +565,10 @@ lsp_enable {
   name = "rust-analyzer",
   cmd = { "rust-analyzer" },
   filetypes = { "rust" },
+  single_file_support = true,
   root_markers = { "Cargo.toml" },
   settings = {
     ["rust-analyzer"] = {
-      cargo = { allFeatures = true },
-      checkOnSave = { allFeatures = true, command = "clippy" },
     },
   },
 }
