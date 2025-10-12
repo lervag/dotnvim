@@ -512,6 +512,8 @@ local theme = {
   SnacksInputTitle = { link = "FloatTitle" },
   SnacksInputIcon = { fg = cyan0, bg = color07d },
 
+  Lensline = { fg = blue2, italic = true },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },

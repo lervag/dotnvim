@@ -580,6 +580,34 @@ local M = {
       end,
     },
   },
+  {
+    "oribarilan/lensline.nvim",
+    event = "LspAttach",
+    config = function()
+      require("lensline").setup {
+        profiles = {
+          {
+            name = "default",
+            providers = {
+              {
+                name = "usages",
+                breakdown = false,
+                show_zero = false,
+              },
+              {
+                name = "last_author",
+              },
+            },
+            style = {
+              highlight = "Lensline",
+              prefix = "",
+              placement = "above",
+            },
+          },
+        },
+      }
+    end,
+  },
 
   -- Completion, LSP and snippets
   {
