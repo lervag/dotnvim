@@ -583,30 +583,28 @@ local M = {
   {
     "oribarilan/lensline.nvim",
     event = "LspAttach",
-    config = function()
-      require("lensline").setup {
-        profiles = {
-          {
-            name = "default",
-            providers = {
-              {
-                name = "usages",
-                breakdown = false,
-                show_zero = false,
-              },
-              {
-                name = "last_author",
-              },
+    opts = {
+      profiles = {
+        {
+          name = "default",
+          providers = {
+            {
+              name = "usages",
+              breakdown = false,
+              show_zero = false,
             },
-            style = {
-              highlight = "Lensline",
-              prefix = "",
-              placement = "above",
+            {
+              name = "last_author",
             },
           },
+          style = {
+            highlight = "Lensline",
+            prefix = "",
+            placement = "above",
+          },
         },
-      }
-    end,
+      },
+    },
   },
 
   -- Completion, LSP and snippets
@@ -1237,6 +1235,19 @@ local M = {
       vim.fn["columnmove#utility#map"]("nxo", "ge", "øge", "block")
       vim.fn["columnmove#utility#map"]("nxo", "gE", "øgE", "block")
     end,
+  },
+  {
+    "zerochae/endpoint.nvim",
+    cmd = { "Endpoint", "EndpointRefresh" },
+    keys = {
+      { "<leader>oe", "<cmd>Endpoint<cr>", desc = "Endpoint" },
+    },
+    opts = {
+      ui = {
+        show_icons = false,
+        -- show_method = true,
+      },
+    },
   },
 
   -- Debugging, and code runners
