@@ -541,6 +541,25 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 wiki:pyrefly
+
+lsp_enable {
+  name = "pyrefly",
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
+  disable = function() return true end,
+  filetypes = { "python" },
+  root_markers = {
+    "pyrefly.toml",
+    "pyproject.toml",
+    ".git",
+  },
+  settings = {
+    pyrefly = {
+    },
+  },
+}
+
+-- }}}1
 -- {{{1 wiki:ruff-lsp
 
 lsp_enable {
@@ -568,8 +587,7 @@ lsp_enable {
   single_file_support = true,
   root_markers = { "Cargo.toml" },
   settings = {
-    ["rust-analyzer"] = {
-    },
+    ["rust-analyzer"] = {},
   },
 }
 

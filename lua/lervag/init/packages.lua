@@ -974,6 +974,7 @@ local M = {
         "markdownlint",
         "kulala-fmt",
         "emmylua_ls",
+        "pyrefly",
       },
     },
     config = function(_, opts)
