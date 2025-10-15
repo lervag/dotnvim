@@ -60,6 +60,7 @@ local magenta1d = "#8b008b"
 local orange0 = "#cb4b16"
 local orange1 = "#ff5f00"
 local pink1 = "#f7cfbf"
+local pink2 = "#caa894"
 local purple1 = "#8787d7"
 local red0 = "#dc322f"
 local red0_v50 = "#801c1b"
@@ -512,7 +513,7 @@ local theme = {
   SnacksInputTitle = { link = "FloatTitle" },
   SnacksInputIcon = { fg = cyan0, bg = color07d },
 
-  Lensline = { fg = blue2, italic = true },
+  Lensline = { fg = pink2, italic = true },
 
   -- {{{1 Filetype Vimscript
 
