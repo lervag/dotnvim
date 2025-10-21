@@ -235,7 +235,7 @@ end
 
 lsp_enable {
   name = "bashls",
-  cmd = { "bash-language-server", "start" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/bash-language-server", "start" },
   filetypes = { "sh" },
   settings = {
     bashIde = {
@@ -251,7 +251,7 @@ lsp_enable {
 
 lsp_enable {
   name = "cssls",
-  cmd = { "vscode-css-language-server", "--stdio" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vscode-css-language-server", "--stdio" },
   filetypes = { "css", "scss", "less" },
   root_markers = { "package.json", ".git" },
   settings = {
@@ -266,7 +266,7 @@ lsp_enable {
 
 lsp_enable {
   name = "html-ls",
-  cmd = { "vscode-html-language-server", "--stdio" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vscode-html-language-server", "--stdio" },
   filetypes = { "html" },
   root_markers = { "package.json", ".git" },
   init_options = {
@@ -282,7 +282,7 @@ lsp_enable {
 
 lsp_enable {
   name = "jsonls",
-  cmd = { "vscode-json-language-server", "--stdio" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vscode-json-language-server", "--stdio" },
   filetypes = { "json", "jsonc" },
   init_options = {
     provideFormatter = true,
@@ -323,7 +323,7 @@ lsp_enable {
 
 lsp_enable {
   name = "lua-language-server",
-  cmd = { "lua-language-server" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/lua-language-server" },
   disable = function()
     return true
   end,
@@ -518,7 +518,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 lsp_enable {
   name = "basedpyright",
-  cmd = { "basedpyright-langserver", "--stdio" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/basedpyright-langserver", "--stdio" },
   filetypes = { "python" },
   root_markers = {
     "pyproject.toml",
@@ -680,7 +680,7 @@ lsp_enable {
 
 lsp_enable {
   name = "yamlls",
-  cmd = { "yaml-language-server", "--stdio" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/yaml-language-server", "--stdio" },
   filetypes = { "yaml", "yaml.docker-compose" },
   settings = {
     redhat = { telemetry = { enabled = false } },

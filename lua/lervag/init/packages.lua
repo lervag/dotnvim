@@ -267,6 +267,7 @@ local M = {
     config = function()
       require("nvim-treesitter.configs").setup {
         ensure_installed = "all",
+        ignore_install = { "ipkg" },
         highlight = {
           enable = true,
           disable = { "latex" },
@@ -968,13 +969,22 @@ local M = {
     build = ":MasonUpdate",
     opts = {
       ensure_installed = {
-        "gitlab-ci-ls",
+        "bash-language-server",
         "black",
+        "css-lsp",
+        "emmylua_ls",
+        "gitlab-ci-ls",
+        "html-lsp",
+        "json-lsp",
+        "kulala-fmt",
         "markdown-toc",
         "markdownlint",
-        "kulala-fmt",
-        "emmylua_ls",
         "pyrefly",
+        "shellcheck",
+        "stylua",
+        "vim-language-server",
+        "yaml-language-server",
+        "yamllint",
       },
     },
     config = function(_, opts)
