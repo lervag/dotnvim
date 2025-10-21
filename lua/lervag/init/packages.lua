@@ -970,7 +970,6 @@ local M = {
     opts = {
       ensure_installed = {
         "bash-language-server",
-        "black",
         "css-lsp",
         "emmylua_ls",
         "gitlab-ci-ls",
