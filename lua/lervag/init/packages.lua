@@ -950,6 +950,7 @@ local M = {
         "gitlab-ci-ls",
         "html-lsp",
         "json-lsp",
+        "kotlin-lsp",
         "kulala-fmt",
         "markdown-toc",
         "markdownlint",

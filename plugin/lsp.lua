@@ -402,6 +402,23 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 wiki:kotlin-lsp
+
+lsp_enable {
+  name = "kotlin-lsp",
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/kotlin-lsp", "--stdio" },
+  filetypes = { 'kotlin' },
+  root_markers = {
+    'settings.gradle', -- Gradle (multi-project)
+    'settings.gradle.kts', -- Gradle (multi-project)
+    'pom.xml', -- Maven
+    'build.gradle', -- Gradle
+    'build.gradle.kts', -- Gradle
+    'workspace.json', -- Used to integrate your own build system
+  },
+}
+
+-- }}}1
 -- {{{1 wiki:Metals
 
 vim.api.nvim_create_autocmd("FileType", {
