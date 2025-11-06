@@ -235,7 +235,10 @@ end
 
 lsp_enable {
   name = "bashls",
-  cmd = { "/home/lervag/.local/share/nvim/mason/bin/bash-language-server", "start" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/bash-language-server",
+    "start",
+  },
   filetypes = { "sh" },
   settings = {
     bashIde = {
@@ -251,7 +254,10 @@ lsp_enable {
 
 lsp_enable {
   name = "cssls",
-  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vscode-css-language-server", "--stdio" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/vscode-css-language-server",
+    "--stdio",
+  },
   filetypes = { "css", "scss", "less" },
   root_markers = { "package.json", ".git" },
   settings = {
@@ -266,7 +272,10 @@ lsp_enable {
 
 lsp_enable {
   name = "html-ls",
-  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vscode-html-language-server", "--stdio" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/vscode-html-language-server",
+    "--stdio",
+  },
   filetypes = { "html" },
   root_markers = { "package.json", ".git" },
   init_options = {
@@ -282,7 +291,10 @@ lsp_enable {
 
 lsp_enable {
   name = "jsonls",
-  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vscode-json-language-server", "--stdio" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/vscode-json-language-server",
+    "--stdio",
+  },
   filetypes = { "json", "jsonc" },
   init_options = {
     provideFormatter = true,
@@ -407,14 +419,14 @@ lsp_enable {
 lsp_enable {
   name = "kotlin-lsp",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/kotlin-lsp", "--stdio" },
-  filetypes = { 'kotlin' },
+  filetypes = { "kotlin" },
   root_markers = {
-    'settings.gradle', -- Gradle (multi-project)
-    'settings.gradle.kts', -- Gradle (multi-project)
-    'pom.xml', -- Maven
-    'build.gradle', -- Gradle
-    'build.gradle.kts', -- Gradle
-    'workspace.json', -- Used to integrate your own build system
+    "settings.gradle", -- Gradle (multi-project)
+    "settings.gradle.kts", -- Gradle (multi-project)
+    "pom.xml", -- Maven
+    "build.gradle", -- Gradle
+    "build.gradle.kts", -- Gradle
+    "workspace.json", -- Used to integrate your own build system
   },
 }
 
@@ -535,7 +547,10 @@ vim.api.nvim_create_autocmd("FileType", {
 
 lsp_enable {
   name = "basedpyright",
-  cmd = { "/home/lervag/.local/share/nvim/mason/bin/basedpyright-langserver", "--stdio" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/basedpyright-langserver",
+    "--stdio",
+  },
   filetypes = { "python" },
   root_markers = {
     "pyproject.toml",
@@ -563,7 +578,9 @@ lsp_enable {
 lsp_enable {
   name = "pyrefly",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
-  disable = function() return true end,
+  disable = function()
+    return true
+  end,
   filetypes = { "python" },
   root_markers = {
     "pyrefly.toml",
@@ -571,8 +588,7 @@ lsp_enable {
     ".git",
   },
   settings = {
-    pyrefly = {
-    },
+    pyrefly = {},
   },
 }
 
@@ -646,7 +662,10 @@ lsp_enable {
 
 lsp_enable {
   name = "typescript-language-server",
-  cmd = { "typescript-language-server", "--stdio" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/typescript-language-server",
+    "--stdio",
+  },
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -697,7 +716,10 @@ lsp_enable {
 
 lsp_enable {
   name = "yamlls",
-  cmd = { "/home/lervag/.local/share/nvim/mason/bin/yaml-language-server", "--stdio" },
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/yaml-language-server",
+    "--stdio",
+  },
   filetypes = { "yaml", "yaml.docker-compose" },
   settings = {
     redhat = { telemetry = { enabled = false } },

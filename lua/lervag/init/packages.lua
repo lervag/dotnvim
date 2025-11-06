@@ -951,6 +951,7 @@ local M = {
         "html-lsp",
         "json-lsp",
         "kotlin-lsp",
+        "typescript-language-server",
         "kulala-fmt",
         "markdown-toc",
         "markdownlint",
