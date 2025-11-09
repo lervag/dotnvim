@@ -687,7 +687,7 @@ lsp_enable {
 
 lsp_enable {
   name = "vimls",
-  cmd = { "vim-language-server", "--stdio" },
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/vim-language-server", "--stdio" },
   filetypes = { "vim" },
   init_options = {
     isNeovim = true,
