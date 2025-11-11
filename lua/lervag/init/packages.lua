@@ -876,17 +876,15 @@ local M = {
           },
         },
         formatters_by_ft = {
-          lua = { "stylua" },
-          markdown = {
-            "prettierd",
-            "markdownlint",
-            "markdown-toc",
-          },
           graphql = { "prettierd" },
           groovy = { "npm-groovy-lint" },
           http = { "kulala" },
           javascript = { "prettierd" },
+          json = { "prettierd" },
+          lua = { "stylua" },
+          markdown = { "prettierd", "markdownlint", "markdown-toc" },
           sql = { "pg_format" },
+          typescript = { "prettierd" },
         },
       }
     end,
@@ -961,6 +959,7 @@ local M = {
         "vim-language-server",
         "yaml-language-server",
         "yamllint",
+        "eslint-lsp",
       },
     },
     config = function(_, opts)
