@@ -679,7 +679,11 @@ lsp_enable {
   end,
   root_markers = { "tsconfig.json", "package.json", ".git" },
   init_options = { hostInfo = "neovim" },
-  settings = {},
+  settings = {
+    diagnostics = {
+      ignoredCodes = { 6133 },
+    },
+  },
 }
 
 -- }}}1
