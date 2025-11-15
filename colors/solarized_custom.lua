@@ -445,15 +445,11 @@ local theme = {
   CmpItemKindFunction = { fg = color05 },
   CmpItemKindMethod = { link = "CmpItemKindFunction" },
 
-  TelescopeBorder = { fg = black, bg = color07d, bold = true },
-  TelescopeMatching = { fg = blue0, bold = true },
-  TelescopeMultiIcon = { link = "TelescopeMultiSelection" },
-  TelescopeMultiSelection = { fg = green0, bold = true },
-  TelescopeNormal = { bg = color07d },
-  TelescopePromptCounter = { fg = green0, bold = true },
-  TelescopePromptNormal = { fg = blue0, bg = color07d },
-  TelescopePromptPrefix = { fg = black },
-  TelescopeTitle = { fg = color03, bold = true },
+  MiniPickPrompt = { fg = black, bg = color07d },
+  MiniPickPromptCaret = { fg = black, bg = color07d, bold = true },
+  MiniPickPromptPrefix = { link = "MiniPickPromptCaret" },
+  MiniPickBorder = { bg = color07d },
+  MiniPickBorderBusy = { link = "MiniPickBorder" },
 
   LTSymbol = { fg = base02 },
 

@@ -315,14 +315,16 @@ local M = {
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
+    enabled = false,
     opts = {
       select = {
-        telescope = {
-          layout_config = {
-            width = 0.9,
-            height = 0.9,
-          },
-        },
+        -- TODO: Konfigurer vim.ui.select
+        -- telescope = {
+        --   layout_config = {
+        --     width = 0.9,
+        --     height = 0.9,
+        --   },
+        -- },
       },
     },
   },
@@ -1028,116 +1030,94 @@ local M = {
 
   -- Finder, motions, and tags
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
+    "nvim-mini/mini.pick",
+    dependencies = { "nvim-mini/mini.extra" },
+    lazy = false,
+    opts = {
+      options = {
+        use_cache = true,
       },
-      "Allaman/emoji.nvim",
+      window = {
+        config = {
+          height = 200,
+          width = 200,
+        },
+      },
     },
-    cmd = "Telescope",
-    init = function()
-      vim.keymap.set("n", "<leader><leader>", function()
-        require("telescope.builtin").oldfiles()
-      end)
-      vim.keymap.set("n", "<leader>ob", function()
-        require("telescope.builtin").buffers()
-      end)
-      vim.keymap.set("n", "<leader>og", function()
-        require("telescope.builtin").git_files()
-      end)
+    keys = {
+      {
+        "<leader><leader>",
+        function()
+          require("mini.extra").pickers.oldfiles()
+        end,
+      },
+      {
+        "<leader>ow",
+        function()
+          local pick = require "mini.pick"
 
-      vim.keymap.set("n", "<leader>ev", function()
-        require("lervag.util.ts").files_nvim()
-      end)
-      vim.keymap.set("n", "<leader>ez", function()
-        require("lervag.util.ts").files_dotfiles()
-      end)
-
-      vim.keymap.set("n", "<leader>oo", function()
-        require("lervag.util.ts").files()
-      end)
-      vim.keymap.set("n", "<leader>op", function()
-        require("lervag.util.ts").files_plugged()
-      end)
-      vim.keymap.set("n", "<leader>ow", function()
-        require("lervag.util.ts").files_wiki()
-      end)
-      vim.keymap.set("n", "<leader>oz", function()
-        require("lervag.util.ts").files_zotero()
-      end)
-    end,
-    config = function()
-      -- https://github.com/nvim-telescope/telescope.nvim/issues/559
-      local function stopinsert(callback)
-        return function(prompt_bufnr)
-          vim.cmd.stopinsert()
-          vim.schedule(function()
-            callback(prompt_bufnr)
-          end)
-        end
-      end
-
-      local actions = require "telescope.actions"
-      local telescope = require "telescope"
-      telescope.setup {
-        defaults = {
-          create_layout = require("lervag.util.ts_layout").layout,
-          sorting_strategy = "ascending",
-          preview = {
-            hide_on_startup = true,
-          },
-          file_ignore_patterns = {
-            "%.git/",
-            "/tags$",
-          },
-          history = false,
-          mappings = {
-            n = {
-              ["q"] = "close",
-              ["<esc>"] = "close",
+          pick.builtin.files(nil, {
+            source = {
+              cwd = "~/.local/wiki",
+              show = function(buf_id, items_arr, _query)
+                local lines = vim.tbl_map(function(x)
+                  return vim.fn.fnamemodify(x, ":r")
+                end, items_arr)
+                vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+              end,
             },
-            i = {
-              ["<cr>"] = stopinsert(actions.select_default),
-              ["|"] = stopinsert(actions.select_horizontal),
-              ["<c-v>"] = stopinsert(actions.select_vertical),
-              ["<tab>"] = "move_selection_next",
-              ["<s-tab>"] = "move_selection_previous",
-              ["<esc>"] = "close",
-              ["<C-h>"] = "which_key",
-              ["<C-u>"] = { type = "command", "<c-u>" },
-              ["<C-x>"] = "toggle_selection",
-            },
-          },
-        },
-        pickers = {
-          find_files = {
-            follow = true,
-            hidden = true,
-            find_command = {
-              "fd",
-              "--type",
-              "f",
-              "--color",
-              "never",
-              "--strip-cwd-prefix",
-            },
-          },
-        },
-        extensions = {
-          fzf = {
-            case_mode = "smart_case",
-            fuzzy = false,
-            override_file_sorter = true,
-            override_generic_sorter = true,
-          },
-        },
-      }
+          })
+        end,
+      },
+      {
+        "<leader>oo",
+        function()
+          require("mini.pick").builtin.files()
+        end,
+      },
+      {
+        "<leader>ob",
+        function()
+          require("mini.pick").builtin.buffers()
+        end,
+      },
+      {
+        "<leader>ev",
+        function()
+          local pick = require "mini.pick"
 
-      telescope.load_extension "fzf"
-    end,
+          pick.builtin.files(nil, {
+            source = {
+              cwd = "~/.config/nvim",
+            },
+          })
+        end,
+      },
+      {
+        "<leader>ez",
+        function()
+          local pick = require "mini.pick"
+
+          pick.builtin.files(nil, {
+            source = {
+              cwd = "~/.dotfiles",
+            },
+          })
+        end,
+      },
+      {
+        "<leader>op",
+        function()
+          local pick = require "mini.pick"
+
+          pick.builtin.files(nil, {
+            source = {
+              cwd = "~/.local/plugged",
+            },
+          })
+        end,
+      },
+    },
   },
   {
     "rgroli/other.nvim",
@@ -1691,13 +1671,6 @@ local M = {
       },
       { "<leader>gd", "<cmd>Gdiffsplit<cr>:WinResize<cr>", desc = "fugitive" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" }, desc = "fugitive" },
-      {
-        "<leader>gB",
-        function()
-          require("telescope.builtin").git_branches()
-        end,
-        desc = "fugitive",
-      },
     },
     config = function()
       -- See also:

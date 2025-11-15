@@ -166,26 +166,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local is_enabled = vim.lsp.inlay_hint.is_enabled { bufnr = 0 }
       vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = 0 })
     end, { desc = "Toggle inlay hints" })
-
-    -- Unsure if I want/need these
-    vim.keymap.set("n", "<leader>l1", function()
-      require("telescope.builtin").lsp_document_symbols()
-    end, { desc = "List LSP document symbols" })
-    vim.keymap.set("n", "<leader>l2", function()
-      require("telescope.builtin").lsp_dynamic_workspace_symbols()
-    end, { desc = "Dynamically list LSP for workspace symbols" })
-    vim.keymap.set(
-      "n",
-      "<leader>l3",
-      vim.lsp.buf.document_highlight,
-      { desc = "Resolve document highlights for current position" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>l4",
-      vim.lsp.buf.clear_references,
-      { desc = "Remove document highlights" }
-    )
   end,
 })
 

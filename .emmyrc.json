@@ -15,9 +15,13 @@
       "$HOME/.local/plugged/mini.icons",
       "$HOME/.local/plugged/mini.notify",
       "$HOME/.local/plugged/mini.snippets",
+      "$HOME/.local/plugged/mini.pick",
+      "$HOME/.local/plugged/mini.extra",
       "$HOME/.local/plugged/lazy.nvim",
-      "$HOME/.local/plugged/snacks.nvim",
-      "$HOME/.local/plugged/telescope.nvim"
+      "$HOME/.local/plugged/snacks.nvim"
     ]
+  },
+  "diagnostics": {
+    "globalsRegex": ["^Mini"]
   }
 }
