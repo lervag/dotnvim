@@ -313,20 +313,6 @@ local M = {
     },
   },
   {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
-    opts = {
-      select = {
-        telescope = {
-          layout_config = {
-            width = 0.9,
-            height = 0.9,
-          },
-        },
-      },
-    },
-  },
-  {
     "nvim-mini/mini.icons",
     opts = {
       lsp = {
@@ -402,42 +388,6 @@ local M = {
 
       vim.notify = mininotify.make_notify()
     end,
-  },
-  {
-    "A7Lavinraj/fyler.nvim",
-    lazy = false,
-    dependencies = { "nvim-mini/mini.icons" },
-    keys = {
-      {
-        "-",
-        function()
-          local root = vim.fn.FindRootDirectory()
-          if root == "" then
-            root = vim.fn.expand "%:p:h"
-          end
-
-          require("fyler").open { dir = root }
-        end,
-        desc = "Open parent directory",
-      },
-    },
-    opts = {
-      default_explorer = true,
-      indentscope = {
-        enabled = false,
-      },
-      mappings = {
-        H = "CollapseNode",
-        L = "Select",
-      },
-      win = {
-        win_opts = {
-          cursorline = true,
-          number = false,
-          relativenumber = false,
-        },
-      },
-    },
   },
   {
     "Robitx/gp.nvim",
@@ -610,8 +560,8 @@ local M = {
       cmp.setup {
         snippet = {
           expand = function(args)
-            local insert = MiniSnippets.config.expand.insert
-              or MiniSnippets.default_insert
+            local insert = require("mini.snippets").config.expand.insert
+              or require("mini.snippets").default_insert
             insert { body = args.body }
             cmp.resubscribe { "TextChangedI", "TextChangedP" }
             require("cmp.config").set_onetime { sources = {} }
@@ -620,14 +570,14 @@ local M = {
         formatting = {
           format = function(entry, item)
             if entry.source.name == "omni" then
-              local icon, hl = MiniIcons.get("filetype", "vim")
+              local icon, hl = require("mini.icons").get("filetype", "vim")
               item.kind = icon .. " "
               item.kind_hl_group = hl
               item.menu = item.menu:gsub("[%[%]]", "")
               return item
             end
 
-            local icon, hl = MiniIcons.get("lsp", item.kind)
+            local icon, hl = require("mini.icons").get("lsp", item.kind)
             item.kind = icon .. " " .. item.kind:lower()
             item.kind_hl_group = hl
 
@@ -1028,118 +978,6 @@ local M = {
 
   -- Finder, motions, and tags
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
-      "Allaman/emoji.nvim",
-    },
-    cmd = "Telescope",
-    init = function()
-      vim.keymap.set("n", "<leader><leader>", function()
-        require("telescope.builtin").oldfiles()
-      end)
-      vim.keymap.set("n", "<leader>ob", function()
-        require("telescope.builtin").buffers()
-      end)
-      vim.keymap.set("n", "<leader>og", function()
-        require("telescope.builtin").git_files()
-      end)
-
-      vim.keymap.set("n", "<leader>ev", function()
-        require("lervag.util.ts").files_nvim()
-      end)
-      vim.keymap.set("n", "<leader>ez", function()
-        require("lervag.util.ts").files_dotfiles()
-      end)
-
-      vim.keymap.set("n", "<leader>oo", function()
-        require("lervag.util.ts").files()
-      end)
-      vim.keymap.set("n", "<leader>op", function()
-        require("lervag.util.ts").files_plugged()
-      end)
-      vim.keymap.set("n", "<leader>ow", function()
-        require("lervag.util.ts").files_wiki()
-      end)
-      vim.keymap.set("n", "<leader>oz", function()
-        require("lervag.util.ts").files_zotero()
-      end)
-    end,
-    config = function()
-      -- https://github.com/nvim-telescope/telescope.nvim/issues/559
-      local function stopinsert(callback)
-        return function(prompt_bufnr)
-          vim.cmd.stopinsert()
-          vim.schedule(function()
-            callback(prompt_bufnr)
-          end)
-        end
-      end
-
-      local actions = require "telescope.actions"
-      local telescope = require "telescope"
-      telescope.setup {
-        defaults = {
-          create_layout = require("lervag.util.ts_layout").layout,
-          sorting_strategy = "ascending",
-          preview = {
-            hide_on_startup = true,
-          },
-          file_ignore_patterns = {
-            "%.git/",
-            "/tags$",
-          },
-          history = false,
-          mappings = {
-            n = {
-              ["q"] = "close",
-              ["<esc>"] = "close",
-            },
-            i = {
-              ["<cr>"] = stopinsert(actions.select_default),
-              ["|"] = stopinsert(actions.select_horizontal),
-              ["<c-v>"] = stopinsert(actions.select_vertical),
-              ["<tab>"] = "move_selection_next",
-              ["<s-tab>"] = "move_selection_previous",
-              ["<esc>"] = "close",
-              ["<C-h>"] = "which_key",
-              ["<C-u>"] = { type = "command", "<c-u>" },
-              ["<C-x>"] = "toggle_selection",
-            },
-          },
-        },
-        pickers = {
-          find_files = {
-            follow = true,
-            hidden = true,
-            find_command = {
-              "fd",
-              "--type",
-              "f",
-              "--color",
-              "never",
-              "--strip-cwd-prefix",
-            },
-          },
-        },
-        extensions = {
-          fzf = {
-            case_mode = "smart_case",
-            fuzzy = false,
-            override_file_sorter = true,
-            override_generic_sorter = true,
-          },
-        },
-      }
-
-      telescope.load_extension "fzf"
-    end,
-  },
-  {
     "rgroli/other.nvim",
     -- See wiki:other.nvim
     command = "Other",
@@ -1391,8 +1229,78 @@ local M = {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    keys = {
+      {
+        "<leader><leader>",
+        function()
+          Snacks.picker.recent()
+        end,
+      },
+      {
+        "<leader>oo",
+        function()
+          Snacks.picker.files()
+        end,
+      },
+      {
+        "<leader>op",
+        function()
+          Snacks.picker.files {
+            title = "Neovim plugin files",
+            cwd = "~/.local/plugged/",
+          }
+        end,
+      },
+      {
+        "<leader>ev",
+        function()
+          Snacks.picker.files {
+            title = "Neovim config",
+            cwd = "~/.config/nvim",
+          }
+        end,
+      },
+      {
+        "<leader>ez",
+        function()
+          Snacks.picker.files {
+            title = "Dotfiles",
+            cwd = "~/.dotfiles",
+          }
+        end,
+      },
+      {
+        "<leader>ow",
+        function()
+          Snacks.picker.files {
+            title = "Wiki",
+            cwd = "~/.local/wiki",
+          }
+        end,
+      },
+      {
+        "-",
+        function()
+          Snacks.picker.explorer {
+            auto_close = true,
+            layout = {
+              fullscreen = true,
+              preset = "sidebar",
+            },
+          }
+        end,
+      },
+      {
+        "<c-u>",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "Delete Buffer",
+      },
+    },
     ---@type snacks.Config
     opts = {
+      bigfile = { enabled = true },
       input = {
         expand = false,
         win = {
@@ -1412,17 +1320,29 @@ local M = {
           },
         },
       },
-      bigfile = { enabled = true },
-      quickfile = { enabled = true },
-    },
-    keys = {
-      {
-        "<c-u>",
-        function()
-          Snacks.bufdelete()
-        end,
-        desc = "Delete Buffer",
+      picker = {
+        layout = {
+          preset = "vscode",
+          ---@diagnostic disable-next-line: missing-fields
+          layout = {
+            width = 0.5,
+            height = 0.9,
+          },
+        },
+        matcher = {
+          fuzzy = false,
+          frecency = true,
+          cwd_bonus = true,
+        },
+        win = {
+          input = {
+            keys = {
+              ["<Esc>"] = { "close", mode = { "n", "i" } },
+            },
+          },
+        },
       },
+      quickfile = { enabled = true },
     },
   },
 
@@ -1691,13 +1611,6 @@ local M = {
       },
       { "<leader>gd", "<cmd>Gdiffsplit<cr>:WinResize<cr>", desc = "fugitive" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" }, desc = "fugitive" },
-      {
-        "<leader>gB",
-        function()
-          require("telescope.builtin").git_branches()
-        end,
-        desc = "fugitive",
-      },
     },
     config = function()
       -- See also:
