@@ -1273,8 +1273,36 @@ local M = {
         "<leader>ow",
         function()
           Snacks.picker.files {
-            title = "Wiki",
+            title = " Wiki ",
             cwd = "~/.local/wiki",
+            matcher = { sort_empty = true },
+            sort = function(a, b)
+              local a_text = (a.file or a.text):lower()
+              local b_text = (b.file or b.text):lower()
+              return a_text < b_text
+            end,
+            confirm = function(picker, item, action)
+              if item then
+                Snacks.picker.actions[action.name](picker, item, action)
+              else
+                picker:close()
+                local new_name = picker.finder.filter.pattern
+                if new_name and new_name ~= "" then
+                  vim.fn["wiki#page#open"](new_name)
+                end
+              end
+            end,
+            format = function(item)
+              local ret = {}
+
+              local name = item.file
+              if name and name:find "%.wiki$" then
+                name = name:match "(.+)%.wiki$"
+              end
+              ret[#ret + 1] = { name, "SnacksPickerFile" }
+
+              return ret
+            end,
           }
         end,
       },
@@ -1338,6 +1366,7 @@ local M = {
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<c-u>"] = { "<c-u>", mode = { "i" }, expr = true },
             },
           },
         },
