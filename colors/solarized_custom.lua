@@ -445,7 +445,11 @@ local theme = {
   CmpItemKindFunction = { fg = color05 },
   CmpItemKindMethod = { link = "CmpItemKindFunction" },
 
-  -- SnacksPickerBox = { fg = black, bg = red1 },
+  SnacksPickerPrompt = { fg = black, bg = color07d },
+  SnacksPickerSpinner = { fg = black },
+  SnacksPickerToggle = { fg = color03, bg = color07d, italic = true },
+  SnacksPickerTotals = { fg = black },
+  SnacksPickerTree = { fg = black, bg = color07d },
 
   LTSymbol = { fg = base02 },
 

@@ -1239,7 +1239,7 @@ local M = {
       {
         "<leader>oo",
         function()
-          Snacks.picker.files()
+          Snacks.picker.explorer { focus = "input" }
         end,
       },
       {
@@ -1275,6 +1275,7 @@ local M = {
           Snacks.picker.files {
             title = " Wiki ",
             cwd = "~/.local/wiki",
+            exclude = { ".gitignore" },
             matcher = { sort_empty = true },
             sort = function(a, b)
               local a_text = (a.file or a.text):lower()
@@ -1309,13 +1310,7 @@ local M = {
       {
         "-",
         function()
-          Snacks.picker.explorer {
-            auto_close = true,
-            layout = {
-              fullscreen = true,
-              preset = "sidebar",
-            },
-          }
+          Snacks.picker.explorer()
         end,
       },
       {
@@ -1357,6 +1352,27 @@ local M = {
             height = 0.9,
           },
         },
+        sources = {
+          files = {
+            hidden = true,
+          },
+          explorer = {
+            auto_close = true,
+            hidden = true,
+            layout = {
+              fullscreen = true,
+              preset = "sidebar",
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<tab>"] = { "list_down", mode = { "i" } },
+                  ["<s-tab>"] = { "list_up", mode = { "i" } },
+                },
+              },
+            },
+          },
+        },
         matcher = {
           fuzzy = false,
           frecency = true,
@@ -1366,7 +1382,10 @@ local M = {
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<f1>"] = { "toggle_help_input", mode = { "n", "i" } },
               ["<c-u>"] = { "<c-u>", mode = { "i" }, expr = true },
+              ["<tab>"] = { "list_down", mode = { "i" } },
+              ["<s-tab>"] = { "list_up", mode = { "i" } },
             },
           },
         },
