@@ -1324,6 +1324,9 @@ local M = {
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
+      explorer = {
+        replace_netrw = true,
+      },
       input = {
         expand = false,
         win = {
@@ -1363,11 +1366,31 @@ local M = {
               fullscreen = true,
               preset = "sidebar",
             },
+            actions = {
+              confirm_fast = function(picker, item, action)
+                if not item then
+                  return
+                elseif picker.input.filter.meta.searching then
+                  Snacks.picker.actions.confirm(picker, item, action)
+                else
+                  local Actions = require "snacks.explorer.actions"
+                  Actions.actions.confirm(picker, item, action)
+                end
+              end,
+            },
             win = {
               input = {
                 keys = {
+                  ["<cr>"] = { "confirm_fast", mode = { "i" } },
+                  ["<s-cr>"] = { "cycle_win", mode = { "i" } },
                   ["<tab>"] = { "list_down", mode = { "i" } },
                   ["<s-tab>"] = { "list_up", mode = { "i" } },
+                },
+              },
+              list = {
+                keys = {
+                  ["<cr>"] = "confirm_fast",
+                  ["<s-cr>"] = "cycle_win",
                 },
               },
             },
