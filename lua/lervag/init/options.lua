@@ -144,8 +144,6 @@ vim.opt.guicursor = {
 
 vim.cmd.colorscheme "solarized_custom"
 
-vim.g._ts_force_sync_parsing = true
-
 -- {{{1 Filetype plugins
 
 vim.g.vimsyn_embed = "lP"
