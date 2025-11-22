@@ -1368,12 +1368,17 @@ local M = {
             },
             actions = {
               confirm_fast = function(picker, item, action)
+                local Tree = require "snacks.explorer.tree"
+                local Actions = require "snacks.explorer.actions"
+
                 if not item then
                   return
+                elseif item.dir then
+                  Tree:toggle(item.file)
+                  Actions.update(picker, { target = item.file })
                 elseif picker.input.filter.meta.searching then
                   Snacks.picker.actions.confirm(picker, item, action)
                 else
-                  local Actions = require "snacks.explorer.actions"
                   Actions.actions.confirm(picker, item, action)
                 end
               end,
