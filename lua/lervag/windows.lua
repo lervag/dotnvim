@@ -48,11 +48,13 @@ function M.resize()
     vim.fn.system(
       string.format("kitten @ resize-os-window --self --width %d", target_width)
     )
-    vim.fn.system(string.format('xdotool key --window %s "super+c"', winid))
+    vim.fn.system(string.format('xdotool key --window %s "super+C"', winid))
+    vim.fn.system(string.format('xdotool key --window %s "super+V"', winid))
     vim.cmd "sleep 100m"
   elseif tmux == "" and sty == "" and wezterm == "" then
     vim.o.columns = target_width
-    vim.fn.system 'xdotool key "super+c"'
+    vim.fn.system 'xdotool key "super+C"'
+    vim.fn.system 'xdotool key "super+V"'
   else
     local winid = vim.fn.systemlist("xdotool getactivewindow")[1]
     vim.fn.system(
@@ -63,7 +65,8 @@ function M.resize()
         vim.o.lines + 1
       )
     )
-    vim.fn.system(string.format('xdotool key --window %s "super+c"', winid))
+    vim.fn.system(string.format('xdotool key --window %s "super+C"', winid))
+    vim.fn.system(string.format('xdotool key --window %s "super+V"', winid))
     vim.cmd "sleep 100m"
   end
 

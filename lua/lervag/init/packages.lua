@@ -892,6 +892,7 @@ local M = {
     build = ":MasonUpdate",
     opts = {
       ensure_installed = {
+        "basedpyright",
         "bash-language-server",
         "css-lsp",
         "emmylua_ls",
