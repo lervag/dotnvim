@@ -608,6 +608,9 @@ local M = {
           { name = "emoji" },
           { name = "calc" },
         },
+        matching = {
+          disallow_fuzzy_matching = true,
+        },
         mapping = {
           ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<c-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
@@ -750,7 +753,7 @@ local M = {
         },
       }
 
-      ms.start_lsp_server()
+      ms.start_lsp_server { match = false }
     end,
   },
   {
