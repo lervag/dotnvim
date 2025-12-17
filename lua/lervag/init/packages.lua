@@ -1247,6 +1247,12 @@ local M = {
         end,
       },
       {
+        "<leader>ob",
+        function()
+          Snacks.picker.buffers()
+        end,
+      },
+      {
         "<leader>op",
         function()
           Snacks.picker.files {

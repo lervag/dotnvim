@@ -122,6 +122,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     )
     vim.keymap.set(
       "n",
+      "<leader>l1",
+      vim.lsp.buf.incoming_calls,
+      { desc = "Incoming calls" }
+    )
+    vim.keymap.set(
+      "n",
       "<leader>li",
       vim.lsp.buf.implementation,
       { desc = "List all implementations" }
@@ -730,6 +736,14 @@ lsp_enable {
       trace = { server = "debug" },
     },
   },
+  on_init = function(client)
+    --- https://github.com/neovim/nvim-lspconfig/pull/4016
+    --- Since formatting is disabled by default if you check
+    --- `client:supports_method('textDocument/formatting')` during `LspAttach`
+    --- it will return `false`. This hack sets the capability to `true` to
+    --- facilitate autocmd's which check this capability
+    client.server_capabilities.documentFormattingProvider = true
+  end,
 }
 
 -- }}}1
