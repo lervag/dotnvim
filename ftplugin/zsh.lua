@@ -1,2 +1,2 @@
-vim.cmd.runtime "ftplugin/sh.lua"
+require("lervag.util").ft_depend "sh"
 vim.g.is_bash = nil

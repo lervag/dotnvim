@@ -259,6 +259,7 @@ local M = {
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
       vim.g.matchup_override_vimtex = 1
+      -- https://github.com/andymass/vim-matchup/issues/416
       vim.g.matchup_treesitter_disabled = { "markdown" }
     end,
   },
@@ -266,23 +267,47 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = "all",
-        ignore_install = { "ipkg" },
-        highlight = {
-          enable = true,
-          disable = { "latex" },
-        },
-        indent = {
-          enable = true,
-          disable = { "latex" },
-        },
-        matchup = {
-          enable = true,
-        },
+      vim.treesitter.language.register("markdown", "mdx")
+
+      local core_parsers = {
+        "bash",
+        "css",
+        "diff",
+        "git_config",
+        "git_rebase",
+        "gitcommit",
+        "gitignore",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "rust",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
       }
 
-      vim.treesitter.language.register("markdown", "mdx")
+      local ignored_filetypes = {
+        "checkhealth",
+        "latex",
+        "lazy",
+        "mason",
+        "mininotify",
+        "mininotify-history",
+        "snacks_dashboard",
+        "snacks_notif",
+        "snacks_win",
+        "zsh",
+      }
+
+      require("lervag.init.treesitter").init(core_parsers, ignored_filetypes)
     end,
   },
   {
