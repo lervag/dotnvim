@@ -24,6 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Configure LSP: Mappings and similar",
   callback = function(args)
     local const = require "lervag.const"
+    ---@type vim.lsp.Client
     local attached_client =
       assert(vim.lsp.get_client_by_id(args.data.client_id))
 
@@ -46,10 +47,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.document_color.enable(true, args.buf)
     end
 
-    if
-      attached_client:supports_method "textDocument/onTypeFormatting"
-      and vim.lsp.on_type_formatting
-    then
+    if attached_client:supports_method "textDocument/onTypeFormatting" then
       vim.lsp.on_type_formatting.enable(
         true,
         { client_id = args.data.client_id }
@@ -646,10 +644,41 @@ lsp_enable {
 -- }}}1
 -- {{{1 wiki:typescript-language-server
 
+-- 2025-12-26  --  Tester ut tsgo
+-- lsp_enable {
+--   name = "typescript-language-server",
+--   cmd = {
+--     "/home/lervag/.local/share/nvim/mason/bin/typescript-language-server",
+--     "--stdio",
+--   },
+--   filetypes = {
+--     "javascript",
+--     "javascriptreact",
+--     "javascript.jsx",
+--     "typescript",
+--     "typescriptreact",
+--     "typescript.tsx",
+--   },
+--   disable = function(args)
+--     return not vim.fs.root(args.buf, { "tsconfig.json", "package.json" })
+--   end,
+--   root_markers = { "tsconfig.json", "package.json", ".git" },
+--   init_options = { hostInfo = "neovim" },
+--   settings = {
+--     diagnostics = {
+--       ignoredCodes = { 6133 },
+--     },
+--   },
+-- }
+
+-- }}}1
+-- {{{1 wiki:typescript-go
+
 lsp_enable {
-  name = "typescript-language-server",
+  name = "tsgo",
   cmd = {
-    "/home/lervag/.local/share/nvim/mason/bin/typescript-language-server",
+    "/home/lervag/.local/share/nvim/mason/bin/tsgo",
+    "--lsp",
     "--stdio",
   },
   filetypes = {
@@ -664,12 +693,12 @@ lsp_enable {
     return not vim.fs.root(args.buf, { "tsconfig.json", "package.json" })
   end,
   root_markers = { "tsconfig.json", "package.json", ".git" },
-  init_options = { hostInfo = "neovim" },
-  settings = {
-    diagnostics = {
-      ignoredCodes = { 6133 },
-    },
-  },
+  -- init_options = { hostInfo = "neovim" },
+  -- settings = {
+  --   diagnostics = {
+  --     ignoredCodes = { 6133 },
+  --   },
+  -- },
 }
 
 -- }}}1
