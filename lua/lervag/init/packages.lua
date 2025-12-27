@@ -296,7 +296,7 @@ local M = {
 
       local ignored_filetypes = {
         "checkhealth",
-        "latex",
+        "tex",
         "lazy",
         "mason",
         "mininotify",
@@ -1269,7 +1269,7 @@ local M = {
       {
         "<leader>oo",
         function()
-          Snacks.picker.explorer { focus = "input" }
+          Snacks.picker.files()
         end,
       },
       {
@@ -1398,6 +1398,7 @@ local M = {
           explorer = {
             auto_close = true,
             hidden = true,
+            ignored = true,
             layout = {
               fullscreen = true,
               preset = "sidebar",
