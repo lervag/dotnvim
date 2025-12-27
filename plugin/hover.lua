@@ -1,4 +1,6 @@
 vim.keymap.set("n", "K", function()
+  local const = require "lervag.const"
+
   local line_number = vim.fn.line "."
   for _, pattern in ipairs {
     [[wiki:\zs[^ ]\+]],
@@ -30,6 +32,22 @@ vim.keymap.set("n", "K", function()
   end
 
   if not vim.tbl_isempty(vim.lsp.get_clients()) then
-    vim.lsp.buf.hover()
+    vim.lsp.buf.hover { border = const.border }
   end
 end)
+
+-- Monkey patch the markdown converter to replace &npbs
+local convert_to_md_orig = vim.lsp.util.convert_input_to_markdown_lines
+
+---@param input lsp.MarkedString|lsp.MarkedString[]|lsp.MarkupContent
+---@param contents string[]?
+---@return string[]
+vim.lsp.util.convert_input_to_markdown_lines = function(input, contents)
+  contents = convert_to_md_orig(input, contents)
+  return vim.tbl_map(function(line)
+    local sub = line:gsub("&[^ ;]+;", {
+      ["&nbsp;"] = " ",
+    })
+    return sub:gsub("\\_", "_")
+  end, contents)
+end

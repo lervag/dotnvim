@@ -1,5 +1,17 @@
 vim.fn["personal#markdown#init"]()
 
+-- Handle e.g. floating previews from LSPs
+if vim.bo.buftype == "nofile" then
+  vim.wo.foldlevel = 99
+
+  -- This is a minor hack to fix a glitch where treesitter didn't start
+  -- properly for small hovers
+  vim.defer_fn(function()
+    vim.treesitter.start()
+  end, 50)
+  return
+end
+
 vim.bo.indentexpr = "personal#markdown#indentexpr(v:lnum)"
 vim.wo.conceallevel = 0
 
