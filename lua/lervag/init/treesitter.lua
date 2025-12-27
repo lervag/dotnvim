@@ -1,40 +1,25 @@
-local pending_buffers = {}
-
----Start treesitter for buffer
+---Enable treesitter for buffer
 ---@param buf integer
 ---@param lang string
----@param attempts integer
----@return boolean Started successfully?
-local function start_with_retry(buf, lang, attempts)
-  local pending_key = buf .. ":" .. lang
-
-  -- Clean up pending retries for invalid buffers
+---@return boolean Enabled successfully
+local function enable_treesitter(buf, lang)
   if not vim.api.nvim_buf_is_valid(buf) then
-    pending_buffers[pending_key] = nil
-    return false
-  end
-
-  -- Avoid duplicate start loops
-  if pending_buffers[pending_key] then
     return false
   end
 
   local ok = pcall(vim.treesitter.start, buf, lang)
-  if ok and vim.api.nvim_buf_is_valid(buf) then
+  if ok then
     vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    pending_buffers[pending_key] = nil
-  elseif attempts > 0 then
-    pending_buffers[pending_key] = true
-    vim.defer_fn(function()
-      start_with_retry(buf, lang, attempts - 1)
-    end, 500)
-  else
-    vim.notify("Could not start treesitter for: " .. lang, vim.log.levels.WARN)
-    pending_buffers[pending_key] = nil
   end
-
   return ok
 end
+
+---@class InstallState
+---@field waiting_buffers table<integer, boolean>
+---@field is_installing boolean
+
+---@type table<string, InstallState>
+local state_enabling = {}
 
 local M = {}
 
@@ -59,13 +44,63 @@ M.init = function(core_parsers, ignored_filetypes)
     group = group,
     desc = "Enable treesitter highlighting and indentation (non-blocking)",
     callback = function(event)
-      if vim.tbl_contains(ignored_filetypes, event.match) then
+      if vim.list_contains(ignored_filetypes, event.match) then
         return
       end
-
       local lang = vim.treesitter.language.get_lang(event.match) or event.match
-      treesitter.install { lang }
-      start_with_retry(event.buf, lang, 10)
+
+      if not enable_treesitter(event.buf, lang) then
+        if not vim.list_contains(treesitter.get_available(), lang) then
+          vim.notify(
+            "Treesitter parser is not available for " .. lang .. "!",
+            vim.log.levels.WARN
+          )
+          return
+        end
+
+        local state = state_enabling[lang]
+          or {
+            waiting_buffers = {},
+            installing = false,
+          }
+        state_enabling[lang] = state
+        state.waiting_buffers[event.buf] = true
+
+        -- Only start install if not already in progress
+        if not state.is_installing then
+          state.is_installing = true
+
+          local task = treesitter.install(lang)
+          if task and task.await then
+            task:await(function()
+              vim.schedule(function()
+                state.is_installing = false
+
+                -- Enable treesitter on all waiting buffers for this language
+                for b in pairs(state.waiting_buffers) do
+                  enable_treesitter(b, lang)
+                end
+                state_enabling[lang] = nil
+              end)
+            end)
+          else
+            state_enabling[lang] = nil
+          end
+        end
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufDelete", {
+    group = group,
+    desc = "Clean up treesitter enabling states",
+    callback = function(event)
+      for lang, state in pairs(state_enabling) do
+        state.waiting_buffers[event.buf] = nil
+        if vim.tbl_isempty(state.waiting_buffers) then
+          state_enabling[lang] = nil
+        end
+      end
     end,
   })
 end
