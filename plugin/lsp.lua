@@ -531,6 +531,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 lsp_enable {
   name = "basedpyright",
+  disable = function() return true end,
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/basedpyright-langserver",
     "--stdio",
@@ -557,14 +558,37 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 wiki:ty
+
+lsp_enable {
+  name = "ty",
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/ty", "server" },
+  -- disable = function() return true end,
+  filetypes = { "python" },
+  root_markers = {
+    "ty.toml",
+    "pyproject.toml",
+    "setup.py",
+    "setup.cfg",
+    "requirements.txt",
+    ".git",
+  },
+  settings = {
+    ty = {
+      experimental = {
+        autoImport = true,
+      },
+    },
+  },
+}
+
+-- }}}1
 -- {{{1 wiki:pyrefly
 
 lsp_enable {
   name = "pyrefly",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
-  disable = function()
-    return true
-  end,
+  disable = function() return true end,
   filetypes = { "python" },
   root_markers = {
     "pyrefly.toml",
