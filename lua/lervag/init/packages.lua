@@ -265,6 +265,7 @@ local M = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     build = ":TSUpdate",
     config = function()
       vim.treesitter.language.register("markdown", "mdx")
@@ -284,11 +285,14 @@ local M = {
       local ignored_filetypes = {
         "checkhealth",
         "cmd",
+        "cmp_menu",
         "dialog",
         "fugitive",
         "incline",
         "lazy",
+        "lazy_backdrop",
         "mason",
+        "mason_backdrop",
         "mininotify",
         "mininotify-history",
         "msg",
