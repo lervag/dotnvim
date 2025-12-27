@@ -18,7 +18,8 @@ end
 ---@field waiting_buffers table<integer, boolean>
 ---@field is_installing boolean
 
----@type table<string, InstallState>
+---@class InstallStates
+---@field [string] InstallState
 local state_enabling = {}
 
 local M = {}

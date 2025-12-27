@@ -294,9 +294,13 @@ local M = {
         "msg",
         "pager",
         "snacks_dashboard",
+        "snacks_layout_box",
         "snacks_notif",
+        "snacks_picker_input",
+        "snacks_picker_list",
         "snacks_win",
         "tex",
+        "wiki",
         "zsh",
       }
 
@@ -1339,7 +1343,13 @@ local M = {
       {
         "-",
         function()
-          Snacks.picker.explorer()
+          local root = vim.fn.FindRootDirectory()
+          if root == "" then
+            root = vim.fn.expand "%:h"
+          end
+          Snacks.picker.explorer {
+            cwd = root,
+          }
         end,
       },
       {
@@ -1426,6 +1436,7 @@ local M = {
                 keys = {
                   ["<cr>"] = "confirm_fast",
                   ["<s-cr>"] = "cycle_win",
+                  ["-"] = "explorer_up",
                 },
               },
             },
