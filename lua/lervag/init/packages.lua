@@ -272,6 +272,8 @@ local M = {
 
       local core_parsers = {
         "bash",
+        "html",
+        "latex",
         "lua",
         "luadoc",
         "markdown",
@@ -286,6 +288,7 @@ local M = {
         "checkhealth",
         "cmd",
         "cmp_menu",
+        "dagbok",
         "dialog",
         "fugitive",
         "incline",
