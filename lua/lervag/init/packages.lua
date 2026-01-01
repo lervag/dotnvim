@@ -290,7 +290,9 @@ local M = {
         "cmp_menu",
         "dagbok",
         "dialog",
+        "floggraph",
         "fugitive",
+        "git",
         "incline",
         "lazy",
         "lazy_backdrop",
@@ -307,6 +309,7 @@ local M = {
         "snacks_picker_list",
         "snacks_win",
         "tex",
+        "text",
         "wiki",
         "zsh",
       }
