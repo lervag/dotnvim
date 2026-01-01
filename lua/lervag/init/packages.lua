@@ -259,8 +259,6 @@ local M = {
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
       vim.g.matchup_override_vimtex = 1
-      -- https://github.com/andymass/vim-matchup/issues/416
-      vim.g.matchup_treesitter_disabled = { "markdown" }
     end,
   },
   {
