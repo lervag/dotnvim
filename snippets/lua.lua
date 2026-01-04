@@ -2,11 +2,11 @@ local snippets = {
   {
     prefix = "template-vimtex",
     desc = "Template: Minimal init.lua for VimTeX",
-    body = [=[
+    body = [[
 vim.opt.runtimepath:prepend "~/.local/plugged/vimtex"
 vim.opt.runtimepath:append "~/.local/plugged/vimtex/after"
-vim.cmd [[filetype plugin indent on]]
-vim.cmd [[syntax enable]]
+vim.cmd.filetype "plugin indent on"
+vim.cmd.syntax "enable"
 
 vim.keymap.set("n", "q", "<cmd>qall!<cr>")
 
@@ -15,15 +15,15 @@ vim.g.vimtex_cache_root = "."
 vim.g.vimtex_cache_persistent = false
 
 vim.cmd.edit "test.tex"
-]=],
+]],
   },
   {
     prefix = "template-wiki",
     desc = "Template: Minimal vimrc for wiki.vim",
-    body = [=[
+    body = [[
 vim.opt.runtimepath:prepend "~/.local/plugged/wiki.vim"
-vim.cmd [[filetype plugin indent on]]
-vim.cmd [[syntax enable]]
+vim.cmd.filetype "plugin indent on"
+vim.cmd.syntax "enable"
 
 vim.keymap.set("n", "q", "<cmd>qall!<cr>")
 
@@ -31,31 +31,32 @@ vim.g.wiki_root = vim.fn.fnamemodify("wiki", ':p')
 vim.g.wiki_cache_root = "."
 vim.g.wiki_cache_persistent = false
 
-vim.cmd [[runtime plugin/wiki.vim]]
-vim.cmd [[WikiIndex]]
-]=],
+vim.cmd.runtime "plugin/wiki.vim"
+vim.cmd.WikiIndex()
+]],
   },
   {
-    prefix = "template-lazy",
-    desc = "Template: Minimal init.lua for lazy.nvim",
+    prefix = "template-mini",
+    desc = "Template: Minimal init.lua",
     body = [[
-local root = vim.fn.fnamemodify("./.lazy", ":p")
+-- To use as minimal init file:
+-- XDG_DATA_HOME=. XDG_CONFIG_HOME=. XDG_STATE_HOME=. nvim -u test.lua
 
-for _, name in ipairs({ "config", "data", "state", "cache" }) do
-  vim.env[("XDG_%s_HOME"):format(name:upper())] = root .. "/" .. name
-end
+vim.pack.add {
+  "https://github.com/lervag/vimtex",
+  "https://github.com/lervag/wiki.vim",
+}
 
-local lazypath = root .. "/plugins/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", lazypath, })
-end
-vim.opt.runtimepath:prepend(lazypath)
+vim.cmd.filetype "plugin indent on"
+vim.cmd.syntax "enable"
 
-require("lazy").setup({
-  "foo/bar",
-}, {
-  root = root .. "/plugins",
-})
+-- Plugins are now loaded, but plugin/... are not sourced until after this
+-- file is finished sourcing.
+
+vim.keymap.set("n", "q", "<cmd>qall!<cr>")
+
+-- Options here
+vim.g.options = "foobar"
 ]],
   },
   {

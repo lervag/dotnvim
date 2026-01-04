@@ -381,8 +381,9 @@ lsp_enable {
     ".luarc.json",
     ".stylua.toml",
     "stylua.toml",
+    "test.lua",
   },
-  workspace_required = false,
+  single_file_support = true,
   settings = {
     Lua = {
       semanticTokens = {
