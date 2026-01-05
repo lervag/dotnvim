@@ -283,6 +283,7 @@ local M = {
       }
 
       local ignored_filetypes = {
+        "calendar",
         "checkhealth",
         "cmd",
         "cmp_menu",
