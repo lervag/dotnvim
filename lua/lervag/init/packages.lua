@@ -270,7 +270,13 @@ local M = {
 
       local core_parsers = {
         "bash",
+        "css",
+        "diff",
         "html",
+        "html_tags",
+        "json",
+        "jsx",
+        "kotlin",
         "latex",
         "lua",
         "luadoc",
@@ -278,6 +284,10 @@ local M = {
         "markdown_inline",
         "python",
         "regex",
+        "sql",
+        "toml",
+        "tsx",
+        "typescript",
         "vim",
         "vimdoc",
       }
@@ -286,6 +296,7 @@ local M = {
         "calendar",
         "checkhealth",
         "cmd",
+        "cmp_docs",
         "cmp_menu",
         "dagbok",
         "dialog",
