@@ -1832,7 +1832,8 @@ local M = {
   {
     "airblade/vim-rooter",
     config = function()
-      vim.g.rooter_patterns = { ".git", ".hg", ".bzr", ".svn", "build.sbt" }
+      vim.g.rooter_patterns =
+        { ".git", ".hg", ".bzr", ".svn", "build.sbt", "pyproject.toml" }
       vim.g.rooter_silent_chdir = 1
     end,
   },
