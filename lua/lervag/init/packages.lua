@@ -299,6 +299,8 @@ local M = {
         "cmp_docs",
         "cmp_menu",
         "dagbok",
+        "dbout",
+        "dbui",
         "dialog",
         "floggraph",
         "fugitive",
