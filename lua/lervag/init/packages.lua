@@ -1732,7 +1732,7 @@ local M = {
         end,
         desc = "fugitive",
       },
-      { "<leader>gd", "<cmd>Gdiffsplit<cr>:WinResize<cr>", desc = "fugitive" },
+      { "<leader>gd", "<cmd>Gdiffsplit<cr>", desc = "fugitive" },
       { "<leader>gb", ":GBrowse<cr>", mode = { "n", "x" }, desc = "fugitive" },
     },
     config = function()
