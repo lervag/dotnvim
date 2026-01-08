@@ -292,41 +292,21 @@ local M = {
         "vimdoc",
       }
 
-      local ignored_filetypes = {
-        "calendar",
-        "checkhealth",
-        "cmd",
-        "cmp_docs",
-        "cmp_menu",
-        "dagbok",
-        "dbout",
-        "dbui",
-        "dialog",
-        "floggraph",
-        "fugitive",
-        "git",
-        "incline",
-        "lazy",
-        "lazy_backdrop",
-        "mason",
-        "mason_backdrop",
-        "mininotify",
-        "mininotify-history",
-        "msg",
-        "pager",
-        "snacks_dashboard",
-        "snacks_layout_box",
-        "snacks_notif",
-        "snacks_picker_input",
-        "snacks_picker_list",
-        "snacks_win",
-        "tex",
-        "text",
-        "wiki",
-        "zsh",
+      ---@type table<string, TSOptionsSpec>
+      local filetype_options = {
+        -- checkhealth = { enabled = false },
+        tex = {
+          enabled = false,
+        },
+        vim = {
+          indent = false,
+        },
+        zsh = {
+          enabled = false,
+        },
       }
 
-      require("lervag.init.treesitter").init(core_parsers, ignored_filetypes)
+      require("lervag.init.treesitter").init(core_parsers, filetype_options)
     end,
   },
   {

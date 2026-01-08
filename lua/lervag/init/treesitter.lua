@@ -1,33 +1,52 @@
----Enable treesitter for buffer
----@param buf integer
----@param lang string
----@return boolean Enabled successfully
-local function enable_treesitter(buf, lang)
-  if not vim.api.nvim_buf_is_valid(buf) then
-    return false
-  end
+---@alias TSFiletypeOptions table<string, TSOptionsSpec>
 
-  local ok = pcall(vim.treesitter.start, buf, lang)
-  if ok then
-    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-  end
-  return ok
-end
+---@class TSOptionsSpec1
+---@field enabled boolean
+---@field indent? boolean
+
+---@class TSOptionsSpec2
+---@field enabled? boolean
+---@field indent boolean
+
+---@alias TSOptionsSpec TSOptionsSpec1|TSOptionsSpec2
+
+---@class TSOptions
+---@field enabled boolean
+---@field indent boolean
+
+---@class InstallStates
+---@field [string] InstallState
 
 ---@class InstallState
 ---@field waiting_buffers table<integer, boolean>
 ---@field is_installing boolean
 
----@class InstallStates
----@field [string] InstallState
+---Enable treesitter for buffer
+---@param buf integer
+---@param lang string
+---@param options TSOptions
+---@return boolean Enabled successfully
+local function enable_treesitter(buf, lang, options)
+  if not vim.api.nvim_buf_is_valid(buf) then
+    return false
+  end
+
+  local ok = pcall(vim.treesitter.start, buf, lang)
+  if ok and options.indent then
+    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+  return ok
+end
+
+---@type InstallStates
 local state_enabling = {}
 
 local M = {}
 
 ---Initialize nvim-treesitter
 ---@param core_parsers string[]
----@param ignored_filetypes string[]
-M.init = function(core_parsers, ignored_filetypes)
+---@param filetype_options TSFiletypeOptions
+M.init = function(core_parsers, filetype_options)
   local treesitter = require "nvim-treesitter"
 
   -- Install core parsers after lazy.nvim finishes loading all plugins
@@ -45,17 +64,23 @@ M.init = function(core_parsers, ignored_filetypes)
     group = group,
     desc = "Enable treesitter highlighting and indentation (non-blocking)",
     callback = function(event)
-      if vim.list_contains(ignored_filetypes, event.match) then
+      ---@type TSOptions
+      local defaults = {
+        enabled = true,
+        indent = true,
+      }
+
+      ---@type TSOptions
+      local options =
+        vim.tbl_extend("keep", filetype_options[event.match] or {}, defaults)
+
+      if not options.enabled then
         return
       end
       local lang = vim.treesitter.language.get_lang(event.match) or event.match
 
-      if not enable_treesitter(event.buf, lang) then
+      if not enable_treesitter(event.buf, lang, options) then
         if not vim.list_contains(treesitter.get_available(), lang) then
-          vim.notify(
-            "Treesitter parser is not available for " .. lang .. "!",
-            vim.log.levels.WARN
-          )
           return
         end
 
@@ -79,7 +104,7 @@ M.init = function(core_parsers, ignored_filetypes)
 
                 -- Enable treesitter on all waiting buffers for this language
                 for b in pairs(state.waiting_buffers) do
-                  enable_treesitter(b, lang)
+                  enable_treesitter(b, lang, options)
                 end
                 state_enabling[lang] = nil
               end)
