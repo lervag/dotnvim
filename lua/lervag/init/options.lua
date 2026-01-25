@@ -165,6 +165,7 @@ vim.filetype.add {
   pattern = {
     [".*pylintrc"] = "cfg",
     ["Jenkinsfile.*"] = "groovy",
+    [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml.github",
   },
 }
 

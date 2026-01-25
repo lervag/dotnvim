@@ -928,6 +928,7 @@ local M = {
         "emmylua_ls",
         "eslint-lsp",
         "gitlab-ci-ls",
+        "gh-actions-language-server",
         "html-lsp",
         "json-lsp",
         "kotlin-lsp",

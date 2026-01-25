@@ -1,3 +1,4 @@
+local lsp_utils = require "lervag.util.lsp"
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
 -- Defaults
@@ -8,6 +9,9 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 vim.lsp.config("*", {
   root_markers = { ".git" },
   capabilities = capabilities,
+  handlers = {
+    ["actions/readFile"] = lsp_utils.handler_readfile,
+  },
 })
 
 -- {{{1 Mappings and autocmds
@@ -298,6 +302,19 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 wiki:gh-actions-lsp
+
+lsp_enable {
+  name = "gh-actions-ls",
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/gh-actions-language-server",
+    "--stdio",
+  },
+  filetypes = { "yaml.github" },
+  init_options = lsp_utils.get_ghactions_initoptions(), ---@diagnostic disable-line: assign-type-mismatch
+}
+
+-- }}}1
 -- {{{1 wiki:gitlab-ci-ls
 
 lsp_enable {
@@ -532,7 +549,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 lsp_enable {
   name = "basedpyright",
-  disable = function() return true end,
+  disable = function()
+    return true
+  end,
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/basedpyright-langserver",
     "--stdio",
@@ -589,7 +608,9 @@ lsp_enable {
 lsp_enable {
   name = "pyrefly",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
-  disable = function() return true end,
+  disable = function()
+    return true
+  end,
   filetypes = { "python" },
   root_markers = {
     "pyrefly.toml",
