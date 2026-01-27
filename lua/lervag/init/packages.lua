@@ -2204,15 +2204,6 @@ local M = {
     cmd = "SQLua",
     config = true,
   },
-  {
-    "kelvinauta/focushere.nvim",
-    cmd = { "FocusHere", "FocusClear" },
-    keys = {
-      { "zF", ":FocusClear<cr>" },
-      { "zf", ":FocusHere<cr>", mode = "v" },
-    },
-    config = true,
-  },
 
   -- Various filetype plugins
   {
