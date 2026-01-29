@@ -788,32 +788,6 @@ local M = {
     },
   },
   {
-    "glepnir/lspsaga.nvim",
-    cmd = "Lspsaga",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("lspsaga").setup {
-        symbol_in_winbar = {
-          enable = false,
-        },
-        lightbulb = {
-          enable_in_insert = false,
-          sign = false,
-        },
-        callhierarchy = {
-          layout = "normal",
-        },
-        ui = {
-          code_action = " ",
-          title = false,
-          border = my_border,
-        },
-      }
-    end,
-  },
-  {
     "nvim-lua/lsp-status.nvim",
     lazy = true,
   },

@@ -405,6 +405,7 @@ local theme = {
   LspReferenceRead = { bg = color07, underline = true },
   LspReferenceWrite = { bg = color07, bold = true, italic = true },
   LspReferenceText = { bg = color07, bold = true },
+  LspReferenceTarget = { fg = color01, bold = true, underline = true },
   LspCodeLens = { bg = color07, fg = color00, bold = true },
   LspCodeLensSeparator = { bg = color07, fg = color04, bold = true },
   LspInlayHint = { fg = color12, bg = color15d },
@@ -459,15 +460,6 @@ local theme = {
   -- ChatGPTTotalTokens = { link = FloatBorder },
   -- ChatGPTTotalTokensBorder = { link = FloatBorder },
   -- ChatGPTWelcome = { fg = pink, italic = true },
-
-  -- Lspsaga
-  -- Refer to: ~/.local/plugged/lspsaga.nvim/lua/lspsaga/highlight.lua
-  SagaNormal = { link = "NormalFloat" },
-  SagaLightBulb = { fg = gold3, bold = true },
-  RenameNormal = { fg = color13, bg = color07d },
-  TitleString = { fg = color09, bg = color07d, bold = true },
-  ActionPreviewTitle = { link = "TitleString" },
-  CodeActionNumber = { fg = color08 },
 
   MiniNotifyBorder = { fg = color12, bg = color07l },
   MiniNotifyNormal = { fg = color04, bg = color07l },

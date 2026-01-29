@@ -143,15 +143,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set(
       "n",
       "<leader>lR",
-      "<cmd>Lspsaga rename<cr>",
-      -- vim.lsp.buf.rename,
+      vim.lsp.buf.rename,
       { desc = "Rename all references" }
     )
     vim.keymap.set(
       { "n", "v" },
       "<leader>la",
-      "<cmd>Lspsaga code_action<cr>",
-      -- vim.lsp.buf.code_action,
+      vim.lsp.buf.code_action,
       { desc = "Select code action" }
     )
 
