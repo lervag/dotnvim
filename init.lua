@@ -5,4 +5,4 @@ require "lervag.init.mappings"
 require "lervag.init.lazy"
 
 -- Experimental!
-require("vim._extui").enable({})
+require("vim._core.ui2").enable({})
