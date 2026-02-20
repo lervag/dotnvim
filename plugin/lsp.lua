@@ -33,14 +33,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     if attached_client:supports_method "textDocument/codeLens" then
-      vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
-        group = lspgroup,
-        desc = "Refresh codelenses",
-        buffer = args.buf,
-        callback = function()
-          vim.lsp.codelens.refresh { bufnr = 0 }
-        end,
-      })
+      vim.lsp.codelens.enable(true, { bufnr = args.buf })
     end
 
     if attached_client:supports_method "textDocument/inlayHint" then
