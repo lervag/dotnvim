@@ -746,7 +746,6 @@ local M = {
   },
   {
     "neovim/nvim-lspconfig",
-    cmd = "LspInfo",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
     },
@@ -2239,6 +2238,10 @@ local M = {
     "ravsii/tree-sitter-d2",
     ft = { "d2" },
     build = "make nvim-install",
+  },
+  {
+    -- Useful for adding type information to my wezterm config!
+    "DrKJeff16/wezterm-types",
   },
 }
 
