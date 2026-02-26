@@ -679,6 +679,27 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 wiki:tombi
+
+lsp_enable {
+  name = "tombi",
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/tombi",
+    "lsp",
+  },
+  filetypes = { "toml" },
+  root_markers = { "pyproject.toml", ".git" },
+  ---@param client vim.lsp.Client
+  on_init = function(client)
+    if not client.server_capabilities then
+      return
+    end
+
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+}
+
+-- }}}1
 -- {{{1 wiki:typescript-language-server
 
 -- 2025-12-26  --  Tester ut tsgo
@@ -802,7 +823,12 @@ lsp_enable {
       trace = { server = "debug" },
     },
   },
+  ---@param client vim.lsp.Client
   on_init = function(client)
+    if not client.server_capabilities then
+      return
+    end
+
     --- https://github.com/neovim/nvim-lspconfig/pull/4016
     --- Since formatting is disabled by default if you check
     --- `client:supports_method('textDocument/formatting')` during `LspAttach`
