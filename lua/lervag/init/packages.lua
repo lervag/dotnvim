@@ -1661,6 +1661,14 @@ local M = {
           vim.g.fugitive_gitlab_domains = { "https://gitlab.sikt.no" }
         end,
       },
+      {
+        "barrettruth/diffs.nvim",
+        init = function()
+          vim.g.diffs = {
+            fugitive = true,
+          }
+        end,
+      },
     },
     cmd = { "Git", "Gedit", "Gdiffsplit" },
     keys = {
