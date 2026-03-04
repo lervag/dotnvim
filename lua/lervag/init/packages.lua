@@ -390,14 +390,22 @@ local M = {
       "GpChatFinder",
     },
     opts = {
-      openai_api_key = { "pass", "openai-api-key" },
       toggle_target = "tabnew",
+      providers = {
+        openai = { disable = true },
+        mistral = {
+          endpoint = "https://api.mistral.ai/v1/chat/completions",
+          secret = os.getenv "MISTRAL_API_KEY",
+        },
+      },
       agents = {
         {
-          name = "ChatGPT4o",
+          name = "Mistral",
+          provider = "mistral",
           chat = true,
-          command = false,
-          model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+          command = true,
+          model = { model = "mistral-large-2512" },
+          max_tokens = 4096,
           system_prompt = "You are a general AI assistant.\n\n"
             .. "The user provided the additional info about how they would like you to respond:\n\n"
             .. "- Be brief and consise!\n"
@@ -409,42 +417,17 @@ local M = {
             .. "- Don't elide any code from your output if the answer requires coding.\n"
             .. "- Take a deep breath; You've got this!\n",
         },
-        {
-          name = "o3-mini",
-          chat = true,
-          command = false,
-          model = { model = "o3-mini", temperature = 1.1, top_p = 1 },
-          system_prompt = "You are a general AI assistant.\n"
-            .. "You will respond consisely and as brief as you can.\n",
-        },
-        {
-          name = "o4-mini",
-          chat = true,
-          command = false,
-          model = { model = "o4-mini", temperature = 1.1, top_p = 1 },
-          system_prompt = "You are a general AI assistant.\n"
-            .. "You will respond consisely and as brief as you can.\n",
-        },
       },
     },
     config = function(opts)
       require("gp").setup(opts.opts)
 
-      -- Monkey patch the dispatcher after setup
       local dispatcher = require "gp.dispatcher"
       local original_prepare_payload = dispatcher.prepare_payload
       dispatcher.prepare_payload = function(messages, model, provider)
         local output = original_prepare_payload(messages, model, provider)
-        if provider == "openai" and model.model:sub(1, 2) == "o3" then
-          for i = #messages, 1, -1 do
-            if messages[i].role == "system" then
-              table.remove(messages, i)
-            end
-          end
-          output.max_tokens = nil
-          output.temperature = nil
-          output.top_p = nil
-          output.stream = true
+        if provider == "mistral" then
+          output.max_completion_tokens = nil
         end
         return output
       end
@@ -700,13 +683,6 @@ local M = {
         },
       })
     end,
-  },
-  {
-    "micangl/cmp-vimtex",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-    },
-    ft = "tex",
   },
   {
     "nvim-mini/mini.snippets",
