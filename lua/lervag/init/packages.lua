@@ -235,6 +235,7 @@ local M = {
       local core_parsers = {
         "bash",
         "css",
+        "dap_repl",
         "diff",
         "html",
         "html_tags",
@@ -2152,9 +2153,6 @@ local M = {
     end,
   },
   {
-    "Vimjas/vim-python-pep8-indent",
-  },
-  {
     "scalameta/nvim-metals",
   },
   {
@@ -2171,17 +2169,6 @@ local M = {
       vim.g.vim_markdown_conceal_code_blocks = 0
       vim.g.vim_markdown_math = 1
       vim.g.vim_markdown_strikethrough = 1
-    end,
-  },
-  {
-    "gpanders/vim-medieval",
-    config = function()
-      vim.g.medieval_langs = {
-        "python=python3",
-        "sh",
-        "bash",
-        "console=bash",
-      }
     end,
   },
   {
