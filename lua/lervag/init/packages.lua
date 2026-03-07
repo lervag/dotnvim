@@ -1080,7 +1080,6 @@ local M = {
         ["<leader>dk"] = dap.step_out,
         ["<leader>dK"] = dap.up,
         ["<leader>dJ"] = dap.down,
-        ["<leader>dr"] = dap.repl.toggle,
         ["<leader>db"] = dap.toggle_breakpoint,
         ["<leader>d<c-b>"] = dap.clear_breakpoints,
         ["<leader>dB"] = function()
@@ -1090,18 +1089,6 @@ local M = {
               dap.set_breakpoint(condition)
             end
           )
-        end,
-        ["<leader>dw"] = function()
-          vim.ui.input({ prompt = "Watch: " }, function(watch)
-            dap.set_breakpoint(nil, nil, watch)
-          end)
-        end,
-        ["<leader>dW"] = function()
-          vim.ui.input({ prompt = "Watch condition: " }, function(condition)
-            vim.ui.input({ prompt = "Watch: " }, function(watch)
-              dap.set_breakpoint(condition, nil, watch)
-            end)
-          end)
         end,
         ["<leader>dh"] = function()
           widgets.hover("<cexpr>", {
@@ -1128,25 +1115,52 @@ local M = {
     end,
   },
   {
+    "igorlfs/nvim-dap-view",
+    config = function()
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = { "dap-view", "dap-view-term" },
+        callback = function()
+          vim.wo.list = false
+        end,
+      })
+
+      vim.keymap.set("n", "<leader>dw", "<cmd>DapViewWatch<cr>")
+      vim.keymap.set("n", "<leader>dW", ":DapViewWatch ")
+
+      -- https://igorlfs.github.io/nvim-dap-view/configuration
+      require("dap-view").setup {
+        auto_toggle = true,
+        winbar = {
+          sections = {
+            "scopes",
+            "repl",
+            "threads",
+            "watches",
+            "breakpoints",
+            "exceptions",
+          },
+          default_section = "scopes",
+        },
+        windows = {
+          size = 0.4,
+          position = "right",
+          terminal = {
+            size = 0.5,
+            position = "below",
+          },
+        },
+        icons = {
+          collapsed = " ",
+          expanded = " ",
+        },
+      }
+    end,
+  },
+  {
     "mfussenegger/nvim-dap-python",
     ft = "python",
     config = function()
       require("dap-python").setup "/home/lervag/.local/venvs/nvim/bin/python"
-    end,
-  },
-  {
-    "miroshQa/debugmaster.nvim",
-    dependencies = {
-      "mfussenegger/nvim-dap",
-    },
-    config = function()
-      local dm = require "debugmaster"
-      vim.keymap.set({ "n", "v" }, "<leader>da", function()
-        require "osv"
-        dm.mode.toggle()
-      end, { nowait = true })
-
-      dm.plugins.osv_integration.enabled = true
     end,
   },
   {
