@@ -9,13 +9,13 @@ vim.api.nvim_create_autocmd({ "VimEnter", "FileType" }, {
 
     if mark[1] > 0 and mark[1] <= buf_lines then
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
 
-    if vim.o.foldlevel == 0 then
-      vim.cmd [[normal! zM]]
-    end
+      if vim.o.foldlevel == 0 then
+        vim.cmd [[normal! zM]]
+      end
 
-    vim.cmd [[normal! zvzz]]
+      vim.cmd [[normal! zvzz]]
+    end
   end,
 })
 
