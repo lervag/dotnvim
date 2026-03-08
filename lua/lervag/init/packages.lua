@@ -1656,7 +1656,9 @@ local M = {
         "barrettruth/diffs.nvim",
         init = function()
           vim.g.diffs = {
-            fugitive = true,
+            integrations = {
+              fugitive = true,
+            }
           }
         end,
       },
