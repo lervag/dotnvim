@@ -5,7 +5,6 @@ local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
----@diagnostic disable-next-line: param-type-not-match
 vim.lsp.config("*", {
   root_markers = { ".git" },
   capabilities = capabilities,
@@ -28,9 +27,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Configure LSP: Mappings and similar",
   callback = function(args)
     local const = require "lervag.const"
-    ---@type vim.lsp.Client
-    local attached_client =
-      assert(vim.lsp.get_client_by_id(args.data.client_id))
+    local attached_client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not attached_client then
+      vim.notify(
+        "LspAttach failed for client " .. args.data.client_id,
+        vim.log.levels.WARN
+      )
+      return
+    end
 
     if attached_client:supports_method "textDocument/codeLens" then
       vim.lsp.codelens.enable(true, { bufnr = args.buf })
@@ -212,13 +216,15 @@ end
 
 -- {{{1 wiki:bashls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_bashls = {
   name = "bashls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/bash-language-server",
     "start",
   },
   filetypes = { "sh" },
+  ---@type lspconfig.settings.bashls
   settings = {
     bashIde = {
       -- Prevent recursive scanning which will cause issues when opening a file
@@ -227,11 +233,13 @@ lsp_enable {
     },
   },
 }
+lsp_enable(config_bashls)
 
 -- }}}1
 -- {{{1 wiki:cssls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_cssls = {
   name = "cssls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/vscode-css-language-server",
@@ -239,17 +247,20 @@ lsp_enable {
   },
   filetypes = { "css", "scss", "less" },
   root_markers = { "package.json", ".git" },
+  ---@type lspconfig.settings.cssls
   settings = {
     css = { validate = true },
     scss = { validate = true },
     less = { validate = true },
   },
 }
+lsp_enable(config_cssls)
 
 -- }}}1
 -- {{{1 wiki:html-ls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_html_ls = {
   name = "html-ls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/vscode-html-language-server",
@@ -262,13 +273,16 @@ lsp_enable {
     embeddedLanguages = { css = true, javascript = true },
     configurationSection = { "html", "css", "javascript" },
   },
+  ---@type lspconfig.settings.html
   settings = {},
 }
+lsp_enable(config_html_ls)
 
 -- }}}1
 -- {{{1 wiki:jsonls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_jsonls = {
   name = "jsonls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/vscode-json-language-server",
@@ -278,6 +292,7 @@ lsp_enable {
   init_options = {
     provideFormatter = true,
   },
+  ---@type lspconfig.settings.jsonls
   settings = {
     json = {
       schemas = {
@@ -291,24 +306,29 @@ lsp_enable {
     },
   },
 }
+lsp_enable(config_jsonls)
 
 -- }}}1
 -- {{{1 wiki:gh-actions-lsp
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_gh_actions_lsp = {
   name = "gh-actions-ls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/gh-actions-language-server",
     "--stdio",
   },
   filetypes = { "yaml.github" },
-  init_options = lsp_utils.get_ghactions_initoptions(), ---@diagnostic disable-line: assign-type-mismatch
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  init_options = lsp_utils.get_ghactions_initoptions(),
 }
+lsp_enable(config_gh_actions_lsp)
 
 -- }}}1
 -- {{{1 wiki:gitlab-ci-ls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_gitlab_ci_ls = {
   name = "gitlab-ci-ls",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/gitlab-ci-ls" },
   filetypes = { "yaml" },
@@ -321,16 +341,15 @@ lsp_enable {
     log_path = "/home/lervag/.cache/gitlab-ci-ls/log/gitlab-ci-ls.log",
   },
 }
+lsp_enable(config_gitlab_ci_ls)
 
 -- }}}1
 -- {{{1 wiki:lua-ls
 
-lsp_enable {
+---@type vim.lsp.Config
+local _config_lua_ls = {
   name = "lua-language-server",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/lua-language-server" },
-  disable = function()
-    return true
-  end,
   filetypes = { "lua" },
   log_level = vim.lsp.protocol.MessageType.Warning,
   root_markers = {
@@ -338,6 +357,7 @@ lsp_enable {
     ".stylua.toml",
     "stylua.toml",
   },
+  ---@type lspconfig.settings.lua_ls
   settings = {
     Lua = {
       hint = {
@@ -360,7 +380,6 @@ lsp_enable {
     end
 
     client.config.settings.Lua =
-      ---@diagnostic disable-next-line: param-type-mismatch
       vim.tbl_deep_extend("force", client.config.settings.Lua, {
         runtime = {
           version = "LuaJIT",
@@ -380,7 +399,8 @@ lsp_enable {
 -- }}}1
 -- {{{1 wiki:emmylua-analyzer-rust
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_emmylua = {
   name = "emmylua-ls",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/emmylua_ls" },
   filetypes = { "lua" },
@@ -392,6 +412,7 @@ lsp_enable {
     "test.lua",
   },
   single_file_support = true,
+  ---@type lspconfig.settings.lua_ls
   settings = {
     Lua = {
       semanticTokens = {
@@ -405,11 +426,13 @@ lsp_enable {
     },
   },
 }
+lsp_enable(config_emmylua)
 
 -- }}}1
 -- {{{1 wiki:kotlin-lsp
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_kotlin_lsp = {
   name = "kotlin-lsp",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/kotlin-lsp", "--stdio" },
   filetypes = { "kotlin" },
@@ -422,6 +445,7 @@ lsp_enable {
     "workspace.json", -- Used to integrate your own build system
   },
 }
+lsp_enable(config_kotlin_lsp)
 
 -- }}}1
 -- {{{1 wiki:Metals
@@ -538,7 +562,8 @@ vim.api.nvim_create_autocmd("FileType", {
 -- }}}1
 -- {{{1 wiki:basedpyright
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_basedpyright = {
   name = "basedpyright",
   disable = function()
     return true
@@ -557,6 +582,7 @@ lsp_enable {
     "pyrightconfig.json",
     ".git",
   },
+  ---@type lspconfig.settings.basedpyright
   settings = {
     basedpyright = {
       analysis = {
@@ -567,11 +593,13 @@ lsp_enable {
     },
   },
 }
+lsp_enable(config_basedpyright)
 
 -- }}}1
 -- {{{1 wiki:ty
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_ty = {
   name = "ty",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/ty", "server" },
   -- disable = function() return true end,
@@ -592,11 +620,13 @@ lsp_enable {
     },
   },
 }
+lsp_enable(config_ty)
 
 -- }}}1
 -- {{{1 wiki:pyrefly
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_pyrefly = {
   name = "pyrefly",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
   disable = function()
@@ -612,11 +642,13 @@ lsp_enable {
     pyrefly = {},
   },
 }
+lsp_enable(config_pyrefly)
 
 -- }}}1
 -- {{{1 wiki:ruff-lsp
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_ruff_lsp = {
   name = "ruff",
   cmd = { "ruff", "server" },
   filetypes = { "python" },
@@ -626,29 +658,35 @@ lsp_enable {
     ".ruff.toml",
     ".git",
   },
+  ---@type lspconfig.settings.ruff_lsp
   settings = {
     configurationPreference = "filesystemFirst",
   },
 }
+lsp_enable(config_ruff_lsp)
 
 -- }}}1
 -- {{{1 wiki:rust-analyzer
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_rust_analyzer = {
   name = "rust-analyzer",
   cmd = { "rust-analyzer" },
   filetypes = { "rust" },
   single_file_support = true,
   root_markers = { "Cargo.toml" },
+  ---@type lspconfig.settings.rust_analyzer
   settings = {
     ["rust-analyzer"] = {},
   },
 }
+lsp_enable(config_rust_analyzer)
 
 -- }}}1
 -- {{{1 wiki:deno-ls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_deno_ls = {
   name = "deno ls",
   cmd = { "deno", "lsp" },
   cmd_env = { NO_COLOR = true },
@@ -664,6 +702,7 @@ lsp_enable {
     return not vim.fs.root(args.buf, { "deno.json", "deno.jsonc" })
   end,
   root_markers = { "deno.json", "deno.jsonc", ".git" },
+  ---@type lspconfig.settings.denols
   settings = {
     deno = {
       enable = true,
@@ -677,11 +716,13 @@ lsp_enable {
     },
   },
 }
+lsp_enable(config_deno_ls)
 
 -- }}}1
 -- {{{1 wiki:tombi
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_tombi = {
   name = "tombi",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/tombi",
@@ -698,41 +739,45 @@ lsp_enable {
     client.server_capabilities.semanticTokensProvider = nil
   end,
 }
+lsp_enable(config_tombi)
 
 -- }}}1
 -- {{{1 wiki:typescript-language-server
 
 -- 2025-12-26  --  Tester ut tsgo
--- lsp_enable {
---   name = "typescript-language-server",
---   cmd = {
---     "/home/lervag/.local/share/nvim/mason/bin/typescript-language-server",
---     "--stdio",
---   },
---   filetypes = {
---     "javascript",
---     "javascriptreact",
---     "javascript.jsx",
---     "typescript",
---     "typescriptreact",
---     "typescript.tsx",
---   },
---   disable = function(args)
---     return not vim.fs.root(args.buf, { "tsconfig.json", "package.json" })
---   end,
---   root_markers = { "tsconfig.json", "package.json", ".git" },
---   init_options = { hostInfo = "neovim" },
---   settings = {
---     diagnostics = {
---       ignoredCodes = { 6133 },
---     },
---   },
--- }
+---@type vim.lsp.Config
+local _config_tsgo = {
+  name = "typescript-language-server",
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/typescript-language-server",
+    "--stdio",
+  },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
+  disable = function(args)
+    return not vim.fs.root(args.buf, { "tsconfig.json", "package.json" })
+  end,
+  root_markers = { "tsconfig.json", "package.json", ".git" },
+  init_options = { hostInfo = "neovim" },
+  ---@type lspconfig.settings.ts_ls
+  settings = {
+    diagnostics = {
+      ignoredCodes = { 6133 },
+    },
+  },
+}
 
 -- }}}1
 -- {{{1 wiki:typescript-go
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_tsgo = {
   name = "tsgo",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/tsgo",
@@ -758,11 +803,13 @@ lsp_enable {
   --   },
   -- },
 }
+lsp_enable(config_tsgo)
 
 -- }}}1
 -- {{{1 wiki:vimls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_vimls = {
   name = "vimls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/vim-language-server",
@@ -790,17 +837,20 @@ lsp_enable {
     suggest = { fromVimruntime = true, fromRuntimepath = true },
   },
 }
+lsp_enable(config_vimls)
 
 -- }}}1
 -- {{{1 wiki:yamlls
 
-lsp_enable {
+---@type vim.lsp.Config
+local config_yamlls = {
   name = "yamlls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/yaml-language-server",
     "--stdio",
   },
   filetypes = { "yaml", "yaml.docker-compose" },
+  ---@type lspconfig.settings.yamlls
   settings = {
     redhat = { telemetry = { enabled = false } },
     yaml = {
@@ -837,6 +887,7 @@ lsp_enable {
     client.server_capabilities.documentFormattingProvider = true
   end,
 }
+lsp_enable(config_yamlls)
 
 -- }}}1
 
