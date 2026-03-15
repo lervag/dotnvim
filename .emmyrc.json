@@ -18,5 +18,6 @@
       "$HOME/.local/plugged/lazy.nvim",
       "$HOME/.local/plugged/snacks.nvim"
     ]
-  }
+  },
+  "diagnostics.globals": ["MiniSnippets"]
 }

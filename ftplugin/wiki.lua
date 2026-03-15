@@ -5,15 +5,12 @@ vim.b.minidiff_disable = true
 
 vim.opt_local.isfname:remove ","
 
-local function create_link()
-  local insert = MiniSnippets.config.expand.insert
-    or MiniSnippets.default_insert
-
-  insert { body = vim.b.wiki.in_journal == 1 and "[[/$1]]$0" or "[[$1]]$0" }
-end
-
-vim.keymap.set("i", "<c-l>", create_link, { buffer = true })
-vim.keymap.set("i", "LLW", create_link, { buffer = true })
+vim.keymap.set("i", "<c-l>", function()
+  require("lervag.util.links").create_link()
+end, { buffer = true })
+vim.keymap.set("i", "LLW", function()
+  require("lervag.util.links").create_link()
+end, { buffer = true })
 vim.keymap.set("i", "<c-e>", function()
   MiniSnippets.session.stop()
   vim.cmd [[ normal "o<cr>"]]
@@ -25,3 +22,7 @@ vim.keymap.set(
   "<cmd>call medieval#eval()<cr>",
   { buffer = true }
 )
+
+vim.keymap.set("i", "LLM", function()
+  require("lervag.util.links").create_link_from_clipboard()
+end, { buffer = true })
