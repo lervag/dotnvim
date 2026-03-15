@@ -147,6 +147,23 @@ link_handlers["github.com"] = function(url)
   return result
 end
 
+link_handlers["news.ycombinator.com"] = function(url)
+  local curl_res = vim.system({ "curl", "-sL", url }):wait()
+  if curl_res.code ~= 0 or not curl_res.stdout or curl_res.stdout == "" then
+    return url
+  end
+
+  local result = vim
+    .system({ "pup", "span.subline .age attr{title}" }, { stdin = curl_res.stdout })
+    :wait().stdout or ""
+  local date = result:match "%d%d%d%d%-%d%d%-%d%d"
+  if date and date ~= "" then
+    return date .. ": " .. url
+  end
+
+  return url
+end
+
 local M = {}
 
 ---@param url string
