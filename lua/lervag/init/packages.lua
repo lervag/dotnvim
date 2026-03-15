@@ -1246,13 +1246,12 @@ local M = {
             cwd = "~/.local/wiki",
             exclude = { ".gitignore" },
             matcher = { sort_empty = true },
-            sort = function(a, b)
-              local a_text = (a.file or a.text):lower()
-              local b_text = (b.file or b.text):lower()
-              return a_text < b_text
-            end,
+            sort = {
+              fields = { "score:desc", "#text", "file" },
+            },
             confirm = function(picker, item, action)
               if item then
+                ---@diagnostic disable-next-line: call-non-callable
                 Snacks.picker.actions[action.name](picker, item, action)
               else
                 picker:close()
@@ -1658,7 +1657,7 @@ local M = {
           vim.g.diffs = {
             integrations = {
               fugitive = true,
-            }
+            },
           }
         end,
       },
