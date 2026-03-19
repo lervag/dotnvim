@@ -40,13 +40,6 @@ vim.keymap.set(
   { buffer = true }
 )
 
-vim.keymap.set(
-  "n",
-  "<leader>ar",
-  "<cmd>call medieval#eval('', #{ after: { _, _ -> personal#markdown#place_signs() } })",
-  { buffer = true }
-)
-
 vim.keymap.set("i", "LLM", function()
   require("lervag.util.links").create_link_from_clipboard()
 end, { buffer = true })

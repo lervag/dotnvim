@@ -16,13 +16,6 @@ vim.keymap.set("i", "<c-e>", function()
   vim.cmd [[ normal "o<cr>"]]
 end, { buffer = true })
 
-vim.keymap.set(
-  "n",
-  "<leader>ar",
-  "<cmd>call medieval#eval()<cr>",
-  { buffer = true }
-)
-
 vim.keymap.set("i", "LLM", function()
   require("lervag.util.links").create_link_from_clipboard()
 end, { buffer = true })
