@@ -797,11 +797,24 @@ local config_tsgo = {
   end,
   root_markers = { "tsconfig.json", "package.json", ".git" },
   -- init_options = { hostInfo = "neovim" },
-  -- settings = {
-  --   diagnostics = {
-  --     ignoredCodes = { 6133 },
-  --   },
-  -- },
+  settings = {
+    -- diagnostics = {
+    --   ignoredCodes = { 6133 },
+    -- },
+    typescript = {
+      inlayHints = {
+        parameterNames = {
+          enabled = 'literals',
+          suppressWhenArgumentMatchesName = true,
+        },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true },
+      },
+    },
+  },
 }
 lsp_enable(config_tsgo)
 
