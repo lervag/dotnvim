@@ -1,3 +1,8 @@
+vim.keymap.set("n", "<leader>dl", function()
+  vim.pack.add { "https://github.com/jbyuki/one-small-step-for-vimkind" }
+  require("osv").launch { port = 8086 }
+end, { desc = "Launch OSV server" })
+
 local dap = require "dap"
 
 -- Adapters

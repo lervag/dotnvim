@@ -1,3 +1,8 @@
+vim.pack.add {
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/mfussenegger/nvim-jdtls",
+}
+
 local lsp_utils = require "lervag.util.lsp"
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
@@ -196,14 +201,22 @@ local function lsp_enable(config)
       then
         return
       end
+
       ---@diagnostic disable-next-line: undefined-field
       if config.disable and config.disable(args) then
         return
       end
+
       config = vim.tbl_deep_extend("force", vim.lsp.config["*"] or {}, config)
+
       if config.root_markers then
         config.root_dir = vim.fs.root(args.buf, config.root_markers)
       end
+
+      if config.init_options_lazy then
+        config.init_options = config.init_options_lazy()
+      end
+
       if not vim.tbl_isempty(config) then
         vim.lsp.start(config)
       end
@@ -311,18 +324,18 @@ lsp_enable(config_jsonls)
 -- }}}1
 -- {{{1 wiki:gh-actions-lsp
 
----@type vim.lsp.Config
-local config_gh_actions_lsp = {
+lsp_enable {
   name = "gh-actions-ls",
   cmd = {
     "/home/lervag/.local/share/nvim/mason/bin/gh-actions-language-server",
     "--stdio",
   },
   filetypes = { "yaml.github" },
-  ---@diagnostic disable-next-line: assign-type-mismatch
-  init_options = lsp_utils.get_ghactions_initoptions(),
+  -- Use a custom lazy value here to postpone slow code
+  init_options_lazy = function()
+    return lsp_utils.get_ghactions_initoptions()
+  end,
 }
-lsp_enable(config_gh_actions_lsp)
 
 -- }}}1
 -- {{{1 wiki:gitlab-ci-ls
@@ -804,7 +817,7 @@ local config_tsgo = {
     typescript = {
       inlayHints = {
         parameterNames = {
-          enabled = 'literals',
+          enabled = "literals",
           suppressWhenArgumentMatchesName = true,
         },
         parameterTypes = { enabled = true },

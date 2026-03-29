@@ -146,6 +146,14 @@ vim.cmd.colorscheme "solarized_custom"
 
 -- {{{1 Filetype plugins
 
+vim.g.loaded_gzip = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+
 vim.g.vimsyn_embed = "lP"
 vim.g.man_hardwrap = 1
 vim.g.loaded_python_provider = 0
