@@ -3,7 +3,7 @@ local M = {}
 ---Create documentation
 ---
 ---  This is my own custom implementation of
----  ~/.local/plugged/nvim-cmp/lua/cmp/entry.lua:491
+---  ~/.local/share/nvim/site/pack/core/opt/nvim-cmp/lua/cmp/entry.lua:491
 ---
 ---@return string[]
 M.get_documentation = function(self)

@@ -12,12 +12,12 @@
   "workspace": {
     "library": [
       "$VIMRUNTIME",
-      "$HOME/.local/plugged/mini.icons",
-      "$HOME/.local/plugged/mini.notify",
-      "$HOME/.local/plugged/mini.snippets",
-      "$HOME/.local/plugged/nvim-lspconfig",
-      "$HOME/.local/plugged/lazy.nvim",
-      "$HOME/.local/plugged/snacks.nvim"
+      "$HOME/.local/share/nvim/site/pack/core/opt/mini.icons",
+      "$HOME/.local/share/nvim/site/pack/core/opt/mini.notify",
+      "$HOME/.local/share/nvim/site/pack/core/opt/mini.snippets",
+      "$HOME/.local/share/nvim/site/pack/core/opt/nvim-lspconfig",
+      "$HOME/.local/share/nvim/site/pack/core/opt/lazy.nvim",
+      "$HOME/.local/share/nvim/site/pack/core/opt/snacks.nvim"
     ]
   },
   "diagnostics.globals": ["MiniSnippets"]

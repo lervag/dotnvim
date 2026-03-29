@@ -1,3 +1,8 @@
+vim.pack.add {
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/mfussenegger/nvim-jdtls",
+}
+
 local lsp_utils = require "lervag.util.lsp"
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
@@ -804,7 +809,7 @@ local config_tsgo = {
     typescript = {
       inlayHints = {
         parameterNames = {
-          enabled = 'literals',
+          enabled = "literals",
           suppressWhenArgumentMatchesName = true,
         },
         parameterTypes = { enabled = true },

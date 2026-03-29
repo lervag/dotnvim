@@ -170,3 +170,8 @@ end)
 vim.keymap.set("n", "<f2>", function()
   require("lervag.windows").resize()
 end)
+
+vim.keymap.set("n", "<leader>pu", vim.pack.update)
+vim.keymap.set("n", "<leader>pp", function()
+  vim.pack.update(nil, { offline = true })
+end)

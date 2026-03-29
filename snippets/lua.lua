@@ -64,7 +64,7 @@ vim.g.options = "foobar"
     desc = "Template for debugging Lua scripts",
     body = [[
 if vim.env.DEBUG then
-  vim.opt.runtimepath:prepend "~/.local/plugged/one-small-step-for-vimkind"
+  vim.opt.runtimepath:prepend "~/.local/share/nvim/site/pack/core/opt/one-small-step-for-vimkind"
   require "osv".launch { port = 8086, blocking = true }
 end
 ]],
