@@ -67,16 +67,10 @@ function M.common()
     modified = ui.icon "modified"
   end
 
-  local stl = table.concat {
+  return table.concat {
     locked,
     modified,
   }
-
-  if #stl > 0 then
-    return stl
-  end
-
-  return ""
 end
 
 ---LSP cache per buffer
