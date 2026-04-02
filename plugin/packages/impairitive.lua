@@ -38,21 +38,11 @@ impairative
     backward = "cfirst",
     forward = "clast",
   })
-  :command_pair({
-    key = "t",
-    backward = "tprevious",
-    forward = "tnext",
-  })
-  :command_pair({
-    key = "T",
-    backward = "tfirst",
-    forward = "tlast",
-  })
   :jump_in_buf({
-    key = "n",
+    key = "c",
     desc = "jump to the {previous|next} SCM conflict marker or diff/path hunk",
     extreme = {
-      key = "N",
+      key = "C",
       desc = "jump to the {first|last} SCM conflict marker or diff/path hunk",
     },
     fun = require("impairative.helpers").conflict_marker_locations,
@@ -64,24 +54,3 @@ impairative
     backward = require("impairative.helpers").encode_url,
     forward = require("impairative.helpers").decode_url,
   })
-  :text_manipulation({
-    key = "x",
-    line_key = true,
-    desc = "{encode|decode} XML",
-    backward = require("impairative.helpers").encode_xml,
-    forward = require("impairative.helpers").decode_xml,
-  })
-  :text_manipulation({
-    key = "y",
-    line_key = true,
-    desc = "{escape|unescape} strings (C escape rules)",
-    backward = require("impairative.helpers").encode_string,
-    forward = require("impairative.helpers").decode_string,
-  })
-  :text_manipulation {
-    key = "C",
-    line_key = true,
-    desc = "{escape|unescape} strings (C escape rules)",
-    backward = require("impairative.helpers").encode_string,
-    forward = require("impairative.helpers").decode_string,
-  }
