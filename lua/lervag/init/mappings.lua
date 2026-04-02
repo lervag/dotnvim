@@ -189,3 +189,8 @@ vim.keymap.set("x", "]b", function()
   vim.fn.setreg("0", result)
   vim.cmd.normal "cgv0"
 end)
+
+vim.keymap.set("n", "<f5>", function()
+  vim.cmd.packadd "nvim.undotree"
+  require("undotree").open()
+end)
