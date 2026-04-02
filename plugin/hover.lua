@@ -13,8 +13,8 @@ vim.keymap.set("n", "K", function()
       line_number,
       line_number
     )
-    if not vim.tbl_isempty(matches) then
-      vim.cmd.WikiOpen(matches[1].text)
+    if #matches > 0 then
+      vim.cmd.WikiOpen(matches[1].text) ---@diagnostic disable-line: undefined-field
       return
     end
   end
@@ -48,6 +48,7 @@ vim.lsp.util.convert_input_to_markdown_lines = function(input, contents)
     local sub = line:gsub("&[^ ;]+;", {
       ["&nbsp;"] = " ",
     })
-    return sub:gsub("\\_", "_")
+    local result = sub:gsub("\\_", "_")
+    return result
   end, contents)
 end
