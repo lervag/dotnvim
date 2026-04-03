@@ -24,15 +24,12 @@ vim.pack.add {
   "https://github.com/AndrewRadev/linediff.vim",
   "https://github.com/Wansmer/treesj",
   "https://github.com/dhruvasagar/vim-table-mode",
-  "https://github.com/junegunn/vim-easy-align",
   "https://github.com/nvim-mini/mini.ai",
   "https://github.com/nvim-mini/mini.operators",
   "https://github.com/nvim-mini/mini.surround",
   "https://github.com/sQVe/sort.nvim",
   "https://github.com/tpope/vim-repeat",
 }
-
-vim.g.easy_align_bypass_fold = 1
 
 vim.g.table_mode_auto_align = 0
 vim.g.table_mode_corner = "|"
@@ -57,9 +54,6 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 vim.keymap.set("n", "sas", "saiW", { remap = true })
-
--- See plugin/align.vim
-vim.keymap.set({ "n", "v" }, "ga", "<plug>(align)")
 
 vim.keymap.set("n", "gS", function()
   require("treesj").toggle()
