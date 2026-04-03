@@ -19,7 +19,7 @@ require("lervag.util").load_delayed(function()
         model = { model = "mistral-large-2512" },
         max_tokens = 4096,
         system_prompt = "You are a general AI assistant.\n\n"
-          .. "The user provided the additional info about how they would like you to respond:\n\n"
+          .. "When responding, please:\n\n"
           .. "- Be brief and consise!\n"
           .. "- If you're unsure don't guess and say you don't know instead.\n"
           .. "- Ask question if you need clarification to provide better answer.\n"

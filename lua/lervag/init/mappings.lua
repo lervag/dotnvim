@@ -220,3 +220,8 @@ vim.keymap.set({ "x", "o" }, "it", function()
     vim.lsp.buf.selection_range(-vim.v.count1)
   end
 end, { desc = "Select child (inner) node" })
+
+vim.keymap.set("n", "<leader>rr", function()
+  local file = vim.fn.expand "%:p"
+  vim.cmd("restart edit " .. file)
+end)
