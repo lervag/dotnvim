@@ -1,9 +1,9 @@
 -- {{{1 Misc
 
 vim.opt.shada = { "!", "'10000", "<50", "s50", "h" }
-vim.opt.inccommand = "nosplit"
+vim.o.inccommand = "nosplit"
 vim.opt.tags = { "tags;~", ".tags;~" }
-vim.opt.path = ".,,"
+vim.o.path = ".,,"
 vim.opt.wildignore:append {
   "*.o",
   "*.mod",
@@ -31,48 +31,48 @@ vim.opt.diffopt = {
 
 -- {{{1 Backup, swap and undofile
 
-vim.opt.swapfile = false
-vim.opt.undofile = true
-vim.opt.backup = true
-vim.opt.backupdir = vim.env.HOME .. "/.local/share/nvim/backup//"
+vim.o.swapfile = false
+vim.o.undofile = true
+vim.o.backup = true
+vim.o.backupdir = vim.env.HOME .. "/.local/share/nvim/backup//"
 
 -- {{{1 Behaviour
 
-vim.opt.confirm = true
-vim.opt.hidden = true
-vim.opt.shortmess = "aoOtTFcCI"
-vim.opt.textwidth = 79
-vim.opt.wrap = false
-vim.opt.linebreak = true
-vim.opt.comments = "n:>"
-vim.opt.joinspaces = false
+vim.o.confirm = true
+vim.o.hidden = true
+vim.o.shortmess = "aoOtTFcCI"
+vim.o.textwidth = 79
+vim.o.wrap = false
+vim.o.linebreak = true
+vim.o.comments = "n:>"
+vim.o.joinspaces = false
 vim.opt.formatoptions:append "ronl1j"
-vim.opt.formatlistpat = [[^\s*[-*]\s\+]]
+vim.o.formatlistpat = [[^\s*[-*]\s\+]]
   .. [[\|^\s*(\(\d\+\|[a-z]\))\s\+]]
   .. [[\|^\s*\(\d\+\|[a-z]\)[:).]\s\+]]
-vim.opt.winaltkeys = "no"
-vim.opt.mouse = ""
-vim.opt.gdefault = true
-vim.opt.updatetime = 50
-vim.opt.splitkeep = "screen"
-vim.opt.jumpoptions = "stack"
+vim.o.winaltkeys = "no"
+vim.o.mouse = ""
+vim.o.gdefault = true
+vim.o.updatetime = 50
+vim.o.splitkeep = "screen"
+vim.o.jumpoptions = "stack"
 
 -- {{{1 Completion
 
 vim.opt.wildmode = { "longest:full", "full" }
-vim.opt.wildcharm = 26 -- char2nr(ctrl-z)
+vim.o.wildcharm = 26 -- char2nr(ctrl-z)
 vim.opt.complete:append { "U", "s", "k", "kspell", "]" }
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
-vim.opt.pumwidth = 35
+vim.o.pumwidth = 35
 
 -- {{{1 Spell checking
 
-vim.opt.spelllang = "en_gb"
-vim.opt.thesaurus = vim.env.HOME .. "/.config/nvim/spell/thesaurus-en.txt"
+vim.o.spelllang = "en_gb"
+vim.o.thesaurus = vim.env.HOME .. "/.config/nvim/spell/thesaurus-en.txt"
 
 -- {{{1 Presentation
 
-vim.opt.list = true
+vim.o.list = true
 vim.opt.listchars = {
   tab = "▸ ",
   nbsp = "␣",
@@ -88,50 +88,50 @@ vim.opt.fillchars = {
   foldsep = "┊",
   vert = "┃",
 }
-vim.opt.matchtime = 2
+vim.o.matchtime = 2
 vim.opt.matchpairs:append "<:>"
-vim.opt.cursorline = true
-vim.opt.scrolloff = 5
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.previewheight = 20
-vim.opt.showmode = false
+vim.o.cursorline = true
+vim.o.scrolloff = 5
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.previewheight = 20
+vim.o.showmode = false
 
 -- {{{1 Folding
 
-vim.opt.foldcolumn = "0"
-vim.opt.foldtext = ""
-vim.opt.signcolumn = "auto:1-4"
+vim.o.foldcolumn = "0"
+vim.o.foldtext = ""
+vim.o.signcolumn = "auto:1-4" ---@diagnostic disable-line: assign-type-mismatch
 
 -- {{{1 Indentation
 
-vim.opt.softtabstop = -1
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.copyindent = true
-vim.opt.preserveindent = true
-vim.opt.breakindent = true
+vim.o.softtabstop = -1
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+vim.o.copyindent = true
+vim.o.preserveindent = true
+vim.o.breakindent = true
 
 -- {{{1 Searching and movement
 
-vim.opt.startofline = false
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.infercase = true
-vim.opt.showmatch = true
-vim.opt.tagcase = "match"
+vim.o.startofline = false
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.infercase = true
+vim.o.showmatch = true
+vim.o.tagcase = "match"
 
-vim.opt.display = "lastline"
-vim.opt.virtualedit = "block"
+vim.o.display = "lastline"
+vim.o.virtualedit = "block"
 
 -- {{{1 UI
 
 -- vim.opt.winborder = "▗,▄,▖,▌,▘,▀,▝,▐"
-vim.opt.winborder = "solid"
-vim.opt.winwidth = 70
-vim.opt.termguicolors = true
-vim.opt.tabline = "%!v:lua.require('lervag.statusline').tabline()"
-vim.opt.statusline = "%!v:lua.require('lervag.statusline').statusline()"
+vim.o.winborder = "solid"
+vim.o.winwidth = 70
+vim.o.termguicolors = true
+vim.o.tabline = "%!v:lua.require('lervag.statusline').tabline()"
+vim.o.statusline = "%!v:lua.require('lervag.statusline').statusline()"
 vim.opt.guicursor = {
   "a:block",
   "n:Cursor",
