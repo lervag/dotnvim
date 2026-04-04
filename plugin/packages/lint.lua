@@ -17,6 +17,15 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
+require("rulebook").setup = {
+  ignoreComments = {
+    EmmyLua = {
+      comment = "---@diagnostic disable-next-line: %s",
+      location = "prevLine",
+    },
+  },
+}
+
 vim.keymap.set("n", "<leader>qri", function()
   require("rulebook").ignoreRule()
 end)

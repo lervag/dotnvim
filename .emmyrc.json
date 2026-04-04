@@ -17,6 +17,7 @@
       "$HOME/.local/share/nvim/site/pack/core/opt/mini.snippets",
       "$HOME/.local/share/nvim/site/pack/core/opt/nvim-lspconfig",
       "$HOME/.local/share/nvim/site/pack/core/opt/lazy.nvim",
+      "$HOME/.local/share/nvim/site/pack/core/opt/nvim-jdtls",
       "$HOME/.local/share/nvim/site/pack/core/opt/snacks.nvim"
     ]
   },

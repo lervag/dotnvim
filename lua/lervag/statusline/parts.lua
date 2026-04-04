@@ -29,8 +29,14 @@ end
 
 local M = {}
 
+---@class FilenameCache
+---@field name string
+---@field short string
+---@field cwd string
+
 ---Filename cache
-local _cache_filename = { name = nil, short = nil, cwd = nil }
+---@type FilenameCache
+local _cache_filename = { name = "", short = "", cwd = "" }
 
 ---@return string
 function M.filename()
@@ -49,7 +55,7 @@ function M.filename()
     return ui.icon "newfile" .. " " .. ui.italic(_cache_filename.short)
   end
 
-  return " " .. ui.gold(_cache_filename.short)
+  return " " .. ui.colorize_active(_cache_filename.short, "gold")
 end
 
 ---@return string
@@ -137,9 +143,9 @@ end
 ---@return string
 function M.gitfile(ref, path)
   return table.concat {
-    ui.red(" " .. ref),
+    ui.colorize_active(" " .. ref, "red"),
     ui.icon "git",
-    ui.gold(path),
+    ui.colorize_active(path, "gold"),
     M.common(),
   }
 end
@@ -184,7 +190,7 @@ function M.wiki_broken_links()
 
   local result = ""
   if broken_links > 0 then
-    result = ui.icon "link" .. ui.red(broken_links)
+    result = ui.icon "link" .. ui.colorize_active(tostring(broken_links), "red")
   end
 
   -- Cache the result

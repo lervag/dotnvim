@@ -48,7 +48,7 @@ function filetypes.wiki()
 
   return table.concat {
     ui.icon(wiki and wiki.in_journal == 1 and "journal" or "wiki"),
-    ui.gold(name),
+    ui.colorize_active(name, "gold"),
     parts.wiki_broken_links(),
     parts.common(),
   }

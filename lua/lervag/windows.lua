@@ -1,7 +1,9 @@
 --- Calculate the target width
 ---@return int
 local function get_target_width()
-  local heights = vim.iter(vim.split(vim.fn.winrestcmd(), "|"))
+  local restcmd = vim.split(vim.fn.winrestcmd(), "|")
+  ---@diagnostic disable-next-line: param-type-mismatch
+  local heights = vim.iter(restcmd)
   heights:filter(function(part)
     return part:match "^:?%d"
   end)

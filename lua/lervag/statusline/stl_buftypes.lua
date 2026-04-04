@@ -5,15 +5,16 @@ local buftypes = {}
 
 function buftypes.help()
   local name = vim.fn.fnamemodify(ctx.active_name, ":t:r")
-  return ui.green_light " vimdoc: " .. ui.gold(name)
+  return ui.colorize_active(" vimdoc: ", "green_light")
+    .. ui.colorize_active(name, "gold")
 end
 
 function buftypes.nofile()
-  return ui.green_light " %f" .. "%= %l/%L "
+  return ui.colorize_active(" %f" .. "%= %l/%L ", "green_light")
 end
 
 function buftypes.prompt()
-  return ui.green_light " %f" .. "%= %l/%L "
+  return ui.colorize_active(" %f" .. "%= %l/%L ", "green_light")
 end
 
 function buftypes.quickfix()
@@ -26,16 +27,19 @@ function buftypes.quickfix()
     qf_nr_stl = " " .. qf_nr .. "/" .. qf_last
   end
 
-  return ui.gold(table.concat {
-    " [",
-    vim.fn["personal#qf#is_loc"](winnr) and "Loclist" or "Quickfix",
-    qf_nr_stl,
-    "]",
-    " (",
-    vim.fn["personal#qf#length"](winnr),
-    ") ",
-    vim.fn["personal#qf#get_prop"]("title", 0, winnr),
-  })
+  return ui.colorize_active(
+    table.concat {
+      " [",
+      vim.fn["personal#qf#is_loc"](winnr) and "Loclist" or "Quickfix",
+      qf_nr_stl,
+      "]",
+      " (",
+      vim.fn["personal#qf#length"](winnr),
+      ") ",
+      vim.fn["personal#qf#get_prop"]("title", 0, winnr),
+    },
+    "gold"
+  )
 end
 
 local M = {}

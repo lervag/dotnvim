@@ -18,7 +18,7 @@ local function stl_preview()
       parts.filename(),
       parts.common(),
       "%=",
-      ui.red " [preview] ",
+      ui.colorize_active(" [preview] ", "red"),
     }
   end
 end
@@ -79,7 +79,10 @@ vim.api.nvim_create_user_command("ReloadStatusline", function()
     end
   end
 
-  dofile(debug.getinfo(1, "S").source:sub(2))
+  local file = debug.getinfo(1, "S")
+  if file then
+    dofile(file.source:sub(2))
+  end
 end, {})
 
 return M

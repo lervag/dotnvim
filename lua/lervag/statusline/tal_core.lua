@@ -33,9 +33,10 @@ function M.main()
     local label = get_tablabel(i)
 
     if i == active_tabnr then
-      tl = tl .. ui.colorize("", "TabLineSelSep")
-      .. ui.colorize(label, "TabLineSel")
-      .. ui.colorize("", "TabLineSelSep")
+      tl = tl
+        .. ui.in_group("", "TabLineSelSep")
+        .. ui.in_group(label, "TabLineSel")
+        .. ui.in_group("", "TabLineSelSep")
     else
       tl = tl .. " " .. label .. " "
     end

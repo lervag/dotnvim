@@ -1,5 +1,12 @@
 local ctx = require "lervag.statusline.context"
 
+---@alias Color "gold" | "yellow" | "white" | "red" | "cyan" | "green" | "green_light" | "blue"
+
+---@class IconConfig
+---@field glyph string
+---@field color? Color
+
+---@type table<string, IconConfig>
 local icons = {
   newfile = {
     glyph = "  ",
@@ -56,10 +63,12 @@ local icons = {
 
 local M = {}
 
+---@param name string
+---@return string
 function M.icon(name)
   local icon = icons[name]
   if icon.color then
-    return M[icon.color](icon.glyph)
+    return M.colorize(icon.glyph, icon.color)
   end
 
   return icon.glyph
@@ -68,34 +77,44 @@ end
 ---@param text string
 ---@param group string
 ---@return string
-function M.colorize(text, group)
+function M.in_group(text, group)
   return "%#" .. group .. "#" .. text .. "%*"
 end
 
 ---@param text string
----@param group string
+---@param color Color
+---@return string
+function M.colorize(text, color)
+  local group = "SL"
+    .. color:sub(1, 1):upper()
+    .. color:sub(2):gsub("_([a-z])", function(l)
+      return l:upper()
+    end)
+
+  return M.in_group(text, group)
+end
+
+---@param text string
+---@param color Color
 ---@param condition boolean
 ---@return string
-function M.colorize_if(text, group, condition)
+function M.colorize_if(text, color, condition)
   if condition then
-    return M.colorize(text, group)
+    return M.colorize(text, color)
   end
 
   return text
 end
 
-setmetatable(M, {
-  ---@param key string
-  __index = function(_, key)
-    local color = "SL" .. key:sub(1, 1):upper()
-      .. key:sub(2):gsub("_([a-z])", function(l)
-        return l:upper()
-      end)
+---@param text string
+---@param color Color
+---@return string
+function M.colorize_active(text, color)
+  if ctx.is_active then
+    return M.colorize(text, color)
+  end
 
-    return function(text)
-      return M.colorize_if(text, color, ctx.is_active)
-    end
-  end,
-})
+  return text
+end
 
 return M
