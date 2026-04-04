@@ -217,6 +217,10 @@
       "rev": "e4db0e1e16741e1ea42c620d0b8ce3347cc02c51",
       "src": "https://github.com/xemptuous/sqlua.nvim"
     },
+    "tiny-inline-diagnostic.nvim": {
+      "rev": "ba133b3e932416e4b9507095731a6d7276878fe8",
+      "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
+    },
     "tree-sitter-d2": {
       "rev": "ffb66ce4c801a1e37ed145ebd5eca1ea8865e00f",
       "src": "https://github.com/ravsii/tree-sitter-d2"

@@ -1,32 +1,9 @@
-vim.keymap.set("n", "<leader>qQ", function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end)
-vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
-vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
-vim.keymap.set("n", "<leader>qc", "<cmd>cclose<cr>")
-vim.keymap.set("n", "<leader>qC", "<cmd>lclose<cr>")
-
-vim.api.nvim_create_autocmd("InsertEnter", {
-  callback = function()
-    pcall(vim.diagnostic.hide)
-  end,
-})
-
-vim.api.nvim_create_autocmd("ModeChanged", {
-  pattern = "i:*",
-  callback = function()
-    pcall(vim.diagnostic.show)
-  end,
-})
-
----@diagnostic disable-next-line: param-type-not-match
 vim.diagnostic.config {
   update_in_insert = false,
   severity_sort = true,
   float = {
     focusable = false,
     style = "minimal",
-    ---@diagnostic disable-next-line: assign-type-mismatch
     border = require("lervag.const").border,
     source = "if_many",
     header = "",
@@ -47,12 +24,51 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
     },
   },
-  virtual_lines = { current_line = true },
-  virtual_text = {
-    severity = { min = vim.diagnostic.severity.ERROR },
-    format = function(diagnostic)
-      local msg = diagnostic.message:lower():gsub("%.%s*$", "")
-      return msg
-    end,
+}
+
+vim.pack.add { "https://github.com/rachartier/tiny-inline-diagnostic.nvim" }
+
+require("tiny-inline-diagnostic").setup {
+  options = {
+    -- multilines = { enabled = true },
+    show_sources = { enabled = true },
   },
 }
+
+vim.keymap.set("n", "<leader>qq", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
+vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
+vim.keymap.set("n", "<leader>qc", "<cmd>cclose<cr>")
+vim.keymap.set("n", "<leader>qC", "<cmd>lclose<cr>")
+vim.keymap.set("n", "<leader>qy", function()
+  local diagnostics = vim.diagnostic.get(0, {
+    lnum = vim.api.nvim_win_get_cursor(0)[1] - 1,
+  })
+  local count = #diagnostics
+  if count == 0 then
+    return
+  end
+
+  ---@diagnostic disable-next-line: param-type-mismatch
+  local messages = vim.iter(diagnostics):map(function(d)
+    return d.message
+  end)
+
+  local text = count == 1 and messages:totable()[1]
+    or messages
+      :enumerate()
+      :map(function(_, msg)
+        return ("- %s"):format(msg)
+      end)
+      :join "\n"
+
+  vim.fn.setreg("+", text)
+  vim.notify(
+    ("Copied %d diagnostic%s to clipboard"):format(
+      count,
+      count == 1 and "" or "s"
+    )
+  )
+end)
