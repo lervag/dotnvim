@@ -1,6 +1,6 @@
 local ctx = require "lervag.statusline.context"
 
----@alias Color "gold" | "yellow" | "white" | "red" | "cyan" | "green" | "green_light" | "blue"
+---@alias Color "gold" | "yellow" | "white" | "red" | "cyan" | "green" | "green_light" | "blue" | "italic"
 
 ---@class IconConfig
 ---@field glyph string

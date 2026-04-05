@@ -52,7 +52,9 @@ function M.filename()
   end
 
   if vim.fn.filereadable(ctx.active_name) == 0 then
-    return ui.icon "newfile" .. " " .. ui.italic(_cache_filename.short)
+    return ui.icon "newfile"
+      .. " "
+      .. ui.colorize_active(_cache_filename.short, "italic")
   end
 
   return " " .. ui.colorize_active(_cache_filename.short, "gold")
