@@ -1,5 +1,5 @@
 vim.wo[0][0].conceallevel = 2
-vim.wo[0][0].foldexpr = "personal#markdown#foldlevel(v:lnum)"
+vim.wo[0][0].foldexpr = "v:lua.require('lervag.util.wiki').foldexpr(v:lnum)"
 vim.wo[0][0].foldmethod = "expr"
 
 vim.opt_local.isfname:remove ","

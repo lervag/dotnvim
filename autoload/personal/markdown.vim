@@ -65,24 +65,6 @@ endfunction
 
 " }}}1
 
-function! personal#markdown#foldlevel(lnum) abort " {{{1
-  let l:line = getline(a:lnum)
-
-  if s:is_code(a:lnum)
-    return l:line =~# '^\s*```'
-          \ ? (s:is_code(a:lnum+1) ? 'a1' : 's1')
-          \ : '='
-  endif
-
-  if l:line =~# g:wiki#rx#header_md_atx
-    return '>' . len(matchstr(l:line, '#*'))
-  endif
-
-  return '='
-endfunction
-
-" }}}1
-
 function! personal#markdown#indentexpr(lnum) abort " {{{1
   " Unordered lists
   let cline = getline(a:lnum)
