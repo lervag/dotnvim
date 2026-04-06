@@ -170,6 +170,7 @@ require("lervag.util").load_on("InsertEnter", function()
       { name = "nvim_lsp" },
       { name = "nvim_lsp_signature_help" },
       { name = "vim-dadbod-completion" },
+      { name = "dadbod_grip" },
       { name = "path", option = { trailing_slash = true } },
       { name = "calc" },
     },
