@@ -1,19 +1,29 @@
-vim.fn["personal#markdown#init"]()
-
 -- Handle e.g. floating previews from LSPs
 if vim.bo.buftype == "nofile" then
-  vim.wo.foldlevel = 99
-
-  -- This is a minor hack to fix a glitch where treesitter didn't start
-  -- properly for small hovers
-  vim.defer_fn(function()
-    vim.treesitter.start()
-  end, 50)
   return
 end
 
+vim.fn["personal#markdown#color_code_blocks"]()
+
+vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo[0][0].foldmethod = "expr"
+
 vim.bo.indentexpr = "personal#markdown#indentexpr(v:lnum)"
-vim.wo.conceallevel = 0
+
+vim.keymap.set("n", ")", "<plug>(wiki-link-next)", { buf = 0, remap = true })
+vim.keymap.set("n", "(", "<plug>(wiki-link-prev)", { buf = 0, remap = true })
+vim.keymap.set(
+  { "o", "x" },
+  "ac",
+  ":<c-u>call personal#markdown#textobj_code_block(0, 0)<cr>",
+  { buf = 0 }
+)
+vim.keymap.set(
+  { "o", "x" },
+  "ic",
+  ":<c-u>call personal#markdown#textobj_code_block(1, 0)<cr>",
+  { buf = 0 }
+)
 
 vim.keymap.set(
   "n",

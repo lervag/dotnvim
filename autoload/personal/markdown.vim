@@ -1,21 +1,3 @@
-function! personal#markdown#init() abort " {{{1
-  setlocal conceallevel=2
-  setlocal foldmethod=expr
-  setlocal foldexpr=personal#markdown#foldlevel(v:lnum)
-
-  call personal#markdown#color_code_blocks()
-
-  onoremap <silent><buffer> ac :call personal#markdown#textobj_code_block(0, 0)<cr>
-  xnoremap <silent><buffer> ac :<c-u>call personal#markdown#textobj_code_block(0, 1)<cr>
-  onoremap <silent><buffer> ic :call personal#markdown#textobj_code_block(1, 0)<cr>
-  xnoremap <silent><buffer> ic :<c-u>call personal#markdown#textobj_code_block(1, 1)<cr>
-
-  nmap <buffer> ) <plug>(wiki-link-next)
-  nmap <buffer> ( <plug>(wiki-link-prev)
-endfunction
-
-" }}}1
-
 function! personal#markdown#color_code_blocks() abort " {{{1
   " This is based on an idea from reddit:
   " https://www.reddit.com/r/vim/comments/fob3sg/different_background_color_for_markdown_code/
@@ -52,7 +34,7 @@ endfunction
 " }}}1
 
 function! personal#markdown#textobj_code_block(is_inner, vmode) abort " {{{1
-  if !wiki#u#is_code(line('.'))
+  if !s:is_code(line('.'))
     if a:vmode
       normal! gv
     endif
@@ -61,13 +43,13 @@ function! personal#markdown#textobj_code_block(is_inner, vmode) abort " {{{1
 
   let l:lnum1 = line('.')
   while 1
-    if !wiki#u#is_code(l:lnum1-1) | break | endif
+    if !s:is_code(l:lnum1-1) | break | endif
     let l:lnum1 -= 1
   endwhile
 
   let l:lnum2 = line('.')
   while 1
-    if !wiki#u#is_code(l:lnum2+1) | break | endif
+    if !s:is_code(l:lnum2+1) | break | endif
     let l:lnum2 += 1
   endwhile
 
@@ -86,9 +68,9 @@ endfunction
 function! personal#markdown#foldlevel(lnum) abort " {{{1
   let l:line = getline(a:lnum)
 
-  if wiki#u#is_code(a:lnum)
+  if s:is_code(a:lnum)
     return l:line =~# '^\s*```'
-          \ ? (wiki#u#is_code(a:lnum+1) ? 'a1' : 's1')
+          \ ? (s:is_code(a:lnum+1) ? 'a1' : 's1')
           \ : '='
   endif
 
@@ -329,6 +311,16 @@ function! s:choose(list) abort " {{{1
       endif
     endtry
   endwhile
+endfunction
+
+" }}}1
+function! s:is_code(...) abort " {{{1
+  let l:lnum = a:0 > 0 ? a:1 : line('.')
+  let l:col = a:0 > 1 ? a:2 : col('.')
+
+  return synstack(l:lnum, l:col)
+        \ ->map("synIDattr(v:val, 'name')")
+        \ ->match('^\%(wikiPre\|mkd\%(Code\|Snippet\)\|markdownCode\)') >= 0
 endfunction
 
 " }}}1
