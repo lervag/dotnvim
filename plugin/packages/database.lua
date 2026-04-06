@@ -14,4 +14,5 @@ require("dadbod-grip").setup {
   picker = "snacks",
   completion = false,
   open_key = "<leader>Db",
+  border = require("lervag.const").border,
 }
