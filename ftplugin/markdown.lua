@@ -8,8 +8,6 @@ vim.fn["personal#markdown#color_code_blocks"]()
 vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo[0][0].foldmethod = "expr"
 
-vim.bo.indentexpr = "personal#markdown#indentexpr(v:lnum)"
-
 vim.keymap.set("n", ")", "<plug>(wiki-link-next)", { buf = 0, remap = true })
 vim.keymap.set("n", "(", "<plug>(wiki-link-prev)", { buf = 0, remap = true })
 vim.keymap.set(
