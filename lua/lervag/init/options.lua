@@ -77,8 +77,8 @@ vim.opt.listchars = {
   tab = "▸ ",
   nbsp = "␣",
   trail = " ",
-  extends = "…",
-  precedes = "…",
+  extends = "⋯",
+  precedes = "⋯",
 }
 vim.opt.fillchars = {
   fold = " ",
