@@ -85,7 +85,7 @@
       "src": "https://github.com/Robitx/gp.nvim"
     },
     "helpful.vim": {
-      "rev": "14289ed78ed6be673b828c2dd954e2542ad9e518",
+      "rev": "408e146aada95a8668dc0fe4608c5715b010ca81",
       "src": "https://github.com/tweekmonster/helpful.vim"
     },
     "img-clip.nvim": {
@@ -178,15 +178,15 @@
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lint": {
-      "rev": "4b03656c09c1561f89b6aa0665c15d292ba9499d",
+      "rev": "eab58b48eb11d7745c11c505e0f3057165902461",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "a776085e04f7b15d0b59fae2244df07d98360ab4",
+      "rev": "cb5bc0b2b35a6d513e3298d285db81453e791f4f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-metals": {
-      "rev": "48b9d29a4e1370495db4d4b5ccbc17b285bc98eb",
+      "rev": "6970d6036218db6545f3c295d0106cc8de6d7161",
       "src": "https://github.com/scalameta/nvim-metals"
     },
     "nvim-pqf": {
@@ -194,7 +194,7 @@
       "src": "https://github.com/yorickpeterse/nvim-pqf"
     },
     "nvim-rulebook": {
-      "rev": "4c20ae78964cbf25333c0af141f9231c93b27566",
+      "rev": "083dd66b498bc142386a7c96dddab73acbf4ec20",
       "src": "https://github.com/chrisgrieser/nvim-rulebook"
     },
     "nvim-treesitter": {
@@ -206,7 +206,7 @@
       "src": "https://github.com/jbyuki/one-small-step-for-vimkind"
     },
     "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "snacks.nvim": {
@@ -270,7 +270,7 @@
       "src": "https://github.com/preservim/vim-markdown"
     },
     "vim-matchup": {
-      "rev": "0fb1e6b7cea34e931a2af50b8ad565c5c4fd8f4d",
+      "rev": "dccb2d12ef2a703d2f076b3cda36a3339449d1eb",
       "src": "https://github.com/andymass/vim-matchup"
     },
     "vim-mbsync": {
@@ -294,7 +294,7 @@
       "src": "https://github.com/tpope/vim-scriptease"
     },
     "vim-startuptime": {
-      "rev": "c12649b2458e34ec6dde8f1bdfe830661a613a6b",
+      "rev": "f10474b400c197787a0434548d842a2db583c333",
       "src": "https://github.com/dstein64/vim-startuptime"
     },
     "vim-systemd": {
@@ -322,7 +322,7 @@
       "src": "https://github.com/benmills/vimux"
     },
     "wezterm-types": {
-      "rev": "6d10943919a660038e1c9477ca37fdb8911691e3",
+      "rev": "6d6bf72bd054389023ef0785b3632115529eac55",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "wiki-ft.vim": {
