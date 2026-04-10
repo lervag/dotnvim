@@ -222,6 +222,7 @@ vim.keymap.set({ "x", "o" }, "it", function()
 end, { desc = "Select child (inner) node" })
 
 vim.keymap.set("n", "<leader>rr", function()
-  local file = vim.fn.expand "%:p"
-  vim.cmd("restart edit " .. file)
+  local session = vim.fn.stdpath "state" .. "/restart_session.vim"
+  vim.cmd("mksession! " .. vim.fn.fnameescape(session))
+  vim.cmd("restart source " .. vim.fn.fnameescape(session))
 end)
