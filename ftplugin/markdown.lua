@@ -3,7 +3,39 @@ if vim.bo.buftype == "nofile" then
   return
 end
 
-vim.fn["personal#markdown#color_code_blocks"]()
+vim.pack.add { "https://github.com/OXY2DEV/markview.nvim" }
+
+local presets = require "markview.presets"
+
+require("markview").setup {
+  markdown = {
+    code_blocks = {
+      label_direction = "left",
+      sign = false,
+      style = "simple",
+    },
+    headings = {
+      heading_1 = { sign = "" },
+      heading_2 = { sign = "" },
+    },
+    horizontal_rules = presets.horizontal_rules.thick,
+    tables = {
+      parts = {
+        top = { "─", "─", "─", "─" },
+        header = { " ", " ", " " },
+        separator = { "─", "─", "─", "─" },
+        row = { " ", " ", " " },
+        bottom = { "─", "─", "─", "─" },
+        overlap = { "━", "━", "━", "━" },
+      },
+    },
+  },
+  preview = {
+    icon_provider = "mini.icons",
+  },
+}
+
+vim.keymap.set("n", "<leader>mm", "<cmd>Markview toggle<cr>", { buf = 0 })
 
 vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo[0][0].foldmethod = "expr"

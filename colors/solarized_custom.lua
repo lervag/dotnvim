@@ -4,21 +4,6 @@
 vim.o.background = "light"
 vim.g.colors_name = "solarized_custom"
 
--- This enables dynamic reloading of the colorscheme
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-  pattern = "solarized_custom.lua",
-  group = vim.api.nvim_create_augroup("init_colors", {}),
-  desc = "Reload colorscheme when it is changed",
-  callback = function()
-    if vim.o.modified and not vim.o.diff then
-      -- vim.cmd "highlight clear"
-      vim.cmd "silent update"
-      vim.cmd "colorscheme solarized_custom"
-      vim.notify "Updated colorscheme (notification)"
-    end
-  end,
-})
-
 -- {{{1 Define colors
 
 local base03 = "#002b36"
@@ -257,7 +242,7 @@ local theme = {
   -- {{{1 Tree-sitter
 
   -- Highlight groups used by Tree-sitter
-  -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
+  -- https://github.com/nvim-treesitter/nvim-treesitter/blob/main/CONTRIBUTING.md#highlights
 
   -- ["@markup"] = {},
   ["@markup.emphasis"] = { italic = true },
@@ -270,7 +255,7 @@ local theme = {
   ["@markup.list"] = { link = "Identifier" },
   -- ["@markup.literal.block"] = {},
   -- ["@markup.math"] = {},
-  -- ["@markup.quote"] = {},
+  ["@markup.quote"] = { fg = "#505050" },
   ["@markup.raw"] = { link = "PreProc" },
   ["@markup.strike"] = { strikethrough = true },
   ["@markup.strong"] = { bold = true },
@@ -479,6 +464,37 @@ local theme = {
 
   FlashLabel = { fg = azure2, underline = true, bold = true },
   FlashPromptIcon = { fg = yellow0, bold = true },
+
+  MarkviewCode = { bg = color15w },
+  MarkviewCodeInfo = { fg = yellow0 },
+  MarkviewPalette0 = { fg = "#aaaa58", bg = "#f6f2ed" },
+  MarkviewPalette0Fg = { fg = "#aa5858" },
+  MarkviewPalette0Bg = { bg = "#faa2ed" },
+  MarkviewPalette1 = { fg = "#aa5858", bg = "#f6f2ed" },
+  MarkviewPalette1Fg = { fg = "#aa5858" },
+  MarkviewPalette1Bg = { bg = "#f6f2ed" },
+  MarkviewPalette2 = { fg = "#507030", bg = "#f7f7ea" },
+  MarkviewPalette2Fg = { fg = "#507030" },
+  MarkviewPalette2Bg = { bg = "#f7f7ea" },
+  MarkviewPalette3 = { fg = "#1030a0", bg = "#ebedf4" },
+  MarkviewPalette3Fg = { fg = "#1030a0" },
+  MarkviewPalette3Bg = { bg = "#ebedf4" },
+  MarkviewPalette4 = { fg = "#103040", bg = "#e7f3f9" },
+  MarkviewPalette4Fg = { fg = "#103040" },
+  MarkviewPalette4Bg = { bg = "#e7f3f9" },
+  MarkviewPalette5 = { fg = "#505050", bg = "#f0f0f0" },
+  MarkviewPalette5Fg = { fg = "#505050" },
+  MarkviewPalette5Bg = { bg = "#f0f0f0" },
+  MarkviewPalette6 = { fg = "#636363", bg = "#f0f0f0" },
+  MarkviewPalette6Fg = { fg = "#636363" },
+  MarkviewPalette6Bg = { bg = "#f0f0f0" },
+  MarkviewTableHeader = { link = "MarkviewPalette4Fg" },
+  MarkviewTableAlignLeft = { link = "MarkviewTableHeader" },
+  MarkviewTableAlignCenter = { link = "MarkviewTableHeader" },
+  MarkviewTableAlignRight = { link = "MarkviewTableHeader" },
+  MarkviewBlockQuoteDefault = { link = "Normal" },
+  MarkviewBlockQuoteError = { link = "ErrorMsg" },
+  MarkviewBlockQuoteWarn = { link = "WarningMsg" },
 
   MiniIconsAzure = { fg = azure1 },
   MiniIconsBlue = { fg = blue1 },
