@@ -166,7 +166,7 @@
       "src": "https://github.com/LiadOz/nvim-dap-repl-highlights"
     },
     "nvim-dap-view": {
-      "rev": "e57ac4051aa56293e89991ab93bc148de35321ca",
+      "rev": "64e2d57788ef93469af1e0319311f669a3126cd3",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-dap-virtual-text": {

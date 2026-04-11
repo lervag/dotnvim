@@ -2,18 +2,13 @@
 -- configurations are defined elsewhere. Assuming I remember to update the
 -- following list, these are the relevant files:
 --
--- Java:
 --   ~/.config/nvim/ftplugin/java.lua
---
--- Scala:
---   ~/.config/nvim/ftplugin/scala.lua
---
--- Lua:
 --   ~/.config/nvim/ftplugin/lua.lua
+--   ~/.config/nvim/ftplugin/python.lua
+--   ~/.config/nvim/ftplugin/scala.lua
 
 vim.pack.add {
   "https://github.com/mfussenegger/nvim-dap",
-  "https://github.com/theHamsta/nvim-dap-virtual-text",
   "https://github.com/igorlfs/nvim-dap-view",
 }
 
@@ -34,7 +29,6 @@ vim.fn.sign_define {
   -- stylua: ignore end
 }
 
----@diagnostic disable: missing-fields
 local mappings = {
   ["<leader>dd"] = dap.continue,
   ["<leader>dD"] = dap.run_last,
@@ -91,6 +85,9 @@ vim.keymap.set("n", "<leader>dW", ":DapViewWatch ")
 -- https://igorlfs.github.io/nvim-dap-view/configuration
 require("dap-view").setup {
   auto_toggle = true,
+  virtual_text = {
+    enabled = true,
+  },
   winbar = {
     sections = {
       "scopes",

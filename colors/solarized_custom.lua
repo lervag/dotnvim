@@ -422,6 +422,7 @@ local theme = {
 
   DapSign = { fg = purple1, bg = color07 },
   DapStatus = { fg = pink1, bg = color10 },
+  NvimDapViewVirtualText = { link = "Comment" },
 
   CmpGhostText = { fg = color14l, italic = true },
   CmpItemAbbrMatch = { fg = azure2 },
