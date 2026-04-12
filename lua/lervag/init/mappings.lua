@@ -173,7 +173,7 @@ end)
 
 vim.keymap.set("n", "<leader>pu", vim.pack.update)
 vim.keymap.set("n", "<leader>pp", function()
-  vim.pack.update(nil, { offline = true })
+  vim.pack.update(nil, { force = true, target = "lockfile" })
 end)
 
 vim.keymap.set("x", "[b", function()
