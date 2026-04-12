@@ -53,7 +53,7 @@
       "src": "https://github.com/terrastruct/d2-vim"
     },
     "dadbod-grip.nvim": {
-      "rev": "0d3258c067aa2b76119dfbdf311365d5d171e93a",
+      "rev": "3ee0a6d0000bebee89692a39e0d16605c5e17306",
       "src": "https://github.com/joryeugene/dadbod-grip.nvim"
     },
     "dial.nvim": {
@@ -230,7 +230,7 @@
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "tree-sitter-d2": {
-      "rev": "ffb66ce4c801a1e37ed145ebd5eca1ea8865e00f",
+      "rev": "200434618a6bede20ebd4982aa4d4f1edeb0b5c1",
       "src": "https://github.com/ravsii/tree-sitter-d2"
     },
     "treesj": {
@@ -326,7 +326,7 @@
       "src": "https://github.com/benmills/vimux"
     },
     "wezterm-types": {
-      "rev": "6d6bf72bd054389023ef0785b3632115529eac55",
+      "rev": "4b19c593c0dd81d4dd2de7831802ec7c2d1b99ec",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "wiki-ft.vim": {
