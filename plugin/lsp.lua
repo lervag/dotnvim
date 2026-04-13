@@ -249,6 +249,18 @@ local config_bashls = {
 lsp_enable(config_bashls)
 
 -- }}}1
+-- {{{1 wiki:bicep
+
+lsp_enable {
+  name = "bicep-lsp",
+  cmd = {
+    "/home/lervag/.local/share/nvim/mason/bin/bicep-lsp",
+    "start",
+  },
+  filetypes = { "bicep" },
+}
+
+-- }}}1
 -- {{{1 wiki:cssls
 
 ---@type vim.lsp.Config
