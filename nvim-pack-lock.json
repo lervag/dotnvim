@@ -69,7 +69,7 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "emoji.nvim": {
-      "rev": "60de0eda00f98ecafaf29d461d60b1bd9da17329",
+      "rev": "34ccd330be21d0ba5050f9c4ced3fbc80d137347",
       "src": "https://github.com/Allaman/emoji.nvim"
     },
     "file-line": {
@@ -208,10 +208,6 @@
     "one-small-step-for-vimkind": {
       "rev": "1af6ffb9b5229a856e8090fa2f690e0931a5aace",
       "src": "https://github.com/jbyuki/one-small-step-for-vimkind"
-    },
-    "plenary.nvim": {
-      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
-      "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",

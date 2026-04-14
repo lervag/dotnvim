@@ -1,6 +1,4 @@
 vim.pack.add {
-  -- plenary is required by emoji.nvim
-  "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/Allaman/emoji.nvim",
   "https://github.com/hrsh7th/cmp-calc",
   "https://github.com/hrsh7th/cmp-nvim-lsp",
