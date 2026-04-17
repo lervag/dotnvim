@@ -258,6 +258,9 @@ lsp_enable {
     "start",
   },
   filetypes = { "bicep" },
+  on_attach = function(_, bufnr)
+    vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr })
+  end,
 }
 
 -- }}}1
