@@ -31,3 +31,10 @@ vim.keymap.set("n", "<leader>lf", function()
     lsp_format = "fallback",
   }
 end, { desc = "Format buffer" })
+
+vim.keymap.set("x", "<leader>lf", function()
+  require("conform").format {
+    async = true,
+    lsp_format = "fallback",
+  }
+end, { desc = "Format selection" })
