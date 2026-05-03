@@ -40,7 +40,7 @@ vim.o.backupdir = vim.env.HOME .. "/.local/share/nvim/backup//"
 
 vim.o.confirm = true
 vim.o.hidden = true
-vim.o.shortmess = "aoOtTFcCI"
+vim.o.shortmess = "aoOtTFcCIu"
 vim.o.textwidth = 79
 vim.o.wrap = false
 vim.o.linebreak = true
