@@ -626,11 +626,12 @@ vim.api.nvim_create_autocmd("FileType", {
 -- }}}1
 -- {{{1 wiki:ty
 
----@type vim.lsp.Config
-local config_ty = {
+lsp_enable {
   name = "ty",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/ty", "server" },
-  -- disable = function() return true end,
+  -- disable = function()
+  --   return true
+  -- end,
   filetypes = { "python" },
   root_markers = {
     "ty.toml",
@@ -648,29 +649,26 @@ local config_ty = {
     },
   },
 }
-lsp_enable(config_ty)
 
 -- }}}1
 -- {{{1 wiki:pyrefly
 
--- ---@type vim.lsp.Config
--- local config_pyrefly = {
---   name = "pyrefly",
---   cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
---   disable = function()
---     return true
---   end,
---   filetypes = { "python" },
---   root_markers = {
---     "pyrefly.toml",
---     "pyproject.toml",
---     ".git",
---   },
---   settings = {
---     pyrefly = {},
---   },
--- }
--- lsp_enable(config_pyrefly)
+lsp_enable {
+  name = "pyrefly",
+  cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
+  disable = function()
+    return true
+  end,
+  filetypes = { "python" },
+  root_markers = {
+    "pyrefly.toml",
+    "pyproject.toml",
+    ".git",
+  },
+  settings = {
+    pyrefly = {},
+  },
+}
 
 -- }}}1
 -- {{{1 wiki:ruff-lsp
