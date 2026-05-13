@@ -6,7 +6,7 @@ local function get_github_token()
     vim.notify("Could not get gh token", vim.log.levels.WARN)
     return ""
   end
-  return result.stdout
+  return vim.trim(result.stdout)
 end
 
 local function parse_github_remote(url)
@@ -39,7 +39,7 @@ local function get_repo_info(owner, repo)
   if not handle then
     return nil
   end
-  local result = handle:read("*a"):gsub("%s+$", "")
+  local result = vim.trim(handle:read "*a")
   handle:close()
 
   local id, owner_type = result:match "^(%d+)\t(.+)$"
@@ -58,7 +58,7 @@ local function get_repos_config()
   if not result or not result.stdout then
     return nil
   end
-  local git_root = result.stdout
+  local git_root = vim.trim(result.stdout)
 
   if git_root == "" then
     return nil
@@ -68,7 +68,7 @@ local function get_repos_config()
   if not handle then
     return nil
   end
-  local remote_url = handle:read("*a"):gsub("%s+", "")
+  local remote_url = vim.trim(handle:read "*a")
   handle:close()
 
   local owner, name = parse_github_remote(remote_url)

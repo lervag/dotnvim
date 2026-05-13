@@ -8,7 +8,14 @@ local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
 
 -- Defaults
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities =
+  vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {
+    workspace = {
+      didChangeWorkspaceFolders = {
+        dynamicRegistration = true,
+      },
+    },
+  })
 
 vim.lsp.config("*", {
   root_markers = { ".git" },
@@ -179,6 +186,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- }}}1
 
+---@class lervag.lsp.Config : vim.lsp.Config
+---@field disable? fun(args: vim.api.keyset.create_autocmd.callback_args): boolean
+---@field init_options_lazy? fun(): table
+
 ---Setup LSP servers
 ---
 ---With neovim 0.11, I could use the vim.lsp.config and vim.lsp.enable, but
@@ -189,7 +200,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 ---* https://github.com/neovim/neovim/pull/31031
 ---* https://github.com/neovim/nvim-lspconfig/issues/3494
 ---
----@param config vim.lsp.Config
+---@param config lervag.lsp.Config
 local function lsp_enable(config)
   vim.api.nvim_create_autocmd("FileType", {
     pattern = config.filetypes,
@@ -202,12 +213,13 @@ local function lsp_enable(config)
         return
       end
 
-      ---@diagnostic disable-next-line: undefined-field
       if config.disable and config.disable(args) then
         return
       end
 
-      config = vim.tbl_deep_extend("force", vim.lsp.config["*"] or {}, config)
+      ---@diagnostic disable-next-line: undefined-field
+      local globals = vim.lsp.config["*"] or {}
+      config = vim.tbl_deep_extend("force", globals, config) ---@as lervag.lsp.Config
 
       if config.root_markers then
         config.root_dir = vim.fs.root(args.buf, config.root_markers)
@@ -229,7 +241,7 @@ end
 
 -- {{{1 wiki:bashls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_bashls = {
   name = "bashls",
   cmd = {
@@ -266,7 +278,7 @@ lsp_enable {
 -- }}}1
 -- {{{1 wiki:cssls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_cssls = {
   name = "cssls",
   cmd = {
@@ -287,7 +299,7 @@ lsp_enable(config_cssls)
 -- }}}1
 -- {{{1 wiki:html-ls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_html_ls = {
   name = "html-ls",
   cmd = {
@@ -309,7 +321,7 @@ lsp_enable(config_html_ls)
 -- }}}1
 -- {{{1 wiki:jsonls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_jsonls = {
   name = "jsonls",
   cmd = {
@@ -342,7 +354,7 @@ lsp_enable(config_jsonls)
 lsp_enable {
   name = "gh-actions-ls",
   cmd = {
-    "/home/lervag/.local/share/nvim/mason/bin/gh-actions-language-server",
+    "/home/lervag/.local/share/nvim/mason/bin/actions-languageserver",
     "--stdio",
   },
   filetypes = { "yaml.github" },
@@ -355,7 +367,7 @@ lsp_enable {
 -- }}}1
 -- {{{1 wiki:gitlab-ci-ls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_gitlab_ci_ls = {
   name = "gitlab-ci-ls",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/gitlab-ci-ls" },
@@ -374,7 +386,7 @@ lsp_enable(config_gitlab_ci_ls)
 -- }}}1
 -- {{{1 wiki:lua-ls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local _config_lua_ls = {
   name = "lua-language-server",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/lua-language-server" },
@@ -427,7 +439,7 @@ local _config_lua_ls = {
 -- }}}1
 -- {{{1 wiki:emmylua-analyzer-rust
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_emmylua = {
   name = "emmylua-ls",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/emmylua_ls" },
@@ -459,7 +471,7 @@ lsp_enable(config_emmylua)
 -- }}}1
 -- {{{1 wiki:kotlin-lsp
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_kotlin_lsp = {
   name = "kotlin-lsp",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/kotlin-lsp", "--stdio" },
@@ -590,7 +602,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- }}}1
 -- {{{1 wiki:basedpyright
 
--- ---@type vim.lsp.Config
+-- ---@type lervag.lsp.Config
 -- local config_basedpyright = {
 --   name = "basedpyright",
 --   disable = function()
@@ -673,7 +685,7 @@ lsp_enable {
 -- }}}1
 -- {{{1 wiki:ruff-lsp
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_ruff_lsp = {
   name = "ruff",
   cmd = { "ruff", "server" },
@@ -694,7 +706,7 @@ lsp_enable(config_ruff_lsp)
 -- }}}1
 -- {{{1 wiki:rust-analyzer
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_rust_analyzer = {
   name = "rust-analyzer",
   cmd = { "rust-analyzer" },
@@ -711,7 +723,7 @@ lsp_enable(config_rust_analyzer)
 -- }}}1
 -- {{{1 wiki:deno-ls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_deno_ls = {
   name = "deno ls",
   cmd = { "deno", "lsp" },
@@ -747,7 +759,7 @@ lsp_enable(config_deno_ls)
 -- }}}1
 -- {{{1 wiki:tombi
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_tombi = {
   name = "tombi",
   cmd = {
@@ -771,7 +783,7 @@ lsp_enable(config_tombi)
 -- {{{1 wiki:typescript-language-server
 
 -- 2025-12-26  --  Tester ut tsgo
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local _config_tsgo = {
   name = "typescript-language-server",
   cmd = {
@@ -802,7 +814,7 @@ local _config_tsgo = {
 -- }}}1
 -- {{{1 wiki:typescript-go
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_tsgo = {
   name = "tsgo",
   cmd = {
@@ -847,7 +859,7 @@ lsp_enable(config_tsgo)
 -- }}}1
 -- {{{1 wiki:vimls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_vimls = {
   name = "vimls",
   cmd = {
@@ -881,7 +893,7 @@ lsp_enable(config_vimls)
 -- }}}1
 -- {{{1 wiki:yamlls
 
----@type vim.lsp.Config
+---@type lervag.lsp.Config
 local config_yamlls = {
   name = "yamlls",
   cmd = {
