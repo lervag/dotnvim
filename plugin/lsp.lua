@@ -139,6 +139,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     )
     vim.keymap.set(
       "n",
+      "<leader>l2",
+      vim.lsp.buf.outgoing_calls,
+      { desc = "Outgoing calls" }
+    )
+    vim.keymap.set(
+      "n",
       "<leader>li",
       vim.lsp.buf.implementation,
       { desc = "List all implementations" }
@@ -641,9 +647,9 @@ vim.api.nvim_create_autocmd("FileType", {
 lsp_enable {
   name = "ty",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/ty", "server" },
-  -- disable = function()
-  --   return true
-  -- end,
+  disable = function()
+    return true
+  end,
   filetypes = { "python" },
   root_markers = {
     "ty.toml",
@@ -668,9 +674,9 @@ lsp_enable {
 lsp_enable {
   name = "pyrefly",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/pyrefly", "lsp" },
-  disable = function()
-    return true
-  end,
+  -- disable = function()
+  --   return true
+  -- end,
   filetypes = { "python" },
   root_markers = {
     "pyrefly.toml",
