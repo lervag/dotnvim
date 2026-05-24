@@ -178,14 +178,14 @@ end)
 
 vim.keymap.set("x", "[b", function()
   vim.cmd.normal "y"
-  local result = vim.base64.decode(vim.fn.getreg "0")
+  local result = vim.base64.decode(vim.fn.getreg "0") ---@diagnostic disable-line: param-type-mismatch
   vim.fn.setreg("0", result)
   vim.cmd.normal "cgv0"
 end)
 
 vim.keymap.set("x", "]b", function()
   vim.cmd.normal "y"
-  local result = vim.base64.encode(vim.fn.getreg "0")
+  local result = vim.base64.encode(vim.fn.getreg "0") ---@diagnostic disable-line: param-type-mismatch
   vim.fn.setreg("0", result)
   vim.cmd.normal "cgv0"
 end)
