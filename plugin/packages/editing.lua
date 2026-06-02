@@ -22,7 +22,6 @@ vim.g.inline_edit_patterns = {
 vim.pack.add {
   "https://github.com/AndrewRadev/inline_edit.vim",
   "https://github.com/AndrewRadev/linediff.vim",
-  "https://github.com/Wansmer/treesj",
   "https://github.com/dhruvasagar/vim-table-mode",
   "https://github.com/nvim-mini/mini.ai",
   "https://github.com/nvim-mini/mini.operators",
@@ -55,10 +54,6 @@ vim.api.nvim_create_autocmd("User", {
 
 vim.keymap.set("n", "sas", "saiW", { remap = true })
 
-vim.keymap.set("n", "gS", function()
-  require("treesj").toggle()
-end)
-
 vim.keymap.set("n", "<leader>ee", "<cmd>InlineEdit<cr>")
 vim.keymap.set("x", "<leader>ee", ":InlineEdit ")
 
@@ -81,9 +76,5 @@ require("lervag.util").load_delayed(function()
       r = { input = catchall },
     },
     n_lines = 50,
-  }
-
-  require("treesj").setup {
-    use_default_keymaps = false,
   }
 end)
