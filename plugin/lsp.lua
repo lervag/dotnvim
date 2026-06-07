@@ -460,7 +460,7 @@ local config_emmylua = {
   single_file_support = true,
   ---@type lspconfig.settings.lua_ls
   settings = {
-    Lua = {
+    emmylua = {
       semanticTokens = {
         enable = false,
       },
