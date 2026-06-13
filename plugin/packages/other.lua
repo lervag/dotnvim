@@ -5,4 +5,3 @@ vim.pack.add {
   "https://github.com/tpope/vim-scriptease",
   "https://github.com/tweekmonster/helpful.vim",
 }
-

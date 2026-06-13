@@ -51,7 +51,7 @@ vim.keymap.set("n", "<leader>qy", function()
     return
   end
 
-  ---@diagnostic disable-next-line: param-type-mismatch
+  ---@diagnostic disable-next-line: call-non-callable
   local messages = vim.iter(diagnostics):map(function(d)
     return d.message
   end)

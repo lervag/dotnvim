@@ -2,7 +2,6 @@ vim.pack.add {
   "https://github.com/Allaman/emoji.nvim",
   "https://github.com/hrsh7th/cmp-calc",
   "https://github.com/hrsh7th/cmp-nvim-lsp",
-  "https://github.com/hrsh7th/cmp-nvim-lsp",
   "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help",
   "https://github.com/hrsh7th/cmp-nvim-lua",
   "https://github.com/hrsh7th/cmp-omni",
@@ -19,6 +18,7 @@ require("lervag.util").load_on("InsertEnter", function()
   local cmp_entry = require "cmp.entry"
   local cmp = require "cmp"
 
+  ---@diagnostic disable-next-line: duplicate-set-field
   cmp_entry.get_documentation = require("lervag.util.cmp").get_documentation
 
   local function feedkeys(str, mode)
@@ -42,13 +42,15 @@ require("lervag.util").load_on("InsertEnter", function()
           local icon, hl = require("mini.icons").get("filetype", "vim")
           item.kind = icon .. " "
           item.kind_hl_group = hl
-          item.menu = item.menu:gsub("[%[%]]", "")
+          item.menu = (item.menu or ""):gsub("[%[%]]", "")
           return item
         end
 
-        local icon, hl = require("mini.icons").get("lsp", item.kind)
-        item.kind = icon .. " " .. item.kind:lower()
-        item.kind_hl_group = hl
+        if item.kind then
+          local icon, hl = require("mini.icons").get("lsp", item.kind)
+          item.kind = icon .. " " .. item.kind:lower()
+          item.kind_hl_group = hl
+        end
 
         if not item.menu then
           item.menu = ({
@@ -66,7 +68,7 @@ require("lervag.util").load_on("InsertEnter", function()
     completion = {
       keyword_length = 2,
     },
-    preselect = cmp.PreselectMode.None,
+    preselect = "None",
     -- experimental = {
     --   ghost_text = { hl_group = "CmpGhostText" },
     -- },
@@ -77,6 +79,8 @@ require("lervag.util").load_on("InsertEnter", function()
       { name = "emoji" },
       { name = "calc" },
     },
+    ---@diagnostic disable-next-line: assign-type-mismatch
+    ---@diagnostic disable-next-line: missing-fields
     matching = {
       disallow_fuzzy_matching = true,
     },
@@ -118,7 +122,7 @@ require("lervag.util").load_on("InsertEnter", function()
       ["<c-n>"] = cmp.mapping {
         i = function(fallback)
           if cmp.visible() then
-            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+            cmp.select_next_item { behavior = "Select" }
           else
             fallback()
           end
@@ -127,7 +131,7 @@ require("lervag.util").load_on("InsertEnter", function()
       ["<c-p>"] = cmp.mapping {
         i = function(fallback)
           if cmp.visible() then
-            cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+            cmp.select_prev_item { behavior = "Select" }
           else
             fallback()
           end

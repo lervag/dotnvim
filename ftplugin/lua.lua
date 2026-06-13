@@ -27,7 +27,7 @@ dap.configurations.lua = {
 if not vim.wo.diff then
   vim.wo.foldmethod = "expr"
   vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-  if vim.fn.expand("%:p"):match "init/packages%.lua$" then
+  if vim.fn.expand("%:p", false, false):match "init/packages%.lua$" then
     vim.wo.foldlevel = 1
     vim.wo.foldtext = 'v:lua.require("lervag.lua").foldtext_packages()'
   end

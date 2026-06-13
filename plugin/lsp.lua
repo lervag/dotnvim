@@ -195,6 +195,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 ---@class lervag.lsp.Config : vim.lsp.Config
 ---@field disable? fun(args: vim.api.keyset.create_autocmd.callback_args): boolean
 ---@field init_options_lazy? fun(): table
+---@field settings_lazy? fun(): table
 
 ---Setup LSP servers
 ---
@@ -233,6 +234,10 @@ local function lsp_enable(config)
 
       if config.init_options_lazy then
         config.init_options = config.init_options_lazy()
+      end
+
+      if config.settings_lazy then
+        config.settings = config.settings_lazy()
       end
 
       if not vim.tbl_isempty(config) then
@@ -445,8 +450,7 @@ local _config_lua_ls = {
 -- }}}1
 -- {{{1 wiki:emmylua-analyzer-rust
 
----@type lervag.lsp.Config
-local config_emmylua = {
+lsp_enable {
   name = "emmylua-ls",
   cmd = { "/home/lervag/.local/share/nvim/mason/bin/emmylua_ls" },
   filetypes = { "lua" },
@@ -458,21 +462,28 @@ local config_emmylua = {
     "test.lua",
   },
   single_file_support = true,
-  ---@type lspconfig.settings.lua_ls
-  settings = {
-    emmylua = {
-      semanticTokens = {
-        enable = false,
-      },
-      workspace = {
-        library = {
-          "$VIMRUNTIME",
+  settings_lazy = function()
+    local library = { vim.env.VIMRUNTIME }
+    local opt = vim.fn.stdpath "data" .. "/site/pack/core/opt"
+    for name, type in vim.fs.dir(opt) do
+      if type == "directory" then
+        table.insert(library, opt .. "/" .. name)
+      end
+    end
+
+    ---@type lspconfig.settings.lua_ls
+    return {
+      emmylua = {
+        semanticTokens = {
+          enable = false,
+        },
+        workspace = {
+          library = library,
         },
       },
-    },
-  },
+    }
+  end,
 }
-lsp_enable(config_emmylua)
 
 -- }}}1
 -- {{{1 wiki:kotlin-lsp

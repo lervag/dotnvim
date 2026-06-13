@@ -27,10 +27,10 @@ require("rulebook").setup = {
 }
 
 vim.keymap.set("n", "<leader>qri", function()
-  require("rulebook").ignoreRule()
+  require("rulebook.diagnostic-actions").ignoreRule()
 end)
 vim.keymap.set("n", "<leader>qrl", function()
-  require("rulebook").lookupRule()
+  require("rulebook.diagnostic-actions").lookupRule()
 end)
 vim.keymap.set({ "n", "x" }, "<leader>lF", function()
   require("rulebook").suppressFormatter()
