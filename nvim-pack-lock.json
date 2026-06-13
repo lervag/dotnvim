@@ -112,10 +112,6 @@
       "rev": "33ced550dc7cc9b9025f2b8b5428bee1d32f355c",
       "src": "https://github.com/lervag/lists.vim"
     },
-    "markview.nvim": {
-      "rev": "fbe5ec7d127ab3435ffd62740a7b27e7fabf42dc",
-      "src": "https://github.com/OXY2DEV/markview.nvim"
-    },
     "mason.nvim": {
       "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
       "src": "https://github.com/williamboman/mason.nvim"
