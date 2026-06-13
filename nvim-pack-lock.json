@@ -116,6 +116,10 @@
       "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "matchparen.nvim": {
+      "rev": "5209e0ac66220408793f9f3f8a553bd4a1f0395e",
+      "src": "https://github.com/monkoose/matchparen.nvim"
+    },
     "mini.ai": {
       "rev": "4511b3481707c1d021485475d34f2ed2a50bf47b",
       "src": "https://github.com/nvim-mini/mini.ai"
