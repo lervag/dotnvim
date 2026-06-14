@@ -68,10 +68,6 @@
       "rev": "c59ec408c08216a9c2b3c2ee4a1e980d9bd6f34d",
       "src": "https://github.com/barrettruth/diffs.nvim"
     },
-    "diffview.nvim": {
-      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
-      "src": "https://github.com/sindrets/diffview.nvim"
-    },
     "emoji.nvim": {
       "rev": "8e4a22a0e2de9b118f14cf0570f3732e2d1008e0",
       "src": "https://github.com/Allaman/emoji.nvim"
