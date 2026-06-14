@@ -14,11 +14,23 @@ vim.g.vim_markdown_strikethrough = 1
 
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
-    if ev.data.spec.name == "tree-sitter-d2" and ev.data.kind == "update" then
+    local name, kind = ev.data.spec.name, ev.data.kind
+
+    if name == "tree-sitter-d2" and (kind == "install" or kind == "update") then
       if not ev.data.active then
-        vim.cmd.packadd "tree-sitter-d2"
+        vim.cmd.packadd(name)
       end
       vim.system({ "make", "nvim-install" }, { cwd = ev.data.path })
+    end
+
+    if
+      name == "markdown-preview.nvim"
+      and (kind == "install" or kind == "update")
+    then
+      if not ev.data.active then
+        vim.cmd.packadd(name)
+      end
+      vim.fn["mkdp#util#install"]()
     end
   end,
 })
@@ -27,6 +39,7 @@ vim.pack.add {
   "https://github.com/chunkhang/vim-mbsync",
   "https://github.com/darvelo/vim-systemd",
   "https://github.com/hat0uma/csvview.nvim",
+  "https://github.com/iamcco/markdown-preview.nvim",
   "https://github.com/lervag/lists.vim",
   "https://github.com/preservim/vim-markdown",
   "https://github.com/ravsii/tree-sitter-d2",
