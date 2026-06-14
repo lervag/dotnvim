@@ -44,19 +44,6 @@ require("lervag.util").load_delayed(function()
     },
   }
 
-  vim.keymap.set(
-    "n",
-    "<leader>gL",
-    "<cmd>DiffviewFileHistory %<cr>",
-    { silent = true }
-  )
-  vim.keymap.set(
-    "x",
-    "<leader>gL",
-    ":DiffviewFileHistory<cr>",
-    { silent = true }
-  )
-
   vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     group = group,
     pattern = "diffview:///panels/*",
@@ -69,11 +56,3 @@ require("lervag.util").load_delayed(function()
     end,
   })
 end, 25)
-
-vim.api.nvim_create_user_command("MergeMode", function(opts)
-  vim.defer_fn(function()
-    vim.g.mergemode = 1
-    vim.cmd("DiffviewOpen " .. opts.args)
-    vim.cmd "tabonly"
-  end, 50)
-end, { nargs = "*", desc = "Open diffview after 100ms delay" })
