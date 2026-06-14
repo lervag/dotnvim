@@ -30,7 +30,11 @@ vim.pack.add { "https://github.com/rachartier/tiny-inline-diagnostic.nvim" }
 
 require("tiny-inline-diagnostic").setup {
   options = {
-    -- multilines = { enabled = true },
+    multilines = {
+      enabled = true,
+      always_show = true,
+      severity = { vim.diagnostic.severity.ERROR },
+    },
     show_sources = { enabled = true },
   },
 }
