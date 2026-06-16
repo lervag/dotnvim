@@ -46,19 +46,30 @@ end
 
 ---Load code on specified event
 ---@param event vim.api.keyset.events | vim.api.keyset.events[]
----@param cf fun(args: vim.api.keyset.create_autocmd.callback_args): boolean?
-M.load_on = function(event, cf)
+---@param callback fun(args: vim.api.keyset.create_autocmd.callback_args): boolean?
+M.load_on = function(event, callback)
   vim.api.nvim_create_autocmd(event, {
     once = true,
-    callback = cf,
+    callback = callback,
+  })
+end
+
+---Load code on specified event
+---@param filetypes string[]
+---@param callback fun(args: vim.api.keyset.create_autocmd.callback_args): boolean?
+M.load_on_ft = function(filetypes, callback)
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = filetypes,
+    once = true,
+    callback = callback,
   })
 end
 
 ---Load code on 250 ms delay
----@param cf fun(): nil
+---@param callback fun(): nil
 ---@param delay integer?
-M.load_delayed = function(cf, delay)
-  vim.defer_fn(cf, delay and delay or 250)
+M.load_delayed = function(callback, delay)
+  vim.defer_fn(callback, delay and delay or 250)
 end
 
 return M
