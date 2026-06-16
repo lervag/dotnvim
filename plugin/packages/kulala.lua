@@ -12,13 +12,3 @@ require("kulala").setup {
     },
   },
 }
-
--- Disable matchup in Kulala UI, because matchup glitches the UI and
--- closes it.
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("init_kulala", {}),
-  pattern = "json.kulala_ui",
-  callback = function()
-    vim.fn["matchup#matchparen#toggle"](0)
-  end,
-})
