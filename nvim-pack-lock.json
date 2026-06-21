@@ -272,10 +272,6 @@
       "rev": "1bc9d0cd8e1cc3e901b0a49c2b50a843f1c89397",
       "src": "https://github.com/preservim/vim-markdown"
     },
-    "vim-matchup": {
-      "rev": "a2d618496223386844acb5a6763cfc3cc1357af1",
-      "src": "https://github.com/andymass/vim-matchup"
-    },
     "vim-mbsync": {
       "rev": "d5d825a8f53a4e9fcafbb9ab8975ff6cfed6db75",
       "src": "https://github.com/chunkhang/vim-mbsync"
