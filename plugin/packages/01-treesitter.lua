@@ -185,22 +185,17 @@ vim.api.nvim_create_autocmd("FileType", {
       if not state.is_installing then
         state.is_installing = true
 
-        local task = treesitter.install(lang)
-        if task and task.await then
-          task:await(function()
-            vim.schedule(function()
-              state.is_installing = false
+        treesitter.install(lang):await(function()
+          vim.schedule(function()
+            state.is_installing = false
 
-              -- Enable treesitter on all waiting buffers for this language
-              for b in pairs(state.waiting_buffers) do
-                enable_treesitter(b, lang, options)
-              end
-              state_enabling[lang] = nil
-            end)
+            -- Enable treesitter on all waiting buffers for this language
+            for b in pairs(state.waiting_buffers) do
+              enable_treesitter(b, lang, options)
+            end
+            state_enabling[lang] = nil
           end)
-        else
-          state_enabling[lang] = nil
-        end
+        end)
       end
     end
   end,
