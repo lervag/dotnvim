@@ -54,7 +54,7 @@ require("csvview").setup {
     textobject_field_outer = { "af", mode = { "o", "x" } },
     jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
     jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
-  },
+  } --[[@as CsvView.Options.Keymaps]],
   view = {
     display_mode = "border",
   },
