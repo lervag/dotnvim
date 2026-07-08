@@ -268,10 +268,6 @@
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
     },
-    "vim-markdown": {
-      "rev": "1bc9d0cd8e1cc3e901b0a49c2b50a843f1c89397",
-      "src": "https://github.com/preservim/vim-markdown"
-    },
     "vim-mbsync": {
       "rev": "d5d825a8f53a4e9fcafbb9ab8975ff6cfed6db75",
       "src": "https://github.com/chunkhang/vim-mbsync"

@@ -4,7 +4,7 @@ local M = {}
 ---@param lnum integer
 ---@return string
 M.foldexpr = function(lnum)
-  local line = vim.fn.getline(lnum)
+  local line = vim.fn.getline(lnum) --[[@as string]]
 
   if vim.fn["wiki#u#is_code"](lnum) == 1 then
     if line:match "^%s*```" then

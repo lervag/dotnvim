@@ -45,6 +45,41 @@ local treesitter = require "nvim-treesitter"
 ---@field waiting_buffers table<integer, boolean>
 ---@field is_installing boolean
 
+---Refresh folds once the treesitter parser has produced a tree
+---
+---`foldexpr`-based folds (both ours and the native `vim.treesitter.foldexpr`)
+---are computed before the parser is ready, so the initial folds are wrong.
+---When the first parse lands we recompute folds in every window showing the
+---buffer that uses an `expr` foldmethod.
+---@param buf integer
+---@param lang string
+local function refresh_folds_when_ready(buf, lang)
+  local ok, parser = pcall(vim.treesitter.get_parser, buf, lang)
+  if not ok or not parser then
+    return
+  end
+
+  parser:parse(true, function(_, trees)
+    if not trees then
+      return
+    end
+
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(buf) then
+        return
+      end
+
+      for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+        if vim.wo[win].foldmethod == "expr" then
+          vim.api.nvim_win_call(win, function()
+            vim.cmd.normal { "zx", bang = true }
+          end)
+        end
+      end
+    end)
+  end)
+end
+
 ---Enable treesitter for buffer
 ---@param buf integer
 ---@param lang string
@@ -56,8 +91,11 @@ local function enable_treesitter(buf, lang, options)
   end
 
   local ok = pcall(vim.treesitter.start, buf, lang)
-  if ok and options.indent then
-    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  if ok then
+    if options.indent then
+      vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+    refresh_folds_when_ready(buf, lang)
   end
   return ok
 end

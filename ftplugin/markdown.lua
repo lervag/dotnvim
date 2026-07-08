@@ -3,7 +3,7 @@ if vim.bo.buftype == "nofile" then
   return
 end
 
-vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo[0][0].foldexpr = "v:lua.require('lervag.util.markdown').foldexpr(v:lnum)"
 vim.wo[0][0].foldmethod = "expr"
 
 vim.keymap.set("n", ")", "<plug>(wiki-link-next)", { buf = 0, remap = true })
