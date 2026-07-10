@@ -27,7 +27,6 @@ vim.pack.add {
   "https://github.com/chunkhang/vim-mbsync",
   "https://github.com/darvelo/vim-systemd",
   "https://github.com/hat0uma/csvview.nvim",
-  "https://github.com/iamcco/markdown-preview.nvim",
   "https://github.com/lervag/lists.vim",
   "https://github.com/ravsii/tree-sitter-d2",
   "https://github.com/scalameta/nvim-metals",

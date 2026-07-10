@@ -49,3 +49,16 @@ vim.keymap.set(
 vim.keymap.set("i", "LLM", function()
   require("lervag.util.links").create_link_from_clipboard()
 end, { buffer = true })
+
+-- Markdown Preview
+
+vim.pack.add {
+  "https://github.com/iamcco/markdown-preview.nvim",
+}
+
+vim.keymap.set(
+  "n",
+  "<leader>mm",
+  "<plug>MarkdownPreviewToggle",
+  { buffer = true }
+)
