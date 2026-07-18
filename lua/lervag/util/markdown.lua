@@ -2,9 +2,10 @@ local M = {}
 
 ---Determine whether a line lies inside a fenced code block using treesitter
 ---@param lnum integer
+---@param col integer
 ---@return boolean
-local function is_code(lnum)
-  local captures = vim.treesitter.get_captures_at_pos(0, lnum - 1, 0)
+local function is_code(lnum, col)
+  local captures = vim.treesitter.get_captures_at_pos(0, lnum - 1, col)
   return captures[1] ~= nil and captures[1].capture == "markup.raw.block"
 end
 
@@ -14,9 +15,9 @@ end
 M.foldexpr = function(lnum)
   local line = vim.fn.getline(lnum) --[[@as string]]
 
-  if is_code(lnum) then
+  if is_code(lnum, #line) then
     if line:match "^%s*```" then
-      return is_code(lnum + 1) and "a1" or "s1"
+      return is_code(lnum + 1, 0) and "a1" or "s1"
     end
 
     return "="
