@@ -117,7 +117,7 @@ local theme = {
   CursorLineNr = { fg = color14 },
   DiffAdd = { bg = green2 },
   DiffChange = { bg = color15d },
-  DiffDelete = { bg = pink1 },
+  DiffDelete = { bg = color15 },
   DiffText = { bg = gray1 },
   DiffTextAdd = { link = "DiffAdd" },
   Directory = { fg = color04 },

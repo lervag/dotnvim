@@ -36,10 +36,6 @@
       "rev": "c642487086dbd9a93160e1679a1327be111cbc25",
       "src": "https://github.com/hrsh7th/cmp-path"
     },
-    "codediff.nvim": {
-      "rev": "7608f3b436ce1f84a4888f75e53079caa981a2e9",
-      "src": "https://github.com/esmuellert/codediff.nvim"
-    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -67,6 +63,10 @@
     "diffs.nvim": {
       "rev": "c5383f828e7e5d364bb959197589be15b167938c",
       "src": "https://github.com/barrettruth/diffs.nvim"
+    },
+    "diffview-plus.nvim": {
+      "rev": "424b724e7699730b818466532f0ca42930313273",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "emoji.nvim": {
       "rev": "e94f1867d172acd0bb23410cce56ae05d098958c",

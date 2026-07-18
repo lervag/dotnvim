@@ -216,7 +216,6 @@ local function lsp_enable(config)
       if
         vim.startswith(args.file, "fugitive://")
         or vim.startswith(args.file, "diffview://")
-        or vim.startswith(args.file, "codediff://")
       then
         return
       end
