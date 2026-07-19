@@ -1,5 +1,5 @@
 require("lervag.util").load_on_ft(
-  { "http", "rest", "javascript", "lua" },
+  { "http", "rest" },
   function()
     vim.pack.add { "https://github.com/mistweaverco/kulala.nvim" }
 
