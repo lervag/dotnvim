@@ -79,5 +79,3 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimResume" }, {
     io.stdout:write(("\027]11;#%06x\027\\"):format(hl_info.bg))
   end,
 })
-
--- See also: after/plugin/init_autocmds.vim

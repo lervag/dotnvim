@@ -237,7 +237,7 @@ local theme = {
   NormalFloat = { fg = color11, bg = color07d },
   FloatBorder = { fg = color07d, bg = color15 },
   FloatTitle = { fg = color03, bg = color07d, bold = true },
-  FloatFooter = { fg = color01, bg = color04 },
+  FloatFooter = { fg = color03, bg = color07d, italic = true },
 
   -- {{{1 Tree-sitter
 

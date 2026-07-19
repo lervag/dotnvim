@@ -1,5 +1,7 @@
 -- Handle e.g. floating previews from LSPs
 if vim.bo.buftype == "nofile" then
+  vim.wo[0][0].foldmethod = "manual"
+  vim.wo[0][0].foldlevel = 99
   return
 end
 

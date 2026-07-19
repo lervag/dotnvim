@@ -1,10 +1,23 @@
 vim.pack.add {
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/mfussenegger/nvim-jdtls",
+  "https://github.com/rachartier/tiny-code-action.nvim",
 }
 
 local lsp_utils = require "lervag.util.lsp"
 local lspgroup = vim.api.nvim_create_augroup("init_lsp", {})
+
+require("lervag.util").load_on("LspAttach", function()
+  require("tiny-code-action").setup {
+    picker = {
+      "buffer",
+      opts = {
+        hotkeys_mode = "sequential",
+        auto_accept = true,
+      },
+    },
+  }
+end)
 
 -- Defaults
 
@@ -161,12 +174,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.buf.rename,
       { desc = "Rename all references" }
     )
-    vim.keymap.set(
-      { "n", "v" },
-      "<leader>la",
-      vim.lsp.buf.code_action,
-      { desc = "Select code action" }
-    )
+    vim.keymap.set({ "n", "x" }, "<leader>la", function()
+      require("tiny-code-action").code_action {}
+    end, { noremap = true, silent = true, desc = "Select code action" })
 
     vim.keymap.set(
       "n",

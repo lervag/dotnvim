@@ -224,6 +224,10 @@
       "rev": "3527fa88de1a9ec35b27b56502b08f503e83eeb9",
       "src": "https://github.com/xemptuous/sqlua.nvim"
     },
+    "tiny-code-action.nvim": {
+      "rev": "0d040ed81f7953118b81cd12681fcdfcac069803",
+      "src": "https://github.com/rachartier/tiny-code-action.nvim"
+    },
     "tiny-inline-diagnostic.nvim": {
       "rev": "6264451f14119d63a52580e5198d6baf8518b0b2",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
