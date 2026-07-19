@@ -33,6 +33,9 @@ require("lervag.util").load_delayed(function()
           "diff1_plain",
         },
       },
+      inline = {
+        deletion_highlight = "full_width",
+      },
     },
     -- See defaults here:
     -- ~/.local/share/nvim/site/pack/core/opt/diffview-plus.nvim/lua/diffview/config.lua:120
