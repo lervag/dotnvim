@@ -140,6 +140,10 @@
       "rev": "98faae31e9be1cc054ae63485e58ceb185efcad0",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
+    "mini.input": {
+      "rev": "957991e29b060dd74aad0b4098993dad313e09fa",
+      "src": "https://github.com/nvim-mini/mini.input"
+    },
     "mini.notify": {
       "rev": "13df5edffc3e27937b166a0f25a8329b46e15a4e",
       "src": "https://github.com/nvim-mini/mini.notify"

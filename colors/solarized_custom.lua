@@ -459,13 +459,6 @@ local theme = {
   MiniDiffOverDelete = { bg = pink1 },
   MiniDiffOverContext = { fg = color14, bg = color15, italic = true },
 
-  TroubleIndent = { fg = "fg" },
-  TroubleLspPos = { fg = color14, italic = true },
-  TroublePreview = { fg = magenta1 },
-
-  FlashLabel = { fg = azure2, underline = true, bold = true },
-  FlashPromptIcon = { fg = yellow0, bold = true },
-
   MiniIconsAzure = { fg = azure1 },
   MiniIconsBlue = { fg = blue1 },
   MiniIconsCyan = { fg = cyan0 },
@@ -475,6 +468,9 @@ local theme = {
   MiniIconsPurple = { fg = purple1 },
   MiniIconsRed = { fg = red0 },
   MiniIconsYellow = { fg = yellow0 },
+
+  MiniInputBorder = { link = "NormalFloat" },
+  MiniInputPrompt = { link = "FloatTitle" },
 
   MiniSnippetsCurrent = { fg = azure1 },
   MiniSnippetsCurrentReplace = { fg = purple1 },
