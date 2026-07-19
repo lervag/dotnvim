@@ -40,6 +40,10 @@
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "convy.nvim": {
+      "rev": "7fb85ef4cbae330406f515698a51c678f23ff7a4",
+      "src": "https://github.com/Necrom4/convy.nvim"
+    },
     "csvview.nvim": {
       "rev": "5c22774c3ecc7f8883af5d143b366e45b1f0875d",
       "src": "https://github.com/hat0uma/csvview.nvim"
