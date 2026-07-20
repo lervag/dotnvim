@@ -318,6 +318,18 @@ lsp_enable {
 }
 
 -- }}}1
+-- {{{1 dict-lsp
+
+-- A small in-process LSP that provides word definitions on hover. As much for
+-- the convenience as for the learning experience.
+
+lsp_enable {
+  name = "dict-lsp",
+  cmd = require("lervag.dict_lsp").cmd,
+  filetypes = { "markdown", "wiki", "txt" },
+}
+
+-- }}}1
 -- {{{1 wiki:html-ls
 
 lsp_enable {
