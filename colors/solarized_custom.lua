@@ -485,6 +485,8 @@ local theme = {
 
   Lensline = { fg = pink2, italic = true },
 
+  DiffsDelete = { bg = pink1 },
+
   -- {{{1 Filetype Vimscript
 
   vimCmdSep = { fg = color04 },
