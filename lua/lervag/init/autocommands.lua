@@ -1,11 +1,26 @@
 local group = vim.api.nvim_create_augroup("init", {})
 
-vim.api.nvim_create_autocmd({ "VimEnter", "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   desc = "Go to last known position on buffer open",
   group = group,
-  callback = function()
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    local buf_lines = vim.api.nvim_buf_line_count(0)
+  callback = function(args)
+    local buf = args.buf
+    if
+      vim.bo[buf].buftype ~= ""
+      or not vim.bo[buf].buflisted
+      or vim.tbl_contains(
+        { "git", "gitcommit", "gitrebase" },
+        vim.bo[buf].filetype
+      )
+      or vim.b[buf].__last_pos_restore
+      or vim.api.nvim_get_current_buf() ~= buf
+    then
+      return
+    end
+
+    vim.b[buf].__last_pos_restore = true
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local buf_lines = vim.api.nvim_buf_line_count(buf)
 
     if mark[1] > 0 and mark[1] <= buf_lines then
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
@@ -51,7 +66,7 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Ensure &foldtext is kept empty regardless of filetype",
   group = group,
   callback = function()
-    if not vim.wo.foldtext:match("lervag.lua") then
+    if not vim.wo.foldtext:match "lervag.lua" then
       vim.wo.foldtext = ""
     end
   end,
