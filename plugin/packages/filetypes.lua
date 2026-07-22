@@ -33,17 +33,6 @@ vim.pack.add {
   "https://github.com/terrastruct/d2-vim",
   "https://github.com/tpope/vim-apathy",
   "https://github.com/tridactyl/vim-tridactyl",
-  "https://github.com/yorickpeterse/nvim-pqf",
-}
-
-require("pqf").setup {
-  show_multiple_lines = true,
-  signs = {
-    error = { text = "", hl = "DiagnosticSignError" },
-    warning = { text = "", hl = "DiagnosticSignWarn" },
-    info = { text = "", hl = "DiagnosticSignInfo" },
-    hint = { text = "", hl = "DiagnosticSignHint" },
-  },
 }
 
 require("csvview").setup {

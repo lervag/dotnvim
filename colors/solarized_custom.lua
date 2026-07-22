@@ -4,6 +4,21 @@
 vim.o.background = "light"
 vim.g.colors_name = "solarized_custom"
 
+-- This enables dynamic reloading of the colorscheme
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "solarized_custom.lua",
+  group = vim.api.nvim_create_augroup("init_colors", {}),
+  desc = "Reload colorscheme when it is changed",
+  callback = function()
+    if vim.o.diff then
+      return
+    end
+
+    vim.cmd "colorscheme solarized_custom"
+    vim.notify "Updated colorscheme (notification)"
+  end,
+})
+
 -- {{{1 Define colors
 
 local base03 = "#002b36"
@@ -146,6 +161,8 @@ local theme = {
   PmenuMatchSel = { fg = color00, bg = azure2, reverse = true },
   Question = { fg = color06 },
   QuickFixLine = { bg = gold2 },
+  QuickFixLineNr = { bg = gold2 },
+  QuickFixFilename = { fg = base03, dim = true },
   RedrawDebugClear = { bg = color11 },
   RedrawDebugComposed = { bg = color02 },
   RedrawDebugNormal = { reverse = true },

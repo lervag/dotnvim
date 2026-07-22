@@ -42,10 +42,7 @@ require("tiny-inline-diagnostic").setup {
 vim.keymap.set("n", "<leader>qq", function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end)
-vim.keymap.set("n", "<leader>qL", vim.diagnostic.setloclist)
-vim.keymap.set("n", "<leader>ql", vim.diagnostic.setqflist)
-vim.keymap.set("n", "<leader>qc", "<cmd>cclose<cr>")
-vim.keymap.set("n", "<leader>qC", "<cmd>lclose<cr>")
+
 vim.keymap.set("n", "<leader>qy", function()
   local diagnostics = vim.diagnostic.get(0, {
     lnum = vim.api.nvim_win_get_cursor(0)[1] - 1,
@@ -76,3 +73,5 @@ vim.keymap.set("n", "<leader>qy", function()
     )
   )
 end)
+
+vim.keymap.set("n", "<leader>qc", vim.diagnostic.setqflist)
