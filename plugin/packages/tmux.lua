@@ -6,7 +6,7 @@ vim.g.VimuxResetSequence = ""
 
 vim.pack.add {
   "https://github.com/christoomey/vim-tmux-navigator",
-  "https://github.com/benmills/vimux",
+  "https://github.com/preservim/vimux",
 }
 
 vim.keymap.set("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
@@ -18,6 +18,8 @@ vim.keymap.set("n", "<leader>iq", "<cmd>VimuxCloseRunner<cr>")
 vim.keymap.set("n", "<leader>ip", "<cmd>VimuxPromptCommand<cr>")
 vim.keymap.set("n", "<leader>in", "<cmd>VimuxInspectRunner<cr>")
 vim.keymap.set("n", "<leader>ii", "<cmd>VimuxRunCommand 'jkk'<cr>")
+
+-- TODO Inline the operator
 vim.keymap.set(
   "n",
   "<leader>is",
