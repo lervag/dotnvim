@@ -244,10 +244,6 @@
       "rev": "200434618a6bede20ebd4982aa4d4f1edeb0b5c1",
       "src": "https://github.com/ravsii/tree-sitter-d2"
     },
-    "treesj": {
-      "rev": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a",
-      "src": "https://github.com/Wansmer/treesj"
-    },
     "vim-apathy": {
       "rev": "27128a0f55189724c841843ba41cd33cf7186032",
       "src": "https://github.com/tpope/vim-apathy"
