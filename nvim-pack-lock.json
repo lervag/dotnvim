@@ -89,7 +89,7 @@
       "src": "https://github.com/Robitx/gp.nvim"
     },
     "helpful.vim": {
-      "rev": "45240257ca3f29800784871e161242e14836e45c",
+      "rev": "1d763ed4db7c810b5619ed9a16ccfcf092092144",
       "src": "https://github.com/tweekmonster/helpful.vim"
     },
     "img-clip.nvim": {
@@ -177,7 +177,7 @@
       "src": "https://github.com/LiadOz/nvim-dap-repl-highlights"
     },
     "nvim-dap-view": {
-      "rev": "eda349094a87c6ff5a9c75bbbc88bce45836ae08",
+      "rev": "210b2c0e4acc08aad23fbd5a7989dd0169f716d0",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-dap-virtual-text": {
@@ -209,7 +209,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rulebook"
     },
     "nvim-treesitter": {
-      "rev": "3d3321b560a63ff92a8692401f303a5123336b86",
+      "rev": "c9f9ed6c1892f629ea399f4ee7905f2686fa13f2",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "one-small-step-for-vimkind": {
@@ -317,7 +317,7 @@
       "src": "https://github.com/tridactyl/vim-tridactyl"
     },
     "vimtex": {
-      "rev": "154eca8f68a5ad54eb12308bb378e88bdd0dfb3e",
+      "rev": "a5568d902cc20a76bb8ef70743f0157ec2e79ded",
       "src": "https://github.com/lervag/vimtex"
     },
     "vimux": {
@@ -333,7 +333,7 @@
       "src": "https://github.com/lervag/wiki-ft.vim"
     },
     "wiki.vim": {
-      "rev": "82f01040063e7c2a50cb970726a63cf404163172",
+      "rev": "0e4cbe6aa68093c1b48d6bfbb76c0d7a74658bca",
       "src": "https://github.com/lervag/wiki.vim"
     }
   }
