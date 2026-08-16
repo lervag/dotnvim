@@ -777,46 +777,12 @@ lsp_enable {
 }
 
 -- }}}1
--- {{{1 wiki:typescript-language-server
-
----@type lspconfig.settings.ts_ls
-local ts_ls_settings = {
-  diagnostics = {
-    ignoredCodes = { 6133 },
-  },
-}
-
--- 2025-12-26  --  Tester ut tsgo
----@type lervag.lsp.Config
-local _config_ts_ls = {
-  name = "typescript-language-server",
-  cmd = {
-    "/home/lervag/.local/share/nvim/mason/bin/typescript-language-server",
-    "--stdio",
-  },
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-  },
-  disable = function(args)
-    return not vim.fs.root(args.buf, { "tsconfig.json", "package.json" })
-  end,
-  root_markers = { "tsconfig.json", "package.json", ".git" },
-  init_options = { hostInfo = "neovim" },
-  settings = ts_ls_settings --[[@as lsp.LSPObject]],
-}
-
--- }}}1
 -- {{{1 wiki:typescript-go
 
 lsp_enable {
-  name = "tsgo",
+  name = "tsc",
   cmd = {
-    "/home/lervag/.local/share/nvim/mason/bin/tsgo",
+    "/home/lervag/.local/share/nvim/mason/bin/tsc",
     "--lsp",
     "--stdio",
   },

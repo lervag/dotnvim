@@ -35,7 +35,7 @@ require("lervag.util").load_delayed(function()
       "shellcheck",
       "stylua",
       "tombi",
-      "tsgo",
+      "tsc",
       "ty",
       "typescript-language-server",
       "vim-language-server",
