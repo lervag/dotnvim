@@ -803,7 +803,7 @@ lsp_enable {
     -- diagnostics = {
     --   ignoredCodes = { 6133 },
     -- },
-    typescript = {
+    ["js/ts"] = {
       inlayHints = {
         parameterNames = {
           enabled = "literals",
@@ -814,6 +814,15 @@ lsp_enable {
         propertyDeclarationTypes = { enabled = true },
         functionLikeReturnTypes = { enabled = true },
         enumMemberValues = { enabled = true },
+      },
+      referencesCodeLens = {
+        enabled = true,
+        showOnAllFunctions = true,
+      },
+      implementationsCodeLens = {
+        enabled = true,
+        showOnInterfaceMethods = true,
+        showOnAllClassMethods = true,
       },
     },
   },
