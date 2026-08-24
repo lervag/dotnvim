@@ -815,15 +815,6 @@ lsp_enable {
         functionLikeReturnTypes = { enabled = true },
         enumMemberValues = { enabled = true },
       },
-      referencesCodeLens = {
-        enabled = true,
-        showOnAllFunctions = true,
-      },
-      implementationsCodeLens = {
-        enabled = true,
-        showOnInterfaceMethods = true,
-        showOnAllClassMethods = true,
-      },
     },
   },
 }
