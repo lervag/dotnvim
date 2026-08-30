@@ -23,7 +23,7 @@ M.foldexpr = function(lnum)
     return "="
   end
 
-  local match = vim.fn.match(line, [[^#\{1,6}\s*[^#].*]])
+  local match = vim.fn.match(line, [[^#\{1,6}\s\+[^#].*]])
   if match >= 0 then
     return ">" .. #line:match "#*"
   end
