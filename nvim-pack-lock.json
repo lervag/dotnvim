@@ -45,7 +45,7 @@
       "src": "https://github.com/Necrom4/convy.nvim"
     },
     "csvview.nvim": {
-      "rev": "5c22774c3ecc7f8883af5d143b366e45b1f0875d",
+      "rev": "2466bdda54047f525d4faca53040fe657c9c33db",
       "src": "https://github.com/hat0uma/csvview.nvim"
     },
     "ctrlsf.vim": {
@@ -57,7 +57,7 @@
       "src": "https://github.com/terrastruct/d2-vim"
     },
     "dadbod-grip.nvim": {
-      "rev": "05754f1b39bdd5b737a5266acf7aa98f03ad95c2",
+      "rev": "d3b03fc157f90fe18d112578c2453bc5430b9252",
       "src": "https://github.com/joryeugene/dadbod-grip.nvim"
     },
     "dial.nvim": {
@@ -89,11 +89,11 @@
       "src": "https://github.com/Robitx/gp.nvim"
     },
     "helpful.vim": {
-      "rev": "597efb42dee899c520f5e0967c41a6b4d52b8187",
+      "rev": "728c3f331842c6d4137db62b0c46925317f70045",
       "src": "https://github.com/tweekmonster/helpful.vim"
     },
     "img-clip.nvim": {
-      "rev": "b6ddfb97b5600d99afe3452d707444afda658aca",
+      "rev": "99848daf801789dbebe2192b475eb887d375002c",
       "src": "https://github.com/HakonHarnes/img-clip.nvim"
     },
     "incline.nvim": {
@@ -165,7 +165,7 @@
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
     "nvim-dap": {
-      "rev": "9e848e09a697ee95302a3ef2dd43fd6eb709e570",
+      "rev": "c9a0738e45f1bd41d792a126941348dce661cf9b",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-python": {
@@ -197,7 +197,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "684cb45c2faa24ce463b4fe9aaf011bfe1e0fb26",
+      "rev": "84252f9832fb5b9024fe9f7258e7c2aff915e6fb",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-metals": {
@@ -209,7 +209,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rulebook"
     },
     "nvim-treesitter": {
-      "rev": "857651fce37eba032ebe28f3a206283cdc65c45a",
+      "rev": "41416e81a6c7f4af4984395bfe0cd8d174e70976",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "one-small-step-for-vimkind": {
@@ -317,7 +317,7 @@
       "src": "https://github.com/tridactyl/vim-tridactyl"
     },
     "vimtex": {
-      "rev": "cb81778aee678b513af3de7f1ca5943e7ee31b2f",
+      "rev": "e355987594cbf16283bee7b37e3aa3a65d5e1c5c",
       "src": "https://github.com/lervag/vimtex"
     },
     "vimux": {
