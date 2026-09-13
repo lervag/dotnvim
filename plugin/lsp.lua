@@ -679,6 +679,22 @@ lsp_enable {
   settings = {
     pyrefly = {},
   },
+  handlers = {
+    ["textDocument/publishDiagnostics"] = function(err, result, ctx)
+      if result and result.diagnostics then
+        result.diagnostics = vim.tbl_filter(function(d)
+          return d.code ~= "unused-parameter"
+            and d.code ~= "unused-variable"
+            and d.code ~= "unused-import"
+        end, result.diagnostics)
+      end
+      return vim.lsp.handlers["textDocument/publishDiagnostics"](
+        err,
+        result,
+        ctx
+      )
+    end,
+  },
 }
 
 -- }}}1
