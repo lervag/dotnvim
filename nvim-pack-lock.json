@@ -333,7 +333,7 @@
       "src": "https://github.com/lervag/wiki-ft.vim"
     },
     "wiki.vim": {
-      "rev": "21d2fabb8d680c7677540086761341b95ce24d73",
+      "rev": "973013d59548937ab24d3cfc126dad30f5052349",
       "src": "https://github.com/lervag/wiki.vim"
     }
   }
