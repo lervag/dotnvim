@@ -82,6 +82,8 @@ require("lervag.util").load_delayed(function()
     },
   }
 
+  vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { silent = true })
+  vim.keymap.set("n", "<leader>gD", ":DiffviewOpen ")
   vim.keymap.set(
     "n",
     "<leader>gL",

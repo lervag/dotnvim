@@ -1,4 +1,5 @@
 -- See also:
+-- * plugin/packages/diffview.lua
 -- * ftplugin/fugitive.vim
 -- * ftplugin/git.vim
 -- * ftplugin/gitcommit.vim
@@ -68,7 +69,6 @@ require("lervag.util").load_delayed(function()
   vim.keymap.set("n", "<leader>gs", function()
     require("lervag.util.git").toggle_fugitive()
   end)
-  vim.keymap.set("n", "<leader>gd", "<cmd>Gdiffsplit<cr>")
   vim.keymap.set({ "n", "x" }, "<leader>gb", ":GBrowse<cr>")
   vim.keymap.set("n", "yod", function()
     require("mini.diff").toggle_overlay(0)
