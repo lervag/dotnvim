@@ -159,7 +159,7 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
 
-vim.g.python3_host_prog = "~/.local/venvs/nvim/bin/python"
+vim.g.python3_host_prog = 0
 
 vim.g.vimsyn_embed = "lP"
 vim.g.man_hardwrap = 1
