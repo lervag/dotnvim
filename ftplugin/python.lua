@@ -49,6 +49,4 @@ vim.wo.colorcolumn = "+1"
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = vim.treesitter.foldexpr
 
-vim.fn["personal#python#set_path"]()
-
 require("dap-python").setup "/home/lervag/.local/venvs/nvim/bin/python"
