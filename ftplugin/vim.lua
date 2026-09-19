@@ -3,7 +3,7 @@ then
   vim.wo.foldmethod = "marker"
 else
   vim.wo.foldmethod = "expr"
-  vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+  vim.wo.foldexpr = vim.treesitter.foldexpr
 end
 
 vim.g.ruby_fold = nil

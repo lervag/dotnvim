@@ -1,9 +1,9 @@
 local M = {}
 
 ---Fold levels for wiki files
----@param lnum integer
 ---@return string
-M.foldexpr = function(lnum)
+M.foldexpr = function()
+  local lnum = vim.v.lnum
   local line = vim.fn.getline(lnum) --[[@as string]]
 
   if vim.fn["wiki#u#is_code"](lnum) == 1 then

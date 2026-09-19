@@ -1,7 +1,7 @@
 local dap = require "dap"
 
 vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldexpr = vim.treesitter.foldexpr
 
 -- For more info, see
 -- :help metals-nvim-dap

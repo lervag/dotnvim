@@ -24,7 +24,10 @@ end
 
 vim.wo.signcolumn = "no"
 vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "getline(v:lnum) =~# '^\\d' ? '>1' : '1'"
+vim.wo.foldexpr = function()
+  local line = vim.fn.getline(vim.v.lnum) --[[@as string]]
+  return line:match "^%d" and ">1" or "1"
+end
 
 vim.opt_local.formatoptions:remove "n"
 vim.bo.indentexpr = "v:lua.GetDagbokIndent(v:lnum)"

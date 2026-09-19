@@ -1,5 +1,5 @@
 vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldexpr = vim.treesitter.foldexpr
 
 -- Det som kommer under er konfigurering av nvim-jdtls; eg følger beskrivelsen
 -- til README relativt slavisk. Det ser litt "stygt" ut, men det fungerer og er

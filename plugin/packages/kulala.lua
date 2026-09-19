@@ -9,7 +9,7 @@ require("lervag.util").load_on_ft(
         win_opts = {
           wo = {
             foldmethod = "expr",
-            foldexpr = "v:lua.vim.treesitter.foldexpr()",
+            foldexpr = vim.treesitter.foldexpr,
             foldlevel = 99,
           },
         },

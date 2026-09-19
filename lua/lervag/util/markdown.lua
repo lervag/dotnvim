@@ -10,9 +10,9 @@ local function is_code(lnum, col)
 end
 
 ---Fold levels for markdown files
----@param lnum integer
 ---@return string
-M.foldexpr = function(lnum)
+M.foldexpr = function()
+  local lnum = vim.v.lnum
   local line = vim.fn.getline(lnum) --[[@as string]]
 
   if is_code(lnum, #line) then
