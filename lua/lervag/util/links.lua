@@ -52,15 +52,32 @@ local function parse_date(html, url)
   return ""
 end
 
+---@param args string[]
+---@return vim.SystemCompleted
+local function curl(args)
+  return vim
+    .system(vim.list_extend({
+      "curl",
+      "-sL",
+      "--connect-timeout",
+      "2",
+      "--max-time",
+      "5",
+    }, args))
+    :wait()
+end
+
 local link_handlers = {}
 
+---@param url string
+---@return string
 link_handlers._generic = function(url)
   if vim.fn.executable "pup" ~= 1 then
     vim.notify("pup is not available, using URL only!", vim.log.levels.WARN)
     return string.format("[${1:title}](%s)", url)
   end
 
-  local curl_res = vim.system({ "curl", "-sL", url }):wait()
+  local curl_res = curl { url }
   if curl_res.code ~= 0 or not curl_res.stdout or curl_res.stdout == "" then
     return string.format("[${1:title}](%s)", url)
   end
@@ -83,57 +100,62 @@ link_handlers._generic = function(url)
   return link
 end
 
+---@param url string
+---@return string
 link_handlers["www.reddit.com"] = function(url)
-  if vim.fn.executable "jq" ~= 1 then
-    vim.notify("jq is not available, using URL only!", vim.log.levels.WARN)
+  -- old.reddit.com forces a login redirect on every path, so always fetch via
+  -- www.reddit.com regardless of which host the URL uses
+  local base = url
+    :gsub("[?#].*$", "")
+    :gsub("^(https?://)[%w.]-reddit%.com", "%1www.reddit.com")
+    :gsub("/+$", "")
+
+  -- Reddit blocks unauthenticated access to the `.json` endpoint (403), but the
+  -- Atom feed at `.rss` is still served as long as we send a browser User-Agent.
+  local curl_res = curl {
+    "-H",
+    "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0",
+    base .. "/.rss",
+  }
+
+  local xml = curl_res.stdout or ""
+  if curl_res.code ~= 0 or not xml:find("<feed", 1, true) then
+    -- Reddit rate limits aggressively (429) and serves HTML when it does
+    vim.notify(
+      "reddit: could not fetch feed, using URL only!",
+      vim.log.levels.WARN
+    )
     return string.format("[${1:title}](%s)", url)
   end
 
-  local curl_res = vim
-    .system({
-      "curl",
-      "-sL",
-      "-H",
-      "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0",
-      url .. ".json",
-    })
-    :wait()
-  if curl_res.code ~= 0 or curl_res.stdout == "" then
+  local entry = xml:match "<entry>(.-)</entry>" or ""
+
+  local title = entry:match "<title>(.-)</title>" or ""
+  title =
+    decode_html_entities(title):gsub("%s+", " "):gsub("^%s*(.-)%s*$", "%1")
+  if title == "" then
     return string.format("[${1:title}](%s)", url)
   end
 
-  local title = (vim
-    .system({
-      "jq",
-      "-r",
-      ".[0].data.children[0].data.title",
-    }, { stdin = curl_res.stdout })
-    :wait().stdout or ""):gsub("%s+", " "):gsub("^%s*(.-)%s*$", "%1")
+  local user = entry:match "<author><name>/u/(.-)</name>" or ""
+  local date = (entry:match "<published>(%d%d%d%d%-%d%d%-%d%d)") or ""
 
-  if not title or title == "" then
-    return string.format("[${1:title}](%s)", url)
+  if date == "" and user == "" then
+    return string.format("[%s](%s)", title, url)
+  elseif user == "" then
+    return string.format("[%s](%s)\n  %s", title, url, date)
+  elseif date == "" then
+    return string.format("[%s](%s)\n  u/%s", title, url, user)
   end
-
-  local user = vim
-    .system({
-      "jq",
-      "-r",
-      ".[0].data.children[0].data.author",
-    }, { stdin = curl_res.stdout })
-    :wait().stdout or ""
-
-  local created = vim
-    .system({
-      "jq",
-      "-r",
-      ".[0].data.children[0].data.created_utc",
-    }, { stdin = curl_res.stdout })
-    :wait().stdout or ""
-  local date = os.date("%Y-%m-%d", tonumber(created:match "^%d+"))
 
   return string.format("[%s](%s)\n  %s, u/%s", title, url, date, user)
 end
 
+link_handlers["reddit.com"] = link_handlers["www.reddit.com"]
+link_handlers["old.reddit.com"] = link_handlers["www.reddit.com"]
+
+---@param url string
+---@return string
 link_handlers["github.com"] = function(url)
   local result = link_handlers._generic(url)
 
@@ -147,8 +169,10 @@ link_handlers["github.com"] = function(url)
   return result
 end
 
+---@param url string
+---@return string
 link_handlers["news.ycombinator.com"] = function(url)
-  local curl_res = vim.system({ "curl", "-sL", url }):wait()
+  local curl_res = curl { url }
   if curl_res.code ~= 0 or not curl_res.stdout or curl_res.stdout == "" then
     return url
   end
@@ -162,6 +186,22 @@ link_handlers["news.ycombinator.com"] = function(url)
   end
 
   return url
+end
+
+---@param body string
+---@return nil
+local function insert_snippet(body)
+  local insert = MiniSnippets.config.expand.insert
+    or MiniSnippets.default_insert
+
+  local saved_comments = vim.bo.comments
+  vim.bo.comments = ""
+  local ok, err = pcall(insert, { body = body })
+  vim.bo.comments = saved_comments
+
+  if not ok then
+    error(err)
+  end
 end
 
 local M = {}
@@ -182,19 +222,15 @@ M.create_link_from_clipboard = function()
     return
   end
 
+  ---@cast url string
   local link = M.parse_link_from_url(url)
 
-  local insert = MiniSnippets.config.expand.insert
-    or MiniSnippets.default_insert
-  insert { body = link }
+  insert_snippet(link)
 end
 
 ---@return nil
 M.create_link = function()
-  local insert = MiniSnippets.config.expand.insert
-    or MiniSnippets.default_insert
-
-  insert { body = vim.b.wiki.in_journal == 1 and "[[/$1]]$0" or "[[$1]]$0" }
+  insert_snippet(vim.b.wiki.in_journal == 1 and "[[/$1]]$0" or "[[$1]]$0")
 end
 
 return M
