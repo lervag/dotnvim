@@ -8,7 +8,7 @@ require("img-clip").setup {
     },
   },
   files = {
-    ["/home/lervag/notes.md"] = {
+    ["notes.md"] = {
       dir_path = "/home/lervag/documents/anki/lervag/collection.media/",
       template = "![$FILE_NAME_NO_EXT]($FILE_NAME)",
     },
