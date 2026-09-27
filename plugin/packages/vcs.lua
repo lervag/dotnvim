@@ -33,7 +33,7 @@ require("lervag.util").load_delayed(function()
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/tpope/vim-rhubarb",
     "https://github.com/shumphrey/fugitive-gitlab.vim",
-    "https://github.com/barrettruth/diffs.nvim",
+    "https://forge.barrettruth.com/barrettruth/diffs.nvim",
     "https://github.com/nvim-mini/mini.diff",
     "https://github.com/rbong/vim-flog",
     "https://github.com/airblade/vim-rooter",
