@@ -220,3 +220,15 @@ vim.keymap.set({ "x", "o" }, "it", function()
     vim.lsp.buf.selection_range(-vim.v.count1)
   end
 end, { desc = "Select child (inner) node" })
+
+--- Restore pre v13 Q behaviour
+vim.keymap.set("n", "Q", function()
+  local reg = vim.fn.reg_recorded()
+  return reg == "" and "" or ("@" .. reg)
+end, { expr = true })
+vim.keymap.set(
+  "x",
+  "Q",
+  "mode() ==# 'V' ? ':normal! @<C-R>=reg_recorded()<CR><CR>' : 'Q'",
+  { silent = true, expr = true, desc = ":help v_Q-default" }
+)
