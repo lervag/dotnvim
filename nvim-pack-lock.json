@@ -57,7 +57,7 @@
       "src": "https://github.com/terrastruct/d2-vim"
     },
     "dadbod-grip.nvim": {
-      "rev": "9c6494c155fee57308f1ec4a795f29c6d98bec1f",
+      "rev": "c94c7bc41e9df1f25b83c35e07f5d8a46e5af7f1",
       "src": "https://github.com/joryeugene/dadbod-grip.nvim"
     },
     "dial.nvim": {
@@ -65,11 +65,11 @@
       "src": "https://github.com/monaqa/dial.nvim"
     },
     "diffs.nvim": {
-      "rev": "ae999b3602c451d74755b0ca248714400b8c249a",
+      "rev": "8ec45f4e1dd36567cf27d90e8fa6bc53128c54e6",
       "src": "https://forge.barrettruth.com/barrettruth/diffs.nvim"
     },
     "diffview-plus.nvim": {
-      "rev": "875d16dd8c8aa86f1a5c3b5cef49e1133980ae94",
+      "rev": "e3f3091b15ce01e01e6fb4be15574aca7ce5c562",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "emoji.nvim": {
@@ -89,7 +89,7 @@
       "src": "https://github.com/Robitx/gp.nvim"
     },
     "helpful.vim": {
-      "rev": "e7b0a8e494a582805016fb64254056e1d5ea4040",
+      "rev": "5beb6fe8617fafc0183766aa7c5c68ce54d6452d",
       "src": "https://github.com/tweekmonster/helpful.vim"
     },
     "img-clip.nvim": {
@@ -101,7 +101,7 @@
       "src": "https://github.com/b0o/incline.nvim"
     },
     "inline_edit.vim": {
-      "rev": "47733e5e6f6712a1cfbf4a2609dcfec21bbe7eb2",
+      "rev": "5a7012c7aec25edcaa5287b63e3bec9056ade693",
       "src": "https://github.com/AndrewRadev/inline_edit.vim"
     },
     "kulala.nvim": {
@@ -109,7 +109,7 @@
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
     "linediff.vim": {
-      "rev": "c3780609769a93f4f59421b6324355f37e0ee6c5",
+      "rev": "5ed585de3af720f86e895590ad30694145879e2b",
       "src": "https://github.com/AndrewRadev/linediff.vim"
     },
     "lists.vim": {
@@ -125,7 +125,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "matchparen.nvim": {
-      "rev": "75398158ea5a4cee4f0cbbeefdbf8fb1c3343e28",
+      "rev": "0d521d2d497ab3e338c7e6ec68a0d9589bfec8aa",
       "src": "https://github.com/monkoose/matchparen.nvim"
     },
     "mini.ai": {
@@ -193,11 +193,11 @@
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lint": {
-      "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
+      "rev": "f6230a5c06ba59e6059c14637f1dbe29a7978b9b",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "910f0c4d46aa186641518395bc7e6fffb4d23baf",
+      "rev": "6d27c288ff951e1e94cb5f91c800adeddf0dc0c2",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-metals": {
@@ -209,7 +209,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rulebook"
     },
     "nvim-treesitter": {
-      "rev": "e289100ff98969e118c702199d88b764ce9e7fdf",
+      "rev": "1a4f47b03dfe92d28de7d5654c67327ef008c9e6",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "one-small-step-for-vimkind": {
@@ -237,7 +237,7 @@
       "src": "https://github.com/rachartier/tiny-code-action.nvim"
     },
     "tiny-inline-diagnostic.nvim": {
-      "rev": "6264451f14119d63a52580e5198d6baf8518b0b2",
+      "rev": "46ae9b3c8f3039e96ff4497d190ad0aee091f30d",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "tree-sitter-d2": {
@@ -317,7 +317,7 @@
       "src": "https://github.com/tridactyl/vim-tridactyl"
     },
     "vimtex": {
-      "rev": "bbfa1501287b65e8803d5cc1007db2c2351c4453",
+      "rev": "f029f22b418530788704bec2397b880da136b31c",
       "src": "https://github.com/lervag/vimtex"
     },
     "vimux": {
@@ -325,7 +325,7 @@
       "src": "https://github.com/preservim/vimux"
     },
     "wezterm-types": {
-      "rev": "998639c5c5dd4513912966465772af80e7005f32",
+      "rev": "46b6b13c38cf79b3dd4f1414aa89fbfaffb892ae",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "wiki-ft.vim": {
@@ -333,7 +333,7 @@
       "src": "https://github.com/lervag/wiki-ft.vim"
     },
     "wiki.vim": {
-      "rev": "0253d02bd7745d5b6f4379fb537ed0f0ccfa523c",
+      "rev": "5aa21277004c0bf403a23b628fad67169856fb85",
       "src": "https://github.com/lervag/wiki.vim"
     }
   }
