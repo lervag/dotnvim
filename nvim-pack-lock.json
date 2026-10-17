@@ -104,10 +104,6 @@
       "rev": "5a7012c7aec25edcaa5287b63e3bec9056ade693",
       "src": "https://github.com/AndrewRadev/inline_edit.vim"
     },
-    "kulala.nvim": {
-      "rev": "eebe4464c8937ad7313008a8b690e63d140d6638",
-      "src": "https://github.com/mistweaverco/kulala.nvim"
-    },
     "linediff.vim": {
       "rev": "5ed585de3af720f86e895590ad30694145879e2b",
       "src": "https://github.com/AndrewRadev/linediff.vim"
