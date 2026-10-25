@@ -57,7 +57,7 @@
       "src": "https://github.com/terrastruct/d2-vim"
     },
     "dadbod-grip.nvim": {
-      "rev": "5ace713280494fa8c7ba0608384d777b04012905",
+      "rev": "a7992ca97d3e2a54c7831e9249799d4aac8dc0c4",
       "src": "https://github.com/joryeugene/dadbod-grip.nvim"
     },
     "dial.nvim": {
@@ -69,7 +69,7 @@
       "src": "https://forge.barrettruth.com/barrettruth/diffs.nvim"
     },
     "diffview-plus.nvim": {
-      "rev": "2a2d89a07f5d5d3cef7f542b99c3e28050ca205c",
+      "rev": "b297353e82c0390a2ca0c549b1c1acb6802e0c4c",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "emoji.nvim": {
@@ -89,7 +89,7 @@
       "src": "https://github.com/Robitx/gp.nvim"
     },
     "helpful.vim": {
-      "rev": "5b13bab323b4516c0af4cbb9121e06832a1f4fdd",
+      "rev": "4e295368046176746fc83419094d2673ca68ebe3",
       "src": "https://github.com/tweekmonster/helpful.vim"
     },
     "img-clip.nvim": {
@@ -129,11 +129,11 @@
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.diff": {
-      "rev": "ce542d15eacf068f81f5e516da7d486db808c559",
+      "rev": "47ab8cf21c62cfd952008f2b9e79417c98173ec1",
       "src": "https://github.com/nvim-mini/mini.diff"
     },
     "mini.icons": {
-      "rev": "f916635dc5ae2f479fbb9ab8184bb9444b62e86c",
+      "rev": "eab3e692d796d78ea6ffc978d8a380ff26fcf4e3",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.input": {
@@ -141,7 +141,7 @@
       "src": "https://github.com/nvim-mini/mini.input"
     },
     "mini.notify": {
-      "rev": "7bcaba0e3c12f8aaac05b435811157905c83366d",
+      "rev": "04dae72c012de9db45c4250645170f78f826731e",
       "src": "https://github.com/nvim-mini/mini.notify"
     },
     "mini.operators": {
@@ -149,7 +149,7 @@
       "src": "https://github.com/nvim-mini/mini.operators"
     },
     "mini.snippets": {
-      "rev": "4669506967da8109bf8cbf15c924fa43502cf312",
+      "rev": "810c9aeb976791e3c329e0f073c82dab70fed8a7",
       "src": "https://github.com/nvim-mini/mini.snippets"
     },
     "mini.surround": {
@@ -193,7 +193,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "45a3a444b710511c39abca3b60bb6e23a21e3de5",
+      "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-metals": {
@@ -205,7 +205,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rulebook"
     },
     "nvim-treesitter": {
-      "rev": "ca581c3436fc2b236847f5b739ebc263739e5ca6",
+      "rev": "a2f694478be07f89c2d03cc17858a8745a400c4b",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "one-small-step-for-vimkind": {
@@ -237,7 +237,7 @@
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "tree-sitter-d2": {
-      "rev": "200434618a6bede20ebd4982aa4d4f1edeb0b5c1",
+      "rev": "7bba28221d8c466d28b725124494bf89219326fd",
       "src": "https://github.com/ravsii/tree-sitter-d2"
     },
     "vim-apathy": {
@@ -253,7 +253,7 @@
       "src": "https://github.com/tpope/vim-dadbod"
     },
     "vim-dadbod-completion": {
-      "rev": "a8dac0b3cf6132c80dc9b18bef36d4cf7a9e1fe6",
+      "rev": "8c65c6b02e8434e5360fc78097e489c05e899697",
       "src": "https://github.com/kristijanhusak/vim-dadbod-completion"
     },
     "vim-dadbod-ui": {
@@ -313,7 +313,7 @@
       "src": "https://github.com/tridactyl/vim-tridactyl"
     },
     "vimtex": {
-      "rev": "bd0788f13c23337dae815e21f1f283cb79753ac7",
+      "rev": "02eee260766d031185449c9600f03b933fa0357c",
       "src": "https://github.com/lervag/vimtex"
     },
     "vimux": {
@@ -329,7 +329,7 @@
       "src": "https://github.com/lervag/wiki-ft.vim"
     },
     "wiki.vim": {
-      "rev": "ccec4d24bf5dbc7f062271a793fdf34cd857f4b4",
+      "rev": "a099fcdf42790254e220a052f01bba87cb0027f7",
       "src": "https://github.com/lervag/wiki.vim"
     }
   }
