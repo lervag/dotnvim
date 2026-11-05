@@ -5,7 +5,7 @@ if vim.bo.buftype == "nofile" then
   return
 end
 
-vim.wo[0][0].foldexpr = require('lervag.util.markdown').foldexpr
+vim.wo[0][0].foldexpr = require("lervag.util.markdown").foldexpr
 vim.wo[0][0].foldmethod = "expr"
 
 vim.keymap.set("n", ")", "<plug>(wiki-link-next)", { buf = 0, remap = true })
@@ -54,9 +54,18 @@ end, { buffer = true })
 
 -- Markdown Preview
 
-vim.pack.add {
-  "https://github.com/iamcco/markdown-preview.nvim",
-}
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(event)
+    if
+      event.data.spec.name == "markdown-preview.nvim"
+      and event.data.kind ~= "delete"
+    then
+      vim.system({ "./install.sh" }, { cwd = event.data.path .. "/app" }):wait()
+    end
+  end,
+})
+
+vim.pack.add { "https://github.com/sammaji/markdown-preview.nvim" }
 
 vim.keymap.set(
   "n",

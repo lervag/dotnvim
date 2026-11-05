@@ -113,8 +113,8 @@
       "src": "https://github.com/lervag/lists.vim"
     },
     "markdown-preview.nvim": {
-      "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
-      "src": "https://github.com/iamcco/markdown-preview.nvim"
+      "rev": "168d5fbbd7acfb6b736c5f4d881a423bc9fa6604",
+      "src": "https://github.com/sammaji/markdown-preview.nvim"
     },
     "mason.nvim": {
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
