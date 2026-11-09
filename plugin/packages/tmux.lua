@@ -6,28 +6,30 @@ vim.g.VimuxResetSequence = ""
 
 vim.pack.add {
   "https://github.com/christoomey/vim-tmux-navigator",
-  "https://github.com/preservim/vimux",
+  "https://github.com/samharju/yeet.nvim",
 }
+
+require("yeet").setup {}
 
 vim.keymap.set("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
 vim.keymap.set("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>")
 vim.keymap.set("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>")
-vim.keymap.set("n", "<leader>io", "<cmd>call VimuxOpenRunner()<cr>")
-vim.keymap.set("n", "<leader>iq", "<cmd>VimuxCloseRunner<cr>")
-vim.keymap.set("n", "<leader>ip", "<cmd>VimuxPromptCommand<cr>")
-vim.keymap.set("n", "<leader>in", "<cmd>VimuxInspectRunner<cr>")
-vim.keymap.set("n", "<leader>ii", "<cmd>VimuxRunCommand 'jkk'<cr>")
 
--- TODO Inline the operator
-vim.keymap.set(
-  "n",
-  "<leader>is",
-  "<cmd>set opfunc=personal#vimux#operator<cr>g@"
-)
-vim.keymap.set(
-  "n",
-  "<leader>iss",
-  "<cmd>call VimuxRunCommand(getline('.'))<cr>"
-)
-vim.keymap.set("x", "<leader>is", [["vy :call VimuxSendText(@v)<cr>]])
+vim.keymap.set("v", "<leader>is", function()
+  require("yeet").execute_selection {
+    yeet_and_run = true,
+    clear_before_yeet = false,
+  }
+end)
+vim.keymap.set("n", "<leader>is", function()
+  require("yeet").execute(vim.api.nvim_get_current_line(), {
+    yeet_and_run = true,
+    clear_before_yeet = false,
+  })
+end)
+vim.keymap.set("n", "<leader>ii", require("yeet").execute)
+vim.keymap.set("n", "<leader>io", require("yeet").list_cmd)
+vim.keymap.set("n", "<leader>iq", function()
+  require("yeet").setqflist { open = true }
+end)

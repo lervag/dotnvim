@@ -316,10 +316,6 @@
       "rev": "3f96503904db6acdb7108cd93a9580dd41e88555",
       "src": "https://github.com/lervag/vimtex"
     },
-    "vimux": {
-      "rev": "d6cb7f63a8bb428ffc27060b7f83c77fb115589c",
-      "src": "https://github.com/preservim/vimux"
-    },
     "wezterm-types": {
       "rev": "c4ca18ef6c8bff12dc7469db6ec69eafff18de35",
       "src": "https://github.com/DrKJeff16/wezterm-types"
@@ -331,6 +327,10 @@
     "wiki.vim": {
       "rev": "35da24dbfc31b0310c1676d59966872dc42a75eb",
       "src": "https://github.com/lervag/wiki.vim"
+    },
+    "yeet.nvim": {
+      "rev": "5e626267e15938777a628c715e1770f84f213f52",
+      "src": "https://github.com/samharju/yeet.nvim"
     }
   }
 }
