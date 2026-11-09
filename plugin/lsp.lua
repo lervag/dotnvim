@@ -723,7 +723,11 @@ lsp_enable {
 
 ---@type lspconfig.settings.rust_analyzer
 local rust_analyzer_settings = {
-  ["rust-analyzer"] = {},
+  ["rust-analyzer"] = {
+    check = {
+      command = "clippy",
+    }
+  },
 }
 
 lsp_enable {
