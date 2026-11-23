@@ -73,7 +73,7 @@
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "emoji.nvim": {
-      "rev": "372cb33e608941d2ddbdb60fc52eb78bfdf62ea2",
+      "rev": "c5f1f2b2f84e93a14361ea4a13f2f72f70c013b6",
       "src": "https://github.com/Allaman/emoji.nvim"
     },
     "file-line": {
@@ -89,7 +89,7 @@
       "src": "https://github.com/Robitx/gp.nvim"
     },
     "helpful.vim": {
-      "rev": "c86bf6e662a8c654b9551c0edd9bbefa05e34b30",
+      "rev": "086fe2b6776d5f6310c7fa1baaa29bdd56dcf045",
       "src": "https://github.com/tweekmonster/helpful.vim"
     },
     "img-clip.nvim": {
@@ -125,15 +125,15 @@
       "src": "https://github.com/monkoose/matchparen.nvim"
     },
     "mini.ai": {
-      "rev": "c2e6e88a9de01b5aec5c3cffee1277b9ac8a6d69",
+      "rev": "813d10a43d5d4eda4816e6a27eb6bf6250f75ea8",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.diff": {
-      "rev": "91d6ce4b7f400439fe761f01a58280f2c0f99c01",
+      "rev": "92385df93f81a0934e50c03615865041bc074b28",
       "src": "https://github.com/nvim-mini/mini.diff"
     },
     "mini.icons": {
-      "rev": "fc90b3925a2a68282be06e28cfe0cbb366c75dad",
+      "rev": "5d58117d176c133f4cb5585ec8cb3450881c89a0",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.input": {
@@ -141,19 +141,19 @@
       "src": "https://github.com/nvim-mini/mini.input"
     },
     "mini.notify": {
-      "rev": "7e89272723320a059d46faa3b67cf8220675bf21",
+      "rev": "95531373d13c8b6d3a8e16ac7ce87d0a07e2f03f",
       "src": "https://github.com/nvim-mini/mini.notify"
     },
     "mini.operators": {
-      "rev": "6b117275fb07fe5cf810b0e18ee50c7ce8a12be4",
+      "rev": "4d4f06fa2147dcbf04dd37b8dd205c61165b8cfd",
       "src": "https://github.com/nvim-mini/mini.operators"
     },
     "mini.snippets": {
-      "rev": "c48f1587092f6c91da932434667ddb980073c101",
+      "rev": "493cc4678488b6352b54fb722eda739014f65129",
       "src": "https://github.com/nvim-mini/mini.snippets"
     },
     "mini.surround": {
-      "rev": "c17f9e2b2d685376b8ae7bb2cd8bb51dc7cd6d98",
+      "rev": "77f376bdebb3440ad13bc40b48062b29bccb7577",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "nvim-cmp": {
@@ -173,7 +173,7 @@
       "src": "https://github.com/LiadOz/nvim-dap-repl-highlights"
     },
     "nvim-dap-view": {
-      "rev": "bfaf50b3f513f78d8ab3e5fe02128dda05be4945",
+      "rev": "1c3b9cc295303fc173f24d442739a8557e23e987",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-dap-virtual-text": {
@@ -189,11 +189,11 @@
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lint": {
-      "rev": "52107ce2076a27a285af781248e2c59bad817cd0",
+      "rev": "6bf29b9dbdad60b38b489b23309c22ba6d4c915a",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "05588aab66016c6836634b87ca2d392d097515f2",
+      "rev": "4648fd8ba5c678d7e2db75ae44ffac269bb589d8",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-metals": {
@@ -205,7 +205,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rulebook"
     },
     "nvim-treesitter": {
-      "rev": "04f17886f75416dfdc25374c950a52c63f0e98fe",
+      "rev": "52773f0d13a0c11d0c3ef33c14ab6ecc1c17148b",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "one-small-step-for-vimkind": {
@@ -305,7 +305,7 @@
       "src": "https://github.com/dhruvasagar/vim-table-mode"
     },
     "vim-tmux-navigator": {
-      "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
+      "rev": "fb217852efb294a50a10507fc8d53709696b6e23",
       "src": "https://github.com/christoomey/vim-tmux-navigator"
     },
     "vim-tridactyl": {
@@ -313,11 +313,11 @@
       "src": "https://github.com/tridactyl/vim-tridactyl"
     },
     "vimtex": {
-      "rev": "cedc0a172e40d0d1d49670dd0d936d6e2df61de7",
+      "rev": "90cd6619728df9f6161e5691ac247f0fe3437462",
       "src": "https://github.com/lervag/vimtex"
     },
     "wezterm-types": {
-      "rev": "1e6a0b7ac2206b197c741240743e981af37ce292",
+      "rev": "230ad1fa651e0459c9a16fc59c328855604cc4e0",
       "src": "https://github.com/DrKJeff16/wezterm-types"
     },
     "wiki-ft.vim": {
@@ -325,7 +325,7 @@
       "src": "https://github.com/lervag/wiki-ft.vim"
     },
     "wiki.vim": {
-      "rev": "96139d44bc1db4c91fda373c17eca66176a5a719",
+      "rev": "da4872ebf49ed1518dd9f40528b1eb2beb174127",
       "src": "https://github.com/lervag/wiki.vim"
     },
     "yeet.nvim": {
